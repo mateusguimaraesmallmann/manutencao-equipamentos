@@ -12,7 +12,8 @@
 - Eduardo Aluízio Bello - GRR20193795 - eduardo.bello@ufpr.br
 - Gabriel Dias da Silva - GRR20184658 - gabrieldds@ufpr.br
 - Luiz Henrique Schecheli Bussolo - GRR20211637 - bussolo@ufpr.br
-- Matheus 
+- Mateus Irineu Guimarães Mallmann - GRR20196435 - mateusmallmann2013@gmail.com
+
 
 
 ## [Enunciado](https://docs.google.com/document/d/1nBBBqBJEexLQy3j4Em9vQJJ_PS-NXiElNrbWo_Fd7pw/edit?tab=t.0) 
@@ -25,7 +26,7 @@ O acesso ao sistema é feito por meio de 2 perfis: Cliente e Funcionário. Todas
 
 ```shell
 |_ frontend/ - Angular 17.0.0
-|_ backend/  - Definindo tecnologia
+|_ backend/  - Java Spring Boot 
 ```
 
 
