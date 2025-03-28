@@ -5,6 +5,7 @@
 - Professor Dr. Razer Montaño 
 - [Link Telegram](https://t.me/c/1835326202/1)
 - [UFPR Virtual](https://ufprvirtual.ufpr.br/course/view.php?id=36640)
+- [Kanban](https://trello.com/invite/b/67e495103c98c76d3c7c26ce/ATTI29b9d69cc3640b0c231033ecf1307b6cF8FEF02F/trabalho-web-ii)
 
 ### Equipe
 
