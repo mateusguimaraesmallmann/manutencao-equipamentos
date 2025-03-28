@@ -1,2 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
 /* teste teste */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400&family=Oxanium:wght@200&display=swap');
+
+/* paleta de cores */
+:root {
+    --btn-color: #294C60;
+    --btn-hover: #778DA9;
+    --border-color: #CCCCCC;
+    --background-erro: #FEC89A;
+    --text-erro: #BF0603;
+    --background-cliente: #82C3FF;
+    --background-funcionario: #457B9D;
+}
+
+/* CSS reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+ul li {
+    list-style: none;
+}
