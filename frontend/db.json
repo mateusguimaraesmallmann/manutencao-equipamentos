@@ -2,20 +2,13 @@
   "users": [
     {
       "id": 1,
-      "name": "John Doe",
-      "email": "john@example.com"
+      "name": "Jafar",
+      "email": "a@a.com"
     },
     {
       "id": 2,
-      "name": "Jane Smith",
-      "email": "jane@example.com"
-    }
-  ],
-  "posts": [
-    {
-      "id": 1,
-      "title": "Hello World",
-      "userId": 1
+      "name": "Aladin",
+      "email": "b@b.com"
     }
   ]
 }
