@@ -2,8 +2,10 @@
   "name": "frontend",
   "version": "0.0.0",
   "scripts": {
+    "start:server": "node server.js",
+    "start:angular": "ng serve",
+    "start": "concurrently \"npm run start:server\" \"npm run start:angular\"",
     "ng": "ng",
-    "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
