@@ -1,0 +1,24 @@
+<div class="container">
+    <h2>Autocadastro</h2>
+    <form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()">
+      <label>CPF:</label>
+      <input type="text" formControlName="cpf" placeholder="Digite seu CPF" />
+  
+      <label>Nome:</label>
+      <input type="text" formControlName="nome" placeholder="Digite seu nome" />
+  
+      <label>E-mail:</label>
+      <input type="email" formControlName="email" placeholder="Digite seu e-mail" />
+  
+      <label>Telefone:</label>
+      <input type="text" formControlName="telefone" placeholder="Digite seu telefone" />
+  
+      <label>CEP:</label>
+      <input type="text" formControlName="cep" placeholder="Digite o CEP" (blur)="onCepChange()" />
+      
+      <label>Endereço Completo:</label>
+      <input type="text" formControlName="endereco" placeholder="Endereço" />
+  
+      <button type="submit" [disabled]="!cadastroForm.valid">Cadastrar</button>
+    </form>
+  </div>
