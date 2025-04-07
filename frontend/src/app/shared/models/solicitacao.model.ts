@@ -1,99 +1,37 @@
-{
-  "users": [
-    {
-      "id": 1,
-      "name": "Jafar",
-      "email": "a@a.com"
-    },
-    {
-      "id": 2,
-      "name": "Aladin",
-      "email": "b@b.com"
+export class Solicitacao {
+    private id: string;
+    private data: string;
+    private descricao: string;
+    private categoria_id: string;
+    private solicitante_id: string;
+    private status: Status;
+
+
+    constructor(id: string, data: string, descricao: string, categoria_id: string, status: Status) {
+        this.id = id;
+        this.data = data;
+        this.descricao = descricao;
+        this.categoria_id = categoria_id;
+        this.solicitante_id = categoria_id;
+        this.status = status;
     }
-  ],
-  "funcionario": [
-    {
-      "id": "JKLK",
-      "email": "maria@maria.com",
-      "nome": "Maria Maria",
-      "senha": "maria"
-    },
-    {
-      "id": "YYYY",
-      "email": "mario@mario.com",
-      "nome": "Mario Mario",
-      "senha": "mario"
-    }
-  ],
-  "cliente": [
-    {
-      "id": "ABCD",
-      "email": "joao@joao.com",
-      "nome": "João João",
-      "cpf": "11111111111",
-      "senha": "joao",
-      "cep": "81520260",
-      "cidade": "Curitiba",
-      "estado": "Paraná",
-      "numero_endereco": 500
-    },
-    {
-      "id": "JkLm",
-      "email": "jose@jose.com",
-      "nome": "José José",
-      "cpf": "22222222222",
-      "senha": "jose",
-      "cep": "85050000",
-      "cidade": "Guarapuava",
-      "estado": "Paraná",
-      "numero_endereco": 310
-    },
-    {
-      "id": "BBBB",
-      "email": "joana@joana.com",
-      "nome": "Joana Joana",
-      "cpf": "33333333333",
-      "senha": "joana",
-      "cep": "69010090",
-      "cidade": "Manaus",
-      "estado": "Amazonas",
-      "numero_endereco": 570
-    },
-    {
-      "id": "CCCC",
-      "email": "joaquina@joaquina.com",
-      "nome": "joaquina joaquina",
-      "cpf": "33333333333",
-      "senha": "joaquina",
-      "cep": "04534002",
-      "cidade": "São Paulo",
-      "estado": "São Paulo",
-      "numero_endereco": 466
-    }
-  ],
-  "categoria": [
-    {
-      "id": "OASD",
-      "nome_tipo": "Notebook"
-    },
-    {
-      "id": "AS8d",
-      "nome_tipo": "Desktop"
-    },
-    {
-      "id": "asT1",
-      "nome_tipo": "Impressora"
-    },
-    {
-      "id": "125j",
-      "nome_tipo": "Mouse"
-    },
-    {
-      "id": "p5z0",
-      "nome_tipo": "Teclado"
-    }
-  ],
-  "solicitacao": [
+}
+
+//ver se vai puxar certo como tipo de status
+export enum Status {
+    //[ABERTA, ORCADA, REJEITADA, APROVADA, REDIRECIONADA, ARRUMADA, PAGA, FINALIZADA         
+	ABERTA = 'Aberta',
+    ORCADA = 'Orçada',
+    REJEITADA = 'Rejeitada',
+    APROVADA = 'Aprovada',
+    REDIRECIONADA = 'Redirecionada',
+    ARRUMADA = 'Arrumada',
+    PAGA = 'Paga',
+    FINALIZADA = 'Finalizada'
+}
+
+/*
+   "solicitacao": [
     {
       "id": "z812",
       "data": "2024-11-07T04:31:09.782Z",
@@ -140,7 +78,7 @@
       "descricao": "Webcam do notebook está embaçada",
       "categoria_id": "OASD",
       "solicitante_id": "JkLm",
-      "status": "Arrumada"
+      "status": "Arrumada",
     },
     {
       "id": "nCo2",
@@ -319,4 +257,4 @@
       "status": "Paga"
     }
   ]
-}
+*/
