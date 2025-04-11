@@ -3,6 +3,7 @@ import { HomeClienteComponent } from './paginas/cliente/home-cliente/home-client
 import { HomeFuncionarioComponent } from './paginas/funcionario/home-funcionario/home-funcionario.component';
 import { LoginComponent } from './login/login.component';
 import { AutocadastroComponent } from './autocadastro/autocadastro/autocadastro.component';
+import { SolicitarManutencaoComponent } from './paginas/cliente/solicitar-manutencao/solicitar-manutencao.component';
 
 
 export const routes: Routes = [
@@ -11,6 +12,6 @@ export const routes: Routes = [
   { path: 'autocadastro', component: AutocadastroComponent},
   { path: 'cliente', component: HomeClienteComponent},
   { path: 'funcionario', component: HomeFuncionarioComponent},
-  { path: '', redirectTo: 'login', pathMatch: 'full' }
-
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'solicitar-manutencao', component: SolicitarManutencaoComponent },
 ];
