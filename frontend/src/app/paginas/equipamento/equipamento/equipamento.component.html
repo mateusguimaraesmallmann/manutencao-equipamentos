@@ -1,0 +1,46 @@
+<div class="container">
+    <h2>Cadastro de Categorias de Equipamento</h2>
+  
+    <form [formGroup]="formCategoria" (ngSubmit)="salvar()" class="formulario">
+      <mat-form-field appearance="outline" class="input">
+        <mat-label>Nome da categoria</mat-label>
+        <input matInput formControlName="nome" />
+      </mat-form-field>
+  
+      <div class="botoes">
+        <button mat-raised-button color="primary" type="submit">
+          {{ editando ? 'Atualizar' : 'Adicionar' }}
+        </button>
+        <button *ngIf="editando" mat-button type="button" (click)="cancelar()">Cancelar</button>
+      </div>
+    </form>
+  
+    <mat-divider class="espaco"></mat-divider>
+  
+    <table mat-table [dataSource]="categorias" class="mat-elevation-z8 tabela">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let cat">{{ cat.id }}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="nome">
+        <th mat-header-cell *matHeaderCellDef>Nome</th>
+        <td mat-cell *matCellDef="let cat">{{ cat.nome }}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="acoes">
+        <th mat-header-cell *matHeaderCellDef>Ações</th>
+        <td mat-cell *matCellDef="let cat">
+          <button mat-icon-button color="accent" (click)="editar(cat)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="excluir(cat.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="['id', 'nome', 'acoes']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['id', 'nome', 'acoes']"></tr>
+    </table>
+  </div>

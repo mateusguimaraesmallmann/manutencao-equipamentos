@@ -1,0 +1,33 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+  
+.formulario {
+display: flex;
+flex-direction: column;
+gap: 16px;
+}
+
+.input {
+width: 100%;
+}
+
+.botoes {
+display: flex;
+gap: 12px;
+}
+
+.espaco {
+margin: 24px 0;
+}
+
+.tabela {
+width: 100%;
+}
