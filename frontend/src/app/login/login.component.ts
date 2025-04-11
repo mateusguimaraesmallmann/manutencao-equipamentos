@@ -16,13 +16,13 @@ export class LoginComponent {
   email: string = "";
   password: string = "";
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
   onSubmit() {
     this.authService.login(this.email, this.password).subscribe({
       next: (response) => {
         console.log("success signIn: ", response)
-        console.log("USER LOGGED IN!");
+        this.router.navigate(['/cliente']);
       },
       error: (err) => {
         console.error("Error during signIn", err);
