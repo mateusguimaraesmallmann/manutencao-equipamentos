@@ -1,21 +1,25 @@
 .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 24px;
+max-width: 800px;
+margin: 0 auto;
+padding: 24px;
+font-family: Arial, sans-serif;
 }
 
 h2 {
-    margin-bottom: 20px;
-    text-align: center;
+margin-bottom: 20px;
+text-align: center;
 }
-  
+
 .formulario {
 display: flex;
 flex-direction: column;
-gap: 16px;
+gap: 12px;
+margin-bottom: 24px;
 }
 
-.input {
+.formulario input {
+padding: 8px;
+font-size: 16px;
 width: 100%;
 }
 
@@ -24,10 +28,22 @@ display: flex;
 gap: 12px;
 }
 
-.espaco {
-margin: 24px 0;
-}
-
 .tabela {
 width: 100%;
+border-collapse: collapse;
+}
+
+.tabela th,
+.tabela td {
+border: 1px solid #ccc;
+padding: 8px;
+text-align: left;
+}
+
+.tabela th {
+background-color: #f0f0f0;
+}
+
+.espaco {
+margin: 24px 0;
 }
