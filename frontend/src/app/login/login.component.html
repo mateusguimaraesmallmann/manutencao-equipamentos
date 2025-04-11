@@ -1,4 +1,5 @@
 <div class="login-container">
+  <h2>Login</h2>
   <form (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="email">Email</label>
@@ -11,7 +12,7 @@
     </div>
 
     <div class="form-group">
-      <label for="password">Password</label>
+      <label for="password">Senha</label>
       <input
         type="password"
         id="password"
@@ -20,7 +21,9 @@
         required>
     </div>
 
-    <button type="submit">Login</button>
-    <button type="button" (click)="onSignup()">Signup</button>
+    <div class="button-group">
+      <button type="submit">Login</button>
+      <button type="button" (click)="onSignup()">Autocadastro</button>
+    </div>
   </form>
 </div>
