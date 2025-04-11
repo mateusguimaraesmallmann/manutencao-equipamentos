@@ -1,0 +1,45 @@
+<app-navbar-funcionario></app-navbar-funcionario>
+<div class="container-fluid bg-body-secondary">
+    <div class="row">
+        <main class="col-md-12 col-lg-12 px-md-4">
+
+
+            <section class="pedidos">
+                <h2 class="pedidos__titulo"> Orçamentos</h2>
+                <div class="container">
+                    <div class="row">
+                        <div class="pedidos__tabela">
+                            <table class="table caption-top ">
+                                <thead>
+                                    <tr>                        
+                                        <th scope="col">Data</th>
+                                        <th scope="col">Cliente</th>
+                                        <th scope="col">Descrição</th>
+                                        <th scope="col">Status do Pedido</th>
+                                        <th scope="col">Valor</th>  
+                                        <th scope="col">Ação</th>                                    
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <ng-container>
+                                        <tr>                                            
+                                            <td>25/03/2025<br>17:25</td>
+                                            <td>Maria dos Santos</td>
+                                            <td>Monitor liga mas não da imagem corretamente.</td>
+                                            <td>Em aberto</td>
+                                            <td><textarea rows="1"></textarea></td>
+                                            <td><button type="button" class="btn btn-primary"(click)="efetuarOrcamento()">Efetuar Orçamento</button></td>
+                                        </tr>                                                                
+                                      
+
+                                    </ng-container>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
