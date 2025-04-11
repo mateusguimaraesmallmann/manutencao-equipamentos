@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
 export interface Categoria {
   id: number;
@@ -9,9 +10,9 @@ export interface Categoria {
 @Component({
   selector: 'app-equipamento',
   standalone: true,
-  imports: [],
   templateUrl: './equipamento.component.html',
-  styleUrl: './equipamento.component.css'
+  styleUrl: './equipamento.component.css',
+  imports: [ CommonModule, ReactiveFormsModule ]
 })
 
 export class EquipamentoComponent implements OnInit {
@@ -73,5 +74,4 @@ export class EquipamentoComponent implements OnInit {
     this.editando = false;
     this.categoriaSelecionadaId = null;
   }
-
 }
