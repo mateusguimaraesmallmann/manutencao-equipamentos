@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { AuthService } from '../services/auth.service';
 
@@ -15,7 +16,7 @@ export class LoginComponent {
   email: string = "";
   password: string = "";
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit() {
     this.authService.login(this.email, this.password).subscribe({
@@ -30,6 +31,6 @@ export class LoginComponent {
   }
 
   onSignup() {
-    alert("SIGNUP CLICKED");
+    this.router.navigate(['/autocadastro']);
   }
 }

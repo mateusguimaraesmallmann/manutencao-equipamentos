@@ -3,6 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import {FormGroup } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-autocadastro',
@@ -16,7 +17,7 @@ export class AutocadastroComponent {
   
   cadastroForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
     this.cadastroForm = this.fb.group({
       cpf: ['', [Validators.required]],
       nome: ['', [Validators.required]],
@@ -45,5 +46,9 @@ export class AutocadastroComponent {
       console.log('Dados do formulário:', this.cadastroForm.value);
       alert('Cadastro realizado com sucesso!');
     }
+  }
+
+  voltarParaLogin() {
+    this.router.navigate(['/login']);
   }
 }
