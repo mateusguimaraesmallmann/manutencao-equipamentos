@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { NavbarClienteComponent } from '../../../components/navbar-cliente/navbar-cliente.component';
 
 @Component({
@@ -9,31 +10,19 @@ import { NavbarClienteComponent } from '../../../components/navbar-cliente/navba
   styleUrl: './home-cliente.component.css'
 })
 export class HomeClienteComponent {
-  //pedido: string = 'Pedido';
-  constructor() {
-    // Inicialização do componente
-  }
+  constructor(private router: Router) {}
 
-  ngOnInit() {
-  
-
-  }
+  ngOnInit() {}
 
   visualizarPedido(pedido: string) {
     return alert(pedido);
   }
 
   aprovarPedido() {
+    this.router.navigate(['/aprovar-servico']);
   }
 
-  rejeitarPedido() {
-  }
-  
-  pagarServico(){
-
-  }
-  resgatarServico(){
-
-  }
-
+  rejeitarPedido() {}
+  pagarServico() {}
+  resgatarServico() {}
 }
