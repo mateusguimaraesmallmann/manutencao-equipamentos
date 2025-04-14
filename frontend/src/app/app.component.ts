@@ -18,7 +18,8 @@ export class AppComponent {
 	constructor(public router: Router) {}
 
 	displayNavbar(): boolean {
-		return true;
-		// return this.router.url != '/login';
+		const nonBarRoutes = ['/login', '/autocadastro'];
+
+		return !nonBarRoutes.includes(this.router.url);
 	}
 }
