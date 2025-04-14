@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { NavbarComponent } from './components/common/navbar/navbar.component';
-import { NgIf } from '@angular/common';
-
+import { CommonModule, NgIf } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
+
+import { NavbarComponent } from './components/common/navbar/navbar.component';
 
 @Component({
 	selector: 'app-root',
