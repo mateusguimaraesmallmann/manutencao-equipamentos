@@ -16,18 +16,3 @@
     --background-navbar-cliente: #32a7dd;
     --background-navbar-funcionario: #8232dd;
 }
-
-
-
-/* CSS reset */
-* {
-    margin-top: 20px;
-    padding-top: 5px;
-    
-    box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif;
-}
-
-ul li {
-    list-style: none;
-}
