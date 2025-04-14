@@ -18,11 +18,9 @@ server.post("/login", (req, res) => {
 			email: user.email,
 			token: `mock-token-${user.id}`,
 			role: user.role,
-			profile: user.profile,
+			employee_id: user.employee_id != null ? user.employee_id : null,
+			client_id: user.client_id != null ? user.client_id : null,
 		};
-
-		if (user.role == 1) result_json["employee_id"] = user.employee_id;
-		if (user.role == 2) result_json["client_id"] = user.client_id;
 
 		res.json(result_json);
 	} else {

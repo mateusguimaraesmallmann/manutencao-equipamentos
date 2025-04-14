@@ -6,13 +6,7 @@
 			"email": "a@a.com",
 			"role": 1,
 			"employee_id": 1,
-			"profile": {
-				"id": 1,
-				"document": "37231947026",
-				"active": true,
-				"position": "Técnico",
-				"acess_level": 1
-			}
+			"client_id": null
 		},
 		{
 			"id": 4,
@@ -20,47 +14,23 @@
 			"email": "d@d.com",
 			"role": 1,
 			"employee_id": 2,
-			"profile": {
-				"id": 2,
-				"document": "68793446071",
-				"active": true,
-				"position": "Caixa",
-				"acess_level": 1
-			}
+			"client_id": null
 		},
 		{
 			"id": 2,
 			"name": "Aladin",
 			"email": "b@b.com",
 			"role": 2,
-			"client_id": 1,
-			"profile": {
-				"id": 1,
-				"document": "39176395057",
-				"zip_code": "80000100",
-				"city": "Curitiba",
-				"state": "PR",
-				"number": "200",
-				"complement": "APTO 10",
-				"phone": "41 99999-9999"
-			}
+			"employee_id": null,
+			"client_id": 1
 		},
 		{
 			"id": 3,
 			"name": "Jasmine",
 			"email": "c@c.com",
 			"role": 2,
-			"client_id": 2,
-			"profile": {
-				"id": 2,
-				"document": "16521942077",
-				"zip_code": "80000100",
-				"city": "Curitiba",
-				"state": "PR",
-				"number": "200",
-				"complement": "CASA 2",
-				"phone": "41 99999-9998"
-			}
+			"employee_id": null,
+			"client_id": 2
 		}
 	],
 	"employee": [
@@ -69,22 +39,36 @@
 			"document": "37231947026",
 			"active": true,
 			"position": "Técnico",
-			"acess_level": 1,
-			"user": {
-				"email": "a@a.com",
-				"name": "Jafar"
-			}
+			"acess_level": 1
 		},
 		{
 			"id": 2,
 			"document": "68793446071",
 			"active": true,
 			"position": "Caixa",
-			"acess_level": 1,
-			"user": {
-				"email": "d@d.com",
-				"name": "Gênio"
-			}
+			"acess_level": 1
+		}
+	],
+	"clients": [
+		{
+			"id": 1,
+			"document": "39176395057",
+			"zip_code": "80000100",
+			"city": "Curitiba",
+			"state": "PR",
+			"number": "200",
+			"complement": "APTO 10",
+			"phone": "41 99999-9999"
+		},
+		{
+			"id": 2,
+			"document": "16521942077",
+			"zip_code": "80000100",
+			"city": "Curitiba",
+			"state": "PR",
+			"number": "200",
+			"complement": "CASA 2",
+			"phone": "41 99999-9998"
 		}
 	],
 	"funcionario": [
