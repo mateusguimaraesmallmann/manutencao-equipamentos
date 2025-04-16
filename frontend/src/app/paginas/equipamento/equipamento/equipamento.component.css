@@ -1,0 +1,49 @@
+.container {
+max-width: 800px;
+margin: 0 auto;
+padding: 24px;
+font-family: Arial, sans-serif;
+}
+
+h2 {
+margin-bottom: 20px;
+text-align: center;
+}
+
+.formulario {
+display: flex;
+flex-direction: column;
+gap: 12px;
+margin-bottom: 24px;
+}
+
+.formulario input {
+padding: 8px;
+font-size: 16px;
+width: 100%;
+}
+
+.botoes {
+display: flex;
+gap: 12px;
+}
+
+.tabela {
+width: 100%;
+border-collapse: collapse;
+}
+
+.tabela th,
+.tabela td {
+border: 1px solid #ccc;
+padding: 8px;
+text-align: left;
+}
+
+.tabela th {
+background-color: #f0f0f0;
+}
+
+.espaco {
+margin: 24px 0;
+}
