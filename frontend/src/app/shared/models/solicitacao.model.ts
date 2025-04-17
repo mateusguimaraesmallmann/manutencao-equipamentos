@@ -1,19 +1,25 @@
 export class Solicitacao {
-  private id: string;
-  private data: string;
-  private descricao: string;
-  private categoria_id: string;
-  private solicitante_id: string;
-  private status: Status;
+  id: string;
+  data_solicitacao: string;
+  descricao: string;
+  categoria_id: string;
+  solicitante_id: string;
+  status: Status;
+  valor_orcamento?: number; 
+  funcionario_orcamento_id?: string; // id do funcionario que fez o orcamento
+  data_orcamento?: string; // data do orcamento 
 
-
-  constructor(id: string, data: string, descricao: string, categoria_id: string, solicitante_id: string, status: Status) {
+  constructor(id: string, data_solicitacao: string, descricao: string, categoria_id: string,
+     solicitante_id: string, status: Status, valor_orcamento?: number, funcionario_orcamento_id?: string, data_orcamento?: string) {
     this.id = id;
-    this.data = data;
+    this.data_solicitacao = data_solicitacao;
     this.descricao = descricao;
     this.categoria_id = categoria_id;
     this.solicitante_id = solicitante_id;
     this.status = status;
+    this.valor_orcamento = valor_orcamento;
+    this.funcionario_orcamento_id = funcionario_orcamento_id;
+    this.data_orcamento = data_orcamento;
   }
 }
 
