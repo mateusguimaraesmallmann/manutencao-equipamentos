@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 
+import { API_URL } from './api';
 import { User } from '../models/user.model';
 
 @Injectable({
@@ -9,7 +10,6 @@ import { User } from '../models/user.model';
 })
 export class AuthService {
 	private currentUser: User | null = null;
-	private apiUrl = 'http://localhost:3000';
 
 	constructor(private http: HttpClient) {}
 
@@ -18,7 +18,7 @@ export class AuthService {
 	}
 
 	login(email: string, password: string): Observable<any> {
-		const loginUrl = `${this.apiUrl}/login`;
+		const loginUrl = `${API_URL}/login`;
 
 		const data = { email, password };
 
