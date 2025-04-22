@@ -5,7 +5,7 @@ import { LoginComponent } from './components/login/login.component';
 import { AutocadastroComponent } from './autocadastro/autocadastro/autocadastro.component';
 import { EquipamentoComponent } from './paginas/equipamento/equipamento/equipamento.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { OrdersComponent } from './components/orders/orders.component';
+import { CategoryComponent } from './components/category/category.component';
 import { SolicitarManutencaoComponent } from './paginas/cliente/solicitar-manutencao/solicitar-manutencao.component';
 
 export const routes: Routes = [
@@ -20,7 +20,7 @@ export const routes: Routes = [
 	{
 		path: 'dashboard',
 		component: DashboardComponent,
-		children: [{ path: 'orders', component: OrdersComponent }],
+		children: [{ path: 'categories', component: CategoryComponent }],
 	},
 	{
 		path: 'cliente',
