@@ -12,13 +12,17 @@ server.post("/login", (req, res) => {
 	const users = router.db.get("users").value(); // Returns the user object
 	const user = users.find((u) => u.email === email);
 	if (user) {
-		res.json({
+		const result_json = {
 			id: user.id,
 			name: user.name,
 			email: user.email,
 			token: `mock-token-${user.id}`,
 			role: user.role,
-		});
+			employee_id: user.employee_id != null ? user.employee_id : null,
+			client_id: user.client_id != null ? user.client_id : null,
+		};
+
+		res.json(result_json);
 	} else {
 		res.status(401).json({
 			message: "Invalid email or password",
