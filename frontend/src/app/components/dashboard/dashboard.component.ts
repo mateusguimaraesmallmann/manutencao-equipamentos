@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 import { AuthService, EmployeeService } from '../../services';
 
 @Component({
 	selector: 'app-dashboard',
 	standalone: true,
-	imports: [],
+	imports: [RouterModule],
 	templateUrl: './dashboard.component.html',
 	styleUrl: './dashboard.component.css',
 })

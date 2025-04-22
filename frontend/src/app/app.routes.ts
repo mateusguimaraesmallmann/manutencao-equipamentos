@@ -4,8 +4,9 @@ import { HomeFuncionarioComponent } from './paginas/funcionario/home-funcionario
 import { LoginComponent } from './components/login/login.component';
 import { AutocadastroComponent } from './autocadastro/autocadastro/autocadastro.component';
 import { EquipamentoComponent } from './paginas/equipamento/equipamento/equipamento.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component'; import { SolicitarManutencaoComponent } from './paginas/cliente/solicitar-manutencao/solicitar-manutencao.component';
-
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { OrdersComponent } from './components/orders/orders.component';
+import { SolicitarManutencaoComponent } from './paginas/cliente/solicitar-manutencao/solicitar-manutencao.component';
 
 export const routes: Routes = [
 	{
@@ -19,6 +20,7 @@ export const routes: Routes = [
 	{
 		path: 'dashboard',
 		component: DashboardComponent,
+		children: [{ path: 'orders', component: OrdersComponent }],
 	},
 	{
 		path: 'cliente',
@@ -39,6 +41,6 @@ export const routes: Routes = [
 	},
 	{
 		path: 'solicitar-manutencao',
-		component: SolicitarManutencaoComponent
+		component: SolicitarManutencaoComponent,
 	},
 ];
