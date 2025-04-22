@@ -71,6 +71,10 @@
 			"phone": "41 99999-9998"
 		}
 	],
+	"categories": [
+		{ "id": 1, "name": "Periféricos" },
+		{ "id": 2, "name": "Componentes" }
+	],
 	"funcionario": [
 		{
 			"id": "JKLK",
