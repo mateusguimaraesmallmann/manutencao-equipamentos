@@ -102,7 +102,8 @@
       "descricao": "notebook não dá tela",
       "categoria_id": "OASD",
       "solicitante_id": "ABCD",
-      "status": [
+      "status_atual": "Aberta",
+      "status_historico": [
         [
           "Aberta",
           "2024-11-07T04:31:09.782Z"
@@ -126,7 +127,8 @@
       "descricao": "Desktop não liga",
       "categoria_id": "AS8d",
       "solicitante_id": "JkLm",
-      "status": [
+      "status_atual": "Orçada",
+      "status_historico": [
         [
           "Orçada",
           "2022-01-01T04:31:09.782Z"
@@ -150,7 +152,8 @@
       "descricao": "Impressora não imprime",
       "categoria_id": "asT1",
       "solicitante_id": "BBBB",
-      "status": [
+      "status_atual": "Rejeita",
+      "status_historico": [
         [
           "Rejeita",
           "2023-11-09T04:31:09.782Z"
@@ -174,7 +177,8 @@
       "descricao": "Bolinha do mouse não gira",
       "categoria_id": "125j",
       "solicitante_id": "CCCC",
-      "status": [
+      "status_atual": "Aprovada",
+      "status_historico": [
         [
           "Aprovada",
           "2023-11-08T04:31:09.782Z"
@@ -198,7 +202,8 @@
       "descricao": "Teclado molhado, não funciona",
       "categoria_id": "p5z0",
       "solicitante_id": "ABCD",
-      "status": [
+      "status_atual": "Orçada",
+      "status_historico": [
         [
           "Redirecionada",
           "2024-01-10T04:31:09.782Z"
@@ -226,7 +231,8 @@
       "descricao": "Webcam do notebook está embaçada",
       "categoria_id": "OASD",
       "solicitante_id": "JkLm",
-      "status": [
+      "status_atual": "Orçada",
+      "status_historico": [
         [
           "Arrumada",
           "2024-07-07T04:31:09.782Z"
@@ -254,7 +260,8 @@
       "descricao": "Teclado com mal contato",
       "categoria_id": "p5z0",
       "solicitante_id": "BBBB",
-      "status": [
+      "status_atual": "Paga",
+      "status_historico": [
         [
           "Paga",
           "2025-01-02T04:31:09.782Z"
@@ -278,7 +285,8 @@
       "descricao": "Impressora sem tinta",
       "categoria_id": "asT1",
       "solicitante_id": "CCCC",
-      "status": [
+      "status_atual": "Finalizada",
+      "status_historico": [
         [
           "Finalizada",
           "2024-11-03T04:31:09.782Z"
@@ -302,7 +310,8 @@
       "descricao": "Desktop com vírus",
       "categoria_id": "AS8d",
       "solicitante_id": "ABCD",
-      "status": [
+      "status_atual": "Aberta",
+      "status_historico": [
         [
           "Aberta",
           "2023-08-08T04:31:09.782Z"
@@ -326,7 +335,8 @@
       "descricao": "Mouse com cabo cortado",
       "categoria_id": "125j",
       "solicitante_id": "JkLm",
-      "status": [
+      "status_atual": "Orçada",
+      "status_historico": [
         [
           "Orçada",
           "2024-01-05T04:31:09.782Z"
@@ -350,7 +360,8 @@
       "descricao": "Teclado com teclas quebradas",
       "categoria_id": "p5z0",
       "solicitante_id": "BBBB",
-      "status": [
+      "status_atual": "Rejeita",
+      "status_historico": [
         [
           "Rejeita",
           "2024-02-02T04:31:09.782Z"
@@ -374,7 +385,8 @@
       "descricao": "Notebook com tela quebrada",
       "categoria_id": "OASD",
       "solicitante_id": "CCCC",
-      "status": [
+      "status_atual": "Arrumada",
+      "status_historico": [
         [
           "Arrumada",
           "2022-02-02T04:31:09.782Z"
@@ -398,7 +410,8 @@
       "descricao": "Desktop com superaquecimento",
       "categoria_id": "AS8d",
       "solicitante_id": "ABCD",
-      "status": [
+      "status_atual": "Arrumada",
+      "status_historico": [
         [
           "Arrumada",
           "2021-02-04T04:34:09.782Z"
@@ -422,7 +435,8 @@
       "descricao": "Impressora com papel emperrado",
       "categoria_id": "asT1",
       "solicitante_id": "JkLm",
-      "status": [
+      "status_atual": "Paga",
+      "status_historico": [
         [
           "Paga",
           "2024-02-01T04:31:09.782Z"
@@ -446,7 +460,8 @@
       "descricao": "Mouse com double click",
       "categoria_id": "125j",
       "solicitante_id": "BBBB",
-      "status": [
+      "status_atual": "Finaliza",
+      "status_historico": [
         [
           "Finaliza",
           "2024-03-08T04:31:09.782Z"
@@ -470,7 +485,8 @@
       "descricao": "Teclado com teclas quebradas",
       "categoria_id": "p5z0",
       "solicitante_id": "CCCC",
-      "status": [
+      "status_atual": "Aberta",
+      "status_historico": [
         [
           "Aberta",
           "2024-04-06T04:31:09.782Z"
@@ -494,7 +510,8 @@
       "descricao": "Notebook com superaquecimento",
       "categoria_id": "OASD",
       "solicitante_id": "ABCD",
-      "status": [
+      "status_atual": "Orçada",
+      "status_historico": [
         [
           "Orçada",
           "2021-05-05T04:31:09.782Z"
@@ -518,7 +535,8 @@
       "descricao": "Desktop com gabinete amassado",
       "categoria_id": "AS8d",
       "solicitante_id": "JkLm",
-      "status": [
+      "status_atual": "Rejeita",
+      "status_historico": [
         [
           "Rejeita",
           "2024-09-04T04:31:09.782Z"
@@ -542,7 +560,8 @@
       "descricao": "Impressora com tinta vazando",
       "categoria_id": "asT1",
       "solicitante_id": "BBBB",
-      "status": [
+      "status_atual": "Aprovada",
+      "status_historico": [
         [
           "Aprovada",
           "2024-10-03T04:12:09.782Z"
@@ -566,7 +585,8 @@
       "descricao": "Mouse sem conexão",
       "categoria_id": "125j",
       "solicitante_id": "CCCC",
-      "status": [
+      "status_atual": "Redirecionada",
+      "status_historico": [
         [
           "Redirecionada",
           "2022-11-02T04:31:09.782Z"
@@ -590,7 +610,8 @@
       "descricao": "Teclado com teclas invertidas",
       "categoria_id": "p5z0",
       "solicitante_id": "ABCD",
-      "status": [
+      "status_atual": "Arrumada",
+      "status_historico": [
         [
           "Arrumada",
           "2024-11-11T04:31:09.782Z"
@@ -614,7 +635,8 @@
       "descricao": "Notebook travando",
       "categoria_id": "OASD",
       "solicitante_id": "JkLm",
-      "status": [
+      "status_atual": "Paga",
+      "status_historico": [
         [
           "Paga",
           "2024-12-01T04:44:09.782Z"
@@ -638,7 +660,8 @@
       "descricao": "Desktop com monitor piscando",
       "categoria_id": "AS8d",
       "solicitante_id": "BBBB",
-      "status": [
+      "status_atual": "Finalizada",
+      "status_historico": [
         [
           "Finalizada",
           "2022-01-11T01:31:09.782Z"
@@ -662,7 +685,8 @@
       "descricao": "Impressora com papel atolado",
       "categoria_id": "asT1",
       "solicitante_id": "CCCC",
-      "status": [
+      "status_atual": "Aberta",
+      "status_historico": [
         [
           "Aberta",
           "2024-12-01T04:31:09.782Z"
@@ -686,7 +710,8 @@
       "descricao": "Mouse com scroll quebrado",
       "categoria_id": "125j",
       "solicitante_id": "ABCD",
-      "status": [
+      "status_atual": "Orçada",
+      "status_historico": [
         [
           "Orçada",
           "2024-11-01T04:31:09.782Z"
@@ -710,7 +735,8 @@
       "descricao": "Teclado com teclas faltando",
       "categoria_id": "p5z0",
       "solicitante_id": "JkLm",
-      "status": [
+      "status_atual": "Rejeita",
+      "status_historico": [
         [
           "Rejeita",
           "2024-10-01T04:31:09.782Z"
@@ -734,7 +760,8 @@
       "descricao": "Notebook sem som",
       "categoria_id": "OASD",
       "solicitante_id": "BBBB",
-      "status": [
+      "status_atual": "Arrumada",
+      "status_historico": [
         [
           "Arrumada",
           "2024-09-01T04:31:09.782Z"
@@ -758,7 +785,8 @@
       "descricao": "Desktop com teclado sem resposta",
       "categoria_id": "AS8d",
       "solicitante_id": "CCCC",
-      "status": [
+      "status_atual": "Paga",
+      "status_historico": [
         [
           "Paga",
           "2024-08-01T04:31:09.782Z"
@@ -782,7 +810,8 @@
       "descricao": "rrrrr",
       "categoria_id": "Impressora",
       "solicitante_id": "ABCD",
-      "status": [
+      "status_atual": "Aberta",
+      "status_historico": [
         [
           "Aberta",
           "2025-04-17T14:11:02.152Z"
@@ -806,7 +835,8 @@
       "descricao": "PEGANDO FOGO",
       "categoria_id": "Desktop",
       "solicitante_id": "ABCD",
-      "status": [
+      "status_atual": "Orçada",
+      "status_historico": [
         [
           "Aberta",
           "2025-04-19T03:32:37.516Z"
