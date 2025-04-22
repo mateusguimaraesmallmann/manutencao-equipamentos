@@ -10,8 +10,12 @@ import { User } from '../models/user.model';
 })
 export class AuthService {
 	private currentUser: User | null = null;
+	private userKey: string = 'USER_LS';
 
-	constructor(private http: HttpClient) {}
+	constructor(private http: HttpClient) {
+		let user = localStorage.getItem(this.userKey);
+		if (user != null) this.currentUser = JSON.parse(user);
+	}
 
 	loggedIn(): Boolean {
 		return this.currentUser != null;
@@ -25,6 +29,7 @@ export class AuthService {
 		return this.http.post(loginUrl, data).pipe(
 			tap((response) => {
 				this.currentUser = response as User;
+				localStorage.setItem(this.userKey, JSON.stringify(this.currentUser));
 			}),
 		);
 	}
@@ -36,5 +41,6 @@ export class AuthService {
 	logout(): void {
 		console.log('LOGOUT');
 		this.currentUser = null;
+		localStorage.removeItem(this.userKey);
 	}
 }
