@@ -4,21 +4,18 @@ export class Solicitacao {
   descricao: string;
   categoria_id: string;
   solicitante_id: string;
-  status: [Status, string]; // é uma tupla que tem o Status e a data+hora que foi mudado o status
+  status_atual: Status //status atual, pra ficar mais facil de achar as solicitacoes de acordo com o status 
+  status_historico: [Status, string]; // é uma tupla que tem o Status e a data+hora que foi mudado o status
   valor_orcamento?: number;
   funcionario_orcamento_id?: string; // id do funcionario que fez o orcamento inicial
   data_orcamento?: string; // data do orcamento 
   descricao_manutencao?: string; // descricao da manutencao (RF014)
   orientacao_ao_cliente?: string; // orientacao ao cliente (RF014)
   redirecionamento_idFuncionario_data?: Redirecionado; // id do funcionario para qual foi feito o redirecionamento e a data do redirecionamento (RF015)
-  
-  descricao_manutencao?: string; // descricao da manutencao (RF014)
-  orientacao_ao_cliente?: string; // orientacao ao cliente (RF014)
-  redirecionamento_idFuncionario_data?: Redirecionado; // id do funcionario para qual foi feito o redirecionamento e a data do redirecionamento (RF015)
-  
+
 
   constructor(id: string, data_solicitacao: string, descricao: string, categoria_id: string,
-    solicitante_id: string, status: [Status,string], valor_orcamento?: number, funcionario_orcamento_id?: string, data_orcamento?: string,
+    solicitante_id: string, status_atual: Status, status_historico: [Status, string], valor_orcamento?: number, funcionario_orcamento_id?: string, data_orcamento?: string,
     descricao_manutencao?: string, orientacao_ao_cliente?: string, redirecionamento_idFuncionario_data?: Redirecionado) {
 
     this.id = id;
@@ -26,22 +23,11 @@ export class Solicitacao {
     this.descricao = descricao;
     this.categoria_id = categoria_id;
     this.solicitante_id = solicitante_id;
-    this.status = status;
+    this.status_atual = status_atual;
+    this.status_historico = status_historico;
     this.valor_orcamento = valor_orcamento;
     this.funcionario_orcamento_id = funcionario_orcamento_id;
     this.data_orcamento = data_orcamento;
-    this.descricao_manutencao = descricao_manutencao;
-    this.orientacao_ao_cliente = orientacao_ao_cliente;
-    this.redirecionamento_idFuncionario_data = new Redirecionado('', '');
-  }
-}
-
-export class Redirecionado {
-  id_funcionario: string;
-  data_redirecionamento: string;
-  constructor(id_funcionario: string, data_redirecionamento: string) {
-    this.id_funcionario = id_funcionario;
-    this.data_redirecionamento = data_redirecionamento;
     this.descricao_manutencao = descricao_manutencao;
     this.orientacao_ao_cliente = orientacao_ao_cliente;
     this.redirecionamento_idFuncionario_data = new Redirecionado('', '');
