@@ -1,3 +1,15 @@
 body{
     padding-right: 2rem;
 }
+
+
+.sessao_corpo_titulo {
+    font-size: 1.5rem;
+}
+
+.pedidos__tabela{
+    border: 1px solid var(--border-color);
+    border-radius: 22px;
+    padding: 2rem;
+    margin: 12px 0 32px;
+}
