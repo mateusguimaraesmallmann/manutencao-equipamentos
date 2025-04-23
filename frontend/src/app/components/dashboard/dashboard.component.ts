@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 
 import { AuthService, EmployeeService } from '../../services';
 
@@ -10,12 +10,15 @@ import { AuthService, EmployeeService } from '../../services';
 	templateUrl: './dashboard.component.html',
 	styleUrl: './dashboard.component.css',
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
 	constructor(
 		private employeeService: EmployeeService,
 		private authService: AuthService,
 		private router: Router,
-	) {
+		private route: ActivatedRoute,
+	) {}
+
+	ngOnInit(): void {
 		let employee_id = this.authService.getUser()?.employee_id as number;
 
 		if (!employee_id) {
@@ -24,5 +27,9 @@ export class DashboardComponent {
 		}
 
 		this.employeeService.getProfile(employee_id).subscribe();
+
+		if (this.router.url == '/dashboard') {
+			this.router.navigate(['/dashboard/categories']);
+		}
 	}
 }

@@ -7,6 +7,7 @@ import { EquipamentoComponent } from './paginas/equipamento/equipamento/equipame
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CategoryComponent } from './components/category/category.component';
 import { SolicitarManutencaoComponent } from './paginas/cliente/solicitar-manutencao/solicitar-manutencao.component';
+import { EmployeeComponent } from './components/employee/employee.component';
 
 export const routes: Routes = [
 	{
@@ -20,7 +21,10 @@ export const routes: Routes = [
 	{
 		path: 'dashboard',
 		component: DashboardComponent,
-		children: [{ path: 'categories', component: CategoryComponent }],
+		children: [
+			{ path: 'categories', component: CategoryComponent },
+			{ path: 'employees', component: EmployeeComponent },
+		],
 	},
 	{
 		path: 'cliente',
