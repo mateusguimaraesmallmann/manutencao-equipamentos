@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Order } from '../../models/order.model';
-import { OrderService } from '../../services/order.service';
-import { AuthService } from '../../services';
-import { OrderStatus } from '../../models/order-status.enum';
+import { Order } from '../../../models/order.model';
+import { OrderService } from '../../../services/order.service';
+import { AuthService } from '../../../services';
+import { OrderStatus } from '../../../models/order-status.enum';
 
 @Component({
 	selector: 'orders-tag',

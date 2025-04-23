@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { OrdersComponent } from '../orders/orders.component';
+import { OrdersComponent } from '../common/orders/orders.component';
 
 @Component({
 	selector: 'home-tag',
