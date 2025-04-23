@@ -9,6 +9,7 @@ import { CategoryComponent } from './components/category/category.component';
 import { SolicitarManutencaoComponent } from './paginas/cliente/solicitar-manutencao/solicitar-manutencao.component';
 import { EmployeeComponent } from './components/employee/employee.component';
 import { HomeComponent } from './components/home/home.component';
+import { OrderCreationComponent } from './components/common/orders/order-creation/order-creation.component';
 
 export const routes: Routes = [
 	{
@@ -30,6 +31,10 @@ export const routes: Routes = [
 	{
 		path: 'home',
 		component: HomeComponent,
+	},
+	{
+		path: 'order/new',
+		component: OrderCreationComponent,
 	},
 	{
 		path: 'cliente',
