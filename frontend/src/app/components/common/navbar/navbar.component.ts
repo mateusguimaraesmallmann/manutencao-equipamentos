@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
 	selector: 'dynamic-navbar',
 	standalone: true,
-	imports: [RouterModule, CommonModule],
+	imports: [],
 	templateUrl: './navbar.component.html',
 	styleUrl: './navbar.component.css',
 })
@@ -38,9 +37,5 @@ export class NavbarComponent {
 	logout(): void {
 		this.auth.logout();
 		this.router.navigate(['/login']);
-	}
-
-	displayNavLinks(): boolean {
-		return this.auth.getUser()?.client_id != null;
 	}
 }
