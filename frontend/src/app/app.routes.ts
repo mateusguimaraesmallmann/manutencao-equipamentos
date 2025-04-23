@@ -5,9 +5,13 @@ import { LoginComponent } from './components/login/login.component';
 import { AutocadastroComponent } from './autocadastro/autocadastro/autocadastro.component';
 import { EquipamentoComponent } from './paginas/equipamento/equipamento/equipamento.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { CategoryComponent } from './components/category/category.component';
 import { SolicitarManutencaoComponent } from './paginas/cliente/solicitar-manutencao/solicitar-manutencao.component';
+import { EmployeeComponent } from './components/employee/employee.component';
+
 import { MostrarOrcamentoComponent } from './paginas/cliente/mostrar-orcamento/mostrar-orcamento.component';
 import { EfetuarOrcamentoComponent } from './paginas/funcionario/efetuar-orcamento/efetuar-orcamento.component';
+
 
 
 export const routes: Routes = [
@@ -22,6 +26,10 @@ export const routes: Routes = [
 	{
 		path: 'dashboard',
 		component: DashboardComponent,
+		children: [
+			{ path: 'categories', component: CategoryComponent },
+			{ path: 'employees', component: EmployeeComponent },
+		],
 	},
 	{
 		path: 'cliente',

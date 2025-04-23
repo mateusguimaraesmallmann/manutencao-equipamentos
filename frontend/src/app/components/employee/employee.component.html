@@ -1,0 +1,36 @@
+<div class="m-3">
+	<div class="d-flex justify-content-between align-items-center mb-3">
+		<h2>Funcionários</h2>
+		<button class="btn btn-primary" (click)="newEmployee()">
+			Novo funcionário
+		</button>
+	</div>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Nome</th>
+				<th>Email</th>
+				<th>Data Nasc.</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngIf="employees.length === 0">
+				<td colspan="100%" class="text-center">
+					Nenhum funcionário cadastrado
+				</td>
+			</tr>
+			<tr *ngFor="let emp of employees">
+				<td>{{ emp.id }}</td>
+				<td>{{ emp.user.name }}</td>
+				<td>{{ emp.user.email }}</td>
+				<td>{{ emp.birthday }}</td>
+				<td>
+					<button class="btn btn-info me-2">Modificar</button>
+					<button class="btn btn-danger">Excluir</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
