@@ -15,4 +15,10 @@ export class EmployeeService {
 
 		return this.http.get(profileUrl);
 	}
+
+	getEmployeesFull(): Observable<any> {
+		const employessFullUrl = `${API_URL}/employees_full`;
+
+		return this.http.get(employessFullUrl);
+	}
 }
