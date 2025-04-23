@@ -13,10 +13,6 @@ export class EmployeeService {
 	getProfile(employee_id: number): Observable<any> {
 		const profileUrl = `${API_URL}/employees/${employee_id}`;
 
-		console.log(profileUrl);
-
-		return this.http
-			.get(profileUrl)
-			.pipe(tap((response) => console.log(response)));
+		return this.http.get(profileUrl);
 	}
 }
