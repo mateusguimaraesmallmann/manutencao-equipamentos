@@ -36,17 +36,33 @@
 	"employees": [
 		{
 			"id": 1,
-			"document": "37231947026",
-			"active": true,
-			"position": "Técnico",
-			"acess_level": 1
+			"birthday": "15/12/2000"
 		},
 		{
 			"id": 2,
-			"document": "68793446071",
-			"active": true,
-			"position": "Caixa",
-			"acess_level": 1
+			"birthday": "01/05/1990"
+		}
+	],
+	"employees_full": [
+		{
+			"id": 1,
+			"birthday": "15/12/2000",
+			"user": {
+				"id": 1,
+				"name": "Jafar",
+				"email": "a@a.com",
+				"role": 1
+			}
+		},
+		{
+			"id": 2,
+			"birthday": "01/05/1990",
+			"user": {
+				"id": 4,
+				"name": "Gênio",
+				"email": "d@d.com",
+				"role": 1
+			}
 		}
 	],
 	"clients": [
