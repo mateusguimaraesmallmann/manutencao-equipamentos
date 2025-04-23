@@ -8,6 +8,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CategoryComponent } from './components/category/category.component';
 import { SolicitarManutencaoComponent } from './paginas/cliente/solicitar-manutencao/solicitar-manutencao.component';
 import { EmployeeComponent } from './components/employee/employee.component';
+import { HomeComponent } from './components/home/home.component';
 
 export const routes: Routes = [
 	{
@@ -25,6 +26,10 @@ export const routes: Routes = [
 			{ path: 'categories', component: CategoryComponent },
 			{ path: 'employees', component: EmployeeComponent },
 		],
+	},
+	{
+		path: 'home',
+		component: HomeComponent,
 	},
 	{
 		path: 'cliente',
