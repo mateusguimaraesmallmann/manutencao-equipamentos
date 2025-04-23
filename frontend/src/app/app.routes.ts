@@ -4,9 +4,10 @@ import { HomeFuncionarioComponent } from './paginas/funcionario/home-funcionario
 import { LoginComponent } from './components/login/login.component';
 import { AutocadastroComponent } from './autocadastro/autocadastro/autocadastro.component';
 import { EquipamentoComponent } from './paginas/equipamento/equipamento/equipamento.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component'; 
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SolicitarManutencaoComponent } from './paginas/cliente/solicitar-manutencao/solicitar-manutencao.component';
 import { MostrarOrcamentoComponent } from './paginas/cliente/mostrar-orcamento/mostrar-orcamento.component';
+import { EfetuarOrcamentoComponent } from './paginas/funcionario/efetuar-orcamento/efetuar-orcamento.component';
 
 
 export const routes: Routes = [
@@ -47,4 +48,8 @@ export const routes: Routes = [
 		path: 'mostrar-orcamento',
 		component: MostrarOrcamentoComponent
 	},
+	{
+		path: 'efetuar-orcamento',
+		component: EfetuarOrcamentoComponent
+	}
 ];
