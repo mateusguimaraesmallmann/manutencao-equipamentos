@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 
 import { AuthService, EmployeeService } from '../../services';
 
@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
 		private employeeService: EmployeeService,
 		private authService: AuthService,
 		private router: Router,
+		private route: ActivatedRoute,
 	) {}
 
 	ngOnInit(): void {
@@ -26,5 +27,9 @@ export class DashboardComponent implements OnInit {
 		}
 
 		this.employeeService.getProfile(employee_id).subscribe();
+
+		if (this.router.url == '/dashboard') {
+			this.router.navigate(['/dashboard/categories']);
+		}
 	}
 }
