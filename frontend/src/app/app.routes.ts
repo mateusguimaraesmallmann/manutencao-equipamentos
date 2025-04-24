@@ -12,6 +12,11 @@ import { HomeComponent } from './components/home/home.component';
 import { OrderCreationComponent } from './components/common/orders/order-creation/order-creation.component';
 import { OrdersComponent } from './components/common/orders/orders.component';
 
+import { MostrarOrcamentoComponent } from './paginas/cliente/mostrar-orcamento/mostrar-orcamento.component';
+import { EfetuarOrcamentoComponent } from './paginas/funcionario/efetuar-orcamento/efetuar-orcamento.component';
+
+
+
 export const routes: Routes = [
 	{
 		path: 'login',
@@ -57,6 +62,14 @@ export const routes: Routes = [
 	},
 	{
 		path: 'solicitar-manutencao',
-		component: SolicitarManutencaoComponent,
+		component: SolicitarManutencaoComponent
 	},
+	{
+		path: 'mostrar-orcamento',
+		component: MostrarOrcamentoComponent
+	},
+	{
+		path: 'efetuar-orcamento',
+		component: EfetuarOrcamentoComponent
+	}
 ];
