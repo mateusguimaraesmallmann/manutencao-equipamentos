@@ -74,7 +74,8 @@
       "state": "PR",
       "number": "200",
       "complement": "APTO 10",
-      "phone": "41 99999-9999"
+      "phone": "41 99999-9999",
+			"user_id": 2
     },
     {
       "id": 2,
@@ -84,7 +85,8 @@
       "state": "PR",
       "number": "200",
       "complement": "CASA 2",
-      "phone": "41 99999-9998"
+      "phone": "41 99999-9998",
+			"user_id": 3
     }
   ],
   "categories": [
@@ -97,6 +99,54 @@
       "name": "Componentes"
     }
   ],
+	"orders": [
+		{
+			"id": 1,
+			"client_id": 1,
+			"employee_id": 1,
+			"category_id": 1,
+			"equipment_description": "NOTEBOOK X",
+			"deffect_description": "NAO LIGA",
+			"price": null,
+			"created_at": "23/04/2025 10:15",
+			"status": "ABERTA"
+		},
+		{
+			"id": 2,
+			"client_id": 1,
+			"employee_id": 1,
+			"category_id": 1,
+			"equipment_description": "MONITOR Y",
+			"deffect_description": "PISCANDO",
+			"price": 100,
+			"created_at": "23/04/2025 10:10",
+			"status": "ORÇADA"
+		}
+	],
+	"order_actions": [
+		{
+			"id": 1,
+			"order_id": 1,
+			"employee_id": 1,
+			"created_at": "23/04/2025 10:15",
+			"STATUS": "ABERTA"
+		},
+		{
+			"id": 2,
+			"order_id": 2,
+			"employee_id": 1,
+			"created_at": "23/04/2025 10:10",
+			"STATUS": "ABERTA"
+		},
+		{
+			"id": 3,
+			"order_id": 2,
+			"employee_id": 1,
+			"created_at": "23/04/2025 10:50",
+			"STATUS": "ORÇADA"
+		}
+	],
+
   "funcionario": [
     {
       "id": "JKLK",
