@@ -1,5 +1,5 @@
 export enum OrderStatus {
-	ORCADA = 'ORCADA',
+	ORCADA = 'ORÇADA',
 	APROVADA = 'APROVADA',
 	ABERTA = 'ABERTA',
 	REJEITADA = 'REJEITADA',

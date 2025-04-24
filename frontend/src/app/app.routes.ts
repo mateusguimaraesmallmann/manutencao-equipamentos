@@ -10,6 +10,7 @@ import { SolicitarManutencaoComponent } from './paginas/cliente/solicitar-manute
 import { EmployeeComponent } from './components/employee/employee.component';
 import { HomeComponent } from './components/home/home.component';
 import { OrderCreationComponent } from './components/common/orders/order-creation/order-creation.component';
+import { OrdersComponent } from './components/common/orders/orders.component';
 
 export const routes: Routes = [
 	{
@@ -26,6 +27,7 @@ export const routes: Routes = [
 		children: [
 			{ path: 'categories', component: CategoryComponent },
 			{ path: 'employees', component: EmployeeComponent },
+			{ path: 'orders', component: OrdersComponent },
 		],
 	},
 	{

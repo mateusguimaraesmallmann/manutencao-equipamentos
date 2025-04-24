@@ -14,4 +14,10 @@ export class OrderService {
 
 		return this.http.get(orders_url);
 	}
+
+	getOrdersFromEmployee(employee_id: number): Observable<any> {
+		let orders_url = `${API_URL}/orders?employee_id=${employee_id}`;
+
+		return this.http.get(orders_url);
+	}
 }
