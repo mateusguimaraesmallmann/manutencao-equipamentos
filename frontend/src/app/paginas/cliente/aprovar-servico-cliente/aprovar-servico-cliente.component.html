@@ -1,0 +1,13 @@
+<div class="container mt-4">
+  <h4 class="aprovar__titulo">Aprovação de Serviço</h4>
+
+  <div class="aprovar__conteudo">
+    <p><strong>Equipamento:</strong> Notebook Dell XPS 13</p>
+    <p><strong>Categoria:</strong> Notebook</p>
+    <p><strong>Defeito:</strong> Não liga após carregar</p>
+    <p><strong>Valor Orçado:</strong> R$ {{ valorOrcamento.toFixed(2) }}</p>
+
+    <button class="btn btn-success me-2" (click)="confirmarAprovacao()">Aprovar</button>
+    <button class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
+  </div>
+</div>

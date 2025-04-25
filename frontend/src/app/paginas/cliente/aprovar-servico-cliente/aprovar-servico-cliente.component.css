@@ -1,0 +1,15 @@
+.aprovar__titulo {
+    font-size: 1.5rem;
+  }
+  
+  .aprovar__conteudo {
+    border: 1px solid var(--border-color);
+    border-radius: 22px;
+    padding: 2rem;
+    margin: 12px 0 32px;
+  }
+  
+  .container {
+    max-width: 600px;
+  }
+  
