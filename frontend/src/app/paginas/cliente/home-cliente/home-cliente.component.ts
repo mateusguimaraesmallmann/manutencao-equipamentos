@@ -12,7 +12,10 @@ import { NavbarClienteComponent } from '../../../components/navbar-cliente/navba
 export class HomeClienteComponent {
   constructor(private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+
+  }
 
   visualizarPedido(pedido: string) {
     return alert(pedido);

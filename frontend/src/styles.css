@@ -1,33 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
 /* teste teste */
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400&family=Oxanium:wght@200&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400&family=Oxanium:wght@200&display=swap");
 
 /* paleta de cores */
 
 :root {
-    --btn-color: #294C60;
-    --btn-hover: #778DA9;
-    --border-color: #CCCCCC;
-    --background-erro: #FEC89A;
-    --text-erro: #BF0603;
-    --background-cliente: #82C3FF;
-    --background-funcionario: #457B9D;
-    --background-navbar-cliente: #32a7dd;
-    --background-navbar-funcionario: #8232dd;
+	--btn-color: #294c60;
+	--btn-hover: #778da9;
+	--border-color: #cccccc;
+	--background-erro: #fec89a;
+	--text-erro: #bf0603;
+	--background-cliente: #82c3ff;
+	--background-funcionario: #457b9d;
+	--background-navbar-cliente: #32a7dd;
+	--background-navbar-funcionario: #8232dd;
 }
 
+.sessao_corpo_titulo {
+	font-size: 1.5rem;
+}
 
+.pedidos__tabela {
+	border: 1px solid var(--border-color);
+	border-radius: 22px;
+	padding: 2rem;
+	margin: 12px 0 32px;
+}
 
 /* CSS reset */
-* {
-    margin-top: 20px;
-    padding-top: 5px;
-    
-    box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif;
-}
-
-ul li {
-    list-style: none;
-}

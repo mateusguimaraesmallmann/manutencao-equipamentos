@@ -1,0 +1,46 @@
+<div class="m-3">
+	<div class="d-flex justify-content-between align-items-center mb-3">
+		<h2>Ordens de Serviço</h2>
+	</div>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Data abertura</th>
+				<th>Status</th>
+				<th>Valor</th>
+				<th>Ações</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngIf="orders.length <= 0">
+				<td colspan="100%" class="text-center">
+					Nenhuma ordem de serviço disponível
+				</td>
+			</tr>
+			<tr *ngFor="let order of orders">
+				<td>{{ order.id }}</td>
+				<td>{{ order.created_at }}</td>
+				<td>{{ order.status }}</td>
+				<td>{{ order.price || "-" }}</td>
+				<td>
+					<button
+						*ngFor="let btn of getActionButtons(order)"
+						class="btn mx-1"
+						[class]="btn.classes"
+						(click)="updateOrder(btn.action, order)"
+					>
+						{{ btn.label }}
+					</button>
+					<button
+						type="button"
+						class="btn btn-info mx-1"
+						(click)="visualizarPedido('4')"
+					>
+						Visualizar
+					</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,30 @@
+<div class="m-3">
+	<div class="d-flex justify-content-between align-items-center mb-3">
+		<h2>Categorias</h2>
+		<button class="btn btn-primary" (click)="newCategory()">
+			Nova Categoria
+		</button>
+	</div>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Nome</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngIf="categories.length === 0">
+				<td colspan="100%" class="text-center">Nenhuma categoria cadastrada</td>
+			</tr>
+			<tr *ngFor="let category of categories">
+				<td>{{ category.id }}</td>
+				<td>{{ category.name }}</td>
+				<td>
+					<button class="btn btn-info me-2">Edit</button>
+					<button class="btn btn-danger">Delete</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

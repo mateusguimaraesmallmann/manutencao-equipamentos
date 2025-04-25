@@ -1,0 +1,48 @@
+<!-- order-creation.component.html -->
+<div class="container mt-5">
+	<h2>Nova ordem de serviço</h2>
+	<form (ngSubmit)="onSubmit()">
+		<div class="row mb-3">
+			<div class="col-md-6">
+				<label for="category" class="form-label">Categoria:</label>
+				<select
+					id="category"
+					[(ngModel)]="selectedCategory"
+					name="category"
+					class="form-select"
+				>
+					<option *ngIf="!categories.length" value="" disabled selected>
+						Nenhuma categoria cadastrada
+					</option>
+					<option *ngFor="let category of categories" [value]="category.id">
+						{{ category.name }}
+					</option>
+				</select>
+			</div>
+			<div class="col-md-6">
+				<label for="equipmentDescription" class="form-label">
+					Equipamento:
+				</label>
+				<input
+					type="text"
+					id="equipmentDescription"
+					[(ngModel)]="equipmentDescription"
+					name="equipmentDescription"
+					class="form-control"
+				/>
+			</div>
+		</div>
+		<div class="row"></div>
+		<div class="mb-3">
+			<label for="defectDescription" class="form-label">Defeito:</label>
+			<textarea
+				id="defectDescription"
+				[(ngModel)]="defectDescription"
+				name="defectDescription"
+				class="form-control"
+				rows="5"
+			></textarea>
+		</div>
+		<button type="submit" class="btn btn-primary">Enviar</button>
+	</form>
+</div>

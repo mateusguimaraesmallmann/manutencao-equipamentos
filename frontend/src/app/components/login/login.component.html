@@ -1,0 +1,89 @@
+<div class="container mt-5">
+	<div class="row justify-content-center">
+		<div class="col-md-4 border rounded py-4">
+			<form [formGroup]="loginForm" (submit)="onSubmit()">
+				<div class="row mb-3">
+					<div class="col-12 text-center">
+						<h2>Login</h2>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<div class="col-12">
+						<label for="email" class="form-label">Email</label>
+						<input
+							type="email"
+							id="email"
+							formControlName="email"
+							class="form-control"
+							[ngClass]="{
+								'is-invalid':
+									loginForm.get('email')?.invalid &&
+									(loginForm.get('email')?.dirty ||
+										loginForm.get('email')?.touched),
+							}"
+						/>
+						<div
+							*ngIf="
+								loginForm.get('email')?.invalid &&
+								(loginForm.get('email')?.dirty ||
+									loginForm.get('email')?.touched)
+							"
+							class="invalid-feedback"
+						>
+							<div *ngIf="loginForm.get('email')?.errors?.['required']">
+								Email is required
+							</div>
+							<div *ngIf="loginForm.get('email')?.errors?.['email']">
+								Invalid email format
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<div class="col-12">
+						<label for="password" class="form-label">Senha</label>
+						<input
+							type="password"
+							id="password"
+							formControlName="password"
+							class="form-control"
+							[ngClass]="{
+								'is-invalid':
+									loginForm.get('password')?.invalid &&
+									(loginForm.get('password')?.dirty ||
+										loginForm.get('password')?.touched),
+							}"
+						/>
+						<div
+							*ngIf="
+								loginForm.get('password')?.invalid &&
+								(loginForm.get('password')?.dirty ||
+									loginForm.get('password')?.touched)
+							"
+							class="invalid-feedback"
+						>
+							<div *ngIf="loginForm.get('password')?.errors?.['required']">
+								Password is required
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<div class="col-6">
+						<button type="submit" class="btn btn-primary w-100">Login</button>
+					</div>
+					<div class="col-6">
+						<a class="btn btn-info w-100" [routerLink]="['/autocadastro']">
+							Autocadastro
+						</a>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<div class="col-12 text-center">
+						<a [routerLink]="['/login']">Recuperar senha</a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

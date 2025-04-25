@@ -1,6 +1,7 @@
 package com.example.manutencao_equipamentos.model;
 
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,11 +18,12 @@ import jakarta.persistence.Id;
 
 import com.example.manutencao_equipamentos.Enums.Tipo;
 
-@Table(name = "usuario")
-@Entity(name = "usuario")
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "usuario")
+@Entity(name = "usuario")
 public class Usuario implements UserDetails {
 
     @Id
