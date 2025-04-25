@@ -11,6 +11,7 @@ import { EmployeeComponent } from './components/employee/employee.component';
 import { HomeComponent } from './components/home/home.component';
 import { OrderCreationComponent } from './components/common/orders/order-creation/order-creation.component';
 import { OrdersComponent } from './components/common/orders/orders.component';
+import { RejeitarServicoComponent } from './paginas/cliente/rejeitar-servico/rejeitar-servico.component';
 
 import { MostrarOrcamentoComponent } from './paginas/cliente/mostrar-orcamento/mostrar-orcamento.component';
 import { EfetuarOrcamentoComponent } from './paginas/funcionario/efetuar-orcamento/efetuar-orcamento.component';
@@ -46,6 +47,10 @@ export const routes: Routes = [
 	{
 		path: 'cliente',
 		component: HomeClienteComponent,
+	},
+	{
+		path: 'rejeitar-servico',
+		component: RejeitarServicoComponent
 	},
 	{
 		path: 'funcionario',
