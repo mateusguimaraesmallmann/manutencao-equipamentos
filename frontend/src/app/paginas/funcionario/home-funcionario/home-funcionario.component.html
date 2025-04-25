@@ -1,73 +1,55 @@
-<app-navbar-funcionario></app-navbar-funcionario> 
-<div class="container-fluid bg-body-secondary">
-    <div class="row">
-        <main class="col-md-12 col-lg-12 px-md-4">
-            <div
-                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Bem vindo(a) Ciclano !</h1>
-                <div class="btn-toolbar mb-2 mb-md-0">
-                </div>
-            </div>
-
-            <section class="pedidos">
-                <h2 class="pedidos__titulo"> Orçamentos</h2>
-                <div class="container">
-                    <div class="row">
-                        <div class="pedidos__tabela">
-                            <table class="table caption-top ">
-                                <thead>
-                                    <tr>                        
-                                        <th scope="col">Data</th>
-                                        <th scope="col">Cliente</th>
-                                        <th scope="col">Descrição</th>
-                                        <th scope="col">Status do Pedido</th>
-                                        <th scope="col">Ação</th>                                    
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <ng-container>
-                                        <tr>                                            
-                                            <td>25/03/2025<br>17:25</td>
-                                            <td>Maria</td>
-                                            <td>Monitor liga mas não da imagem...</td>
-                                            <td>Em aberto</td>
-                                            <td><button type="button" class="btn btn-primary"(click)="efetuarOrcamento()">Efetuar Orçamento</button></td>
-                                        </tr>
-                                        
-                                        <tr>                                            
-                                            <td>24/03/2025<br>12:20</td>
-                                            <td>João</td>
-                                            <td>Mouse com defeito no scroll.</td>
-                                            <td>Em aberto</td>
-                                            <td><button type="button" class="btn btn-primary"(click)="efetuarOrcamento()">Efetuar Orçamento</button></td>
-                                        </tr>
-                                        
-                                        <tr>                                            
-                                            <td>24/03/2025<br>09:40</td>
-                                            <td>Luiz</td>
-                                            <td>Fone de ouvido só funciona do ...</td>
-                                            <td>Em aberto</td>
-                                            <td><button type="button" class="btn btn-primary"(click)="efetuarOrcamento()">Efetuar Orçamento</button></td>
-                                        </tr>
-                                        
-                                        <tr>                                            
-                                            <td>23/03/2025<br>18:00</td>
-                                            <td>Jussara</td>
-                                            <td>Placa de video derreteu enquan...</td>
-                                            <td>Em aberto</td>
-                                            <td><button type="button" class="btn btn-primary"(click)="efetuarOrcamento()">Efetuar Orçamento</button></td>
-                                        </tr>
-                                        
-                                      
-
-                                    </ng-container>
-                                </tbody>
-                            </table>
-
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
+<div class="m-3">
+	<div class="d-flex justify-content-between align-items-center mb-3">
+		<h2>Solicitações</h2>
     </div>
+
+    <table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Data</th>
+            <th>Cliente</th>
+            <th>Descrição</th>
+            <th>Status</th>
+            <th>Ação</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container>
+            <tr>                                            
+                <td>25/03/2025<br>17:25</td>
+                <td>Maria</td>
+                <td>Monitor liga mas não da imagem...</td>
+                <td>Em aberto</td>
+                <td><button type="button" class="btn btn-primary"(click)="efetuarOrcamento()">Efetuar Orçamento</button></td>
+            </tr>
+            
+            <tr>                                            
+                <td>24/03/2025<br>12:20</td>
+                <td>João</td>
+                <td>Mouse com defeito no scroll.</td>
+                <td>Em aberto</td>
+                <td><button type="button" class="btn btn-primary"(click)="efetuarOrcamento()">Efetuar Orçamento</button></td>
+            </tr>
+            
+            <tr>                                            
+                <td>24/03/2025<br>09:40</td>
+                <td>Luiz</td>
+                <td>Fone de ouvido só funciona do ...</td>
+                <td>Em aberto</td>
+                <td><button type="button" class="btn btn-primary"(click)="efetuarOrcamento()">Efetuar Orçamento</button></td>
+            </tr>
+            
+            <tr>                                            
+                <td>23/03/2025<br>18:00</td>
+                <td>Jussara</td>
+                <td>Placa de video derreteu enquan...</td>
+                <td>Em aberto</td>
+                <td><button type="button" class="btn btn-primary"(click)="efetuarOrcamento()">Efetuar Orçamento</button></td>
+            </tr>
+            
+          
+
+        </ng-container>
+    </tbody>
+    </table>
 </div>

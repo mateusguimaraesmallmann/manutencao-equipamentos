@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
 		this.employeeService.getProfile(employee_id).subscribe();
 
 		if (this.router.url == '/dashboard') {
-			this.router.navigate(['/dashboard/categories']);
+			this.router.navigate(['/dashboard/home']);
 		}
 	}
 }

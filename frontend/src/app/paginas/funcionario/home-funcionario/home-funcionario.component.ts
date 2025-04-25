@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { NavbarFuncionarioComponent } from "../../../components/navbar-funcionario/navbar-funcionario.component";
 import { Solicitacao } from '../../../shared/models/solicitacao.model';
 import { SolicitacaoService } from '../../../services/solicitacao.service';
 
 @Component({
   selector: 'app-home-funcionario',
   standalone: true,
-  imports: [NavbarFuncionarioComponent],
+  imports: [],
   templateUrl: './home-funcionario.component.html',
   styleUrl: './home-funcionario.component.css'
 })
