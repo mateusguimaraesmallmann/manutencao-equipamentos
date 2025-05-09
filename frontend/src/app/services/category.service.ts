@@ -1,27 +1,29 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, tap } from 'rxjs';
-
-import { API_URL } from './api';
 import { Category } from '../models';
+import { Observable } from 'rxjs';
 
-@Injectable({
-	providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class CategoryService {
-	workingCategory = {};
-	categories: Array<Category> = [];
+  categories: Category[] = [];
+  private apiUrl = 'api/categories';
 
-	constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
-	getCategories(): Observable<any> {
-		let categoriesUrl = `${API_URL}/categories`;
+  getCategories(): Observable<Category[]> {
+    return this.http.get<Category[]>(this.apiUrl);
+  }
 
-		return this.http.get<Category[]>(categoriesUrl).pipe(
-			tap({
-				next: (response) => (this.categories = response),
-				error: (error) => console.log(error),
-			}),
-		);
-	}
+  addCategory(category: Category): Observable<Category> {
+    return this.http.post<Category>(this.apiUrl, category);
+  }
+
+  updateCategory(category: Category): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/${category.id}`, category);
+  }
+
+  deleteCategory(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
 }
+

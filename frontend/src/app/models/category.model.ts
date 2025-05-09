@@ -1,6 +1,5 @@
-export class Category {
-	constructor(
-		public id: Number | null,
-		public name: string,
-	) {}
-}
+export interface Category {
+	id: number;
+	name: string;
+  }
+  

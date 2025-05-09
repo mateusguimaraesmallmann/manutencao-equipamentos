@@ -1,16 +1,29 @@
 <div class="m-3">
 	<div class="d-flex justify-content-between align-items-center mb-3">
 		<h2>Categorias</h2>
-		<button class="btn btn-primary" (click)="newCategory()">
-			Nova Categoria
-		</button>
+		<button class="btn btn-primary" (click)="newCategory()">Nova Categoria</button>
 	</div>
+
+	<!-- Formulário -->
+	<div *ngIf="showForm" class="card p-3 mb-4">
+		<h5>{{ editMode ? 'Editar Categoria' : 'Nova Categoria' }}</h5>
+		<form (ngSubmit)="saveCategory()">
+			<div class="mb-3">
+				<label class="form-label">Nome</label>
+				<input [(ngModel)]="categoryForm.name" name="name" class="form-control" required />
+			</div>
+			<button class="btn btn-success me-2" type="submit">{{ editMode ? 'Atualizar' : 'Salvar' }}</button>
+			<button class="btn btn-secondary" type="button" (click)="cancel()">Cancelar</button>
+		</form>
+	</div>
+
+	<!-- Tabela -->
 	<table class="table table-striped">
 		<thead>
 			<tr>
 				<th>ID</th>
 				<th>Nome</th>
-				<th>Actions</th>
+				<th>Ações</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -21,8 +34,8 @@
 				<td>{{ category.id }}</td>
 				<td>{{ category.name }}</td>
 				<td>
-					<button class="btn btn-info me-2">Edit</button>
-					<button class="btn btn-danger">Delete</button>
+					<button class="btn btn-info me-2" (click)="editCategory(category)">Editar</button>
+					<button class="btn btn-danger" (click)="deleteCategory(category.id)">Excluir</button>
 				</td>
 			</tr>
 		</tbody>
