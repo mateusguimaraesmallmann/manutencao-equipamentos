@@ -1,5 +1,7 @@
 package com.example.manutencao_equipamentos.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +23,7 @@ public class ClienteController {
     @PostMapping("/autocadastro")
     public ResponseEntity<?> autocadastrar(@RequestBody AutocadastroDTO dto) {
         clienteService.autocadastrar(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("mensagem", "Cadastro realizado com sucesso. Verifique seu e-mail para a senha."));
     }
     
 }

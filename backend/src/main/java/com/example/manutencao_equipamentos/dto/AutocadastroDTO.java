@@ -1,6 +1,14 @@
 package com.example.manutencao_equipamentos.dto;
 
-public record  AutocadastroDTO (
-    String cpf, String nome, String email, String telefone,
-    String cep, String numero, String complemento
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Email;
+
+public record AutocadastroDTO(
+    @NotBlank String cpf,
+    @NotBlank String nome,
+    @Email String email,
+    @NotBlank String telefone,
+    @NotBlank String cep,
+    @NotBlank String numero,
+    String complemento
 ) {}

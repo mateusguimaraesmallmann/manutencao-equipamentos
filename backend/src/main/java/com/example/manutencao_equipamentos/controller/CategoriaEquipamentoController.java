@@ -13,34 +13,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.manutencao_equipamentos.model.CategoriaEquipamento;
-import com.example.manutencao_equipamentos.repository.CategoriaEquipamentoRepository;
+import com.example.manutencao_equipamentos.services.CategoriaEquipamentoService;
 
 @RestController
 @RequestMapping("/categorias")
 public class CategoriaEquipamentoController {
 
     @Autowired 
-    private CategoriaEquipamentoRepository categoriaEquipamentoRepository;
+    private CategoriaEquipamentoService categoriaEquipamentoService;
 
     @GetMapping 
     public List<CategoriaEquipamento> listar() {
-        return categoriaEquipamentoRepository.findAll();
+        return categoriaEquipamentoService.listar();
     }
 
     @PostMapping 
     public CategoriaEquipamento salvar(@RequestBody CategoriaEquipamento cat) {
-        return categoriaEquipamentoRepository.save(cat);
+        return categoriaEquipamentoService.salvar(cat);
     }
 
     @PutMapping("/{id}")
     public CategoriaEquipamento atualizar(@PathVariable Long id, @RequestBody CategoriaEquipamento cat) {
-        cat.setId(id);
-        return categoriaEquipamentoRepository.save(cat);
+        return categoriaEquipamentoService.atualizar(id, cat);
     }
 
     @DeleteMapping("/{id}")
     public void excluir(@PathVariable Long id) {
-        categoriaEquipamentoRepository.deleteById(id);
+        categoriaEquipamentoService.excluir(id);
     }
     
 }

@@ -5,5 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.manutencao_equipamentos.model.Funcionario;
 
 public interface FuncionarioRepository extends JpaRepository<Funcionario, String> {
+
+    boolean existsByLogin(String login);
     
 }

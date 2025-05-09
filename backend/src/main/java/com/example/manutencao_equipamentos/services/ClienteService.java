@@ -3,7 +3,7 @@ package com.example.manutencao_equipamentos.services;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.manutencao_equipamentos.Enums.Tipo;
@@ -15,6 +15,9 @@ import com.example.manutencao_equipamentos.repository.UsuarioRepository;
 @Service
 public class ClienteService {
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    
     @Autowired 
     private UsuarioRepository usuarioRepository;
 
@@ -32,6 +35,10 @@ public class ClienteService {
             throw new RuntimeException("Email já cadastrado");
         }
 
+        if (clienteRepository.existsByCpf(dto.cpf())) {
+            throw new RuntimeException("CPF já cadastrado");
+        }
+
         var endereco = viaCepService.buscarEndereco(dto.cep());
         endereco.setNumero(dto.numero());
         endereco.setComplemento(dto.complemento());
@@ -43,15 +50,21 @@ public class ClienteService {
         cliente.setLogin(dto.email());
         cliente.setTelefone(dto.telefone());
         cliente.setEndereco(endereco);
-        cliente.setPassword(new BCryptPasswordEncoder().encode(senha));
+        cliente.setPassword(passwordEncoder.encode(senha));
         cliente.setRole(Tipo.CLIENTE);
 
         clienteRepository.save(cliente);
-        emailService.enviar(dto.email(), "Cadastro realizado", "Sua senha: " + senha);
+        emailService.enviar(dto.email(), "Cadastro realizado com sucesso", getMensagemEmail(dto.nome(), senha));
     }
 
     private String gerarSenhaAleatoria() {
         return String.format("%04d", new Random().nextInt(10000));
     }
-    
+
+    private String getMensagemEmail(String nome, String senha){
+        return String.format(
+        "Olá %s,\n\nSeu cadastro foi realizado com sucesso no sistema.\nSua senha de acesso é: %s\n\nRecomendamos alterá-la após o primeiro acesso.",
+                    nome, senha);
+    }
+
 }

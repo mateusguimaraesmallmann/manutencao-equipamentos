@@ -1,6 +1,9 @@
 package com.example.manutencao_equipamentos.controller;
 
 import org.slf4j.LoggerFactory;
+
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,13 +26,13 @@ public class AuthenticationController {
     AuthorizationService authorizationService;
 
     @PostMapping("/login")
-    public ResponseEntity<Object> login(@RequestBody @Validated LoginDTO loginDTO) {
+    public ResponseEntity<?> login(@RequestBody @Validated LoginDTO loginDTO) {
         try {
             TokenDTO token = authorizationService.login(loginDTO);
             return ResponseEntity.status(HttpStatus.OK).body(token);
         } catch (BadCredentialsException e) {
-            logger.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            logger.error("Login falhou para o usuário: {}", loginDTO.login());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("erro", "Credenciais inválidas"));
         }
     }
     
