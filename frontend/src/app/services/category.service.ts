@@ -24,4 +24,19 @@ export class CategoryService {
 			}),
 		);
 	}
+
+	newCategory(category: Category): Observable<any> {
+		let categoriesUrl = `${API_URL}/categories`;
+
+		return this.http.post<Category>(categoriesUrl, category).pipe(
+			tap({
+				next: (response) => {
+					this.categories.push(response);
+				},
+				error: (error) => console.log(error),
+			}),
+		);
+	}		
+
+
 }

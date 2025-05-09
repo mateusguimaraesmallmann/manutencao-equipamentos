@@ -1,0 +1,33 @@
+<div class="m-3">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Nova Categoria</h2>
+    </div>
+
+    <section class="sessao_corpo">
+        <h2 class="sessao_corpo_titulo">Registrar nova categoria:</h2>
+        <br>
+        <div class="row">
+            <div class="col-md-1">
+            </div>
+
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-5">
+                <form>
+                    Nova categoria:
+                    <br>
+                    <input type="text" rows="4" class="form-control" #descricao_problema ng-model="descricao_problema"
+                        ng-form>
+                </form>
+            </div>
+            <div class="col-md-1"></div>
+
+        </div>
+        <div class="d-flex justify-content-center">
+            <button type="button" class="btn btn-primary" (click)="registerNewCategory()">Registrar</button>
+        </div>
+
+    </section>
+
+
+</div>

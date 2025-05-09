@@ -17,7 +17,7 @@ import { MostrarOrcamentoComponent } from './paginas/cliente/mostrar-orcamento/m
 import { EfetuarOrcamentoComponent } from './paginas/funcionario/efetuar-orcamento/efetuar-orcamento.component';
 
 import { AprovarServicoClienteComponent } from './paginas/cliente/aprovar-servico-cliente/aprovar-servico-cliente.component';
-
+import { NewCategoryComponent } from './components/new-category/new-category.component';
 
 export const routes: Routes = [
 	{
@@ -32,10 +32,21 @@ export const routes: Routes = [
 		path: 'dashboard',
 		component: DashboardComponent,
 		children: [
-			{ path: 'home', component: HomeFuncionarioComponent},
+			{ path: 'home', component: HomeFuncionarioComponent },
 			{ path: 'categories', component: CategoryComponent },
+			/*
+			{
+				path: 'categories', component: CategoryComponent, children: [
+					{
+						path: 'new-category',
+						component: NewCategoryComponent
+					}
+				]
+			},
+			*/
 			{ path: 'employees', component: EmployeeComponent },
 			{ path: 'orders', component: OrdersComponent },
+			{ path: 'new-category', component: NewCategoryComponent },
 		],
 	},
 	{
@@ -83,5 +94,6 @@ export const routes: Routes = [
 		path: 'aprovar-servico',
 		component: AprovarServicoClienteComponent
 	},
+
 
 ];
