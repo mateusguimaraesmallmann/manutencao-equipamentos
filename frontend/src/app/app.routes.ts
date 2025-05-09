@@ -36,6 +36,7 @@ export const routes: Routes = [
 			{ path: 'categories', component: CategoryComponent },
 			{ path: 'employees', component: EmployeeComponent },
 			{ path: 'orders', component: OrdersComponent },
+			{ path: 'quote', component: EfetuarOrcamentoComponent}
 		],
 	},
 	{

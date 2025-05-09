@@ -31,7 +31,7 @@ export class HomeFuncionarioComponent {
   efetuarOrcamento() {
     //só ta redirecionando para efetuar-orcamento
     //tem que fazer as funcoes corretas
-    window.location.href = '/efetuar-orcamento';
+    window.location.href = '/dashboard/quote';
     
   }
 

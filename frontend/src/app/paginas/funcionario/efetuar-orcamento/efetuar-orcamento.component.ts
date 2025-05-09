@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { Status } from '../../../shared/models/solicitacao.model';
 import { Solicitacao } from '../../../shared/models/solicitacao.model';
 import { SolicitacaoService } from '../../../services/solicitacao.service';
-import { NavbarFuncionarioComponent } from "../../../components/navbar-funcionario/navbar-funcionario.component";
 import { Funcionario } from '../../../shared/models/funcionario.model';
+
 
 @Component({
   selector: 'app-efetuar-orcamento',
   standalone: true,
-  imports: [NavbarFuncionarioComponent],
+  imports: [],
   templateUrl: './efetuar-orcamento.component.html',
   styleUrl: './efetuar-orcamento.component.css'
 })
