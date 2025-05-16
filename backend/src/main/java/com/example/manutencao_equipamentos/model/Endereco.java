@@ -1,5 +1,8 @@
 package com.example.manutencao_equipamentos.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,12 +16,24 @@ import lombok.Setter;
 @Embeddable
 public class Endereco {
 
-    private String cep;
-    private String rua;
-    private String numero;
-    private String complemento;
-    private String bairro;
-    private String cidade;
-    private String uf;
+    @Column(name = "zip_code")
+    @JsonProperty("zip_code")
+    private String zipCode;
+
+    @Column(name = "city")
+    @JsonProperty("city")
+    private String city;
+
+    @Column(name = "state")
+    @JsonProperty("state")
+    private String state;
+
+    @Column(name = "number")
+    @JsonProperty("number")
+    private String number;
+
+    @Column(name = "complement")
+    @JsonProperty("complement")
+    private String complement;
     
 }

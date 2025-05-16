@@ -1,5 +1,8 @@
 package com.example.manutencao_equipamentos.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,14 +15,16 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "categoriaEquipamento")
-@Entity(name = "categoriaEquipamento")
-public class CategoriaEquipamento {
+@Table(name = "category")
+@Entity(name = "category")
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nome;
+    @Column(name = "name", nullable = false)
+    @JsonProperty("name")
+    private String name;
     
 }
