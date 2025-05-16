@@ -1,0 +1,34 @@
+<div class="container mt-4">
+  <h2>Relatório de Receitas por Período</h2>
+  <form (ngSubmit)="gerarRelatorio()" class="row g-3 mb-3">
+    <div class="col-md-5">
+      <label for="dataInicial" class="form-label">Data Inicial:</label>
+      <input type="date" class="form-control" [(ngModel)]="dataInicial" name="dataInicial" required>
+    </div>
+    <div class="col-md-5">
+      <label for="dataFinal" class="form-label">Data Final:</label>
+      <input type="date" class="form-control" [(ngModel)]="dataFinal" name="dataFinal" required>
+    </div>
+    <div class="col-md-2 d-flex align-items-end">
+      <button type="submit" class="btn btn-primary w-100">Gerar Relatório</button>
+    </div>
+  </form>
+
+  <table class="table table-bordered table-striped mt-4" *ngIf="receitas.length > 0">
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>Total de Receitas (R$)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let r of receitas">
+        <td>{{ r.data | date:'dd/MM/yyyy' }}</td>
+        <td>{{ r.valor | number:'1.2-2' }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <button *ngIf="receitas.length > 0" class="btn btn-success mt-2" (click)="baixarPdf()">
+    Exportar PDF
+  </button>
+</div>

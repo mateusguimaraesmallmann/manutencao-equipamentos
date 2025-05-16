@@ -12,7 +12,7 @@ import { HomeComponent } from './components/home/home.component';
 import { OrderCreationComponent } from './components/common/orders/order-creation/order-creation.component';
 import { OrdersComponent } from './components/common/orders/orders.component';
 //import { RejeitarServicoComponent } from './paginas/cliente/rejeitar-servico/rejeitar-servico.component';
-
+import { RelatorioReceitasComponent } from './paginas/funcionario/relatorio-receitas/relatorio-receitas.component';
 import { MostrarOrcamentoComponent } from './paginas/cliente/mostrar-orcamento/mostrar-orcamento.component';
 import { EfetuarOrcamentoComponent } from './paginas/funcionario/efetuar-orcamento/efetuar-orcamento.component';
 
@@ -36,8 +36,9 @@ export const routes: Routes = [
 			{ path: 'categories', component: CategoryComponent },
 			{ path: 'employees', component: EmployeeComponent },
 			{ path: 'orders', component: OrdersComponent },
-			{ path: 'quote', component: EfetuarOrcamentoComponent}
-		],
+			{ path: 'quote', component: EfetuarOrcamentoComponent},
+			{ path: 'relatorio-receitas', component: RelatorioReceitasComponent },
+  		],
 	},
 	{
 		path: 'home',
@@ -84,5 +85,6 @@ export const routes: Routes = [
 		path: 'aprovar-servico',
 		component: AprovarServicoClienteComponent
 	},
+	
 
 ];
