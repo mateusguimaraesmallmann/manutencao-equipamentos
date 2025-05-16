@@ -5,6 +5,9 @@ import { OrderService } from '../../../services/order.service';
 import { AuthService } from '../../../services';
 import { OrderStatus } from '../../../models/order-status.enum';
 
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { OrderComponent } from './order/order.component';
+
 enum OrderAction {
 	OPENED,
 	REJECT,
@@ -37,6 +40,7 @@ export class OrdersComponent implements OnInit {
 	constructor(
 		private orderService: OrderService,
 		private authService: AuthService,
+		private modalService: NgbModal,
 	) {}
 
 	ngOnInit(): void {
@@ -149,6 +153,7 @@ export class OrdersComponent implements OnInit {
 	}
 
 	visualizarPedido(pedido: string) {
-		return alert(pedido);
+		const modalRef = this.modalService.open(OrderComponent);
+		return;
 	}
 }

@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { NgFor } from '@angular/common';
+
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
 	selector: 'app-order',
@@ -8,6 +11,8 @@ import { Component } from '@angular/core';
 	styleUrl: './order.component.css',
 })
 export class OrderComponent {
+	constructor(public activeModal: NgbActiveModal) {}
+
 	order = {
 		id: 1,
 		client_id: 1,
