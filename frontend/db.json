@@ -109,7 +109,16 @@
 			"deffect_description": "NAO LIGA",
 			"price": null,
 			"created_at": "23/04/2025 10:15",
-			"status": "ABERTA"
+			"status": "ABERTA",
+			"order_actions": [
+				{
+					"id": 1,
+					"order_id": 1,
+					"employee_id": null,
+					"created_at": "23/04/2025 10:15",
+					"STATUS": "ABERTA"
+				}
+			]
 		},
 		{
 			"id": 2,
@@ -120,21 +129,37 @@
 			"deffect_description": "A tela está piscando devagar toda vez que liga o monitor na tomada. Até que apaga.",
 			"price": 100,
 			"created_at": "23/04/2025 10:10",
-			"status": "ORÇADA"
+			"status": "ORÇADA",
+			"order_actions": [
+				{
+					"id": 2,
+					"order_id": 2,
+					"employee_id": null,
+					"created_at": "23/04/2025 10:10",
+					"STATUS": "ABERTA"
+				},
+				{
+					"id": 3,
+					"order_id": 2,
+					"employee_id": 1,
+					"created_at": "23/04/2025 10:50",
+					"STATUS": "ORÇADA"
+				}
+			]
 		}
 	],
 	"order_actions": [
 		{
 			"id": 1,
 			"order_id": 1,
-			"employee_id": 1,
+			"employee_id": null,
 			"created_at": "23/04/2025 10:15",
 			"STATUS": "ABERTA"
 		},
 		{
 			"id": 2,
 			"order_id": 2,
-			"employee_id": 1,
+			"employee_id": null,
 			"created_at": "23/04/2025 10:10",
 			"STATUS": "ABERTA"
 		},
@@ -837,4 +862,3 @@
 		}
 	]
 }
-
