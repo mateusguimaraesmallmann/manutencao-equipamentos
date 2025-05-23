@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 
+import { CommonModule } from '@angular/common';
+
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { OrderService } from '../../../../services/order.service';
 
 @Component({
 	selector: 'app-order',
 	standalone: true,
-	imports: [],
+	imports: [CommonModule],
 	templateUrl: './order.component.html',
 	styleUrl: './order.component.css',
 })
