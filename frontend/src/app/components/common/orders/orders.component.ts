@@ -152,8 +152,9 @@ export class OrdersComponent implements OnInit {
 		}
 	}
 
-	visualizarPedido(pedido: string) {
+	orderModal(orderId: Number) {
 		const modalRef = this.modalService.open(OrderComponent);
+		modalRef.componentInstance.orderId = orderId;
 		return;
 	}
 }
