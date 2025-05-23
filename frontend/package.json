@@ -33,7 +33,7 @@
     "@angular-devkit/build-angular": "^17.0.9",
     "@angular/cli": "^17.0.9",
     "@angular/compiler-cli": "^17.0.0",
-    "@angular/localize": "^17.0.0",
+    "@angular/localize": "^17.3.12",
     "@types/jasmine": "~5.1.0",
     "body-parser": "^2.2.0",
     "concurrently": "^9.1.2",
