@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.manutencao_equipamentos.dto.LoginDTO;
 import com.example.manutencao_equipamentos.dto.TokenDTO;
-import com.example.manutencao_equipamentos.model.Usuario;
+import com.example.manutencao_equipamentos.model.User;
 import com.example.manutencao_equipamentos.repository.UsuarioRepository;
 import com.example.manutencao_equipamentos.security.TokenService;
 
@@ -34,8 +34,8 @@ public class AuthorizationService implements UserDetailsService{
         
         var authenticationToken = new UsernamePasswordAuthenticationToken(loginDTO.login(), loginDTO.password());
         var authentication = this.manager.authenticate(authenticationToken);
-        var tokenJWT = tokenService.generateToken((Usuario) authentication.getPrincipal());
+        var tokenJWT = tokenService.generateToken((User) authentication.getPrincipal());
         return new TokenDTO(tokenJWT.toString());
     }
-    
+   
 }

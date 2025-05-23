@@ -2,9 +2,11 @@ package com.example.manutencao_equipamentos.model;
 
 import java.time.LocalDateTime;
 
-import com.example.manutencao_equipamentos.Enums.EstadoSolicitacaoEnum;
+import com.example.manutencao_equipamentos.Enums.OrderStatus;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,22 +19,25 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "historicoAlteracao")
-@Entity(name = "historicoAlteracao")
-public class HistoricoAlteracao {
+@Table(name = "historico_alteracao")
+@Entity(name = "historico_alteracao")
+public class ChangeHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private Solicitacao solicitacao;
+    @ManyToOne(optional = false)
+    private Order order;
 
-    private EstadoSolicitacaoEnum estadoAnterior;
-    private EstadoSolicitacaoEnum estadoNovo;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus estadoAnterior;
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus estadoNovo;
+
     private LocalDateTime dataHora;
 
     @ManyToOne
-    private Funcionario funcionario;
-    
+    private User autor;
 }

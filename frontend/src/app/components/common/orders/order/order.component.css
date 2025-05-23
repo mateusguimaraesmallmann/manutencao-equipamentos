@@ -1,0 +1,22 @@
+.modal-content {
+	max-height: 700px;
+	overflow-y: auto;
+}
+
+table {
+	table-layout: fixed;
+	width: 100%;
+}
+
+table th,
+table td {
+	width: 50%;
+}
+
+table th {
+	width: 30%;
+}
+
+table td {
+	width: 70%;
+}
