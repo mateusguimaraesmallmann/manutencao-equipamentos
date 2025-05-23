@@ -7,8 +7,9 @@
 			<tr>
 				<th>ID</th>
 				<th>Data abertura</th>
+				<th>Equipamento</th>
+				<th>Descrição</th>
 				<th>Status</th>
-				<th>Valor</th>
 				<th>Ações</th>
 			</tr>
 		</thead>
@@ -21,8 +22,16 @@
 			<tr *ngFor="let order of orders">
 				<td>{{ order.id }}</td>
 				<td>{{ order.created_at }}</td>
+				<td>{{ order.equipment_description }}</td>
+				<td>
+					<span *ngIf="order.deffect_description.length <= 30">
+						{{ order.deffect_description }}
+					</span>
+					<span *ngIf="order.deffect_description.length > 30">
+						{{ order.deffect_description.slice(0, 30) }}...
+					</span>
+				</td>
 				<td>{{ order.status }}</td>
-				<td>{{ order.price || "-" }}</td>
 				<td>
 					<button
 						*ngFor="let btn of getActionButtons(order)"
