@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { CommonModule, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Order } from '../../../models/order.model';
 import { OrderService } from '../../../services/order.service';
 import { AuthService } from '../../../services';
