@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Client } from '../models';
+import { Employee } from '../models/employee.model';
 
 import { API_URL } from './api';
 
@@ -21,4 +23,11 @@ export class EmployeeService {
 
 		return this.http.get(employessFullUrl);
 	}
+
+	addEmployee(employee: Employee): Observable<any> {
+		const addEmployeeUrl = `${API_URL}/employees`;
+
+		return this.http.post(addEmployeeUrl, employee);
+	}
+
 }
