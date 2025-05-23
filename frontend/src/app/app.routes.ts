@@ -17,6 +17,7 @@ import { MostrarOrcamentoComponent } from './paginas/cliente/mostrar-orcamento/m
 import { EfetuarOrcamentoComponent } from './paginas/funcionario/efetuar-orcamento/efetuar-orcamento.component';
 
 import { AprovarServicoClienteComponent } from './paginas/cliente/aprovar-servico-cliente/aprovar-servico-cliente.component';
+import { NewEmployeeComponent } from './components/new-employee/new-employee.component';
 
 
 export const routes: Routes = [
@@ -37,6 +38,7 @@ export const routes: Routes = [
 			{ path: 'employees', component: EmployeeComponent },
 			{ path: 'orders', component: OrdersComponent },
 			{ path: 'quote', component: EfetuarOrcamentoComponent}
+
 		],
 	},
 	{
@@ -84,5 +86,9 @@ export const routes: Routes = [
 		path: 'aprovar-servico',
 		component: AprovarServicoClienteComponent
 	},
+	{
+		path: 'new-employee',
+		component: NewEmployeeComponent
+	}
 
 ];

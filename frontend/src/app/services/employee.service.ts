@@ -26,7 +26,7 @@ export class EmployeeService {
 
 	addEmployee(employee: Employee): Observable<any> {
 		const addEmployeeUrl = `${API_URL}/employees`;
-
+		
 		return this.http.post(addEmployeeUrl, employee);
 	}
 

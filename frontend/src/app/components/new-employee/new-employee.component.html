@@ -1,0 +1,41 @@
+<div class="m-3">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Novo Funcionário</h2>
+    </div>
+
+    <section class="sessao_corpo">
+        <h2 class="sessao_corpo_titulo">Registrar novo funcionário:</h2>
+        <br>
+        <div class="row">
+            <div class="col-md-1">
+            </div>
+
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-5">
+                <form>
+                    Novo do novo funcionário:
+                    <br>
+                    <input type="text" rows="4" class="form-control" #nome_novo_funcionario ng-model="nome_novo_funcionario"
+                        ng-form>
+                    <br>
+                    Email do funcionário:
+                    <input type="email" rows="4" class="form-control" #email_novo_funcionario ng-model="email_novo_funcionario"
+                        ng-form>
+                    <br>
+                    Data de nascimento do funcionário:
+                    <input type="date" rows="4" class="form-control" #data_nascimento_novo_funcionario
+                        ng-model="data_nascimento_novo_funcionario" ng-form>
+                </form>
+            </div>
+            <div class="col-md-1"></div>
+
+        </div>
+        <div class="d-flex justify-content-center">
+            <button type="button" class="btn btn-primary" (click)="registerNewEmployee(nome_novo_funcionario.value, email_novo_funcionario.value, data_nascimento_novo_funcionario.value.toString())">Registrar</button>
+        </div>
+
+    </section>
+
+
+</div>
