@@ -40,8 +40,8 @@ public class Employee extends User {
         user.setName(this.getName());
         user.setEmail(this.getEmail());
         user.setRole(this.getRole());
-        user.setEmployeeId(this.getEmployeeId());
-        user.setClientId(this.getClientId());
+        //user.setEmployeeId(this.getEmployeeId());
+        //user.setClientId(this.getClientId());
         return user;
     }
 

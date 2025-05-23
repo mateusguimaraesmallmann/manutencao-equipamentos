@@ -9,19 +9,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.manutencao_equipamentos.dto.AutocadastroDTO;
-import com.example.manutencao_equipamentos.services.ClienteService;
+import com.example.manutencao_equipamentos.model.Client;
+import com.example.manutencao_equipamentos.services.ClientService;
 
 @RestController
 @RequestMapping("/clientes")
-public class ClienteController {
+public class ClientController {
 
     @Autowired 
-    private ClienteService clienteService;
+    private ClientService clienteService;
 
     @PostMapping("/autocadastro")
     public ResponseEntity<?> autocadastrar(@RequestBody AutocadastroDTO dto) {
-        clienteService.autocadastrar(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        Client newClient = clienteService.autocadastrar(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newClient);
     }
     
 }
