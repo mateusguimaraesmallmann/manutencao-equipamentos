@@ -20,4 +20,10 @@ export class OrderService {
 
 		return this.http.get(orders_url);
 	}
+
+	getOrder(id: Number): Observable<any> {
+		let order_url = `${API_URL}/orders/${id}`;
+
+		return this.http.get(order_url);
+	}
 }
