@@ -50,6 +50,10 @@ export class OrderCreationComponent implements OnInit {
 	onSubmit() {}
 
 	save() {
+		if (!this.ordersForm.valid) {
+			this.ordersForm.markAllAsTouched();
+			return;
+		}
 		let client_id = this.authService.getUser()?.client_id!;
 
 		const new_order = new Order({
