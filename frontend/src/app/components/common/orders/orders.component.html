@@ -24,12 +24,19 @@
 				<td>{{ order.created_at }}</td>
 				<td>{{ order.equipment_description }}</td>
 				<td>
-					<span *ngIf="order.deffect_description.length <= 30">
-						{{ order.deffect_description }}
-					</span>
-					<span *ngIf="order.deffect_description.length > 30">
-						{{ order.deffect_description.slice(0, 30) }}...
-					</span>
+					<ng-container
+						*ngIf="order.deffect_description; else description_null"
+					>
+						<span *ngIf="order.deffect_description.length <= 30">
+							{{ order.deffect_description }}
+						</span>
+						<span *ngIf="order.deffect_description.length > 30">
+							{{ order.deffect_description.slice(0, 30) }}...
+						</span>
+					</ng-container>
+					<ng-template #description_null>
+						<span>N/A</span>
+					</ng-template>
 				</td>
 				<td>{{ order.status }}</td>
 				<td>
@@ -44,7 +51,7 @@
 					<button
 						type="button"
 						class="btn btn-info mx-1"
-						(click)="orderModal(order.id)"
+						(click)="orderModal(order.id!)"
 					>
 						Visualizar
 					</button>

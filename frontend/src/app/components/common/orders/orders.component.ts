@@ -1,9 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Order } from '../../../models/order.model';
+import { Order, OrderStatus } from '../../../models';
 import { OrderService } from '../../../services/order.service';
 import { AuthService } from '../../../services';
-import { OrderStatus } from '../../../models/order-status.enum';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OrderComponent } from './order/order.component';
@@ -152,7 +151,7 @@ export class OrdersComponent implements OnInit {
 		}
 	}
 
-	orderModal(orderId: Number) {
+	orderModal(orderId?: Number) {
 		const modalRef = this.modalService.open(OrderComponent);
 		modalRef.componentInstance.orderId = orderId;
 		return;
