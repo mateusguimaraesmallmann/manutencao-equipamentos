@@ -13,7 +13,7 @@ import { OrderService } from '../../../../services/order.service';
 	styleUrl: './order.component.css',
 })
 export class OrderComponent {
-	orderId: any;
+	orderId?: number | null;
 	order: any;
 
 	constructor(
@@ -22,7 +22,7 @@ export class OrderComponent {
 	) {}
 
 	ngOnInit(): void {
-		this.orderService.getOrder(this.orderId).subscribe((response) => {
+		this.orderService.getOrder(this.orderId!).subscribe((response) => {
 			this.order = response;
 		});
 	}
