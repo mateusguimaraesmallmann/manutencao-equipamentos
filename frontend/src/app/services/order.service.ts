@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { API_URL } from './api';
+import { Order } from '../models/order.model';
 
 @Injectable({
 	providedIn: 'root',
@@ -25,5 +26,11 @@ export class OrderService {
 		let order_url = `${API_URL}/orders/${id}`;
 
 		return this.http.get(order_url);
+	}
+
+	newOrder(order: Order): Observable<any> {
+		let order_url = `${API_URL}/orders`;
+
+		return this.http.post(order_url, order);
 	}
 }
