@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Category } from '../../models';
 import { CategoryService } from '../../services/category.service';
+import { Modal } from 'bootstrap';
 
 @Component({
   selector: 'categories-tag',
@@ -13,14 +14,23 @@ import { CategoryService } from '../../services/category.service';
 })
 export class CategoryComponent implements OnInit {
   categories: Category[] = [];
-  showForm = false;
-  editMode = false;
   categoryForm: Category = { id: 0, name: '' };
+  editMode = false;
+
+  modal!: Modal;
 
   constructor(private categoryService: CategoryService) {}
 
   ngOnInit(): void {
     this.loadCategories();
+
+    // Espera o DOM carregar para inicializar o modal
+    setTimeout(() => {
+      const modalElement = document.getElementById('categoryModal');
+      if (modalElement) {
+        this.modal = new Modal(modalElement);
+      }
+    });
   }
 
   loadCategories() {
@@ -31,43 +41,32 @@ export class CategoryComponent implements OnInit {
     });
   }
 
-  newCategory() {
-    this.editMode = false;
-    this.categoryForm = { id: 0, name: '' };
-    this.showForm = true;
-  }
-
-  editCategory(category: Category) {
-    this.editMode = true;
-    this.categoryForm = { ...category };
-    this.showForm = true;
+  openModal(isEdit: boolean, category?: Category) {
+    this.editMode = isEdit;
+    this.categoryForm = isEdit && category ? { ...category } : { id: 0, name: '' };
+    this.modal.show();
   }
 
   saveCategory() {
     if (this.editMode) {
       this.categoryService.updateCategory(this.categoryForm).subscribe(() => {
         this.loadCategories();
-        this.cancel();
+        this.modal.hide();
       });
     } else {
       this.categoryService.addCategory(this.categoryForm).subscribe(() => {
         this.loadCategories();
-        this.cancel();
+        this.modal.hide();
       });
     }
   }
 
-  deleteCategory(id: number) {
+  deleteCategory(id: number | null) {
+    if (id === null) return;
     if (confirm('Deseja excluir esta categoria?')) {
       this.categoryService.deleteCategory(id).subscribe(() => {
         this.loadCategories();
       });
     }
-  }
-
-  cancel() {
-    this.showForm = false;
-    this.categoryForm = { id: 0, name: '' };
-    this.editMode = false;
   }
 }
