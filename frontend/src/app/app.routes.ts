@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { HomeClienteComponent } from './paginas/cliente/home-cliente/home-cliente.component';
 import { HomeFuncionarioComponent } from './paginas/funcionario/home-funcionario/home-funcionario.component';
 import { LoginComponent } from './components/login/login.component';
-import { AutocadastroComponent } from './autocadastro/autocadastro/autocadastro.component';
+import { AutocadastroComponent } from './components/registration/autocadastro.component';
 import { EquipamentoComponent } from './paginas/equipamento/equipamento/equipamento.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CategoryComponent } from './components/category/category.component';
@@ -18,7 +18,6 @@ import { EfetuarOrcamentoComponent } from './paginas/funcionario/efetuar-orcamen
 
 import { AprovarServicoClienteComponent } from './paginas/cliente/aprovar-servico-cliente/aprovar-servico-cliente.component';
 
-
 export const routes: Routes = [
 	{
 		path: 'login',
@@ -32,11 +31,11 @@ export const routes: Routes = [
 		path: 'dashboard',
 		component: DashboardComponent,
 		children: [
-			{ path: 'home', component: HomeFuncionarioComponent},
+			{ path: 'home', component: HomeFuncionarioComponent },
 			{ path: 'categories', component: CategoryComponent },
 			{ path: 'employees', component: EmployeeComponent },
 			{ path: 'orders', component: OrdersComponent },
-			{ path: 'quote', component: EfetuarOrcamentoComponent}
+			{ path: 'quote', component: EfetuarOrcamentoComponent },
 		],
 	},
 	{
@@ -70,19 +69,18 @@ export const routes: Routes = [
 	},
 	{
 		path: 'solicitar-manutencao',
-		component: SolicitarManutencaoComponent
+		component: SolicitarManutencaoComponent,
 	},
 	{
 		path: 'mostrar-orcamento',
-		component: MostrarOrcamentoComponent
+		component: MostrarOrcamentoComponent,
 	},
 	{
 		path: 'efetuar-orcamento',
-		component: EfetuarOrcamentoComponent
+		component: EfetuarOrcamentoComponent,
 	},
 	{
 		path: 'aprovar-servico',
-		component: AprovarServicoClienteComponent
+		component: AprovarServicoClienteComponent,
 	},
-
 ];
