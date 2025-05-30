@@ -1,15 +1,21 @@
 <!-- order-creation.component.html -->
 <div class="container mt-5">
 	<h2>Nova ordem de serviço</h2>
-	<form (ngSubmit)="onSubmit()">
+	<form [formGroup]="ordersForm" (ngSubmit)="save()">
 		<div class="row mb-3">
 			<div class="col-md-6">
-				<label for="category" class="form-label">Categoria:</label>
+				<label for="category_id" class="form-label">Categoria:</label>
 				<select
-					id="category"
-					[(ngModel)]="selectedCategory"
-					name="category"
+					id="category_id"
+					formControlName="category_id"
+					name="category_id"
 					class="form-select"
+					[ngClass]="{
+						'is-invalid':
+							ordersForm.get('category_id')?.invalid &&
+							(ordersForm.get('category_id')?.dirty ||
+								ordersForm.get('category_id')?.touched),
+					}"
 				>
 					<option *ngIf="!categories.length" value="" disabled selected>
 						Nenhuma categoria cadastrada
@@ -18,31 +24,88 @@
 						{{ category.name }}
 					</option>
 				</select>
+				<div
+					*ngIf="
+						ordersForm.get('category_id')?.invalid &&
+						(ordersForm.get('category_id')?.dirty ||
+							ordersForm.get('category_id')?.touched)
+					"
+					class="invalid-feedback"
+				>
+					<div *ngIf="ordersForm.get('category_id')?.errors?.['required']">
+						Este campo é obrigatório
+					</div>
+				</div>
 			</div>
 			<div class="col-md-6">
-				<label for="equipmentDescription" class="form-label">
+				<label for="equipment_description" class="form-label">
 					Equipamento:
 				</label>
 				<input
 					type="text"
-					id="equipmentDescription"
-					[(ngModel)]="equipmentDescription"
-					name="equipmentDescription"
+					id="equipment_description"
+					formControlName="equipment_description"
+					name="equipment_description"
+					placeholder="Nome do equipamento"
 					class="form-control"
+					[ngClass]="{
+						'is-invalid':
+							ordersForm.get('equipment_description')?.invalid &&
+							(ordersForm.get('equipment_description')?.dirty ||
+								ordersForm.get('equipment_description')?.touched),
+					}"
 				/>
+				<div
+					*ngIf="
+						ordersForm.get('equipment_description')?.invalid &&
+						(ordersForm.get('equipment_description')?.dirty ||
+							ordersForm.get('equipment_description')?.touched)
+					"
+					class="invalid-feedback"
+				>
+					<div
+						*ngIf="
+							ordersForm.get('equipment_description')?.errors?.['required']
+						"
+					>
+						Este campo é obrigatório
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="row"></div>
 		<div class="mb-3">
 			<label for="defectDescription" class="form-label">Defeito:</label>
 			<textarea
-				id="defectDescription"
-				[(ngModel)]="defectDescription"
-				name="defectDescription"
+				id="deffect_description"
+				formControlName="deffect_description"
+				name="deffect_description"
 				class="form-control"
+				placeholder="Descreva o problema"
 				rows="5"
+				[ngClass]="{
+					'is-invalid':
+						ordersForm.get('deffect_description')?.invalid &&
+						(ordersForm.get('deffect_description')?.dirty ||
+							ordersForm.get('deffect_description')?.touched),
+				}"
 			></textarea>
+			<div
+				*ngIf="
+					ordersForm.get('deffect_description')?.invalid &&
+					(ordersForm.get('deffect_description')?.dirty ||
+						ordersForm.get('deffect_description')?.touched)
+				"
+				class="invalid-feedback"
+			>
+				<div
+					*ngIf="ordersForm.get('deffect_description')?.errors?.['required']"
+				>
+					Este campo é obrigatório
+				</div>
+			</div>
 		</div>
+
 		<button type="submit" class="btn btn-primary">Enviar</button>
 	</form>
 </div>

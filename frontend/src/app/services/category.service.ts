@@ -10,7 +10,7 @@ import { Category } from '../models';
 })
 export class CategoryService {
 	workingCategory = {};
-	categories: Array<Category> = [];
+	categoriesCache: Array<Category> = [];
 
 	constructor(private http: HttpClient) {}
 
@@ -19,7 +19,7 @@ export class CategoryService {
 
 		return this.http.get<Category[]>(categoriesUrl).pipe(
 			tap({
-				next: (response) => (this.categories = response),
+				next: (response) => (this.categoriesCache = response),
 				error: (error) => console.log(error),
 			}),
 		);

@@ -19,8 +19,8 @@ export class CategoryComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.categoryService.getCategories().subscribe({
-			next: (response) => {
-				this.categories = this.categoryService.categories;
+			next: (_) => {
+				this.categories = this.categoryService.categoriesCache;
 			},
 		});
 	}
