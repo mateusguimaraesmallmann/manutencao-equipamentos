@@ -4,17 +4,17 @@
 	<form [formGroup]="ordersForm" (ngSubmit)="save()">
 		<div class="row mb-3">
 			<div class="col-md-6">
-				<label for="equipment_description" class="form-label">Categoria:</label>
+				<label for="category_id" class="form-label">Categoria:</label>
 				<select
-					id="equipment_description"
-					formControlName="equipment_description"
-					name="equipment_description"
+					id="category_id"
+					formControlName="category_id"
+					name="category_id"
 					class="form-select"
 					[ngClass]="{
 						'is-invalid':
-							ordersForm.get('equipment_description')?.invalid &&
-							(ordersForm.get('equipment_description')?.dirty ||
-								ordersForm.get('equipment_description')?.touched),
+							ordersForm.get('category_id')?.invalid &&
+							(ordersForm.get('category_id')?.dirty ||
+								ordersForm.get('category_id')?.touched),
 					}"
 				>
 					<option *ngIf="!categories.length" value="" disabled selected>
@@ -26,27 +26,14 @@
 				</select>
 				<div
 					*ngIf="
-						ordersForm.get('equipment_description')?.invalid &&
-						(ordersForm.get('equipment_description')?.dirty ||
-							ordersForm.get('equipment_description')?.touched)
+						ordersForm.get('category_id')?.invalid &&
+						(ordersForm.get('category_id')?.dirty ||
+							ordersForm.get('category_id')?.touched)
 					"
 					class="invalid-feedback"
 				>
-					<div
-						*ngIf="
-							ordersForm.get('equipment_description')?.errors?.['required']
-						"
-					>
+					<div *ngIf="ordersForm.get('category_id')?.errors?.['required']">
 						Este campo é obrigatório
-					</div>
-					<div
-						*ngIf="
-							ordersForm.get('equipment_description')?.errors?.[
-								'equipment_description'
-							]
-						"
-					>
-						Formato inválido
 					</div>
 				</div>
 			</div>
@@ -59,6 +46,7 @@
 					id="equipment_description"
 					formControlName="equipment_description"
 					name="equipment_description"
+					placeholder="Nome do equipamento"
 					class="form-control"
 					[ngClass]="{
 						'is-invalid':
@@ -93,6 +81,7 @@
 				formControlName="deffect_description"
 				name="deffect_description"
 				class="form-control"
+				placeholder="Descreva o problema"
 				rows="5"
 				[ngClass]="{
 					'is-invalid':

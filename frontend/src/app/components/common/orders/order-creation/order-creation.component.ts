@@ -32,7 +32,7 @@ export class OrderCreationComponent implements OnInit {
 		private fb: FormBuilder,
 	) {
 		this.ordersForm = this.fb.group({
-			category_id: [null, Validators.required, Validators.min(1)],
+			category_id: [null, Validators.required],
 			equipment_description: ['', Validators.required],
 			deffect_description: ['', Validators.required],
 		});
@@ -43,7 +43,6 @@ export class OrderCreationComponent implements OnInit {
 	ngOnInit(): void {
 		this.categoryService.getCategories().subscribe((_) => {
 			this.categories = this.categoryService.categoriesCache;
-			console.log(this.categories);
 		});
 	}
 
@@ -51,9 +50,11 @@ export class OrderCreationComponent implements OnInit {
 
 	save() {
 		if (!this.ordersForm.valid) {
+			console.log(this.ordersForm);
 			this.ordersForm.markAllAsTouched();
 			return;
 		}
+
 		let client_id = this.authService.getUser()?.client_id!;
 
 		const new_order = new Order({
