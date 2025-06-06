@@ -3,7 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 import { AuthService } from '../../services/index';
 
@@ -12,7 +12,7 @@ import { AuthService } from '../../services/index';
 	templateUrl: './autocadastro.component.html',
 	styleUrls: ['./autocadastro.component.css'],
 	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule],
+	imports: [CommonModule, ReactiveFormsModule, RouterModule],
 })
 export class AutocadastroComponent {
 	cadastroForm: FormGroup;
@@ -29,7 +29,7 @@ export class AutocadastroComponent {
 			email: ['', [Validators.required, Validators.email]],
 			phone: ['', [Validators.required]],
 			zip_code: ['', [Validators.required]],
-			address: [''],
+			address: ['', [Validators.required]],
 		});
 	}
 
@@ -55,6 +55,7 @@ export class AutocadastroComponent {
 			this.authService.registerClient(registerData).subscribe({
 				next: (response) => {
 					alert('Usuário cadastrado com sucesso');
+					this.router.navigate(['/login']);
 				},
 				error: (error) => {
 					console.log(error);
