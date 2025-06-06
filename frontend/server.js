@@ -30,6 +30,76 @@ server.post("/login", (req, res) => {
 	}
 });
 
+server.post("/new_client", async (req, res) => {
+	const fetch = (await import("node-fetch")).default;
+	const { name, email, document, zip_code, address, phone } = req.body;
+
+	try {
+		const userResponse = await fetch("http://localhost:3000/users", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				name,
+				email,
+				role: 2,
+				employee_id: null,
+				client_id: null,
+			}),
+		});
+
+		if (!userResponse.ok) {
+			throw new Error("Failed to create user");
+		}
+
+		const newUser = await userResponse.json();
+
+		const clientResponse = await fetch("http://localhost:3000/clients", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				document,
+				zip_code,
+				address,
+				phone,
+				user_id: newUser.id,
+			}),
+		});
+
+		if (!clientResponse.ok) {
+			throw new Error("Failed to create client");
+		}
+
+		const newClient = await clientResponse.json();
+
+		const updateUserResponse = await fetch(
+			`http://localhost:3000/users/${newUser.id}`,
+			{
+				method: "PATCH",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ client_id: newClient.id }),
+			},
+		);
+
+		if (!updateUserResponse.ok) {
+			throw new Error("Failed to update user with client_id");
+		}
+
+		const updatedUser = await updateUserResponse.json();
+
+		res.status(201).json({
+			user: updatedUser,
+			client: newClient,
+		});
+	} catch (error) {
+		res.status(500).json({
+			message: "Error while registering",
+			error: error.message,
+		});
+	}
+
+	const users = router.db.get("users").value();
+});
+
 server.use(router);
 server.listen(3000, () => {
 	console.log("JSON Server is running on port 3000");
