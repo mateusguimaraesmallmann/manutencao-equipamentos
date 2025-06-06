@@ -13,6 +13,8 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
+import { Router } from '@angular/router';
+
 @Component({
 	selector: 'app-order-creation',
 	standalone: true,
@@ -30,6 +32,7 @@ export class OrderCreationComponent implements OnInit {
 		private orderService: OrderService,
 		private authService: AuthService,
 		private fb: FormBuilder,
+		private router: Router,
 	) {
 		this.ordersForm = this.fb.group({
 			category_id: [null, Validators.required],
@@ -59,12 +62,15 @@ export class OrderCreationComponent implements OnInit {
 
 		const new_order = new Order({
 			...this.ordersForm.value,
+			created_at: new Date(), //TODO - REMOVER AO INTEGRAR COM A API
 			client_id,
 		});
 
 		if (new_order.valid(EntityMethods.CREATE)) {
 			this.orderService.newOrder(new_order).subscribe((response) => {
 				console.log(response);
+				alert('Ordem de serviço criada');
+				this.router.navigate(['/home']);
 			});
 		} else {
 			alert('Ordem de serviço inválida');
