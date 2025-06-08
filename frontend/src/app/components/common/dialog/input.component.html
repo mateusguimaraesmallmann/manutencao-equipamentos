@@ -1,0 +1,30 @@
+<div class="modal-content">
+	<div class="modal-header">
+		<h5 class="modal-title">Ordem de serviço #{{ orderId }}</h5>
+		<button
+			type="button"
+			class="btn-close"
+			(click)="onCancel()"
+			aria-label="Close"
+		></button>
+	</div>
+	<div class="modal-body">
+		<div class="mb-3">
+			<label for="valueInput" class="form-label">{{ getTitle() || "-" }}</label>
+			<input
+				type="text"
+				class="form-control"
+				id="valueInput"
+				[(ngModel)]="value"
+				placeholder="Insira os dados aqui"
+				#input
+				autofocus
+			/>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" (click)="onSubmit()">
+			Salvar
+		</button>
+	</div>
+</div>

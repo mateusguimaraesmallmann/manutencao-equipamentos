@@ -6,6 +6,7 @@ import { AuthService } from '../../../services';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OrderComponent } from './order/order.component';
+import { InputDialogComponent } from '../../common/dialog/input.component';
 
 enum OrderAction {
 	OPENED,
@@ -114,6 +115,12 @@ export class OrdersComponent implements OnInit {
 						action: OrderAction.REPAIR,
 						classes: 'btn-success',
 					});
+
+				btns.push({
+					label: 'Redirecionar',
+					action: OrderAction.REDIRECT,
+					classes: 'btn-primary',
+				});
 				break;
 			case OrderStatus.ARRUMADA:
 				if (this.forClient)
@@ -154,6 +161,7 @@ export class OrdersComponent implements OnInit {
 				}
 				break;
 			case OrderAction.EVALUATE:
+				this.inputModal('orcar', order.id);
 				break;
 			case OrderAction.REJECT:
 				if (confirm('Tem certeza de que deseja rejeitar o serviço?')) {
@@ -182,13 +190,46 @@ export class OrdersComponent implements OnInit {
 				}
 				break;
 			case OrderAction.REDIRECT:
+				this.inputModal('redirecionar', order.id);
 				break;
 			case OrderAction.PAY:
+				if (confirm('Confirmar pagamento?')) {
+					this.orderService.newAction(order, OrderStatus.PAGA).subscribe({
+						next: (response) => {
+							alert('Pagamento confirmado com sucesso');
+							this.loadOrders();
+						},
+						error: (error) => {
+							alert(error);
+						},
+					});
+				}
 				break;
 			case OrderAction.REPAIR:
+				if (confirm('Confirmar reparo?')) {
+					this.orderService.newAction(order, OrderStatus.ARRUMADA).subscribe({
+						next: (response) => {
+							alert('Reparo confirmado');
+							this.loadOrders();
+						},
+						error: (error) => {
+							alert(error);
+						},
+					});
+				}
 				break;
 			case OrderAction.FINISH:
-				alert(`${order.id} clicked`);
+				if (confirm('Deseja finalizar este serviço?')) {
+					this.orderService.newAction(order, OrderStatus.ARRUMADA).subscribe({
+						next: (response) => {
+							alert('Serviço finalizado');
+							this.loadOrders();
+						},
+						error: (error) => {
+							alert(error);
+						},
+					});
+				}
 				break;
 			default:
 				break;
@@ -199,5 +240,42 @@ export class OrdersComponent implements OnInit {
 		const modalRef = this.modalService.open(OrderComponent);
 		modalRef.componentInstance.orderId = orderId;
 		return;
+	}
+
+	inputModal(type: string, orderId: Number | null): void {
+		const modalRef = this.modalService.open(InputDialogComponent);
+		modalRef.componentInstance.type = type;
+		modalRef.componentInstance.orderId = orderId;
+
+		modalRef.result.then((value: string) => {
+			if (orderId) {
+				const order = this.orders.find((o) => o.id === orderId);
+				if (order) {
+					let order_action = {
+						order_id: order.id,
+						employee_id: this.authService.getUser()?.employee_id,
+						created_at: new Date(),
+						STATUS: OrderStatus.REDIRECIONADA,
+					};
+
+					if (type == 'orcar') {
+						order.price = parseFloat(value);
+						order_action.STATUS = OrderStatus.ORCADA;
+					} else {
+						order.employee_id = parseInt(value);
+					}
+
+					this.orderService.newAction(order, order_action.STATUS).subscribe({
+						next: (response) => {
+							alert('HELLO');
+							this.loadOrders();
+						},
+						error: (error) => {
+							alert(error);
+						},
+					});
+				}
+			}
+		});
 	}
 }
