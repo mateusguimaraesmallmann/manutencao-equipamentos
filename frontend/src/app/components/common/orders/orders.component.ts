@@ -109,18 +109,19 @@ export class OrdersComponent implements OnInit {
 				break;
 			case OrderStatus.APROVADA:
 			case OrderStatus.REDIRECIONADA:
-				if (!this.forClient)
+				if (!this.forClient) {
 					btns.push({
 						label: 'Reparar',
 						action: OrderAction.REPAIR,
 						classes: 'btn-success',
 					});
 
-				btns.push({
-					label: 'Redirecionar',
-					action: OrderAction.REDIRECT,
-					classes: 'btn-primary',
-				});
+					btns.push({
+						label: 'Redirecionar',
+						action: OrderAction.REDIRECT,
+						classes: 'btn-primary',
+					});
+				}
 				break;
 			case OrderStatus.ARRUMADA:
 				if (this.forClient)
