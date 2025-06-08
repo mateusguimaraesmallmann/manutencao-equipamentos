@@ -7,6 +7,7 @@
 			<div class="card-body">
 				<ng-container *ngIf="order.status == 'ORÇADA'; else normalOrder">
 					<div
+						*ngIf="forClient"
 						class="d-flex align-items-center bg-light shadow-sm p-3 mb-3 rounded w-100 gap-3 highlighted"
 					>
 						<span class="fs-5 flex-grow-1">

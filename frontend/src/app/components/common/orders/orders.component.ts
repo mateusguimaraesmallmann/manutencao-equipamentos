@@ -239,6 +239,7 @@ export class OrdersComponent implements OnInit {
 	orderModal(orderId?: Number) {
 		const modalRef = this.modalService.open(OrderComponent);
 		modalRef.componentInstance.orderId = orderId;
+		modalRef.componentInstance.forClient = this.forClient;
 		return;
 	}
 
@@ -267,7 +268,7 @@ export class OrdersComponent implements OnInit {
 
 					this.orderService.newAction(order, order_action.STATUS).subscribe({
 						next: (response) => {
-							alert('HELLO');
+							alert('Alteração realizada com sucesso');
 							this.loadOrders();
 						},
 						error: (error) => {

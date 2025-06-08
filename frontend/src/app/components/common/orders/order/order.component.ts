@@ -16,6 +16,8 @@ export class OrderComponent {
 	orderId?: number | null;
 	order: any;
 
+	forClient: boolean = false;
+
 	constructor(
 		private orderService: OrderService,
 		public activeModal: NgbActiveModal,
