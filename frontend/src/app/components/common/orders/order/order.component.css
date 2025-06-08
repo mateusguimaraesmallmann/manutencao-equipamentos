@@ -1,22 +1,6 @@
-.modal-content {
-	max-height: 700px;
-	overflow-y: auto;
+.highlighted {
+	border: 1px solid;
 }
-
-table {
-	table-layout: fixed;
-	width: 100%;
-}
-
-table th,
-table td {
-	width: 50%;
-}
-
-table th {
-	width: 30%;
-}
-
-table td {
-	width: 70%;
+.highlighted span {
+	font-size: 30px;
 }
