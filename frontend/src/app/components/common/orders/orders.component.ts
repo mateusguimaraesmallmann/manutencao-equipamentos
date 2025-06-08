@@ -43,6 +43,10 @@ export class OrdersComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
+		this.loadOrders();
+	}
+
+	loadOrders(): void {
 		if (this.forClient) this.setupClient();
 		else this.setupEmployee();
 	}
@@ -137,12 +141,52 @@ export class OrdersComponent implements OnInit {
 	updateOrder(action: OrderAction, order: Order) {
 		switch (action) {
 			case OrderAction.APPROVE:
+				if (confirm('Tem certeza de que deseja aprovar o serviço?')) {
+					this.orderService.newAction(order, OrderStatus.APROVADA).subscribe({
+						next: (response) => {
+							alert('Orçamento aprovado com sucesso');
+							this.loadOrders();
+						},
+						error: (error) => {
+							alert(error);
+						},
+					});
+				}
+				break;
 			case OrderAction.EVALUATE:
+				break;
 			case OrderAction.REJECT:
+				if (confirm('Tem certeza de que deseja rejeitar o serviço?')) {
+					this.orderService.newAction(order, OrderStatus.REJEITADA).subscribe({
+						next: (response) => {
+							alert('Orçamento rejeitado com sucesso');
+							this.loadOrders();
+						},
+						error: (error) => {
+							alert(error);
+						},
+					});
+				}
+				break;
 			case OrderAction.RECOVER:
+				if (confirm('Tem certeza de que deseja resgatar o serviço?')) {
+					this.orderService.newAction(order, OrderStatus.APROVADA).subscribe({
+						next: (response) => {
+							alert('Orçamento aprovada com sucesso');
+							this.loadOrders();
+						},
+						error: (error) => {
+							alert(error);
+						},
+					});
+				}
+				break;
 			case OrderAction.REDIRECT:
+				break;
 			case OrderAction.PAY:
+				break;
 			case OrderAction.REPAIR:
+				break;
 			case OrderAction.FINISH:
 				alert(`${order.id} clicked`);
 				break;
