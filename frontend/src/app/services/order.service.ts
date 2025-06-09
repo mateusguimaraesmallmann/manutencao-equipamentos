@@ -38,7 +38,7 @@ export class OrderService {
 					employee_id: order.employee_id,
 					created_at: new Date(),
 					order_id: createdOrder.id,
-					STATUS: OrderStatus.ABERTA,
+					status: OrderStatus.ABERTA,
 				};
 
 				return this.http.post(order_action_url, action).pipe(
@@ -72,7 +72,7 @@ export class OrderService {
 			employee_id: order.employee_id,
 			created_at: new Date(),
 			order_id: order.id,
-			STATUS: status,
+			status: status,
 		};
 
 		return this.http.post(order_action_url, action).pipe(
