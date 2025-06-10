@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 
@@ -7,12 +8,16 @@ import { FormsModule } from '@angular/forms';
 	templateUrl: './input.component.html',
 	styleUrl: './input.component.css',
 	standalone: true,
-	imports: [FormsModule],
+	imports: [FormsModule, CommonModule],
 })
 export class InputDialogComponent {
 	type: string | null = null;
 	orderId: Number | null = null;
 	value: string = '';
+	descriptions = {
+		repair: '',
+		instruction: '',
+	};
 
 	constructor(public activeModal: NgbActiveModal) {}
 
@@ -21,12 +26,29 @@ export class InputDialogComponent {
 	}
 
 	onSubmit(): void {
-		this.activeModal.close(this.value);
+		if (this.type == 'reparar') {
+			if (
+				this.descriptions.repair == '' ||
+				this.descriptions.instruction == ''
+			) {
+				alert('Preencha todos os dados');
+				return;
+			}
+			this.activeModal.close({ ...this.descriptions, value: null });
+		} else {
+			this.activeModal.close({ value: this.value });
+		}
 	}
 
 	getTitle(): string {
-		return this.type == 'orcar'
-			? 'Valor do orçamento'
-			: 'Redirecionar para funcionário';
+		switch (this.type) {
+			case 'orcar':
+				return 'Valor do orçamento';
+			case 'redirectionar':
+				return 'Redirecionar para funcionário';
+			case 'reparar':
+			default:
+				return 'Ação inválida';
+		}
 	}
 }
