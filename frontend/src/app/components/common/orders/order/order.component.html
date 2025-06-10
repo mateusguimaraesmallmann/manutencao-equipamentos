@@ -1,133 +1,146 @@
 <div class="modal-content">
-	<div class="card shadow-sm">
-		<ng-container *ngIf="order; else invalid_order">
-			<div class="card-header bg-primary text-white">
-				<h5 class="">Ordem de Serviço #{{ order.id }}</h5>
-			</div>
-			<div class="card-body">
-				<ng-container *ngIf="order.status == 'ORÇADA'; else normalOrder">
-					<div
-						*ngIf="forClient"
-						class="d-flex align-items-center bg-light shadow-sm p-3 mb-3 rounded w-100 gap-3 highlighted"
-					>
-						<span class="fs-5 flex-grow-1">
-							Preço orçado:
-							<span class="fw-bold">
-								{{ order.price }}
+	<ng-container *ngIf="loading; else dataModal">Carregando...</ng-container>
+	<ng-template #dataModal>
+		<div class="card shadow-sm">
+			<ng-container *ngIf="order; else invalid_order">
+				<div class="card-header bg-primary text-white">
+					<h5 class="">Ordem de Serviço #{{ order.id }}</h5>
+				</div>
+				<div class="card-body">
+					<ng-container *ngIf="order.status == 'ORÇADA'; else normalOrder">
+						<div
+							*ngIf="forClient"
+							class="d-flex align-items-center bg-light shadow-sm p-3 mb-3 rounded w-100 gap-3 highlighted"
+						>
+							<span class="fs-5 flex-grow-1">
+								Preço orçado:
+								<span class="fw-bold">
+									{{ order.price }}
+								</span>
 							</span>
-						</span>
-						<div class="d-inline-flex gap-2">
-							<button type="button" class="btn btn-success btn-sm">
-								Aprovar
-							</button>
-							<button type="button" class="btn btn-danger btn-sm">
-								Rejeitar
-							</button>
+							<div class="d-inline-flex gap-2">
+								<button type="button" class="btn btn-success btn-sm">
+									Aprovar
+								</button>
+								<button type="button" class="btn btn-danger btn-sm">
+									Rejeitar
+								</button>
+							</div>
 						</div>
-					</div>
-					<table class="table table-striped">
-						<tbody>
-							<tr>
-								<th>ID Cliente</th>
-								<td>{{ order.client_id }}</td>
-							</tr>
-							<tr>
-								<th>ID Funcionário</th>
-								<td>{{ order.employee_id }}</td>
-							</tr>
-							<tr>
-								<th>ID Categoria</th>
-								<td>{{ order.category_id }}</td>
-							</tr>
-							<tr>
-								<th>Equipamento</th>
-								<td>{{ order.equipment_description }}</td>
-							</tr>
-							<tr>
-								<th>Defeito</th>
-								<td>{{ order.deffect_description }}</td>
-							</tr>
-							<tr></tr>
-							<tr>
-								<th>Data da Abertura</th>
-								<td>{{ order.created_at }}</td>
-							</tr>
-							<tr>
-								<th>Status</th>
-								<td>
-									<span class="badge bg-success">{{ order.status }}</span>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</ng-container>
-				<ng-template #normalOrder>
-					<table class="table table-striped">
-						<tbody>
-							<tr>
-								<th>ID Cliente</th>
-								<td>{{ order.client_id }}</td>
-							</tr>
-							<tr>
-								<th>ID Funcionário</th>
-								<td>{{ order.employee_id }}</td>
-							</tr>
-							<tr>
-								<th>ID Categoria</th>
-								<td>{{ order.category_id }}</td>
-							</tr>
-							<tr>
-								<th>Equipamento</th>
-								<td>{{ order.equipment_description }}</td>
-							</tr>
-							<tr>
-								<th>Defeito</th>
-								<td>{{ order.deffect_description }}</td>
-							</tr>
-							<tr>
-								<th>Preço</th>
-								<td>{{ order.price ? "R$ " + order.price : " - " }}</td>
-							</tr>
-							<tr>
-								<th>Data da Abertura</th>
-								<td>{{ order.created_at }}</td>
-							</tr>
-							<tr>
-								<th>Status</th>
-								<td>
-									<span class="badge bg-success">{{ order.status }}</span>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</ng-template>
+						<table class="table table-striped">
+							<tbody>
+								<tr>
+									<th>Cliente</th>
+									<td>{{ clientName }}</td>
+								</tr>
+								<tr>
+									<th>Funcionário</th>
+									<td>{{ getEmployeeName(order.employee_id) }}</td>
+								</tr>
+								<tr>
+									<th>Categoria</th>
+									<td>{{ getCategoryName(order.category_id) }}</td>
+								</tr>
+								<tr>
+									<th>Equipamento</th>
+									<td>{{ order.equipment_description }}</td>
+								</tr>
+								<tr>
+									<th>Defeito</th>
+									<td>{{ order.deffect_description }}</td>
+								</tr>
+								<tr></tr>
+								<tr>
+									<th>Data da Abertura</th>
+									<td>{{ order.created_at }}</td>
+								</tr>
+								<tr>
+									<th>Status</th>
+									<td>
+										<span class="badge bg-success">{{ order.status }}</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</ng-container>
+					<ng-template #normalOrder>
+						<table class="table table-striped">
+							<tbody>
+								<tr>
+									<th>ID Cliente</th>
+									<td>{{ order.client_id }}</td>
+								</tr>
+								<tr>
+									<th>ID Funcionário</th>
+									<td>{{ order.employee_id }}</td>
+								</tr>
+								<tr>
+									<th>ID Categoria</th>
+									<td>{{ order.category_id }}</td>
+								</tr>
+								<tr>
+									<th>Equipamento</th>
+									<td>{{ order.equipment_description }}</td>
+								</tr>
+								<tr>
+									<th>Defeito</th>
+									<td>{{ order.deffect_description }}</td>
+								</tr>
+								<tr>
+									<th>Preço</th>
+									<td>{{ order.price ? "R$ " + order.price : " - " }}</td>
+								</tr>
+								<tr>
+									<th>Data da Abertura</th>
+									<td>{{ order.created_at }}</td>
+								</tr>
+								<tr>
+									<th>Status</th>
+									<td>
+										<span class="badge bg-success">{{ order.status }}</span>
+									</td>
+								</tr>
+								<tr *ngIf="order.status == 'ARRUMADA'">
+									<th>Descrição do reparo</th>
+									<td>{{ order.repair_description }}</td>
+								</tr>
+								<tr *ngIf="order.status == 'ARRUMADA'">
+									<th>Instruções adicionais</th>
+									<td>{{ order.instruction_description }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</ng-template>
 
-				<h6 class="text-muted">Histórico de Ações</h6>
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th>Data e Hora</th>
-							<th>Status</th>
-							<th>ID Funcionário</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr *ngFor="let action of order.order_actions">
-							<td>{{ action.created_at }}</td>
-							<td>
-								<span class="badge bg-info">{{ action.STATUS }}</span>
-							</td>
-							<td>{{ action.employee_id || "-" }}</td>
-						</tr>
-						<tr *ngIf="order.order_actions.length <= 0">
-							<td colspan="3">Nenhuma ação registrada</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</ng-container>
-		<ng-template #invalid_order>
-			<div>Invalid Order</div>
-		</ng-template>
-	</div>
+					<h6 class="text-muted">Histórico de Ações</h6>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Data e Hora</th>
+								<th>Status</th>
+								<th>Funcionário</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let action of order.order_actions">
+								<td>{{ action.created_at }}</td>
+								<td>
+									<span class="badge bg-info">{{ action.status }}</span>
+								</td>
+								<td>
+									{{ getEmployeeName(action.employee_id) }}
+								</td>
+							</tr>
+							<tr *ngIf="order.order_actions.length <= 0">
+								<td colspan="3">Nenhuma ação registrada</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</ng-container>
+			<ng-template #invalid_order>
+				<div>Invalid Order</div>
+			</ng-template>
+		</div>
+	</ng-template>
 </div>
