@@ -6,7 +6,7 @@ import { AuthService } from '../../../services';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OrderComponent } from './order/order.component';
-import { InputDialogComponent } from '../../common/dialog/input.component';
+import { InputDialogComponent } from './dialog/input.component';
 
 enum OrderAction {
 	OPENED,
