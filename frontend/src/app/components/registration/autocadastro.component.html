@@ -1,0 +1,198 @@
+<div class="container mt-4">
+	<h2 class="mb-4">Autocadastro</h2>
+	<form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()" novalidate>
+		<div class="row g-3">
+			<div class="col-md-6">
+				<label for="document" class="form-label">CPF</label>
+				<input
+					type="text"
+					class="form-control"
+					id="document"
+					formControlName="document"
+					placeholder="Digite seu CPF"
+					[ngClass]="{
+						'is-invalid':
+							cadastroForm.get('document')?.invalid &&
+							(cadastroForm.get('document')?.touched ||
+								cadastroForm.get('document')?.dirty),
+					}"
+				/>
+				<div
+					*ngIf="
+						cadastroForm.get('document')?.invalid &&
+						(cadastroForm.get('document')?.touched ||
+							cadastroForm.get('document')?.dirty)
+					"
+					class="invalid-feedback"
+				>
+					<div *ngIf="cadastroForm.get('document')?.errors?.['required']">
+						O CPF é obrigatório.
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<label for="name" class="form-label">Nome</label>
+				<input
+					type="text"
+					class="form-control"
+					id="name"
+					formControlName="name"
+					placeholder="Digite seu nome"
+					[ngClass]="{
+						'is-invalid':
+							cadastroForm.get('name')?.invalid &&
+							(cadastroForm.get('name')?.touched ||
+								cadastroForm.get('name')?.dirty),
+					}"
+				/>
+				<div
+					*ngIf="
+						cadastroForm.get('name')?.invalid &&
+						(cadastroForm.get('name')?.touched ||
+							cadastroForm.get('name')?.dirty)
+					"
+					class="invalid-feedback"
+				>
+					<div *ngIf="cadastroForm.get('name')?.errors?.['required']">
+						O nome é obrigatório.
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row g-3 mt-3">
+			<div class="col-md-6">
+				<label for="email" class="form-label">E-mail</label>
+				<input
+					type="email"
+					class="form-control"
+					id="email"
+					formControlName="email"
+					placeholder="Digite seu e-mail"
+					[ngClass]="{
+						'is-invalid':
+							cadastroForm.get('email')?.invalid &&
+							(cadastroForm.get('email')?.touched ||
+								cadastroForm.get('email')?.dirty),
+					}"
+				/>
+				<div
+					*ngIf="
+						cadastroForm.get('email')?.invalid &&
+						(cadastroForm.get('email')?.touched ||
+							cadastroForm.get('email')?.dirty)
+					"
+					class="invalid-feedback"
+				>
+					<div *ngIf="cadastroForm.get('email')?.errors?.['required']">
+						O e-mail é obrigatório.
+					</div>
+					<div *ngIf="cadastroForm.get('email')?.errors?.['email']">
+						Por favor, insira um e-mail válido.
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<label for="phone" class="form-label">Telefone</label>
+				<input
+					type="text"
+					class="form-control"
+					id="phone"
+					formControlName="phone"
+					placeholder="Digite seu telefone"
+					[ngClass]="{
+						'is-invalid':
+							cadastroForm.get('phone')?.invalid &&
+							(cadastroForm.get('phone')?.touched ||
+								cadastroForm.get('phone')?.dirty),
+					}"
+				/>
+				<div
+					*ngIf="
+						cadastroForm.get('phone')?.invalid &&
+						(cadastroForm.get('phone')?.touched ||
+							cadastroForm.get('phone')?.dirty)
+					"
+					class="invalid-feedback"
+				>
+					<div *ngIf="cadastroForm.get('phone')?.errors?.['required']">
+						O telefone é obrigatório.
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row g-3 mt-3">
+			<div class="col-md-6">
+				<label for="zip_code" class="form-label">CEP</label>
+				<input
+					type="text"
+					class="form-control"
+					id="zip_code"
+					formControlName="zip_code"
+					placeholder="Digite o CEP"
+					(blur)="onCepChange()"
+					[ngClass]="{
+						'is-invalid':
+							cadastroForm.get('zip_code')?.invalid &&
+							(cadastroForm.get('zip_code')?.touched ||
+								cadastroForm.get('zip_code')?.dirty),
+					}"
+				/>
+				<div
+					*ngIf="
+						cadastroForm.get('zip_code')?.invalid &&
+						(cadastroForm.get('zip_code')?.touched ||
+							cadastroForm.get('zip_code')?.dirty)
+					"
+					class="invalid-feedback"
+				>
+					<div *ngIf="cadastroForm.get('zip_code')?.errors?.['required']">
+						O CEP é obrigatório.
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<label for="address" class="form-label">Endereço Completo</label>
+				<input
+					type="text"
+					class="form-control"
+					id="address"
+					formControlName="address"
+					placeholder="Endereço"
+					[ngClass]="{
+						'is-invalid':
+							cadastroForm.get('address')?.invalid &&
+							(cadastroForm.get('address')?.touched ||
+								cadastroForm.get('address')?.dirty),
+					}"
+				/>
+				<div
+					*ngIf="
+						cadastroForm.get('address')?.invalid &&
+						(cadastroForm.get('address')?.touched ||
+							cadastroForm.get('address')?.dirty)
+					"
+					class="invalid-feedback"
+				>
+					<div *ngIf="cadastroForm.get('address')?.errors?.['required']">
+						O endereço é obrigatório.
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="mt-4 d-flex gap-2">
+			<button
+				type="submit"
+				class="btn btn-primary"
+				[disabled]="!cadastroForm.valid"
+			>
+				Cadastrar
+			</button>
+			<a type="button" class="btn btn-secondary" [routerLink]="['/login']">
+				Voltar
+			</a>
+		</div>
+	</form>
+</div>

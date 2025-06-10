@@ -38,6 +38,12 @@ export class AuthService {
 		return this.currentUser;
 	}
 
+	registerClient(clientData: any): Observable<any> {
+		const registerUrl = `${API_URL}/new_client`;
+
+		return this.http.post(registerUrl, clientData);
+	}
+
 	logout(): void {
 		console.log('LOGOUT');
 		this.currentUser = null;

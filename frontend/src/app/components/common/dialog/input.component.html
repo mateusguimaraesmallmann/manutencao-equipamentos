@@ -1,0 +1,64 @@
+<div class="modal-content">
+	<div class="modal-header">
+		<h5 class="modal-title">Ordem de serviço #{{ orderId }}</h5>
+		<button
+			type="button"
+			class="btn-close"
+			(click)="onCancel()"
+			aria-label="Close"
+		></button>
+	</div>
+	<div class="modal-body">
+		<ng-container *ngIf="type != 'reparar'; else repairModal">
+			<div class="mb-3">
+				<label for="valueInput" class="form-label">
+					{{ getTitle() || "-" }}
+				</label>
+				<input
+					type="text"
+					class="form-control"
+					id="valueInput"
+					[(ngModel)]="value"
+					placeholder="Insira os dados aqui"
+					#input
+					autofocus
+				/>
+			</div>
+		</ng-container>
+		<ng-template #repairModal>
+			<div class="mb-3">
+				<label for="repair" class="form-label">Descrição do reparo</label>
+				<input
+					type="text"
+					class="form-control"
+					id="repair"
+					[(ngModel)]="descriptions.repair"
+					placeholder="Escreva o que foi arrumado aqui"
+					#input
+					autofocus
+					required
+				/>
+			</div>
+			<div class="mb-3">
+				<label for="instruction" class="form-label">
+					Instruções para o cliente
+				</label>
+				<input
+					type="text"
+					class="form-control"
+					id="instruction"
+					[(ngModel)]="descriptions.instruction"
+					placeholder="Insira os dados aqui"
+					#input
+					autofocus
+					required
+				/>
+			</div>
+		</ng-template>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" (click)="onSubmit()">
+			Salvar
+		</button>
+	</div>
+</div>

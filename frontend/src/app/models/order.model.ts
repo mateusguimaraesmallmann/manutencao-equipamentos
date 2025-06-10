@@ -8,6 +8,8 @@ export class Order {
 	public created_at: Date | null;
 	public equipment_description: string | null;
 	public deffect_description: string | null;
+	public repair_description: string | null;
+	public instruction_description: string | null;
 	public status: OrderStatus | null;
 	public price: Number | null;
 	public order_actions: OrderAction[] | null;
@@ -20,6 +22,8 @@ export class Order {
 		created_at?: string | null;
 		equipment_description: string;
 		deffect_description: string;
+		repair_description?: string | null;
+		instruction_description?: string | null;
 		status?: OrderStatus;
 		price?: Number | null;
 		order_actions?: OrderAction[];
@@ -32,6 +36,8 @@ export class Order {
 			this.created_at = null;
 			this.equipment_description = null;
 			this.deffect_description = null;
+			this.repair_description = null;
+			this.instruction_description = null;
 			this.status = null;
 			this.price = null;
 			this.order_actions = null;
@@ -45,6 +51,8 @@ export class Order {
 				: null;
 			this.equipment_description = options.equipment_description || null;
 			this.deffect_description = options.deffect_description || null;
+			this.repair_description = options.repair_description || null;
+			this.instruction_description = options.instruction_description || null;
 			this.status = options.status || OrderStatus.ABERTA;
 			this.price = options.price || null;
 			this.order_actions = options.order_actions || [];
