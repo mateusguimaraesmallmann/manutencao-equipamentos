@@ -207,21 +207,11 @@ export class OrdersComponent implements OnInit {
 				}
 				break;
 			case OrderAction.REPAIR:
-				if (confirm('Confirmar reparo?')) {
-					this.orderService.newAction(order, OrderStatus.ARRUMADA).subscribe({
-						next: (response) => {
-							alert('Reparo confirmado');
-							this.loadOrders();
-						},
-						error: (error) => {
-							alert(error);
-						},
-					});
-				}
+				this.inputModal('reparar', order.id);
 				break;
 			case OrderAction.FINISH:
 				if (confirm('Deseja finalizar este serviço?')) {
-					this.orderService.newAction(order, OrderStatus.ARRUMADA).subscribe({
+					this.orderService.newAction(order, OrderStatus.FINALIZADA).subscribe({
 						next: (response) => {
 							alert('Serviço finalizado');
 							this.loadOrders();
@@ -249,7 +239,7 @@ export class OrdersComponent implements OnInit {
 		modalRef.componentInstance.type = type;
 		modalRef.componentInstance.orderId = orderId;
 
-		modalRef.result.then((value: string) => {
+		modalRef.result.then((result: any) => {
 			if (orderId) {
 				const order = this.orders.find((o) => o.id === orderId);
 				if (order) {
@@ -257,17 +247,30 @@ export class OrdersComponent implements OnInit {
 						order_id: order.id,
 						employee_id: this.authService.getUser()?.employee_id,
 						created_at: new Date(),
-						STATUS: OrderStatus.REDIRECIONADA,
+						status: order.status,
 					};
 
-					if (type == 'orcar') {
-						order.price = parseFloat(value);
-						order_action.STATUS = OrderStatus.ORCADA;
-					} else {
-						order.employee_id = parseInt(value);
+					switch (type) {
+						case 'orcar':
+							order.price = parseFloat(result.value) || order.price;
+							order_action.status = OrderStatus.ORCADA;
+							break;
+						case 'redirecionar':
+							console.log(order.employee_id);
+							order.employee_id = parseInt(result.value) || order.employee_id;
+							console.log(order.employee_id);
+							order_action.status = OrderStatus.REDIRECIONADA;
+							break;
+						case 'reparar':
+							order_action.status = OrderStatus.ARRUMADA;
+							order.repair_description = result.repair || '';
+							order.instruction_description = result.instruction || '';
+							break;
+						default:
+							break;
 					}
 
-					this.orderService.newAction(order, order_action.STATUS).subscribe({
+					this.orderService.newAction(order, order_action.status!).subscribe({
 						next: (response) => {
 							alert('Alteração realizada com sucesso');
 							this.loadOrders();
