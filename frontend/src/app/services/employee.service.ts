@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { Observable, tap, switchMap, forkJoin } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { Employee } from '../models';
+import { Employee, User } from '../models';
 
 import { API_URL } from './api';
 
@@ -28,4 +29,59 @@ export class EmployeeService {
 			}),
 		);
 	}
+
+	getEmployees(): Observable<Employee[]> {
+		const employeesUrl = `${API_URL}/employees`;
+
+		return this.http.get<any[]>(employeesUrl).pipe(
+			switchMap((employees) =>
+				forkJoin(
+					employees.map((emp: any) =>
+						this.http
+							.get<User>(`${API_URL}/users/${emp.user_id}`)
+							.pipe(
+								map((user: any) => new Employee(emp.id, emp.birthday, user)),
+							),
+					),
+				),
+			),
+			tap((response) => {
+				this.employeesCache = response;
+			}),
+		);
+	}
+
+	newEmployee(employeeData: any): Observable<any> {
+		let employeeUrl = `${API_URL}/new_employee`;
+
+		return this.http.post(employeeUrl, employeeData);
+	}
+
+	//	updateCategory(id: number, category: Category): Observable<any> {
+	//		let categoryUrl = `${API_URL}/categories/${id}`;
+	//
+	//		return this.http.put<Category>(categoryUrl, category).pipe(
+	//			tap({
+	//				next: (response) => {
+	//					this.resetCache();
+	//				},
+	//				error: (error) => console.log(error),
+	//			}),
+	//		);
+	//	}
+	//
+	//	destroyCategory(id: number): Observable<any> {
+	//		let categoryUrl = `${API_URL}/categories/${id}`;
+	//
+	//		return this.http.delete(categoryUrl).pipe(
+	//			tap({
+	//				next: (response) => {
+	//					this.categoriesCache = this.categoriesCache.filter(
+	//						(category) => category.id !== id,
+	//					);
+	//				},
+	//				error: (error) => console.log(error),
+	//			}),
+	//		);
+	//	}
 }
