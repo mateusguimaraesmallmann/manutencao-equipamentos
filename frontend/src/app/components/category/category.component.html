@@ -21,8 +21,15 @@
 				<td>{{ category.id }}</td>
 				<td>{{ category.name }}</td>
 				<td>
-					<button class="btn btn-info me-2">Edit</button>
-					<button class="btn btn-danger">Delete</button>
+					<button
+						class="btn btn-info me-2"
+						(click)="updateCategory(category.id)"
+					>
+						Edit
+					</button>
+					<button class="btn btn-danger" (click)="deleteCategory(category.id)">
+						Delete
+					</button>
 				</td>
 			</tr>
 		</tbody>
