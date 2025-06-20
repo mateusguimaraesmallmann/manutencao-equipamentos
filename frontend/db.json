@@ -39,6 +39,38 @@
       "employee_id": null,
       "client_id": 3,
       "id": 5
+    },
+    {
+      "name": "João",
+      "email": "joao@joao.com",
+      "role": 2,
+      "employee_id": null,
+      "client_id": 4,
+      "id": 6
+    },
+    {
+      "name": "José",
+      "email": "jose@jose.com",
+      "role": 2,
+      "employee_id": null,
+      "client_id": 5,
+      "id": 7
+    },
+    {
+      "name": "Joana",
+      "email": "joana@joana.com",
+      "role": 2,
+      "employee_id": null,
+      "client_id": 6,
+      "id": 8
+    },
+    {
+      "name": "Joaquina",
+      "email": "joaquina@joaquina.com",
+      "role": 2,
+      "employee_id": null,
+      "client_id": 7,
+      "id": 9
     }
   ],
   "employees": [
@@ -97,6 +129,38 @@
       "phone": "4199999999",
       "user_id": 5,
       "id": 3
+    },
+    {
+      "document": "44444444444",
+      "zip_code": "82320080",
+      "address": "Rua Augustinho Lucca, Santa Felicidade, Curitiba - PR",
+      "phone": "41999999999",
+      "user_id": 6,
+      "id": 4
+    },
+    {
+      "document": "111111111111",
+      "zip_code": "82520750",
+      "address": "Rua Purus, Bacacheri, Curitiba - PR",
+      "phone": "41999988888",
+      "user_id": 7,
+      "id": 5
+    },
+    {
+      "document": "77777777777",
+      "zip_code": "82320750",
+      "address": "Avenida Manoel Ribas, Butiatuvinha, Curitiba - PR",
+      "phone": "4188888888888",
+      "user_id": 8,
+      "id": 6
+    },
+    {
+      "document": "11111111111",
+      "zip_code": "83250970",
+      "address": "Rua Antônio Mioto, Centro, Paranaguá - PR",
+      "phone": "41777777777777",
+      "user_id": 9,
+      "id": 7
     }
   ],
   "categories": [
@@ -107,6 +171,26 @@
     {
       "id": 2,
       "name": "Componentes"
+    },
+    {
+      "name": "Notebook",
+      "id": 3
+    },
+    {
+      "name": "Desktop",
+      "id": 4
+    },
+    {
+      "name": "Impressora",
+      "id": 5
+    },
+    {
+      "name": "Mouse",
+      "id": 6
+    },
+    {
+      "name": "Teclado",
+      "id": 7
     }
   ],
   "orders": [
@@ -196,6 +280,446 @@
           "status": "ORÇADA"
         }
       ]
+    },
+    {
+      "id": 4,
+      "client_id": 7,
+      "employee_id": null,
+      "category_id": "6",
+      "created_at": "2025-06-20T21:24:32.561Z",
+      "equipment_description": "Mouse",
+      "deffect_description": "Scroll não funciona",
+      "repair_description": null,
+      "instruction_description": null,
+      "status": "ABERTA",
+      "price": null,
+      "order_actions": [
+        {
+          "employee_id": null,
+          "created_at": "2025-06-20T21:24:32.594Z",
+          "order_id": 4,
+          "status": "ABERTA",
+          "id": 8
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "client_id": 7,
+      "employee_id": null,
+      "category_id": "4",
+      "created_at": "2025-06-20T21:24:52.490Z",
+      "equipment_description": "Desktop",
+      "deffect_description": "Superaquecendo",
+      "repair_description": null,
+      "instruction_description": null,
+      "status": "ABERTA",
+      "price": null,
+      "order_actions": [
+        {
+          "employee_id": null,
+          "created_at": "2025-06-20T21:24:52.529Z",
+          "order_id": 5,
+          "status": "ABERTA",
+          "id": 9
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "client_id": 4,
+      "employee_id": null,
+      "category_id": "7",
+      "created_at": "2025-06-20T21:25:23.394Z",
+      "equipment_description": "Teclado",
+      "deffect_description": "Tecla esta emperrada",
+      "repair_description": null,
+      "instruction_description": null,
+      "status": "ABERTA",
+      "price": null,
+      "order_actions": [
+        {
+          "employee_id": null,
+          "created_at": "2025-06-20T21:25:23.424Z",
+          "order_id": 6,
+          "status": "ABERTA",
+          "id": 10
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "client_id": 4,
+      "employee_id": null,
+      "category_id": "5",
+      "created_at": "2025-06-20T21:25:39.116Z",
+      "equipment_description": "Impressora",
+      "deffect_description": "Papel travado\n",
+      "repair_description": null,
+      "instruction_description": null,
+      "status": "ABERTA",
+      "price": null,
+      "order_actions": [
+        {
+          "employee_id": null,
+          "created_at": "2025-06-20T21:25:39.141Z",
+          "order_id": 7,
+          "status": "ABERTA",
+          "id": 11
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "client_id": 4,
+      "employee_id": null,
+      "category_id": "3",
+      "created_at": "2025-06-20T21:25:54.492Z",
+      "equipment_description": "Notebook",
+      "deffect_description": "Tela nao liga",
+      "repair_description": null,
+      "instruction_description": null,
+      "status": "ABERTA",
+      "price": null,
+      "order_actions": [
+        {
+          "employee_id": null,
+          "created_at": "2025-06-20T21:25:54.517Z",
+          "order_id": 8,
+          "status": "ABERTA",
+          "id": 12
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "client_id": 5,
+      "employee_id": null,
+      "category_id": "3",
+      "created_at": "2025-06-20T21:26:30.783Z",
+      "equipment_description": "Notebook",
+      "deffect_description": "Bateria nao segura carga",
+      "repair_description": null,
+      "instruction_description": null,
+      "status": "ABERTA",
+      "price": null,
+      "order_actions": [
+        {
+          "employee_id": null,
+          "created_at": "2025-06-20T21:26:30.804Z",
+          "order_id": 9,
+          "status": "ABERTA",
+          "id": 13
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "client_id": 5,
+      "employee_id": null,
+      "category_id": "7",
+      "created_at": "2025-06-20T21:26:48.950Z",
+      "equipment_description": "Teclado",
+      "deffect_description": "Tecla enter nao funciona",
+      "repair_description": null,
+      "instruction_description": null,
+      "status": "ABERTA",
+      "price": null,
+      "order_actions": [
+        {
+          "employee_id": null,
+          "created_at": "2025-06-20T21:26:48.979Z",
+          "order_id": 10,
+          "status": "ABERTA",
+          "id": 14
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "client_id": 5,
+      "employee_id": null,
+      "category_id": "6",
+      "created_at": "2025-06-20T21:27:05.454Z",
+      "equipment_description": "Mouse",
+      "deffect_description": "Cabo com mal contato\n",
+      "repair_description": null,
+      "instruction_description": null,
+      "status": "ABERTA",
+      "price": null,
+      "order_actions": [
+        {
+          "employee_id": null,
+          "created_at": "2025-06-20T21:27:05.482Z",
+          "order_id": 11,
+          "status": "ABERTA",
+          "id": 15
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "client_id": 5,
+      "employee_id": null,
+      "category_id": "3",
+      "created_at": "2025-06-20T21:27:23.839Z",
+      "equipment_description": "Notebook",
+      "deffect_description": "Saindo fumaça dele",
+      "repair_description": null,
+      "instruction_description": null,
+      "status": "ABERTA",
+      "price": null,
+      "order_actions": [
+        {
+          "employee_id": null,
+          "created_at": "2025-06-20T21:27:23.865Z",
+          "order_id": 12,
+          "status": "ABERTA",
+          "id": 16
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "client_id": 6,
+      "employee_id": null,
+      "category_id": "3",
+      "created_at": "2025-06-20T21:27:48.224Z",
+      "equipment_description": "Notebook",
+      "deffect_description": "Virus",
+      "repair_description": null,
+      "instruction_description": null,
+      "status": "ABERTA",
+      "price": null,
+      "order_actions": [
+        {
+          "employee_id": null,
+          "created_at": "2025-06-20T21:27:48.236Z",
+          "order_id": 13,
+          "status": "ABERTA",
+          "id": 17
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "client_id": 6,
+      "employee_id": null,
+      "category_id": "5",
+      "created_at": "2025-06-20T21:28:07.461Z",
+      "equipment_description": "Impressora",
+      "deffect_description": "Somente imprime preto e branco",
+      "repair_description": null,
+      "instruction_description": null,
+      "status": "ABERTA",
+      "price": null,
+      "order_actions": [
+        {
+          "employee_id": null,
+          "created_at": "2025-06-20T21:28:07.496Z",
+          "order_id": 14,
+          "status": "ABERTA",
+          "id": 18
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "client_id": 6,
+      "employee_id": null,
+      "category_id": "6",
+      "created_at": "2025-06-20T21:28:18.017Z",
+      "equipment_description": "Mouse",
+      "deffect_description": "Fio cortado",
+      "repair_description": null,
+      "instruction_description": null,
+      "status": "ABERTA",
+      "price": null,
+      "order_actions": [
+        {
+          "employee_id": null,
+          "created_at": "2025-06-20T21:28:18.034Z",
+          "order_id": 15,
+          "status": "ABERTA",
+          "id": 19
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "client_id": 6,
+      "employee_id": null,
+      "category_id": "7",
+      "created_at": "2025-06-20T21:28:38.761Z",
+      "equipment_description": "Teclado",
+      "deffect_description": "Teclado molhou e parou de funcionar",
+      "repair_description": null,
+      "instruction_description": null,
+      "status": "ABERTA",
+      "price": null,
+      "order_actions": [
+        {
+          "employee_id": null,
+          "created_at": "2025-06-20T21:28:38.786Z",
+          "order_id": 16,
+          "status": "ABERTA",
+          "id": 20
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "client_id": 7,
+      "employee_id": null,
+      "category_id": "6",
+      "created_at": "2025-06-20T21:29:53.981Z",
+      "equipment_description": "Mouse",
+      "deffect_description": "Mouse esta sem bateria",
+      "repair_description": null,
+      "instruction_description": null,
+      "status": "ABERTA",
+      "price": null,
+      "order_actions": [
+        {
+          "employee_id": null,
+          "created_at": "2025-06-20T21:29:54.011Z",
+          "order_id": 17,
+          "status": "ABERTA",
+          "id": 21
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "client_id": 7,
+      "employee_id": null,
+      "category_id": "5",
+      "created_at": "2025-06-20T21:30:15.231Z",
+      "equipment_description": "Impressora",
+      "deffect_description": "Somente imprime ciano",
+      "repair_description": null,
+      "instruction_description": null,
+      "status": "ABERTA",
+      "price": null,
+      "order_actions": [
+        {
+          "employee_id": null,
+          "created_at": "2025-06-20T21:30:15.266Z",
+          "order_id": 18,
+          "status": "ABERTA",
+          "id": 22
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "client_id": 7,
+      "employee_id": null,
+      "category_id": "7",
+      "created_at": "2025-06-20T21:30:46.542Z",
+      "equipment_description": "Teclado",
+      "deffect_description": "TECLA CAPSLOCK EMPERRADA",
+      "repair_description": null,
+      "instruction_description": null,
+      "status": "ABERTA",
+      "price": null,
+      "order_actions": [
+        {
+          "employee_id": null,
+          "created_at": "2025-06-20T21:30:46.584Z",
+          "order_id": 19,
+          "status": "ABERTA",
+          "id": 23
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "client_id": 5,
+      "employee_id": null,
+      "category_id": "3",
+      "created_at": "2025-06-20T21:31:28.267Z",
+      "equipment_description": "Notebook",
+      "deffect_description": "Reiniciando sozinho ",
+      "repair_description": null,
+      "instruction_description": null,
+      "status": "ABERTA",
+      "price": null,
+      "order_actions": [
+        {
+          "employee_id": null,
+          "created_at": "2025-06-20T21:31:28.295Z",
+          "order_id": 20,
+          "status": "ABERTA",
+          "id": 24
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "client_id": 5,
+      "employee_id": null,
+      "category_id": "5",
+      "created_at": "2025-06-20T21:31:48.696Z",
+      "equipment_description": "Impressora",
+      "deffect_description": "Impressora nao está ligando",
+      "repair_description": null,
+      "instruction_description": null,
+      "status": "ABERTA",
+      "price": null,
+      "order_actions": [
+        {
+          "employee_id": null,
+          "created_at": "2025-06-20T21:31:48.728Z",
+          "order_id": 21,
+          "status": "ABERTA",
+          "id": 25
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "client_id": 5,
+      "employee_id": null,
+      "category_id": "6",
+      "created_at": "2025-06-20T21:32:14.228Z",
+      "equipment_description": "Mouse",
+      "deffect_description": "Botao direito do mouse nao esta funcionando",
+      "repair_description": null,
+      "instruction_description": null,
+      "status": "ABERTA",
+      "price": null,
+      "order_actions": [
+        {
+          "employee_id": null,
+          "created_at": "2025-06-20T21:32:14.274Z",
+          "order_id": 22,
+          "status": "ABERTA",
+          "id": 26
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "client_id": 5,
+      "employee_id": null,
+      "category_id": "4",
+      "created_at": "2025-06-20T21:32:51.877Z",
+      "equipment_description": "Desktop",
+      "deffect_description": "Coolers nao funcionando",
+      "repair_description": null,
+      "instruction_description": null,
+      "status": "ABERTA",
+      "price": null,
+      "order_actions": [
+        {
+          "employee_id": null,
+          "created_at": "2025-06-20T21:32:51.910Z",
+          "order_id": 23,
+          "status": "ABERTA",
+          "id": 27
+        }
+      ]
     }
   ],
   "order_actions": [
@@ -240,6 +764,146 @@
       "order_id": 1,
       "status": "ORÇADA",
       "id": 7
+    },
+    {
+      "employee_id": null,
+      "created_at": "2025-06-20T21:24:32.594Z",
+      "order_id": 4,
+      "status": "ABERTA",
+      "id": 8
+    },
+    {
+      "employee_id": null,
+      "created_at": "2025-06-20T21:24:52.529Z",
+      "order_id": 5,
+      "status": "ABERTA",
+      "id": 9
+    },
+    {
+      "employee_id": null,
+      "created_at": "2025-06-20T21:25:23.424Z",
+      "order_id": 6,
+      "status": "ABERTA",
+      "id": 10
+    },
+    {
+      "employee_id": null,
+      "created_at": "2025-06-20T21:25:39.141Z",
+      "order_id": 7,
+      "status": "ABERTA",
+      "id": 11
+    },
+    {
+      "employee_id": null,
+      "created_at": "2025-06-20T21:25:54.517Z",
+      "order_id": 8,
+      "status": "ABERTA",
+      "id": 12
+    },
+    {
+      "employee_id": null,
+      "created_at": "2025-06-20T21:26:30.804Z",
+      "order_id": 9,
+      "status": "ABERTA",
+      "id": 13
+    },
+    {
+      "employee_id": null,
+      "created_at": "2025-06-20T21:26:48.979Z",
+      "order_id": 10,
+      "status": "ABERTA",
+      "id": 14
+    },
+    {
+      "employee_id": null,
+      "created_at": "2025-06-20T21:27:05.482Z",
+      "order_id": 11,
+      "status": "ABERTA",
+      "id": 15
+    },
+    {
+      "employee_id": null,
+      "created_at": "2025-06-20T21:27:23.865Z",
+      "order_id": 12,
+      "status": "ABERTA",
+      "id": 16
+    },
+    {
+      "employee_id": null,
+      "created_at": "2025-06-20T21:27:48.236Z",
+      "order_id": 13,
+      "status": "ABERTA",
+      "id": 17
+    },
+    {
+      "employee_id": null,
+      "created_at": "2025-06-20T21:28:07.496Z",
+      "order_id": 14,
+      "status": "ABERTA",
+      "id": 18
+    },
+    {
+      "employee_id": null,
+      "created_at": "2025-06-20T21:28:18.034Z",
+      "order_id": 15,
+      "status": "ABERTA",
+      "id": 19
+    },
+    {
+      "employee_id": null,
+      "created_at": "2025-06-20T21:28:38.786Z",
+      "order_id": 16,
+      "status": "ABERTA",
+      "id": 20
+    },
+    {
+      "employee_id": null,
+      "created_at": "2025-06-20T21:29:54.011Z",
+      "order_id": 17,
+      "status": "ABERTA",
+      "id": 21
+    },
+    {
+      "employee_id": null,
+      "created_at": "2025-06-20T21:30:15.266Z",
+      "order_id": 18,
+      "status": "ABERTA",
+      "id": 22
+    },
+    {
+      "employee_id": null,
+      "created_at": "2025-06-20T21:30:46.584Z",
+      "order_id": 19,
+      "status": "ABERTA",
+      "id": 23
+    },
+    {
+      "employee_id": null,
+      "created_at": "2025-06-20T21:31:28.295Z",
+      "order_id": 20,
+      "status": "ABERTA",
+      "id": 24
+    },
+    {
+      "employee_id": null,
+      "created_at": "2025-06-20T21:31:48.728Z",
+      "order_id": 21,
+      "status": "ABERTA",
+      "id": 25
+    },
+    {
+      "employee_id": null,
+      "created_at": "2025-06-20T21:32:14.274Z",
+      "order_id": 22,
+      "status": "ABERTA",
+      "id": 26
+    },
+    {
+      "employee_id": null,
+      "created_at": "2025-06-20T21:32:51.910Z",
+      "order_id": 23,
+      "status": "ABERTA",
+      "id": 27
     }
   ],
   "funcionario": [
