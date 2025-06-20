@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { Observable, forkJoin, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { InputDialogComponent } from '../dialog/input.component';
 
 import { Employee, Category, User } from '../../../../models';
 
@@ -29,6 +31,7 @@ export class OrderComponent {
 
 	constructor(
 		private orderService: OrderService,
+		private modal: NgbModal,
 		private employeeService: EmployeeService,
 		private categoryService: CategoryService,
 		private clientService: ClientService,
@@ -92,4 +95,22 @@ export class OrderComponent {
 			.getUserFromClient(client_id)
 			.pipe(map((user: User) => user?.name ?? '-'));
 	}
+
+	/** RF014 – abre o diálogo de manutenção e grava como ARRUMADA */
+	onReparar(): void {
+ 		 const ref = this.modal.open(InputDialogComponent, { centered: true });
+  		ref.componentInstance.type = 'reparar';
+  		ref.componentInstance.orderId = this.order.id;
+
+  		ref.result
+    .then((res: { repair: string; instruction: string }) => {
+      if (!res) return;
+
+      this.orderService
+        .reparar(this.order, res.repair, res.instruction)
+        .subscribe((updated) => (this.order = updated));   // atualiza tela
+    })
+    .catch(() => {});   // diálogo cancelado
+}
+
 }
