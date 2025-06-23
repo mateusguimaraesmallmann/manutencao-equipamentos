@@ -39,6 +39,16 @@ export class EmployeeComponent implements OnInit {
 		});
 	}
 
+	updateEmployee(id: any) {
+		const modalRef = this.activeModal.open(EmployeeDialogComponent);
+		modalRef.componentInstance.employeeId = id;
+
+		modalRef.result.then((response: any) => {
+			alert('Funcionário atualizado com sucesso');
+			this.loadEmployees();
+		});
+	}
+
 	//updateCategory(id: any) {
 	//	const modalRef = this.activeModal.open(CategoryDialogComponent);
 	//	modalRef.componentInstance.categoryId = id;

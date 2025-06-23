@@ -27,7 +27,9 @@
 				<td>{{ emp.user.email }}</td>
 				<td>{{ emp.birthday }}</td>
 				<td>
-					<button class="btn btn-info me-2">Modificar</button>
+					<button class="btn btn-info me-2" (click)="updateEmployee(emp.id)">
+						Modificar
+					</button>
 					<button class="btn btn-danger">Excluir</button>
 				</td>
 			</tr>

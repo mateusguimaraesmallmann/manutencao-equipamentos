@@ -102,7 +102,7 @@ import { EmployeeService } from '../../services';
 				<button
 					type="submit"
 					class="btn btn-primary"
-					[disabled]="employeeForm.invalid"
+					[disabled]="disableSubmit()"
 				>
 					Salvar
 				</button>
@@ -119,13 +119,27 @@ export class EmployeeDialogComponent {
 		email: new FormControl('', [Validators.required]),
 		birthday: new FormControl('', [Validators.required]),
 	});
+	currentEmployee: null | any = null;
 
 	constructor(
 		public activeModal: NgbActiveModal,
 		private employeeService: EmployeeService,
 	) {}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+		if (this.employeeId !== null) {
+			this.currentEmployee = this.employeeService.employeesCache.find(
+				(employee) => employee.id === this.employeeId,
+			);
+			if (this.currentEmployee) {
+				this.employeeForm.patchValue({
+					name: this.currentEmployee.user.name,
+					email: this.currentEmployee.user.email,
+					birthday: this.currentEmployee.birthday,
+				});
+			}
+		}
+	}
 
 	onCancel(): void {
 		this.activeModal.dismiss();
@@ -134,6 +148,8 @@ export class EmployeeDialogComponent {
 	onSubmit(): void {
 		if (this.employeeId === null) {
 			this.createEmployee();
+		} else {
+			this.updateEmployee();
 		}
 	}
 
@@ -143,5 +159,29 @@ export class EmployeeDialogComponent {
 			.subscribe((resp) => {
 				this.activeModal.close();
 			});
+	}
+
+	updateEmployee(): void {
+		let empData = {
+			...this.currentEmployee,
+			birthday:
+				this.employeeForm.value.birthday || this.currentEmployee.birthday,
+			user: {
+				...this.currentEmployee.user,
+				name: this.employeeForm.value.name,
+				email: this.employeeForm.value.email,
+			},
+		};
+
+		this.employeeService.updateEmployee(empData).subscribe(() => {
+			this.activeModal.close();
+		});
+	}
+
+	disableSubmit(): boolean {
+		if (this.employeeId == null) {
+			return !this.employeeForm.valid;
+		}
+		return !this.employeeForm.touched && this.employeeForm.valid;
 	}
 }

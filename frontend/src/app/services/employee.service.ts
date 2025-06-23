@@ -57,6 +57,28 @@ export class EmployeeService {
 		return this.http.post(employeeUrl, employeeData);
 	}
 
+	updateEmployee(emp: any): Observable<any> {
+		let employeeUrl = `${API_URL}/employees/${emp.id}`;
+		let userUrl = `${API_URL}/users/${emp.user.id}`;
+
+		let userData = { ...emp.user };
+
+		let empData = { ...emp, user_id: emp.user.id };
+		delete empData.user;
+
+		return forkJoin([
+			this.http.put(employeeUrl, empData),
+			this.http.put(userUrl, userData),
+		]).pipe(
+			map(([employeeResponse, userResponse]) => {
+				({
+					employee: employeeResponse,
+					user: userResponse,
+				});
+			}),
+		);
+	}
+
 	//	updateCategory(id: number, category: Category): Observable<any> {
 	//		let categoryUrl = `${API_URL}/categories/${id}`;
 	//
