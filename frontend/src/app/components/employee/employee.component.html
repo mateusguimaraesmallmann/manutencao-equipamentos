@@ -30,7 +30,13 @@
 					<button class="btn btn-info me-2" (click)="updateEmployee(emp.id)">
 						Modificar
 					</button>
-					<button class="btn btn-danger">Excluir</button>
+					<button
+						class="btn btn-danger"
+						(click)="deleteEmployee(emp.id)"
+						[disabled]="!ableToDestroy(emp.id)"
+					>
+						Excluir
+					</button>
 				</td>
 			</tr>
 		</tbody>

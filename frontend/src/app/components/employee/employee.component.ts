@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { EmployeeService } from '../../services';
+import { EmployeeService, AuthService } from '../../services';
 import { Employee } from '../../models';
 import { EmployeeDialogComponent } from './input.compoment';
 
@@ -19,6 +19,7 @@ export class EmployeeComponent implements OnInit {
 	constructor(
 		private employeeService: EmployeeService,
 		private activeModal: NgbModal,
+		private authService: AuthService,
 	) {}
 
 	ngOnInit(): void {
@@ -49,21 +50,23 @@ export class EmployeeComponent implements OnInit {
 		});
 	}
 
-	//updateCategory(id: any) {
-	//	const modalRef = this.activeModal.open(CategoryDialogComponent);
-	//	modalRef.componentInstance.categoryId = id;
+	deleteEmployee(id: any) {
+		if (confirm('Tem certeza que deseja excluir este funcionário?')) {
+			let employee = this.employeeService.employeesCache.find((emp) => {
+				return emp.id === id;
+			});
 
-	//	modalRef.result.then((response: any) => {
-	//		this.loadCategories();
-	//	});
-	//}
+			this.employeeService.destroyEmployee(employee).subscribe(
+				(response: any) => this.loadEmployees(),
+				(error: any) => console.log('Erro ao excluir funcionário', error),
+			);
+		}
+	}
 
-	//deleteCategory(id: any) {
-	//	if (confirm(`Tem certeza que deseja excluir a categoria ${id}`)) {
-	//		this.categoryService.destroyCategory(id).subscribe(
-	//			(response) => this.loadCategories(),
-	//			(error) => console.log('Error deletando categoria:', error),
-	//		);
-	//	}
-	//}
+	ableToDestroy(id: any): boolean {
+		return (
+			id !== this.authService.getUser()?.employee_id &&
+			this.employeeService.employeesCache.length > 1
+		);
+	}
 }

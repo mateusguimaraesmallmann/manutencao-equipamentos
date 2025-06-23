@@ -79,31 +79,28 @@ export class EmployeeService {
 		);
 	}
 
-	//	updateCategory(id: number, category: Category): Observable<any> {
-	//		let categoryUrl = `${API_URL}/categories/${id}`;
-	//
-	//		return this.http.put<Category>(categoryUrl, category).pipe(
-	//			tap({
-	//				next: (response) => {
-	//					this.resetCache();
-	//				},
-	//				error: (error) => console.log(error),
-	//			}),
-	//		);
-	//	}
-	//
-	//	destroyCategory(id: number): Observable<any> {
-	//		let categoryUrl = `${API_URL}/categories/${id}`;
-	//
-	//		return this.http.delete(categoryUrl).pipe(
-	//			tap({
-	//				next: (response) => {
-	//					this.categoriesCache = this.categoriesCache.filter(
-	//						(category) => category.id !== id,
-	//					);
-	//				},
-	//				error: (error) => console.log(error),
-	//			}),
-	//		);
-	//	}
+	destroyEmployee(employee: any): Observable<any> {
+		let employeeUrl = `${API_URL}/employees/${employee.id}`;
+		let userUrl = `${API_URL}/users/${employee.user.id}`;
+
+		return this.http.get(`${API_URL}/users/${employee.user.id}`).pipe(
+			switchMap((user: any) => {
+				const requests: Observable<any>[] = [this.http.delete(employeeUrl)];
+
+				if (user.client_id === null) {
+					requests.push(this.http.delete(userUrl));
+				} else {
+					const userData = { ...user, role: 1, employee_id: null };
+					requests.push(this.http.put(userUrl, userData));
+				}
+
+				return forkJoin(requests).pipe(
+					map(([employeeResponse, userResponse]) => ({
+						employee: employeeResponse,
+						user: userResponse,
+					})),
+				);
+			}),
+		);
+	}
 }
