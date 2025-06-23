@@ -22,6 +22,10 @@ export class EmployeeComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
+		this.loadEmployees();
+	}
+
+	loadEmployees(): void {
 		this.employeeService.getEmployees().subscribe({
 			next: (response) => {
 				this.employees = this.employeeService.employeesCache;
@@ -30,7 +34,9 @@ export class EmployeeComponent implements OnInit {
 	}
 
 	newEmployee() {
-		this.activeModal.open(EmployeeDialogComponent);
+		this.activeModal.open(EmployeeDialogComponent).result.then(() => {
+			this.loadEmployees();
+		});
 	}
 
 	//updateCategory(id: any) {
