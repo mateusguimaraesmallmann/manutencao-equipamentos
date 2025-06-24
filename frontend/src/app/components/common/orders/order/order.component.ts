@@ -58,13 +58,11 @@ export class OrderComponent {
 			)
 			.subscribe({
 				next: ({ order, employees, categories, clientName }) => {
-					console.log(clientName);
 					this.order = order;
 					this.clientName = clientName;
 					this.loading = false;
 				},
 				error: (err) => {
-					console.error('Error loading data:', err);
 					this.order = null;
 					this.loading = false;
 				},

@@ -100,11 +100,23 @@
 										<span class="badge bg-success">{{ order.status }}</span>
 									</td>
 								</tr>
-								<tr *ngIf="order.status == 'ARRUMADA'">
+								<tr
+									*ngIf="
+										order.status == 'ARRUMADA' ||
+										order.status == 'PAGA' ||
+										order.status == 'FINALIZADA'
+									"
+								>
 									<th>Descrição do reparo</th>
 									<td>{{ order.repair_description }}</td>
 								</tr>
-								<tr *ngIf="order.status == 'ARRUMADA'">
+								<tr
+									*ngIf="
+										order.status == 'ARRUMADA' ||
+										order.status == 'PAGA' ||
+										order.status == 'FINALIZADA'
+									"
+								>
 									<th>Instruções adicionais</th>
 									<td>{{ order.instruction_description }}</td>
 								</tr>
