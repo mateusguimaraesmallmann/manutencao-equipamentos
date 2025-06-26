@@ -287,4 +287,32 @@ export class OrdersComponent implements OnInit {
 			}
 		});
 	}
+	getStatusBorder(status: OrderStatus): string {
+		const borderMap: Record<OrderStatus, string> = {
+			[OrderStatus.ABERTA]: '10px solid #6c757d', // gray
+			[OrderStatus.ORCADA]: '10px solid #8B4513', // brown
+			[OrderStatus.REJEITADA]: '10px solid #dc3545', // red
+			[OrderStatus.APROVADA]: '10px solid #ffc107', // yellow
+			[OrderStatus.REDIRECIONADA]: '10px solid #800080', // purple
+			[OrderStatus.ARRUMADA]: '10px solid #0d6efd', // blue
+			[OrderStatus.PAGA]: '10px solid #fd7e14', // orange
+			[OrderStatus.FINALIZADA]: '10px solid #198754', // green
+		};
+		return borderMap[status];
+	}
+
+	getStatusClass(status: OrderStatus): string {
+		const statusClassMap = {
+			[OrderStatus.ABERTA]: 'table-secondary',
+			[OrderStatus.ORCADA]: 'table-brown',
+			[OrderStatus.REJEITADA]: 'table-danger',
+			[OrderStatus.APROVADA]: 'table-warning',
+			[OrderStatus.REDIRECIONADA]: 'table-purple',
+			[OrderStatus.ARRUMADA]: 'table-primary',
+			[OrderStatus.PAGA]: 'table-orange',
+			[OrderStatus.FINALIZADA]: 'table-success',
+		};
+
+		return statusClassMap[status] || '';
+	}
 }

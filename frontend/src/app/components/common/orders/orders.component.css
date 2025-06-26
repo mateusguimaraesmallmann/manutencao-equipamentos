@@ -12,3 +12,21 @@
 .dialog-backdrop {
 	background-color: rgba(0, 0, 0, 0.5);
 }
+
+tr.table-brown {
+	background-color: #8b4513;
+	--bs-table-bg: #8b4513;
+	color: white;
+}
+
+tr.table-purple {
+	background-color: #800080;
+	--bs-table-bg: #800080;
+	color: white;
+}
+
+tr.table-orange {
+	background-color: #ffa500;
+	--bs-table-bg: #ffa500;
+	color: black;
+}
