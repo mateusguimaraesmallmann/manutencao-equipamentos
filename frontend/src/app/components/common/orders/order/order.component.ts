@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { Observable, forkJoin, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { InputDialogComponent } from '../dialog/input.component';
 
 import { Employee, Category, User, OrderStatus } from '../../../../models';
 
@@ -29,6 +31,7 @@ export class OrderComponent {
 
 	constructor(
 		private orderService: OrderService,
+		private modal: NgbModal,
 		private employeeService: EmployeeService,
 		private categoryService: CategoryService,
 		private clientService: ClientService,
@@ -90,6 +93,7 @@ export class OrderComponent {
 			.getUserFromClient(client_id)
 			.pipe(map((user: User) => user?.name ?? '-'));
 	}
+
 
 	approveOrder(): void {
 		this.orderService.newAction(this.order, OrderStatus.APROVADA).subscribe({

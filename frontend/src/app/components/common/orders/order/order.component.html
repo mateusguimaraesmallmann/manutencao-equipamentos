@@ -9,6 +9,7 @@
 				<div class="card-body">
 					<ng-container *ngIf="order.status == 'ORÇADA'; else normalOrder">
 						<div
+						
 							*ngIf="forClient"
 							class="d-flex align-items-center bg-light shadow-sm p-3 mb-3 rounded w-100 gap-3 highlighted"
 						>
@@ -72,6 +73,15 @@
 						</table>
 					</ng-container>
 					<ng-template #normalOrder>
+
+						 <button
+              				*ngIf="!forClient && 
+									(order.status === 'APROVADA' || order.status === 'REDIRECIONADA')"
+              				class="btn btn-success btn-sm mb-3"
+              				(click)="onReparar()">
+              				Efetuar Manutenção
+           				 </button>	
+
 						<table class="table table-striped">
 							<tbody>
 								<tr>
