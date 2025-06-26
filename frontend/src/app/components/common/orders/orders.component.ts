@@ -231,6 +231,10 @@ export class OrdersComponent implements OnInit {
 		const modalRef = this.modalService.open(OrderComponent);
 		modalRef.componentInstance.orderId = orderId;
 		modalRef.componentInstance.forClient = this.forClient;
+
+		modalRef.result.then((response) => {
+			this.loadOrders();
+		});
 		return;
 	}
 
