@@ -4,7 +4,7 @@ import { Observable, forkJoin, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { Employee, Category, User } from '../../../../models';
+import { Employee, Category, User, OrderStatus } from '../../../../models';
 
 import {
 	OrderService,
@@ -89,5 +89,29 @@ export class OrderComponent {
 		return this.clientService
 			.getUserFromClient(client_id)
 			.pipe(map((user: User) => user?.name ?? '-'));
+	}
+
+	approveOrder(): void {
+		this.orderService.newAction(this.order, OrderStatus.APROVADA).subscribe({
+			next: (response) => {
+				alert('Orçamento aprovado com sucesso');
+				this.activeModal.close();
+			},
+			error: (error) => {
+				alert(error);
+			},
+		});
+	}
+
+	rejectOrder(): void {
+		this.orderService.newAction(this.order, OrderStatus.REJEITADA).subscribe({
+			next: (response) => {
+				alert('Orçamento rejeitado');
+				this.activeModal.close();
+			},
+			error: (error) => {
+				alert(error);
+			},
+		});
 	}
 }

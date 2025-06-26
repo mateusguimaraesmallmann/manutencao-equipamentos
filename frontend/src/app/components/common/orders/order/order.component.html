@@ -19,10 +19,18 @@
 								</span>
 							</span>
 							<div class="d-inline-flex gap-2">
-								<button type="button" class="btn btn-success btn-sm">
+								<button
+									type="button"
+									class="btn btn-success btn-sm"
+									(click)="approveOrder()"
+								>
 									Aprovar
 								</button>
-								<button type="button" class="btn btn-danger btn-sm">
+								<button
+									type="button"
+									class="btn btn-danger btn-sm"
+									(click)="rejectOrder()"
+								>
 									Rejeitar
 								</button>
 							</div>
