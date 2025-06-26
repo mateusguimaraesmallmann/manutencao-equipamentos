@@ -2,7 +2,7 @@
 	<div class="d-flex justify-content-between align-items-center mb-3">
 		<h2>Ordens de Serviço</h2>
 	</div>
-	<table class="table table-striped">
+	<table class="table">
 		<thead>
 			<tr>
 				<th>ID</th>
@@ -19,7 +19,10 @@
 					Nenhuma ordem de serviço disponível
 				</td>
 			</tr>
-			<tr *ngFor="let order of orders">
+			<tr
+				*ngFor="let order of orders"
+				[style.border-left]="getStatusBorder(order.status!)"
+			>
 				<td>{{ order.id }}</td>
 				<td>{{ order.created_at }}</td>
 				<td>{{ order.equipment_description }}</td>
