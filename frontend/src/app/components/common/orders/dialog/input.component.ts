@@ -44,7 +44,7 @@ export class InputDialogComponent {
 		switch (this.type) {
 			case 'orcar':
 				return 'Valor do orçamento';
-			case 'redirectionar':
+			case 'redirecionar':
 				return 'Redirecionar para funcionário';
 			case 'reparar':
 			default:
