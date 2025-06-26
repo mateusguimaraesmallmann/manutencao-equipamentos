@@ -20,10 +20,18 @@
 								</span>
 							</span>
 							<div class="d-inline-flex gap-2">
-								<button type="button" class="btn btn-success btn-sm">
+								<button
+									type="button"
+									class="btn btn-success btn-sm"
+									(click)="approveOrder()"
+								>
 									Aprovar
 								</button>
-								<button type="button" class="btn btn-danger btn-sm">
+								<button
+									type="button"
+									class="btn btn-danger btn-sm"
+									(click)="rejectOrder()"
+								>
 									Rejeitar
 								</button>
 							</div>
@@ -110,11 +118,23 @@
 										<span class="badge bg-success">{{ order.status }}</span>
 									</td>
 								</tr>
-								<tr *ngIf="order.status == 'ARRUMADA'">
+								<tr
+									*ngIf="
+										order.status == 'ARRUMADA' ||
+										order.status == 'PAGA' ||
+										order.status == 'FINALIZADA'
+									"
+								>
 									<th>Descrição do reparo</th>
 									<td>{{ order.repair_description }}</td>
 								</tr>
-								<tr *ngIf="order.status == 'ARRUMADA'">
+								<tr
+									*ngIf="
+										order.status == 'ARRUMADA' ||
+										order.status == 'PAGA' ||
+										order.status == 'FINALIZADA'
+									"
+								>
 									<th>Instruções adicionais</th>
 									<td>{{ order.instruction_description }}</td>
 								</tr>

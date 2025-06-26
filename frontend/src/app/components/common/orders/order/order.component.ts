@@ -6,7 +6,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InputDialogComponent } from '../dialog/input.component';
 
-import { Employee, Category, User } from '../../../../models';
+import { Employee, Category, User, OrderStatus } from '../../../../models';
 
 import {
 	OrderService,
@@ -61,13 +61,11 @@ export class OrderComponent {
 			)
 			.subscribe({
 				next: ({ order, employees, categories, clientName }) => {
-					console.log(clientName);
 					this.order = order;
 					this.clientName = clientName;
 					this.loading = false;
 				},
 				error: (err) => {
-					console.error('Error loading data:', err);
 					this.order = null;
 					this.loading = false;
 				},
@@ -96,21 +94,28 @@ export class OrderComponent {
 			.pipe(map((user: User) => user?.name ?? '-'));
 	}
 
-	/** RF014 – abre o diálogo de manutenção e grava como ARRUMADA */
-	onReparar(): void {
- 		 const ref = this.modal.open(InputDialogComponent, { centered: true });
-  		ref.componentInstance.type = 'reparar';
-  		ref.componentInstance.orderId = this.order.id;
 
-  		ref.result
-    .then((res: { repair: string; instruction: string }) => {
-      if (!res) return;
+	approveOrder(): void {
+		this.orderService.newAction(this.order, OrderStatus.APROVADA).subscribe({
+			next: (response) => {
+				alert('Orçamento aprovado com sucesso');
+				this.activeModal.close();
+			},
+			error: (error) => {
+				alert(error);
+			},
+		});
+	}
 
-      this.orderService
-        .reparar(this.order, res.repair, res.instruction)
-        .subscribe((updated) => (this.order = updated));   // atualiza tela
-    })
-    .catch(() => {});   // diálogo cancelado
-}
-
+	rejectOrder(): void {
+		this.orderService.newAction(this.order, OrderStatus.REJEITADA).subscribe({
+			next: (response) => {
+				alert('Orçamento rejeitado');
+				this.activeModal.close();
+			},
+			error: (error) => {
+				alert(error);
+			},
+		});
+	}
 }

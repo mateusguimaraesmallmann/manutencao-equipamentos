@@ -100,6 +100,75 @@ server.post("/new_client", async (req, res) => {
 	const users = router.db.get("users").value();
 });
 
+server.post("/new_employee", async (req, res) => {
+	const fetch = (await import("node-fetch")).default;
+	const { birthday, name, email, document, zip_code, address, phone } =
+		req.body;
+
+	try {
+		const userResponse = await fetch("http://localhost:3000/users", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				name,
+				email,
+				role: 1,
+				employee_id: null,
+				client_id: null,
+			}),
+		});
+
+		if (!userResponse.ok) {
+			throw new Error("Failed to create user");
+		}
+
+		const newUser = await userResponse.json();
+
+		const employeeResponse = await fetch("http://localhost:3000/employees", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				birthday: birthday,
+				user_id: newUser.id,
+			}),
+		});
+
+		if (!employeeResponse.ok) {
+			throw new Error("Failed to create employee");
+		}
+
+		const newEmployee = await employeeResponse.json();
+
+		const updateUserResponse = await fetch(
+			`http://localhost:3000/users/${newUser.id}`,
+			{
+				method: "PATCH",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ employee_id: newEmployee.id }),
+			},
+		);
+
+		if (!updateUserResponse.ok) {
+			throw new Error("Failed to update user with employee_id");
+		}
+
+		const updatedUser = await updateUserResponse.json();
+
+		res.status(201).json({
+			user: updatedUser,
+			employee: newEmployee,
+		});
+	} catch (error) {
+		console.log(error.message);
+		res.status(500).json({
+			message: "Error while registering",
+			error: error.message,
+		});
+	}
+
+	const users = router.db.get("users").value();
+});
+
 server.use(router);
 server.listen(3000, () => {
 	console.log("JSON Server is running on port 3000");
