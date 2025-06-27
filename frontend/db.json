@@ -194,7 +194,7 @@
     {
       "id": 2,
       "client_id": 1,
-      "employee_id": 1,
+      "employee_id": 2,
       "category_id": 1,
       "equipment_description": "MONITOR Y",
       "deffect_description": "A tela está piscando devagar toda vez que liga o monitor na tomada. Até que apaga.",
@@ -202,7 +202,7 @@
       "created_at": "2025-04-23T10:10:00.000Z",
       "repair_description": null,
       "instruction_decription": null,
-      "status": "APROVADA",
+      "status": "REDIRECIONADA",
       "order_actions": [
         {
           "id": 2,
@@ -224,6 +224,13 @@
           "order_id": 2,
           "status": "APROVADA",
           "id": 14
+        },
+        {
+          "employee_id": 2,
+          "created_at": "2025-06-27T02:34:12.732Z",
+          "order_id": 2,
+          "status": "REDIRECIONADA",
+          "id": 29
         }
       ]
     },
@@ -271,9 +278,9 @@
       "created_at": "2025-06-27T02:20:42.620Z",
       "equipment_description": "Magic Keyboard",
       "deffect_description": "Quebrou o X",
-      "repair_description": null,
-      "instruction_description": null,
-      "status": "ORÇADA",
+      "repair_description": "Trocado a peça",
+      "instruction_description": "Não ligar em 220v",
+      "status": "PAGA",
       "price": 300,
       "order_actions": [
         {
@@ -289,20 +296,41 @@
           "order_id": 4,
           "status": "ORÇADA",
           "id": 17
+        },
+        {
+          "employee_id": 2,
+          "created_at": "2025-06-27T02:35:00.782Z",
+          "order_id": 4,
+          "status": "APROVADA",
+          "id": 35
+        },
+        {
+          "employee_id": 2,
+          "created_at": "2025-06-27T02:35:31.188Z",
+          "order_id": 4,
+          "status": "ARRUMADA",
+          "id": 37
+        },
+        {
+          "employee_id": 2,
+          "created_at": "2025-06-27T02:35:40.700Z",
+          "order_id": 4,
+          "status": "PAGA",
+          "id": 38
         }
       ]
     },
     {
       "id": 5,
       "client_id": 4,
-      "employee_id": 2,
+      "employee_id": 1,
       "category_id": "2",
       "created_at": "2025-06-27T02:21:04.208Z",
       "equipment_description": "Gabinete",
       "deffect_description": "Lavar",
       "repair_description": null,
       "instruction_description": null,
-      "status": "ORÇADA",
+      "status": "REDIRECIONADA",
       "price": 50,
       "order_actions": [
         {
@@ -318,6 +346,20 @@
           "order_id": 5,
           "status": "ORÇADA",
           "id": 18
+        },
+        {
+          "employee_id": 2,
+          "created_at": "2025-06-27T02:34:57.048Z",
+          "order_id": 5,
+          "status": "APROVADA",
+          "id": 34
+        },
+        {
+          "employee_id": 1,
+          "created_at": "2025-06-27T02:35:16.257Z",
+          "order_id": 5,
+          "status": "REDIRECIONADA",
+          "id": 36
         }
       ]
     },
@@ -353,8 +395,8 @@
       "deffect_description": "Touchpad quebrado",
       "repair_description": null,
       "instruction_description": null,
-      "status": "ABERTA",
-      "price": null,
+      "status": "ORÇADA",
+      "price": 700,
       "order_actions": [
         {
           "employee_id": 2,
@@ -362,6 +404,13 @@
           "order_id": 7,
           "status": "ABERTA",
           "id": 16
+        },
+        {
+          "employee_id": 2,
+          "created_at": "2025-06-27T02:34:29.774Z",
+          "order_id": 7,
+          "status": "ORÇADA",
+          "id": 31
         }
       ]
     },
@@ -499,8 +548,8 @@
       "deffect_description": "Molhou de coca",
       "repair_description": null,
       "instruction_description": null,
-      "status": "ABERTA",
-      "price": null,
+      "status": "ORÇADA",
+      "price": 400,
       "order_actions": [
         {
           "employee_id": 2,
@@ -508,6 +557,13 @@
           "order_id": 13,
           "status": "ABERTA",
           "id": 24
+        },
+        {
+          "employee_id": 2,
+          "created_at": "2025-06-27T02:34:34.433Z",
+          "order_id": 13,
+          "status": "ORÇADA",
+          "id": 32
         }
       ]
     },
@@ -521,8 +577,8 @@
       "deffect_description": "Está em chinês",
       "repair_description": null,
       "instruction_description": null,
-      "status": "ABERTA",
-      "price": null,
+      "status": "ORÇADA",
+      "price": 300,
       "order_actions": [
         {
           "employee_id": 1,
@@ -530,6 +586,13 @@
           "order_id": 14,
           "status": "ABERTA",
           "id": 25
+        },
+        {
+          "employee_id": 1,
+          "created_at": "2025-06-27T02:34:20.671Z",
+          "order_id": 14,
+          "status": "ORÇADA",
+          "id": 30
         }
       ]
     },
@@ -543,8 +606,8 @@
       "deffect_description": "Está mapeando ao contrário",
       "repair_description": null,
       "instruction_description": null,
-      "status": "ABERTA",
-      "price": null,
+      "status": "ORÇADA",
+      "price": 200,
       "order_actions": [
         {
           "employee_id": 2,
@@ -552,6 +615,13 @@
           "order_id": 15,
           "status": "ABERTA",
           "id": 26
+        },
+        {
+          "employee_id": 2,
+          "created_at": "2025-06-27T02:34:38.481Z",
+          "order_id": 15,
+          "status": "ORÇADA",
+          "id": 33
         }
       ]
     }
@@ -745,6 +815,76 @@
       "order_id": 12,
       "status": "ORÇADA",
       "id": 28
+    },
+    {
+      "employee_id": 2,
+      "created_at": "2025-06-27T02:34:12.732Z",
+      "order_id": 2,
+      "status": "REDIRECIONADA",
+      "id": 29
+    },
+    {
+      "employee_id": 1,
+      "created_at": "2025-06-27T02:34:20.671Z",
+      "order_id": 14,
+      "status": "ORÇADA",
+      "id": 30
+    },
+    {
+      "employee_id": 2,
+      "created_at": "2025-06-27T02:34:29.774Z",
+      "order_id": 7,
+      "status": "ORÇADA",
+      "id": 31
+    },
+    {
+      "employee_id": 2,
+      "created_at": "2025-06-27T02:34:34.433Z",
+      "order_id": 13,
+      "status": "ORÇADA",
+      "id": 32
+    },
+    {
+      "employee_id": 2,
+      "created_at": "2025-06-27T02:34:38.481Z",
+      "order_id": 15,
+      "status": "ORÇADA",
+      "id": 33
+    },
+    {
+      "employee_id": 2,
+      "created_at": "2025-06-27T02:34:57.048Z",
+      "order_id": 5,
+      "status": "APROVADA",
+      "id": 34
+    },
+    {
+      "employee_id": 2,
+      "created_at": "2025-06-27T02:35:00.782Z",
+      "order_id": 4,
+      "status": "APROVADA",
+      "id": 35
+    },
+    {
+      "employee_id": 1,
+      "created_at": "2025-06-27T02:35:16.257Z",
+      "order_id": 5,
+      "status": "REDIRECIONADA",
+      "id": 36
+    },
+    {
+      "employee_id": 2,
+      "created_at": "2025-06-27T02:35:31.188Z",
+      "order_id": 4,
+      "status": "ARRUMADA",
+      "id": 37
+    },
+    {
+      "employee_id": 2,
+      "created_at": "2025-06-27T02:35:40.700Z",
+      "order_id": 4,
+      "status": "PAGA",
+      "id": 38
     }
   ]
 }
