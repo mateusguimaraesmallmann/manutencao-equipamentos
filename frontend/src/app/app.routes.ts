@@ -11,6 +11,7 @@ import { EmployeeComponent } from './components/employee/employee.component';
 import { HomeComponent } from './components/home/home.component';
 import { OrderCreationComponent } from './components/common/orders/order-creation/order-creation.component';
 import { OrdersComponent } from './components/common/orders/orders.component';
+import { ReportComponent } from './components/report/report.component';
 //import { RejeitarServicoComponent } from './paginas/cliente/rejeitar-servico/rejeitar-servico.component';
 
 import { MostrarOrcamentoComponent } from './paginas/cliente/mostrar-orcamento/mostrar-orcamento.component';
@@ -36,6 +37,7 @@ export const routes: Routes = [
 			{ path: 'employees', component: EmployeeComponent },
 			{ path: 'orders', component: OrdersComponent },
 			{ path: 'quote', component: EfetuarOrcamentoComponent },
+			{ path: 'report', component: ReportComponent },
 		],
 	},
 	{

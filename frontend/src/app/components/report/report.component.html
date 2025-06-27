@@ -1,0 +1,86 @@
+<div class="container mt-4">
+	<div class="card">
+		<div class="card-header">
+			<h3>Relatório de receitas</h3>
+		</div>
+		<div class="card-body">
+			<form (ngSubmit)="generateReport()" #reportForm="ngForm">
+				<div class="row mb-3">
+					<div class="col-md-6">
+						<label for="startDate" class="form-label">Data início</label>
+						<input
+							type="date"
+							class="form-control"
+							id="startDate"
+							[(ngModel)]="startDate"
+							name="startDate"
+							required
+						/>
+					</div>
+					<div class="col-md-6">
+						<label for="endDate" class="form-label">Data fim</label>
+						<input
+							type="date"
+							class="form-control"
+							id="endDate"
+							[(ngModel)]="endDate"
+							name="endDate"
+							required
+						/>
+					</div>
+				</div>
+
+				<div class="mb-3">
+					<button
+						type="submit"
+						class="btn btn-primary me-2"
+						[disabled]="isLoading"
+					>
+						<span
+							*ngIf="isLoading"
+							class="spinner-border spinner-border-sm"
+							role="status"
+							aria-hidden="true"
+						></span>
+						Buscar neste período
+					</button>
+					<button
+						type="button"
+						class="btn btn-secondary"
+						(click)="resetReport()"
+					>
+						Limpar
+					</button>
+				</div>
+
+				<div *ngIf="errorMessage" class="alert alert-danger">
+					{{ errorMessage }}
+				</div>
+			</form>
+
+			<div *ngIf="reportGenerated" class="report-results mt-4">
+				<div class="card">
+					<div class="card-header">
+						<h4>Report Results</h4>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-md-6">
+								<p>
+									<strong>Período de busca:</strong>
+									{{ startDate }} até {{ endDate }}
+								</p>
+							</div>
+							<div class="col-md-6">
+								<p>
+									<strong>Total de receitas:</strong>
+									R$ {{ totalAmount }}
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
