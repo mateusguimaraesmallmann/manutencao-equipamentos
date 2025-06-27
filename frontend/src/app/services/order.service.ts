@@ -6,81 +6,74 @@ import { Order, OrderStatus } from '../models';
 
 @Injectable({ providedIn: 'root' })
 export class OrderService {
-  constructor(private http: HttpClient) {}
+	constructor(private http: HttpClient) {}
 
-  getOrdersFromClient(client_id: number): Observable<any> {
-    return this.http.get(`${API_URL}/orders?client_id=${client_id}`);
-  }
+	getOrders(): Observable<any> {
+		return this.http.get(`${API_URL}/orders`);
+	}
 
-  getOrdersFromEmployee(employee_id: number): Observable<any> {
-    return this.http.get(`${API_URL}/orders?employee_id=${employee_id}`);
-  }
+	getOrdersFromClient(client_id: number): Observable<any> {
+		return this.http.get(`${API_URL}/orders?client_id=${client_id}`);
+	}
 
-  getOrder(id: number): Observable<any> {
-    return this.http.get(`${API_URL}/orders/${id}`);
-  }
+	getOrdersFromEmployee(employee_id: number): Observable<any> {
+		return this.http.get(`${API_URL}/orders?employee_id=${employee_id}`);
+	}
 
-  newOrder(order: Order): Observable<any> {
-    const orderUrl = `${API_URL}/orders`;
-    const actionUrl = `${API_URL}/order_actions`;
+	getOrder(id: number): Observable<any> {
+		return this.http.get(`${API_URL}/orders/${id}`);
+	}
 
-    return this.http.post(orderUrl, order).pipe(
-      switchMap((created: any) => {
-        const action = {
-          employee_id: order.employee_id,
-          created_at: new Date(),
-          order_id: created.id,
-          status: OrderStatus.ABERTA,
-        };
+	newOrder(order: Order): Observable<any> {
+		const orderUrl = `${API_URL}/orders`;
+		const actionUrl = `${API_URL}/order_actions`;
 
-        return this.http.post(actionUrl, action).pipe(
-          switchMap((createdAction: any) => {
-            const updated = {
-              ...created,
-              status: OrderStatus.ABERTA,
-              order_actions: [createdAction],
-            };
-            return this.http.put(`${orderUrl}/${created.id}`, updated);
-          })
-        );
-      })
-    );
-  }
+		return this.http.post(orderUrl, order).pipe(
+			switchMap((created: any) => {
+				const action = {
+					employee_id: order.employee_id,
+					created_at: new Date(),
+					order_id: created.id,
+					status: OrderStatus.ABERTA,
+				};
 
-  updateOrder(order: Order): Observable<any> {
-    return this.http.put(`${API_URL}/orders/${order.id}`, order);
-  }
+				return this.http.post(actionUrl, action).pipe(
+					switchMap((createdAction: any) => {
+						const updated = {
+							...created,
+							status: OrderStatus.ABERTA,
+							order_actions: [createdAction],
+						};
+						return this.http.put(`${orderUrl}/${created.id}`, updated);
+					}),
+				);
+			}),
+		);
+	}
 
-  newAction(order: Order, status: OrderStatus): Observable<any> {
-    const actionUrl = `${API_URL}/order_actions`;
+	updateOrder(order: Order): Observable<any> {
+		return this.http.put(`${API_URL}/orders/${order.id}`, order);
+	}
 
-    const action = {
-      employee_id: order.employee_id,
-      created_at: new Date(),
-      order_id: order.id,
-      status,
-    };
+	newAction(order: Order, status: OrderStatus): Observable<any> {
+		const actionUrl = `${API_URL}/order_actions`;
 
-    return this.http.post(actionUrl, action).pipe(
-      switchMap((createdAction: any) => {
-        const updated = {
-          ...order,
-          status,
-          order_actions: [...(order.order_actions || []), createdAction],
-        };
-        return this.http.put(`${API_URL}/orders/${order.id}`, updated);
-      })
-    );
-  }
+		const action = {
+			employee_id: order.employee_id,
+			created_at: new Date(),
+			order_id: order.id,
+			status,
+		};
 
-  reparar(order: Order, desc: string, orient: string) {
-  	return this.http.patch(`${API_URL}/orders/${order.id}`, {
-    	status: OrderStatus.ARRUMADA,
-    	repair_description: desc,
-    	instruction_description: orient
-  }).pipe(
-    switchMap(() => this.newAction(order, OrderStatus.ARRUMADA))
-  );
-}
-
+		return this.http.post(actionUrl, action).pipe(
+			switchMap((createdAction: any) => {
+				const updated = {
+					...order,
+					status,
+					order_actions: [...(order.order_actions || []), createdAction],
+				};
+				return this.http.put(`${API_URL}/orders/${order.id}`, updated);
+			}),
+		);
+	}
 }

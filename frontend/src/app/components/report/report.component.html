@@ -1,0 +1,131 @@
+<div class="container mt-4">
+	<div class="card">
+		<div class="card-header">
+			<h3>Relatório de receitas</h3>
+		</div>
+		<div class="card-body">
+			<form (ngSubmit)="generateReport()" #reportForm="ngForm">
+				<div class="row mb-3">
+					<div class="col-md-6">
+						<label for="startDate" class="form-label">Data início</label>
+						<input
+							type="date"
+							class="form-control"
+							id="startDate"
+							[(ngModel)]="startDate"
+							name="startDate"
+							required
+						/>
+					</div>
+					<div class="col-md-6">
+						<label for="endDate" class="form-label">Data fim</label>
+						<input
+							type="date"
+							class="form-control"
+							id="endDate"
+							[(ngModel)]="endDate"
+							name="endDate"
+							required
+						/>
+					</div>
+				</div>
+
+				<div class="mb-3">
+					<button
+						type="submit"
+						class="btn btn-primary me-2"
+						[disabled]="isLoading"
+					>
+						<span
+							*ngIf="isLoading"
+							class="spinner-border spinner-border-sm"
+							role="status"
+							aria-hidden="true"
+						></span>
+						Buscar neste período
+					</button>
+					<button
+						type="button"
+						class="btn btn-secondary"
+						(click)="resetReport()"
+					>
+						Limpar
+					</button>
+				</div>
+
+				<div *ngIf="errorMessage" class="alert alert-danger">
+					{{ errorMessage }}
+				</div>
+			</form>
+
+			<div *ngIf="reportGenerated" class="report-results mt-4">
+				<div class="card">
+					<div class="card-header">
+						<h4>Report Results</h4>
+						<button
+							*ngIf="totalAmount > 0 && reportGenerated"
+							class="btn btn-success"
+							(click)="downloadPDF()"
+						>
+							<i class="bi bi-file-earmark-pdf"></i>
+							Download PDF
+						</button>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-md-6">
+								<p>
+									<strong>Período de busca:</strong>
+									{{ startDate }} até {{ endDate }}
+								</p>
+							</div>
+							<div class="col-md-6">
+								<p>
+									<strong>Total de receitas:</strong>
+									R$ {{ totalAmount }}
+								</p>
+							</div>
+						</div>
+						<div class="table-responsive" id="reportContent">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Date</th>
+										<th>Equipment</th>
+										<th>Description</th>
+										<th>Status</th>
+										<th>Price</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr *ngFor="let order of filteredOrders">
+										<td>{{ order.id }}</td>
+										<td>{{ order.created_at | date: "shortDate" }}</td>
+										<td>{{ order.equipment_description }}</td>
+										<td>{{ order.deffect_description }}</td>
+										<td>{{ order.status }}</td>
+										<td>
+											{{ order.price }}
+										</td>
+									</tr>
+									<tr *ngIf="filteredOrders.length === 0">
+										<td colspan="6" class="text-center">
+											No orders found in this date range
+										</td>
+									</tr>
+									<tr>
+										<td style="text-align: right" colspan="5">
+											TOTAL DE RECEITAS:
+										</td>
+										<td>R$ {{ totalAmount }}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
