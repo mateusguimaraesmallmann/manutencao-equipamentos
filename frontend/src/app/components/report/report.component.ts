@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { CommonModule, DatePipe, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
+
 import { OrderService } from '../../services';
 import { Order, OrderStatus } from '../../models';
 
@@ -18,6 +21,7 @@ export class ReportComponent {
 	endDate: string;
 	totalAmount: number = 0;
 	isLoading: boolean = false;
+	filteredOrders: Order[] = [];
 	errorMessage: string | null = null;
 	reportGenerated: boolean = false;
 
@@ -47,6 +51,7 @@ export class ReportComponent {
 		this.isLoading = true;
 		this.errorMessage = null;
 		this.totalAmount = 0;
+		this.filteredOrders = [];
 
 		this.orderService.getOrders().subscribe({
 			next: (orders) => {
@@ -68,22 +73,59 @@ export class ReportComponent {
 		const endDate = new Date(this.endDate);
 		endDate.setHours(23, 59, 59, 999);
 
-		this.totalAmount = orders
-			.filter(
-				(order) =>
+		this.filteredOrders = orders
+			.filter((order) => {
+				const createdAt = new Date(order.created_at!);
+				return (
 					(order.status === OrderStatus.FINALIZADA ||
 						order.status === OrderStatus.PAGA) &&
 					order.price !== null &&
-					order.created_at !== null &&
-					new Date(order.created_at) >= startDate &&
-					new Date(order.created_at) <= endDate,
-			)
-			.reduce((sum, order) => sum + Number(order.price), 0);
+					createdAt >= startDate &&
+					createdAt <= endDate
+				);
+			})
+			.sort(
+				(a, b) =>
+					new Date(a.created_at!).getTime() - new Date(b.created_at!).getTime(),
+			);
+
+		this.totalAmount = this.filteredOrders.reduce(
+			(sum, order) => sum + Number(order.price),
+			0,
+		);
 	}
 
 	resetReport(): void {
 		this.totalAmount = 0;
+		this.filteredOrders = [];
 		this.reportGenerated = false;
 		this.errorMessage = null;
+	}
+
+	downloadPDF(): void {
+		const element = document.getElementById('reportContent');
+
+		if (!element) {
+			console.error('Report content not found');
+			return;
+		}
+
+		const options = {
+			scale: 2,
+			useCORS: true,
+			allowTaint: true,
+			logging: true,
+		};
+
+		html2canvas(element, options).then((canvas) => {
+			const imgData = canvas.toDataURL('image/png');
+			const pdf = new jsPDF('p', 'mm', 'a4');
+			const imgProps = pdf.getImageProperties(imgData);
+			const pdfWidth = pdf.internal.pageSize.getWidth();
+			const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+			pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+			pdf.save(`financial-report-${new Date().toISOString().slice(0, 10)}.pdf`);
+		});
 	}
 }

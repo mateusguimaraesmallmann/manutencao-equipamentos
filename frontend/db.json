@@ -1,247 +1,290 @@
 {
-	"users": [
-		{
-			"id": 1,
-			"name": "Jafar",
-			"email": "a@a.com",
-			"role": 1,
-			"employee_id": 1,
-			"client_id": null
-		},
-		{
-			"id": 4,
-			"name": "Gênio",
-			"email": "d@d.com",
-			"role": 1,
-			"employee_id": 2,
-			"client_id": null
-		},
-		{
-			"id": 2,
-			"name": "Aladin",
-			"email": "b@b.com",
-			"role": 2,
-			"employee_id": null,
-			"client_id": 1
-		},
-		{
-			"id": 3,
-			"name": "Jasmine",
-			"email": "c@c.com",
-			"role": 2,
-			"employee_id": null,
-			"client_id": 2
-		},
-		{
-			"name": "R User",
-			"email": "r@r.com",
-			"role": 2,
-			"employee_id": null,
-			"client_id": 3,
-			"id": 5
-		}
-	],
-	"employees": [
-		{
-			"id": 1,
-			"birthday": "2000-12-15T00:00:00.000Z",
-			"user_id": 1
-		},
-		{
-			"id": 2,
-			"birthday": "1990-05-01T00:00:00.000Z",
-			"user_id": 4
-		}
-	],
-	"employees_full": [
-		{
-			"id": 1,
-			"birthday": "2000-12-15T00:00:00.000Z",
-			"user": {
-				"id": 1,
-				"name": "Jafar",
-				"email": "a@a.com",
-				"role": 1
-			}
-		},
-		{
-			"id": 2,
-			"birthday": "1990-05-01T00:00:00.000Z",
-			"user": {
-				"id": 4,
-				"name": "Gênio",
-				"email": "d@d.com",
-				"role": 1
-			}
-		}
-	],
-	"clients": [
-		{
-			"id": 1,
-			"document": "39176395057",
-			"zip_code": "80000100",
-			"adderss": "Rua XV de Novembro, 1444. Centro, Curitiba PR",
-			"phone": "41 99999-9999",
-			"user_id": 2
-		},
-		{
-			"id": 2,
-			"document": "16521942077",
-			"zip_code": "80000100",
-			"adderss": "Rua Macaé, 133. Água Verde, Curitiba PR",
-			"phone": "41 99999-9998",
-			"user_id": 3
-		},
-		{
-			"document": "86951504024",
-			"zip_code": "80620230",
-			"address": "Rua Monsenhor Manoel Vicente, Água Verde, Curitiba - PR",
-			"phone": "4199999999",
-			"user_id": 5,
-			"id": 3
-		}
-	],
-	"categories": [
-		{
-			"id": 1,
-			"name": "Periféricos"
-		},
-		{
-			"id": 2,
-			"name": "Componentes"
-		}
-	],
-	"orders": [
-		{
-			"id": 1,
-			"client_id": 1,
-			"employee_id": 1,
-			"category_id": 1,
-			"equipment_description": "NOTEBOOK X",
-			"deffect_description": "NAO LIGA",
-			"price": 100,
-			"created_at": "2025-04-23T10:15:00.000Z",
-			"status": "ORÇADA",
-			"repair_description": null,
-			"instruction_decription": null,
-			"order_actions": [
-				{
-					"id": 1,
-					"order_id": 1,
-					"employee_id": null,
-					"created_at": "2025-04-23T10:15:00.000Z",
-					"status": "ABERTA"
-				},
-				{
-					"employee_id": 1,
-					"created_at": "2025-06-09T20:49:59.466Z",
-					"order_id": 1,
-					"status": "ORÇADA",
-					"id": 7
-				}
-			]
-		},
-		{
-			"id": 2,
-			"client_id": 1,
-			"employee_id": 1,
-			"category_id": 1,
-			"equipment_description": "MONITOR Y",
-			"deffect_description": "A tela está piscando devagar toda vez que liga o monitor na tomada. Até que apaga.",
-			"price": 100,
-			"created_at": "2025-04-23T10:10:00.000Z",
-			"repair_description": null,
-			"instruction_decription": null,
-			"status": "ORÇADA",
-			"order_actions": [
-				{
-					"id": 2,
-					"order_id": 2,
-					"employee_id": null,
-					"created_at": "2025-04-23T10:10:00.000Z",
-					"status": "ABERTA"
-				},
-				{
-					"id": 3,
-					"order_id": 2,
-					"employee_id": 1,
-					"created_at": "2025-04-23T10:50:00.000Z",
-					"status": "ORÇADA"
-				}
-			]
-		},
-		{
-			"id": 3,
-			"client_id": 1,
-			"employee_id": 1,
-			"category_id": 1,
-			"equipment_description": "MONITOR H",
-			"deffect_description": "Sem botão",
-			"price": 100,
-			"created_at": "2025-04-23T10:10:00.000Z",
-			"repair_description": null,
-			"instruction_decription": null,
-			"status": "ORÇADA",
-			"order_actions": [
-				{
-					"id": 5,
-					"order_id": 2,
-					"employee_id": null,
-					"created_at": "2025-04-23T10:10:00.000Z",
-					"status": "ABERTA"
-				},
-				{
-					"id": 6,
-					"order_id": 2,
-					"employee_id": 1,
-					"created_at": "2025-04-23T10:50:00.000Z",
-					"status": "ORÇADA"
-				}
-			]
-		}
-	],
-	"order_actions": [
-		{
-			"id": 1,
-			"order_id": 1,
-			"employee_id": null,
-			"created_at": "2025-04-23T10:15:00.000Z",
-			"status": "ABERTA"
-		},
-		{
-			"id": 2,
-			"order_id": 2,
-			"employee_id": null,
-			"created_at": "2025-04-23T10:10:00.000Z",
-			"status": "ABERTA"
-		},
-		{
-			"id": 3,
-			"order_id": 2,
-			"employee_id": 1,
-			"created_at": "2025-04-23T10:50:00.000Z",
-			"status": "ORÇADA"
-		},
-		{
-			"id": 5,
-			"order_id": 3,
-			"employee_id": null,
-			"created_at": "2025-04-23T10:10:00.000Z",
-			"status": "ABERTA"
-		},
-		{
-			"id": 6,
-			"order_id": 3,
-			"employee_id": 1,
-			"created_at": "2025-04-23T10:50:00.000Z",
-			"status": "ORÇADA"
-		},
-		{
-			"employee_id": 1,
-			"created_at": "2025-06-09T20:49:59.466Z",
-			"order_id": 1,
-			"status": "ORÇADA",
-			"id": 7
-		}
-	]
+  "users": [
+    {
+      "id": 1,
+      "name": "Jafar",
+      "email": "a@a.com",
+      "role": 1,
+      "employee_id": 1,
+      "client_id": null
+    },
+    {
+      "id": 4,
+      "name": "Gênio",
+      "email": "d@d.com",
+      "role": 1,
+      "employee_id": 2,
+      "client_id": null
+    },
+    {
+      "id": 2,
+      "name": "Aladin",
+      "email": "b@b.com",
+      "role": 2,
+      "employee_id": null,
+      "client_id": 1
+    },
+    {
+      "id": 3,
+      "name": "Jasmine",
+      "email": "c@c.com",
+      "role": 2,
+      "employee_id": null,
+      "client_id": 2
+    },
+    {
+      "name": "R User",
+      "email": "r@r.com",
+      "role": 2,
+      "employee_id": null,
+      "client_id": 3,
+      "id": 5
+    }
+  ],
+  "employees": [
+    {
+      "id": 1,
+      "birthday": "2000-12-15T00:00:00.000Z",
+      "user_id": 1
+    },
+    {
+      "id": 2,
+      "birthday": "1990-05-01T00:00:00.000Z",
+      "user_id": 4
+    }
+  ],
+  "employees_full": [
+    {
+      "id": 1,
+      "birthday": "2000-12-15T00:00:00.000Z",
+      "user": {
+        "id": 1,
+        "name": "Jafar",
+        "email": "a@a.com",
+        "role": 1
+      }
+    },
+    {
+      "id": 2,
+      "birthday": "1990-05-01T00:00:00.000Z",
+      "user": {
+        "id": 4,
+        "name": "Gênio",
+        "email": "d@d.com",
+        "role": 1
+      }
+    }
+  ],
+  "clients": [
+    {
+      "id": 1,
+      "document": "39176395057",
+      "zip_code": "80000100",
+      "adderss": "Rua XV de Novembro, 1444. Centro, Curitiba PR",
+      "phone": "41 99999-9999",
+      "user_id": 2
+    },
+    {
+      "id": 2,
+      "document": "16521942077",
+      "zip_code": "80000100",
+      "adderss": "Rua Macaé, 133. Água Verde, Curitiba PR",
+      "phone": "41 99999-9998",
+      "user_id": 3
+    },
+    {
+      "document": "86951504024",
+      "zip_code": "80620230",
+      "address": "Rua Monsenhor Manoel Vicente, Água Verde, Curitiba - PR",
+      "phone": "4199999999",
+      "user_id": 5,
+      "id": 3
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Periféricos"
+    },
+    {
+      "id": 2,
+      "name": "Componentes"
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "client_id": 1,
+      "employee_id": 1,
+      "category_id": 1,
+      "equipment_description": "NOTEBOOK X",
+      "deffect_description": "NAO LIGA",
+      "price": 100,
+      "created_at": "2025-04-23T10:15:00.000Z",
+      "status": "PAGA",
+      "repair_description": "TUDO",
+      "instruction_decription": null,
+      "order_actions": [
+        {
+          "id": 1,
+          "order_id": 1,
+          "employee_id": null,
+          "created_at": "2025-04-23T10:15:00.000Z",
+          "status": "ABERTA"
+        },
+        {
+          "employee_id": 1,
+          "created_at": "2025-06-09T20:49:59.466Z",
+          "order_id": 1,
+          "status": "ORÇADA",
+          "id": 7
+        },
+        {
+          "employee_id": 1,
+          "created_at": "2025-06-27T01:26:22.370Z",
+          "order_id": 1,
+          "status": "APROVADA",
+          "id": 8
+        },
+        {
+          "employee_id": 1,
+          "created_at": "2025-06-27T01:34:13.482Z",
+          "order_id": 1,
+          "status": "ARRUMADA",
+          "id": 9
+        },
+        {
+          "employee_id": 1,
+          "created_at": "2025-06-27T01:34:26.228Z",
+          "order_id": 1,
+          "status": "PAGA",
+          "id": 10
+        }
+      ],
+      "instruction_description": "AQUI"
+    },
+    {
+      "id": 2,
+      "client_id": 1,
+      "employee_id": 1,
+      "category_id": 1,
+      "equipment_description": "MONITOR Y",
+      "deffect_description": "A tela está piscando devagar toda vez que liga o monitor na tomada. Até que apaga.",
+      "price": 100,
+      "created_at": "2025-04-23T10:10:00.000Z",
+      "repair_description": null,
+      "instruction_decription": null,
+      "status": "ORÇADA",
+      "order_actions": [
+        {
+          "id": 2,
+          "order_id": 2,
+          "employee_id": null,
+          "created_at": "2025-04-23T10:10:00.000Z",
+          "status": "ABERTA"
+        },
+        {
+          "id": 3,
+          "order_id": 2,
+          "employee_id": 1,
+          "created_at": "2025-04-23T10:50:00.000Z",
+          "status": "ORÇADA"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "client_id": 1,
+      "employee_id": 1,
+      "category_id": 1,
+      "equipment_description": "MONITOR H",
+      "deffect_description": "Sem botão",
+      "price": 100,
+      "created_at": "2025-04-23T10:10:00.000Z",
+      "repair_description": null,
+      "instruction_decription": null,
+      "status": "ORÇADA",
+      "order_actions": [
+        {
+          "id": 5,
+          "order_id": 2,
+          "employee_id": null,
+          "created_at": "2025-04-23T10:10:00.000Z",
+          "status": "ABERTA"
+        },
+        {
+          "id": 6,
+          "order_id": 2,
+          "employee_id": 1,
+          "created_at": "2025-04-23T10:50:00.000Z",
+          "status": "ORÇADA"
+        }
+      ]
+    }
+  ],
+  "order_actions": [
+    {
+      "id": 1,
+      "order_id": 1,
+      "employee_id": null,
+      "created_at": "2025-04-23T10:15:00.000Z",
+      "status": "ABERTA"
+    },
+    {
+      "id": 2,
+      "order_id": 2,
+      "employee_id": null,
+      "created_at": "2025-04-23T10:10:00.000Z",
+      "status": "ABERTA"
+    },
+    {
+      "id": 3,
+      "order_id": 2,
+      "employee_id": 1,
+      "created_at": "2025-04-23T10:50:00.000Z",
+      "status": "ORÇADA"
+    },
+    {
+      "id": 5,
+      "order_id": 3,
+      "employee_id": null,
+      "created_at": "2025-04-23T10:10:00.000Z",
+      "status": "ABERTA"
+    },
+    {
+      "id": 6,
+      "order_id": 3,
+      "employee_id": 1,
+      "created_at": "2025-04-23T10:50:00.000Z",
+      "status": "ORÇADA"
+    },
+    {
+      "employee_id": 1,
+      "created_at": "2025-06-09T20:49:59.466Z",
+      "order_id": 1,
+      "status": "ORÇADA",
+      "id": 7
+    },
+    {
+      "employee_id": 1,
+      "created_at": "2025-06-27T01:26:22.370Z",
+      "order_id": 1,
+      "status": "APROVADA",
+      "id": 8
+    },
+    {
+      "employee_id": 1,
+      "created_at": "2025-06-27T01:34:13.482Z",
+      "order_id": 1,
+      "status": "ARRUMADA",
+      "id": 9
+    },
+    {
+      "employee_id": 1,
+      "created_at": "2025-06-27T01:34:26.228Z",
+      "order_id": 1,
+      "status": "PAGA",
+      "id": 10
+    }
+  ]
 }
