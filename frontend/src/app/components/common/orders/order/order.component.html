@@ -75,16 +75,16 @@
 						<table class="table table-striped">
 							<tbody>
 								<tr>
-									<th>ID Cliente</th>
-									<td>{{ order.client_id }}</td>
+									<th>Cliente</th>
+									<td>{{ clientName }}</td>
 								</tr>
 								<tr>
-									<th>ID Funcionário</th>
-									<td>{{ order.employee_id }}</td>
+									<th>Funcionário</th>
+									<td>{{ getEmployeeName(order.employee_id) }}</td>
 								</tr>
 								<tr>
-									<th>ID Categoria</th>
-									<td>{{ order.category_id }}</td>
+									<th>Categoria</th>
+									<td>{{ getCategoryName(order.category_id) }}</td>
 								</tr>
 								<tr>
 									<th>Equipamento</th>
