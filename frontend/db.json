@@ -44,19 +44,19 @@
 	"employees": [
 		{
 			"id": 1,
-			"birthday": "2000-12-15T00:00:00.000Z",
+			"birthday": "2000-12-15",
 			"user_id": 1
 		},
 		{
 			"id": 2,
-			"birthday": "1990-05-01T00:00:00.000Z",
+			"birthday": "1990-05-01",
 			"user_id": 4
 		}
 	],
 	"employees_full": [
 		{
 			"id": 1,
-			"birthday": "2000-12-15T00:00:00.000Z",
+			"birthday": "15/12/2000",
 			"user": {
 				"id": 1,
 				"name": "Jafar",
@@ -66,7 +66,7 @@
 		},
 		{
 			"id": 2,
-			"birthday": "1990-05-01T00:00:00.000Z",
+			"birthday": "01/05/1990",
 			"user": {
 				"id": 4,
 				"name": "Gênio",
@@ -120,16 +120,16 @@
 			"equipment_description": "NOTEBOOK X",
 			"deffect_description": "NAO LIGA",
 			"price": 100,
-			"created_at": "2025-04-23T10:15:00.000Z",
-			"status": "ORÇADA",
-			"repair_description": null,
-			"instruction_decription": null,
+			"created_at": "23/04/2025 10:15",
+			"status": "FINALIZADA",
+			"repair_description": "NOVO EM FOLHA",
+			"instruction_description": null,
 			"order_actions": [
 				{
 					"id": 1,
 					"order_id": 1,
 					"employee_id": null,
-					"created_at": "2025-04-23T10:15:00.000Z",
+					"created_at": "23/04/2025 10:15",
 					"status": "ABERTA"
 				},
 				{
@@ -138,8 +138,37 @@
 					"order_id": 1,
 					"status": "ORÇADA",
 					"id": 7
+				},
+				{
+					"employee_id": 1,
+					"created_at": "2025-06-27T01:13:28.872Z",
+					"order_id": 1,
+					"status": "APROVADA",
+					"id": 8
+				},
+				{
+					"employee_id": 1,
+					"created_at": "2025-06-27T01:13:43.614Z",
+					"order_id": 1,
+					"status": "ARRUMADA",
+					"id": 9
+				},
+				{
+					"employee_id": 1,
+					"created_at": "2025-06-27T01:14:12.016Z",
+					"order_id": 1,
+					"status": "PAGA",
+					"id": 10
+				},
+				{
+					"employee_id": 1,
+					"created_at": "2025-06-27T01:14:25.009Z",
+					"order_id": 1,
+					"status": "FINALIZADA",
+					"id": 11
 				}
-			]
+			],
+			"instruction_description": "A BOBINA"
 		},
 		{
 			"id": 2,
@@ -149,7 +178,7 @@
 			"equipment_description": "MONITOR Y",
 			"deffect_description": "A tela está piscando devagar toda vez que liga o monitor na tomada. Até que apaga.",
 			"price": 100,
-			"created_at": "2025-04-23T10:10:00.000Z",
+			"created_at": "23/04/2025 10:10",
 			"repair_description": null,
 			"instruction_decription": null,
 			"status": "ORÇADA",
@@ -158,14 +187,14 @@
 					"id": 2,
 					"order_id": 2,
 					"employee_id": null,
-					"created_at": "2025-04-23T10:10:00.000Z",
+					"created_at": "23/04/2025 10:10",
 					"status": "ABERTA"
 				},
 				{
 					"id": 3,
 					"order_id": 2,
 					"employee_id": 1,
-					"created_at": "2025-04-23T10:50:00.000Z",
+					"created_at": "23/04/2025 10:50",
 					"status": "ORÇADA"
 				}
 			]
@@ -178,7 +207,7 @@
 			"equipment_description": "MONITOR H",
 			"deffect_description": "Sem botão",
 			"price": 100,
-			"created_at": "2025-04-23T10:10:00.000Z",
+			"created_at": "23/04/2025 10:10",
 			"repair_description": null,
 			"instruction_decription": null,
 			"status": "ORÇADA",
@@ -187,14 +216,14 @@
 					"id": 5,
 					"order_id": 2,
 					"employee_id": null,
-					"created_at": "2025-04-23T10:10:00.000Z",
+					"created_at": "23/04/2025 10:10",
 					"status": "ABERTA"
 				},
 				{
 					"id": 6,
 					"order_id": 2,
 					"employee_id": 1,
-					"created_at": "2025-04-23T10:50:00.000Z",
+					"created_at": "23/04/2025 10:50",
 					"status": "ORÇADA"
 				}
 			]
@@ -205,35 +234,35 @@
 			"id": 1,
 			"order_id": 1,
 			"employee_id": null,
-			"created_at": "2025-04-23T10:15:00.000Z",
+			"created_at": "23/04/2025 10:15",
 			"status": "ABERTA"
 		},
 		{
 			"id": 2,
 			"order_id": 2,
 			"employee_id": null,
-			"created_at": "2025-04-23T10:10:00.000Z",
+			"created_at": "23/04/2025 10:10",
 			"status": "ABERTA"
 		},
 		{
 			"id": 3,
 			"order_id": 2,
 			"employee_id": 1,
-			"created_at": "2025-04-23T10:50:00.000Z",
+			"created_at": "23/04/2025 10:50",
 			"status": "ORÇADA"
 		},
 		{
 			"id": 5,
 			"order_id": 3,
 			"employee_id": null,
-			"created_at": "2025-04-23T10:10:00.000Z",
+			"created_at": "23/04/2025 10:10",
 			"status": "ABERTA"
 		},
 		{
 			"id": 6,
 			"order_id": 3,
 			"employee_id": 1,
-			"created_at": "2025-04-23T10:50:00.000Z",
+			"created_at": "23/04/2025 10:50",
 			"status": "ORÇADA"
 		},
 		{
@@ -242,6 +271,728 @@
 			"order_id": 1,
 			"status": "ORÇADA",
 			"id": 7
+		},
+		{
+			"employee_id": 1,
+			"created_at": "2025-06-27T01:13:28.872Z",
+			"order_id": 1,
+			"status": "APROVADA",
+			"id": 8
+		},
+		{
+			"employee_id": 1,
+			"created_at": "2025-06-27T01:13:43.614Z",
+			"order_id": 1,
+			"status": "ARRUMADA",
+			"id": 9
+		},
+		{
+			"employee_id": 1,
+			"created_at": "2025-06-27T01:14:12.016Z",
+			"order_id": 1,
+			"status": "PAGA",
+			"id": 10
+		},
+		{
+			"employee_id": 1,
+			"created_at": "2025-06-27T01:14:25.009Z",
+			"order_id": 1,
+			"status": "FINALIZADA",
+			"id": 11
+		}
+	],
+	"funcionario": [
+		{
+			"id": "JKLK",
+			"email": "maria@maria.com",
+			"nome": "Maria Maria",
+			"senha": "maria"
+		},
+		{
+			"id": "YYYY",
+			"email": "mario@mario.com",
+			"nome": "Mario Mario",
+			"senha": "mario"
+		}
+	],
+	"cliente": [
+		{
+			"id": "ABCD",
+			"email": "joao@joao.com",
+			"nome": "João João",
+			"cpf": "11111111111",
+			"senha": "joao",
+			"cep": "81520260",
+			"cidade": "Curitiba",
+			"estado": "Paraná",
+			"numero_endereco": 500
+		},
+		{
+			"id": "JkLm",
+			"email": "jose@jose.com",
+			"nome": "José José",
+			"cpf": "22222222222",
+			"senha": "jose",
+			"cep": "85050000",
+			"cidade": "Guarapuava",
+			"estado": "Paraná",
+			"numero_endereco": 310
+		},
+		{
+			"id": "BBBB",
+			"email": "joana@joana.com",
+			"nome": "Joana Joana",
+			"cpf": "33333333333",
+			"senha": "joana",
+			"cep": "69010090",
+			"cidade": "Manaus",
+			"estado": "Amazonas",
+			"numero_endereco": 570
+		},
+		{
+			"id": "CCCC",
+			"email": "joaquina@joaquina.com",
+			"nome": "joaquina joaquina",
+			"cpf": "33333333333",
+			"senha": "joaquina",
+			"cep": "04534002",
+			"cidade": "São Paulo",
+			"estado": "São Paulo",
+			"numero_endereco": 466
+		}
+	],
+	"categoria": [
+		{
+			"id": "OASD",
+			"nome_tipo": "Notebook"
+		},
+		{
+			"id": "AS8d",
+			"nome_tipo": "Desktop"
+		},
+		{
+			"id": "asT1",
+			"nome_tipo": "Impressora"
+		},
+		{
+			"id": "125j",
+			"nome_tipo": "Mouse"
+		},
+		{
+			"id": "p5z0",
+			"nome_tipo": "Teclado"
+		}
+	],
+	"solicitacao": [
+		{
+			"id": "z812",
+			"data_solicitacao": "2024-11-07T04:31:09.782Z",
+			"descricao": "notebook não dá tela",
+			"categoria_id": "OASD",
+			"solicitante_id": "ABCD",
+			"status_atual": "Aberta",
+			"status_historico": [["Aberta", "2024-11-07T04:31:09.782Z"]],
+			"valor_orcamento": 0,
+			"funcionario_orcamento_id": "",
+			"data_orcamento": "",
+			"descricao_manutencao": "",
+			"orientacao_ao_cliente": "",
+			"redirecionamento_idFruncionario_data": [
+				{
+					"id_funcionario": "",
+					"data_redirecionamento": ""
+				}
+			]
+		},
+		{
+			"id": "9cDi",
+			"data_solicitacao": "2022-01-01T04:31:09.782Z",
+			"descricao": "Desktop não liga",
+			"categoria_id": "AS8d",
+			"solicitante_id": "JkLm",
+			"status_atual": "Orçada",
+			"status_historico": [["Orçada", "2022-01-01T04:31:09.782Z"]],
+			"valor_orcamento": 124,
+			"funcionario_orcamento_id": "JKLK",
+			"data_orcamento": "2025-11-07T04:31:09.782Z",
+			"descricao_manutencao": "Fonte esta queimada",
+			"orientacao_ao_cliente": "",
+			"redirecionamento_idFruncionario_data": [
+				{
+					"id_funcionario": "",
+					"data_redirecionamento": ""
+				}
+			]
+		},
+		{
+			"id": "nb9D",
+			"data_solicitacao": "2023-11-09T04:31:09.782Z",
+			"descricao": "Impressora não imprime",
+			"categoria_id": "asT1",
+			"solicitante_id": "BBBB",
+			"status_atual": "Rejeita",
+			"status_historico": [["Rejeita", "2023-11-09T04:31:09.782Z"]],
+			"valor_orcamento": 1251512,
+			"funcionario_orcamento_id": "YYYY",
+			"data_orcamento": "2025-11-07T04:31:09.782Z",
+			"descricao_manutencao": "",
+			"orientacao_ao_cliente": "",
+			"redirecionamento_idFruncionario_data": [
+				{
+					"id_funcionario": "",
+					"data_redirecionamento": ""
+				}
+			]
+		},
+		{
+			"id": "Hbc4",
+			"data_solicitacao": "2023-11-08T04:31:09.782Z",
+			"descricao": "Bolinha do mouse não gira",
+			"categoria_id": "125j",
+			"solicitante_id": "CCCC",
+			"status_atual": "Aprovada",
+			"status_historico": [["Aprovada", "2023-11-08T04:31:09.782Z"]],
+			"valor_orcamento": 98,
+			"funcionario_orcamento_id": "YYYY",
+			"data_orcamento": "2025-11-07T04:31:09.782Z",
+			"descricao_manutencao": "",
+			"orientacao_ao_cliente": "",
+			"redirecionamento_idFruncionario_data": [
+				{
+					"id_funcionario": "",
+					"data_redirecionamento": ""
+				}
+			]
+		},
+		{
+			"id": "125G",
+			"data_solicitacao": "2024-01-10T04:31:09.782Z",
+			"descricao": "Teclado molhado, não funciona",
+			"categoria_id": "p5z0",
+			"solicitante_id": "ABCD",
+			"status_atual": "Orçada",
+			"status_historico": [
+				["Redirecionada", "2024-01-10T04:31:09.782Z"],
+				["Orçada", "2025-04-19T03:53:50.597Z"]
+			],
+			"valor_orcamento": 999,
+			"funcionario_orcamento_id": "YYYY",
+			"data_orcamento": "2025-04-19T03:58:29.654Z",
+			"descricao_manutencao": "",
+			"orientacao_ao_cliente": "",
+			"redirecionamento_idFruncionario_data": [
+				{
+					"id_funcionario": "",
+					"data_redirecionamento": ""
+				}
+			]
+		},
+		{
+			"id": "54bZ",
+			"data_solicitacao": "2024-07-07T04:31:09.782Z",
+			"descricao": "Webcam do notebook está embaçada",
+			"categoria_id": "OASD",
+			"solicitante_id": "JkLm",
+			"status_atual": "Orçada",
+			"status_historico": [
+				["Arrumada", "2024-07-07T04:31:09.782Z"],
+				["Orçada", "2025-04-19T03:58:55.881Z"]
+			],
+			"valor_orcamento": 999,
+			"funcionario_orcamento_id": "YYYY",
+			"data_orcamento": "2025-04-19T03:58:55.881Z",
+			"descricao_manutencao": "",
+			"orientacao_ao_cliente": "",
+			"redirecionamento_idFruncionario_data": [
+				{
+					"id_funcionario": "",
+					"data_redirecionamento": ""
+				}
+			]
+		},
+		{
+			"id": "nCo2",
+			"data_solicitacao": "2025-01-02T04:31:09.782Z",
+			"descricao": "Teclado com mal contato",
+			"categoria_id": "p5z0",
+			"solicitante_id": "BBBB",
+			"status_atual": "Paga",
+			"status_historico": [["Paga", "2025-01-02T04:31:09.782Z"]],
+			"valor_orcamento": 64,
+			"funcionario_orcamento_id": "JKLK",
+			"data_orcamento": "2025-11-07T04:31:09.782Z",
+			"descricao_manutencao": "",
+			"orientacao_ao_cliente": "",
+			"redirecionamento_idFruncionario_data": [
+				{
+					"id_funcionario": "",
+					"data_redirecionamento": ""
+				}
+			]
+		},
+		{
+			"id": "yFzO",
+			"data_solicitacao": "2024-11-03T04:31:09.782Z",
+			"descricao": "Impressora sem tinta",
+			"categoria_id": "asT1",
+			"solicitante_id": "CCCC",
+			"status_atual": "Finalizada",
+			"status_historico": [["Finalizada", "2024-11-03T04:31:09.782Z"]],
+			"valor_orcamento": 412,
+			"funcionario_orcamento_id": "YYYY",
+			"data_orcamento": "2025-11-07T04:31:09.782Z",
+			"descricao_manutencao": "",
+			"orientacao_ao_cliente": "",
+			"redirecionamento_idFruncionario_data": [
+				{
+					"id_funcionario": "",
+					"data_redirecionamento": ""
+				}
+			]
+		},
+		{
+			"id": "Vaz1",
+			"data_solicitacao": "2023-08-08T04:31:09.782Z",
+			"descricao": "Desktop com vírus",
+			"categoria_id": "AS8d",
+			"solicitante_id": "ABCD",
+			"status_atual": "Aberta",
+			"status_historico": [["Aberta", "2023-08-08T04:31:09.782Z"]],
+			"valor_orcamento": 0,
+			"funcionario_orcamento_id": "",
+			"data_orcamento": "",
+			"descricao_manutencao": "",
+			"orientacao_ao_cliente": "",
+			"redirecionamento_idFruncionario_data": [
+				{
+					"id_funcionario": "",
+					"data_redirecionamento": ""
+				}
+			]
+		},
+		{
+			"id": "Pnc7",
+			"data_solicitacao": "2024-01-05T04:31:09.782Z",
+			"descricao": "Mouse com cabo cortado",
+			"categoria_id": "125j",
+			"solicitante_id": "JkLm",
+			"status_atual": "Orçada",
+			"status_historico": [["Orçada", "2024-01-05T04:31:09.782Z"]],
+			"valor_orcamento": 40,
+			"funcionario_orcamento_id": "JKLK",
+			"data_orcamento": "2025-11-07T04:31:09.782Z",
+			"descricao_manutencao": "",
+			"orientacao_ao_cliente": "",
+			"redirecionamento_idFruncionario_data": [
+				{
+					"id_funcionario": "",
+					"data_redirecionamento": ""
+				}
+			]
+		},
+		{
+			"id": "87zl",
+			"data_solicitacao": "2024-02-02T04:31:09.782Z",
+			"descricao": "Teclado com teclas quebradas",
+			"categoria_id": "p5z0",
+			"solicitante_id": "BBBB",
+			"status_atual": "Rejeita",
+			"status_historico": [["Rejeita", "2024-02-02T04:31:09.782Z"]],
+			"valor_orcamento": 11110,
+			"funcionario_orcamento_id": "JKLK",
+			"data_orcamento": "2025-11-07T04:31:09.782Z",
+			"descricao_manutencao": "",
+			"orientacao_ao_cliente": "",
+			"redirecionamento_idFruncionario_data": [
+				{
+					"id_funcionario": "",
+					"data_redirecionamento": ""
+				}
+			]
+		},
+		{
+			"id": "boIe",
+			"data_solicitacao": "2022-02-02T04:31:09.782Z",
+			"descricao": "Notebook com tela quebrada",
+			"categoria_id": "OASD",
+			"solicitante_id": "CCCC",
+			"status_atual": "Arrumada",
+			"status_historico": [["Arrumada", "2022-02-02T04:31:09.782Z"]],
+			"valor_orcamento": 112,
+			"funcionario_orcamento_id": "JKLK",
+			"data_orcamento": "2025-11-07T04: 31: 09.782Z",
+			"descricao_manutencao": "",
+			"orientacao_ao_cliente": "",
+			"redirecionamento_idFruncionario_data": [
+				{
+					"id_funcionario": "",
+					"data_redirecionamento": ""
+				}
+			]
+		},
+		{
+			"id": "99co",
+			"data_solicitacao": "2021-02-04T04:34:09.782Z",
+			"descricao": "Desktop com superaquecimento",
+			"categoria_id": "AS8d",
+			"solicitante_id": "ABCD",
+			"status_atual": "Arrumada",
+			"status_historico": [["Arrumada", "2021-02-04T04:34:09.782Z"]],
+			"valor_orcamento": 125,
+			"funcionario_orcamento_id": "YYYY",
+			"data_orcamento": "2025-11-07T04: 31: 09.782Z",
+			"descricao_manutencao": "",
+			"orientacao_ao_cliente": "",
+			"redirecionamento_idFruncionario_data": [
+				{
+					"id_funcionario": "",
+					"data_redirecionamento": ""
+				}
+			]
+		},
+		{
+			"id": "nUa2",
+			"data_solicitacao": "2024-02-01T04:31:09.782Z",
+			"descricao": "Impressora com papel emperrado",
+			"categoria_id": "asT1",
+			"solicitante_id": "JkLm",
+			"status_atual": "Paga",
+			"status_historico": [["Paga", "2024-02-01T04:31:09.782Z"]],
+			"valor_orcamento": 647,
+			"funcionario_orcamento_id": "JKLK",
+			"data_orcamento": "2025-11-07T04:31:09.782Z",
+			"descricao_manutencao": "",
+			"orientacao_ao_cliente": "",
+			"redirecionamento_idFruncionario_data": [
+				{
+					"id_funcionario": "",
+					"data_redirecionamento": ""
+				}
+			]
+		},
+		{
+			"id": "z7yR",
+			"data_solicitacao": "2024-03-08T04:31:09.782Z",
+			"descricao": "Mouse com double click",
+			"categoria_id": "125j",
+			"solicitante_id": "BBBB",
+			"status_atual": "Finaliza",
+			"status_historico": [["Finaliza", "2024-03-08T04:31:09.782Z"]],
+			"valor_orcamento": 124,
+			"funcionario_orcamento_id": "YYYY",
+			"data_orcamento": "2025-11-07T04: 31: 09.782Z",
+			"descricao_manutencao": "",
+			"orientacao_ao_cliente": "",
+			"redirecionamento_idFruncionario_data": [
+				{
+					"id_funcionario": "",
+					"data_redirecionamento": ""
+				}
+			]
+		},
+		{
+			"id": "7cnG",
+			"data_solicitacao": "2024-04-06T04:31:09.782Z",
+			"descricao": "Teclado com teclas quebradas",
+			"categoria_id": "p5z0",
+			"solicitante_id": "CCCC",
+			"status_atual": "Aberta",
+			"status_historico": [["Aberta", "2024-04-06T04:31:09.782Z"]],
+			"valor_orcamento": 0,
+			"funcionario_orcamento_id": "",
+			"data_orcamento": "",
+			"descricao_manutencao": "",
+			"orientacao_ao_cliente": "",
+			"redirecionamento_idFruncionario_data": [
+				{
+					"id_funcionario": "",
+					"data_redirecionamento": ""
+				}
+			]
+		},
+		{
+			"id": "aMh2",
+			"data_solicitacao": "2021-05-05T04:31:09.782Z",
+			"descricao": "Notebook com superaquecimento",
+			"categoria_id": "OASD",
+			"solicitante_id": "ABCD",
+			"status_atual": "Orçada",
+			"status_historico": [["Orçada", "2021-05-05T04:31:09.782Z"]],
+			"valor_orcamento": 623,
+			"funcionario_orcamento_id": "JKLK",
+			"data_orcamento": "2025-11-07T04:31:09.782Z",
+			"descricao_manutencao": "",
+			"orientacao_ao_cliente": "",
+			"redirecionamento_idFruncionario_data": [
+				{
+					"id_funcionario": "",
+					"data_redirecionamento": ""
+				}
+			]
+		},
+		{
+			"id": "sBV5",
+			"data_solicitacao": "2024-09-04T04:31:09.782Z",
+			"descricao": "Desktop com gabinete amassado",
+			"categoria_id": "AS8d",
+			"solicitante_id": "JkLm",
+			"status_atual": "Rejeita",
+			"status_historico": [["Rejeita", "2024-09-04T04:31:09.782Z"]],
+			"valor_orcamento": 215,
+			"funcionario_orcamento_id": "JKLK",
+			"data_orcamento": "2025-11-07T04: 31: 09.782Z",
+			"descricao_manutencao": "",
+			"orientacao_ao_cliente": "",
+			"redirecionamento_idFruncionario_data": [
+				{
+					"id_funcionario": "",
+					"data_redirecionamento": ""
+				}
+			]
+		},
+		{
+			"id": "9dvC",
+			"data_solicitacao": "2024-10-03T04:12:09.782Z",
+			"descricao": "Impressora com tinta vazando",
+			"categoria_id": "asT1",
+			"solicitante_id": "BBBB",
+			"status_atual": "Aprovada",
+			"status_historico": [["Aprovada", "2024-10-03T04:12:09.782Z"]],
+			"valor_orcamento": 63.5,
+			"funcionario_orcamento_id": "JKLK",
+			"data_orcamento": "2025-11-07T04: 31: 09.782Z",
+			"descricao_manutencao": "",
+			"orientacao_ao_cliente": "",
+			"redirecionamento_idFruncionario_data": [
+				{
+					"id_funcionario": "",
+					"data_redirecionamento": ""
+				}
+			]
+		},
+		{
+			"id": "7nv3",
+			"data_solicitacao": "2022-11-02T04:31:09.782Z",
+			"descricao": "Mouse sem conexão",
+			"categoria_id": "125j",
+			"solicitante_id": "CCCC",
+			"status_atual": "Redirecionada",
+			"status_historico": [["Redirecionada", "2022-11-02T04:31:09.782Z"]],
+			"valor_orcamento": 85,
+			"funcionario_orcamento_id": "YYYY",
+			"data_orcamento": "2025-11-07T04: 31: 09.782Z",
+			"descricao_manutencao": "",
+			"orientacao_ao_cliente": "",
+			"redirecionamento_idFruncionario_data": [
+				{
+					"id_funcionario": "",
+					"data_redirecionamento": ""
+				}
+			]
+		},
+		{
+			"id": "2vX1",
+			"data_solicitacao": "2024-11-11T04:31:09.782Z",
+			"descricao": "Teclado com teclas invertidas",
+			"categoria_id": "p5z0",
+			"solicitante_id": "ABCD",
+			"status_atual": "Arrumada",
+			"status_historico": [["Arrumada", "2024-11-11T04:31:09.782Z"]],
+			"valor_orcamento": 56,
+			"funcionario_orcamento_id": "JKLK",
+			"data_orcamento": "2025-11-07T04: 31: 09.782Z",
+			"descricao_manutencao": "",
+			"orientacao_ao_cliente": "",
+			"redirecionamento_idFruncionario_data": [
+				{
+					"id_funcionario": "",
+					"data_redirecionamento": ""
+				}
+			]
+		},
+		{
+			"id": "3gY1",
+			"data_solicitacao": "2024-12-01T04:44:09.782Z",
+			"descricao": "Notebook travando",
+			"categoria_id": "OASD",
+			"solicitante_id": "JkLm",
+			"status_atual": "Paga",
+			"status_historico": [["Paga", "2024-12-01T04:44:09.782Z"]],
+			"valor_orcamento": 65,
+			"funcionario_orcamento_id": "JKLK",
+			"data_orcamento": "2025-11-07T04:31:09.782Z",
+			"descricao_manutencao": "",
+			"orientacao_ao_cliente": "",
+			"redirecionamento_idFruncionario_data": [
+				{
+					"id_funcionario": "",
+					"data_redirecionamento": ""
+				}
+			]
+		},
+		{
+			"id": "4hn2",
+			"data_solicitacao": "2022-01-11T01:31:09.782Z",
+			"descricao": "Desktop com monitor piscando",
+			"categoria_id": "AS8d",
+			"solicitante_id": "BBBB",
+			"status_atual": "Finalizada",
+			"status_historico": [["Finalizada", "2022-01-11T01:31:09.782Z"]],
+			"valor_orcamento": 98,
+			"funcionario_orcamento_id": "YYYY",
+			"data_orcamento": "2025-11-07T04: 31: 09.782Z",
+			"descricao_manutencao": "",
+			"orientacao_ao_cliente": "",
+			"redirecionamento_idFruncionario_data": [
+				{
+					"id_funcionario": "",
+					"data_redirecionamento": ""
+				}
+			]
+		},
+		{
+			"id": "1zFf",
+			"data_solicitacao": "2024-12-01T04:31:09.782Z",
+			"descricao": "Impressora com papel atolado",
+			"categoria_id": "asT1",
+			"solicitante_id": "CCCC",
+			"status_atual": "Aberta",
+			"status_historico": [["Aberta", "2024-12-01T04:31:09.782Z"]],
+			"valor_orcamento": 0,
+			"funcionario_orcamento_id": "",
+			"data_orcamento": "",
+			"descricao_manutencao": "",
+			"orientacao_ao_cliente": "",
+			"redirecionamento_idFruncionario_data": [
+				{
+					"id_funcionario": "",
+					"data_redirecionamento": ""
+				}
+			]
+		},
+		{
+			"id": "8gY2",
+			"data_solicitacao": "2024-11-01T04:31:09.782Z",
+			"descricao": "Mouse com scroll quebrado",
+			"categoria_id": "125j",
+			"solicitante_id": "ABCD",
+			"status_atual": "Orçada",
+			"status_historico": [["Orçada", "2024-11-01T04:31:09.782Z"]],
+			"valor_orcamento": 65,
+			"funcionario_orcamento_id": "YYYY",
+			"data_orcamento": "2025-11-07T04:31:09.782Z",
+			"descricao_manutencao": "",
+			"orientacao_ao_cliente": "",
+			"redirecionamento_idFruncionario_data": [
+				{
+					"id_funcionario": "",
+					"data_redirecionamento": ""
+				}
+			]
+		},
+		{
+			"id": "5hZ3",
+			"data_solicitacao": "2024-10-01T04:31:09.782Z",
+			"descricao": "Teclado com teclas faltando",
+			"categoria_id": "p5z0",
+			"solicitante_id": "JkLm",
+			"status_atual": "Rejeita",
+			"status_historico": [["Rejeita", "2024-10-01T04:31:09.782Z"]],
+			"valor_orcamento": 43,
+			"funcionario_orcamento_id": "YYYY",
+			"data_orcamento": "2025-11-07T04: 31: 09.782Z",
+			"descricao_manutencao": "",
+			"orientacao_ao_cliente": "",
+			"redirecionamento_idFruncionario_data": [
+				{
+					"id_funcionario": "",
+					"data_redirecionamento": ""
+				}
+			]
+		},
+		{
+			"id": "6iX4",
+			"data_solicitacao": "2024-09-01T04:31:09.782Z",
+			"descricao": "Notebook sem som",
+			"categoria_id": "OASD",
+			"solicitante_id": "BBBB",
+			"status_atual": "Arrumada",
+			"status_historico": [["Arrumada", "2024-09-01T04:31:09.782Z"]],
+			"valor_orcamento": 234,
+			"funcionario_orcamento_id": "JKLK",
+			"data_orcamento": "2025-11-07T04: 31: 09.782Z",
+			"descricao_manutencao": "",
+			"orientacao_ao_cliente": "",
+			"redirecionamento_idFruncionario_data": [
+				{
+					"id_funcionario": "",
+					"data_redirecionamento": ""
+				}
+			]
+		},
+		{
+			"id": "7jY5",
+			"data_solicitacao": "2024-08-01T04:31:09.782Z",
+			"descricao": "Desktop com teclado sem resposta",
+			"categoria_id": "AS8d",
+			"solicitante_id": "CCCC",
+			"status_atual": "Paga",
+			"status_historico": [["Paga", "2024-08-01T04:31:09.782Z"]],
+			"valor_orcamento": 124,
+			"funcionario_orcamento_id": "JKLK",
+			"data_orcamento": "2025-11-07T04:31:09.782Z",
+			"descricao_manutencao": "",
+			"orientacao_ao_cliente": "",
+			"redirecionamento_idFruncionario_data": [
+				{
+					"id_funcionario": "",
+					"data_redirecionamento": ""
+				}
+			]
+		},
+		{
+			"id": "4pzJQq3",
+			"data_solicitacao": "2025-04-17T14:11:02.152Z",
+			"descricao": "rrrrr",
+			"categoria_id": "Impressora",
+			"solicitante_id": "ABCD",
+			"status_atual": "Orçada",
+			"status_historico": [
+				["Aberta", "2025-04-17T14:11:02.152Z"],
+				["Orçada", "2025-06-06T20:25:43.788Z"],
+				["Orçada", "2025-06-06T20:25:57.617Z"]
+			],
+			"valor_orcamento": 4,
+			"funcionario_orcamento_id": "YYYY",
+			"data_orcamento": "2025-06-06T20:25:57.617Z",
+			"descricao_manutencao": "",
+			"orientacao_ao_cliente": "",
+			"redirecionamento_idFruncionario_data": [
+				{
+					"id_funcionario": "",
+					"data_redirecionamento": ""
+				}
+			]
+		},
+		{
+			"id": "iA9GNPN",
+			"data_solicitacao": "2025-04-19T03:32:37.516Z",
+			"descricao": "PEGANDO FOGO",
+			"categoria_id": "Desktop",
+			"solicitante_id": "ABCD",
+			"status_atual": "Orçada",
+			"status_historico": [
+				["Aberta", "2025-04-19T03:32:37.516Z"],
+				["Orçada", "2025-04-19T03:33:09.303Z"]
+			],
+			"redirecionamento_idFuncionario_data": {
+				"id_funcionario": "",
+				"data_redirecionamento": ""
+			},
+			"valor_orcamento": 999,
+			"funcionario_orcamento_id": "YYYY",
+			"data_orcamento": "2025-04-19T03:33:09.303Z"
 		}
 	]
 }
+
