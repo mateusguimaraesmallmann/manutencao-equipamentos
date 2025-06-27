@@ -4,6 +4,7 @@ import {
 	AuthService,
 	CategoryService,
 	OrderService,
+	EmployeeService,
 } from '../../../../services';
 import {
 	FormBuilder,
@@ -26,11 +27,13 @@ export class OrderCreationComponent implements OnInit {
 	categories: Array<Category>;
 	ordersForm: FormGroup;
 	editing: boolean = false;
+	employees: Array<any> = [];
 
 	constructor(
 		private categoryService: CategoryService,
 		private orderService: OrderService,
 		private authService: AuthService,
+		private employeeService: EmployeeService,
 		private fb: FormBuilder,
 		private router: Router,
 	) {
@@ -47,9 +50,18 @@ export class OrderCreationComponent implements OnInit {
 		this.categoryService.getCategories().subscribe((_) => {
 			this.categories = this.categoryService.categoriesCache;
 		});
+		this.employeeService.getEmployeesFull().subscribe((employees) => {
+			this.employees = employees;
+		});
 	}
 
-	onSubmit() {}
+	getRandomEmployeeId(): number | null {
+		if (this.employees.length === 0) {
+			return null;
+		}
+		const randomIndex = Math.floor(Math.random() * this.employees.length);
+		return this.employees[randomIndex].id;
+	}
 
 	save() {
 		if (!this.ordersForm.valid) {
@@ -59,16 +71,17 @@ export class OrderCreationComponent implements OnInit {
 		}
 
 		let client_id = this.authService.getUser()?.client_id!;
+		const randomEmployeeId = this.getRandomEmployeeId();
 
 		const new_order = new Order({
 			...this.ordersForm.value,
-			created_at: new Date(), //TODO - REMOVER AO INTEGRAR COM A API
+			created_at: new Date(),
 			client_id,
+			employee_id: randomEmployeeId,
 		});
 
 		if (new_order.valid(EntityMethods.CREATE)) {
 			this.orderService.newOrder(new_order).subscribe((response) => {
-				console.log(response);
 				alert('Ordem de serviço criada');
 				this.router.navigate(['/home']);
 			});

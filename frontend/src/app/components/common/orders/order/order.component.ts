@@ -74,15 +74,15 @@ export class OrderComponent {
 
 	getEmployeeName(employee_id: Number): string {
 		const employee = this.employeeService.employeesCache.find(
-			(e: Employee) => e.id === employee_id,
+			(e: Employee) => e.id == employee_id,
 		);
 
 		return employee?.user?.name ?? '-';
 	}
 
-	getCategoryName(category_id: Number): string {
+	getCategoryName(category_id: any): string {
 		const category = this.categoryService.categoriesCache.find(
-			(c: Category) => c.id === category_id,
+			(c: Category) => c.id == category_id,
 		);
 
 		return category?.name ?? '-';
@@ -93,7 +93,6 @@ export class OrderComponent {
 			.getUserFromClient(client_id)
 			.pipe(map((user: User) => user?.name ?? '-'));
 	}
-
 
 	approveOrder(): void {
 		this.orderService.newAction(this.order, OrderStatus.APROVADA).subscribe({
