@@ -1,0 +1,30 @@
+<app-navbar-cliente></app-navbar-cliente>
+
+<div class="solicitacao-container">
+    <mat-card class="solicitacao-card">
+      <mat-card-title>Solicitação de Manutenção</mat-card-title>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+          <mat-label>Descrição do Equipamento</mat-label>
+          <input matInput formControlName="equipamento">
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Categoria</mat-label>
+          <mat-select formControlName="categoria">
+            <mat-option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Descrição do Defeito</mat-label>
+          <textarea matInput rows="4" formControlName="defeito"></textarea>
+        </mat-form-field>
+  
+        <div class="botoes">
+          <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Enviar Solicitação</button>
+        </div>
+      </form>
+    </mat-card>
+  </div>
+  
