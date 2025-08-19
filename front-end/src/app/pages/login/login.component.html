@@ -1,0 +1,33 @@
+<div class="login-container">
+    <mat-card class="login-card">
+      <mat-card-title>Login</mat-card-title>
+  
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+        <mat-form-field appearance="fill">
+          <mat-label>E-mail</mat-label>
+          <input matInput type="email" formControlName="email" />
+          <mat-error *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+            E-mail inválido.
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Senha</mat-label>
+          <input matInput type="password" formControlName="password" />
+          <mat-error *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+            Senha obrigatória.
+          </mat-error>
+        </mat-form-field>
+  
+        <div class="error" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </div>
+  
+        <div class="btns">
+          <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Login</button>
+          <button mat-button type="button" (click)="goToRegister()">Autocadastro</button>
+        </div>
+      </form>
+    </mat-card>
+  </div>
+  

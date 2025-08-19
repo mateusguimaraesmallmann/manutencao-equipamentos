@@ -1,0 +1,38 @@
+.login-container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f2f2f2;
+  }
+  
+  .login-card {
+    width: 400px;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  
+    mat-card-title {
+      text-align: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+  
+    mat-form-field {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+  
+    .btns {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+  
+    .error {
+      color: red;
+      text-align: center;
+      margin-top: 1rem;
+    }
+  }
