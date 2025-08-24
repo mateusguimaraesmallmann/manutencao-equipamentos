@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { ToolbarModule } from 'primeng/toolbar';
+import { NavbarComponent } from '../../components/navbar/navbar/navbar.component';
 
 @Component({
   selector: 'app-inicial',
-  imports:[ToolbarModule],
+  imports:[NavbarComponent],
   standalone: true,
   templateUrl: './inicial.component.html',
   styleUrl: './inicial.component.css'
