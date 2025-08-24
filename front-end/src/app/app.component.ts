@@ -1,11 +1,20 @@
 import { Component } from '@angular/core';
+import {Router, RouterOutlet} from '@angular/router'; // Add this import
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  standalone: false,
-  styleUrl: './app.component.css'
+  standalone: true,
+  styleUrl: './app.component.css',
+  imports: [RouterOutlet] // Add RouterOutlet here
 })
 export class AppComponent {
+  constructor(public router: Router){
+    console.log(this.showBackground());
+  }
+  showBackground(): boolean{
+    const routsWithBackground = ['/']
+    return routsWithBackground.includes(this.router.url);
+  }
   title = 'front-end';
 }
