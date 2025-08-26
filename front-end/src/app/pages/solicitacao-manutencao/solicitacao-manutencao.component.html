@@ -1,30 +1,133 @@
 <app-navbar-cliente></app-navbar-cliente>
 
-<div class="solicitacao-container">
-    <mat-card class="solicitacao-card">
+<div class="solicitacao-container" [class.submitting]="isSubmitting">
+  <mat-card class="solicitacao-card">
+    <mat-card-header>
+      <div mat-card-avatar class="card-icon">
+        <mat-icon aria-hidden="true">build</mat-icon>
+      </div>
       <mat-card-title>Solicitação de Manutenção</mat-card-title>
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <mat-form-field appearance="fill">
-          <mat-label>Descrição do Equipamento</mat-label>
-          <input matInput formControlName="equipamento">
-        </mat-form-field>
-  
-        <mat-form-field appearance="fill">
-          <mat-label>Categoria</mat-label>
-          <mat-select formControlName="categoria">
-            <mat-option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-  
-        <mat-form-field appearance="fill">
-          <mat-label>Descrição do Defeito</mat-label>
-          <textarea matInput rows="4" formControlName="defeito"></textarea>
-        </mat-form-field>
-  
+      <mat-card-subtitle>Preencha os dados abaixo para abrir seu chamado</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="on" novalidate>
+        <!-- Barra de progresso ao enviar -->
+        <mat-progress-bar *ngIf="isSubmitting" mode="indeterminate"></mat-progress-bar>
+
+        <div class="grid">
+          <!-- Equipamento -->
+          <mat-form-field appearance="fill" class="col-12 col-md-6">
+            <mat-label>Descrição do Equipamento</mat-label>
+            <input matInput formControlName="equipamento" required autocomplete="off" maxlength="100"
+                   placeholder="Ex.: Impressora HP LaserJet 1020">
+            <mat-hint align="end">{{ form.get('equipamento')?.value?.length || 0 }}/100</mat-hint>
+            <mat-error *ngIf="form.get('equipamento')?.hasError('required')">Obrigatório.</mat-error>
+            <mat-error *ngIf="form.get('equipamento')?.hasError('maxlength')">Máximo de 100 caracteres.</mat-error>
+          </mat-form-field>
+
+          <!-- Nº de Série -->
+          <mat-form-field appearance="fill" class="col-12 col-md-6">
+            <mat-label>Nº de Série / Patrimônio</mat-label>
+            <input matInput formControlName="numeroSerie" autocomplete="off" placeholder="Ex.: BR-HP-1020-0001">
+          </mat-form-field>
+
+          <!-- Categoria -->
+          <mat-form-field appearance="fill" class="col-12 col-md-4">
+            <mat-label>Categoria</mat-label>
+            <mat-select formControlName="categoria" required>
+              <mat-option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('categoria')?.hasError('required')">Obrigatório.</mat-error>
+          </mat-form-field>
+
+          <!-- Prioridade -->
+          <div class="col-12 col-md-4 prioridade-group" role="group" aria-label="Definir prioridade">
+            <label class="group-label">Prioridade</label>
+            <mat-button-toggle-group formControlName="prioridade" name="prioridade" aria-label="Prioridade" class="prioridade-toggle"
+                                     [multiple]="false">
+              <mat-button-toggle value="Baixa">Baixa</mat-button-toggle>
+              <mat-button-toggle value="Média">Média</mat-button-toggle>
+              <mat-button-toggle value="Alta">Alta</mat-button-toggle>
+              <mat-button-toggle value="Crítica">Crítica</mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
+
+          <!-- Data preferencial -->
+          <mat-form-field appearance="fill" class="col-12 col-md-4">
+            <mat-label>Data preferencial de atendimento</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="dataPreferencial" placeholder="Selecionar data">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <!-- Localização / Setor -->
+          <mat-form-field appearance="fill" class="col-12 col-md-6">
+            <mat-label>Localização / Setor</mat-label>
+            <input matInput formControlName="localizacao" placeholder="Ex.: Bloco B, 3º andar, TI">
+          </mat-form-field>
+
+          <!-- Contato -->
+          <mat-form-field appearance="fill" class="col-12 col-md-3">
+            <mat-label>Telefone</mat-label>
+            <input matInput formControlName="telefone" placeholder="(00) 00000-0000">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="col-12 col-md-3">
+            <mat-label>E-mail</mat-label>
+            <input matInput type="email" formControlName="email" placeholder="seuemail@empresa.com">
+            <mat-error *ngIf="form.get('email')?.hasError('email')">E-mail inválido.</mat-error>
+          </mat-form-field>
+
+          <!-- Descrição do Defeito -->
+          <mat-form-field appearance="fill" class="col-12">
+            <mat-label>Descrição do Defeito</mat-label>
+            <textarea matInput rows="5" formControlName="defeito" required maxlength="1000" placeholder="Descreva o problema com detalhes"></textarea>
+            <mat-hint align="end">{{ form.get('defeito')?.value?.length || 0 }}/1000</mat-hint>
+            <mat-error *ngIf="form.get('defeito')?.hasError('required')">Obrigatório.</mat-error>
+          </mat-form-field>
+
+          <!-- Anexos -->
+          <div class="col-12">
+            <label class="file-label" for="anexos">Anexos (fotos, PDFs) — até 5 arquivos</label>
+            <input id="anexos" type="file" multiple (change)="onFilesSelected($event)" [attr.aria-describedby]="'anexos-help'">
+            <div id="anexos-help" class="file-hint">Formatos: JPG, PNG, PDF. Tamanho máx. por arquivo: 10MB.</div>
+            <mat-chip-listbox *ngIf="selectedFiles?.length" aria-label="Arquivos selecionados" class="anexos-list">
+              <mat-chip-option *ngFor="let f of selectedFiles; let i = index" selectable="false" removable (removed)="removeFile(i)">
+                {{ f.name }} ({{ f.size | number }} bytes)
+                <button matChipRemove aria-label="Remover arquivo"><mat-icon>close</mat-icon></button>
+              </mat-chip-option>
+            </mat-chip-listbox>
+          </div>
+
+          <!-- Consentimento -->
+          <mat-checkbox class="col-12" formControlName="aceiteTermos" required>
+            Confirmo que as informações são verdadeiras e autorizo o tratamento dos dados para esta solicitação.
+          </mat-checkbox>
+        </div>
+
+        <!-- Ações -->
         <div class="botoes">
-          <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Enviar Solicitação</button>
+          <button mat-stroked-button color="warn" type="button" (click)="onReset()" [disabled]="isSubmitting">Limpar</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || isSubmitting" matTooltip="Enviar solicitação">
+            <mat-icon aria-hidden="true">send</mat-icon>
+            <span>Enviar Solicitação</span>
+          </button>
         </div>
       </form>
-    </mat-card>
-  </div>
-  
+    </mat-card-content>
+
+    <mat-card-actions align="end" class="help-actions">
+      <button mat-button color="primary" type="button" (click)="preencherExemplo()">
+        <mat-icon>auto_fix_high</mat-icon>
+        Preencher Exemplo
+      </button>
+      <button mat-button color="accent" type="button" (click)="scrollTop()">
+        <mat-icon>vertical_align_top</mat-icon>
+        Topo
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+```
+
