@@ -11,15 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import com.example.manutencao_equipamentos.model.Category;
-import com.example.manutencao_equipamentos.services.CategoryService;
+import com.example.back_end.models.Category;
+import com.example.back_end.services.CategoryService;
 
 public class CategoryController {
 
-    @autowired
+    @Autowired
     private CategoryService categoryService;
 
     @GetMapping
@@ -29,7 +27,7 @@ public class CategoryController {
 
     @PostMapping
     public ResponseEntity<?> salvar(@RequestBody Category category){
-        Category newCategory = categoryService.save(Category);
+        Category newCategory = categoryService.save(category);
         return ResponseEntity.status(HttpStatus.CREATED).body(newCategory);
     }
 
