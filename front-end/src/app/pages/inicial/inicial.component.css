@@ -1,0 +1,10 @@
+.wallpaper{
+    background-image: url('assets/paginaInicial.png');
+    background-size: cover;        
+    background-position: center;   
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    height: 100dvh;
+    width: 100%;
+}

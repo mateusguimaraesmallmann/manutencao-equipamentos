@@ -1,0 +1,25 @@
+<div class="card">
+  <p-toolbar [style]="{'padding': '1rem 1rem 1rem 1.5rem',
+           background: 'rgba(255, 255, 255, 0.03)',
+          'box-shadow': '0 4px 30px rgba(0, 0, 0, 0.5)',
+          'backdrop-filter': 'blur(10.6px)',
+          '-webkit-backdrop-filter': 'blur(10.6px)',
+          'border':'none'
+           }">
+    <ng-template #start>
+      <div class="flex items-center gap-2">
+        <i class="pi pi-microchip"
+        style="
+        font-size: 2rem;
+        color: white;
+        "></i>
+      </div>
+    </ng-template>
+
+    <ng-template #end>
+      <div class="flex items-center gap-2">
+        <p-button label="Login"  severity="secondary" [rounded]="true"  [style] = "{'margin-right': '1rem'}"/>
+      </div>
+    </ng-template>
+  </p-toolbar>
+</div>
