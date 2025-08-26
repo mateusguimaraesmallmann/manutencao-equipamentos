@@ -5,23 +5,26 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.back_end.models.Category;
+import com.example.back_end.repositorys.CategoryRepository;
+
 @Service
 public class CategoryService{
 
-    @AutoWired
-    private CategoryService categoryService;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     public List<Category> findAll(){
-        return categoryService.findAll();
+        return categoryRepository.findAll();
     }
 
     public Category save(Category category){
         return categoryRepository.save(category);
     }
 
-    public Category atualziar(Long id, Category category){
+    public Category atualizar(Long id, Category category) {
         if(!categoryRepository.existById(id)){
-            throw new RunTimeException("Categoria não econtrada com a id:" + id);
+            throw new RuntimeException("Categoria não econtrada com a id:" + id);
         }
         category.setId(id);
         return categoryRepository.save(category);
@@ -29,7 +32,7 @@ public class CategoryService{
 
     public void excluir(Long id){
         if(!categoryRepository.existById(id)){
-            throw new RunTimeException("Categoria não econtrada com a id:" + id);
+            throw new RuntimeException("Categoria não econtrada com a id:" + id);
         }
         categoryRepository.deleteById(id);
     }

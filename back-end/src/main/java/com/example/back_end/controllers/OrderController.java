@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.manutencao_equipamentos.model.Order;
-import com.example.manutencao_equipamentos.model.User;
-import com.example.manutencao_equipamentos.services.OrderService;
+import com.example.back_end.models.Order;
+import com.example.back_end.models.User;
+import com.example.back_end.services.OrderService;
 
 @RestController
 @RequestMapping("/orders")

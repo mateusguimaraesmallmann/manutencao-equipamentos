@@ -5,12 +5,16 @@ import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.back_end.enums.OrderStatus;
+import com.example.back_end.models.Order;
+import com.example.back_end.models.User;
+
 @Service
 public class OrderService {
 
     public Order criarSolicitacao(Order order) {
         // to be implemented
-        return null;
+        return new Order();
     }
 
     public Order buscarDetalhada(Long id) {
