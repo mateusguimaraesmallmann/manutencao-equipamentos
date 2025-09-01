@@ -2,10 +2,16 @@ import { Component } from '@angular/core';
 import { ToolbarModule } from 'primeng/toolbar';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 import { HeaderComponent } from './components/header/header.component';
+import { CardModule } from 'primeng/card'
+import { TestmonysCarouselComponent } from "./components/testmonys-carousel/testmonys-carousel.component";
 
 @Component({
   selector: 'app-inicial',
-  imports:[ToolbarModule, AnimateOnScrollModule, HeaderComponent],
+  imports: [ToolbarModule, 
+        AnimateOnScrollModule, 
+        HeaderComponent, 
+        CardModule, 
+        TestmonysCarouselComponent],
   styles: [
     `
             :host {
