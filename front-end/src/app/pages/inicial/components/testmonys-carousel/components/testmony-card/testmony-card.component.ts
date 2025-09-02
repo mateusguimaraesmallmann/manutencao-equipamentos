@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Card } from "primeng/card";
 
 @Component({
@@ -8,5 +8,6 @@ import { Card } from "primeng/card";
   styleUrl: './testmony-card.component.css'
 })
 export class TestmonyCardComponent {
-
+  @Input() personName!: string
+  @Input() testmony!: string 
 }

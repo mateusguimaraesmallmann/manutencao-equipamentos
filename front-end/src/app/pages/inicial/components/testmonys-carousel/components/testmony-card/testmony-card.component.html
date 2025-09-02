@@ -1,9 +1,21 @@
-<p-card [style]="{'width': 'fit-content'}">
+<p-card class="card"
+    [style]="{
+        'justify-self': 'center',
+        'background-color': 'rgba(115,140,88,0.37)',
+        'min-width': '210px',
+        'max-width': '20rem'}"
+        >
     <ng-template #header>
-        <h2>"</h2>
+        <i class="bi bi-quote"
+                [style]="{
+                    'font-size': '3rem'
+                }"
+        ></i>
     </ng-template>
-    <P>"foi uma experiencia incrivel lidar com a equipe e tals e tals"</P>
+    <P [style]="{'text-align': 'center'}">
+        "{{testmony}}"
+    </P>
     <ng-template #footer>
-        <h3>- Pessoa Aleatoria </h3>
+        <h3>- {{personName}} </h3>
     </ng-template>
 </p-card>
