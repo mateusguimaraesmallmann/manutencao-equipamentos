@@ -1,5 +1,8 @@
 package com.example.back_end.models;
 
+import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
@@ -7,26 +10,31 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Setter 
+@Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "category")
 @Entity
-public class Category {
+public class FuncionarioProfile {
 
-    @Id
+    @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false, length = 80)
-    @JsonProperty("name")
-    private String name;
+    @OneToOne(optional = false)
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    @JsonIgnore
+    private User user;
+
+    @Column(name = "birthday")
+    @JsonProperty("birthday")
+    private LocalDate birthday;
     
 }

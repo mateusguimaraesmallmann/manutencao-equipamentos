@@ -23,7 +23,7 @@ public class TokenService {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             String token = JWT.create()
-                    .withIssuer("auth-api")
+                    .withIssuer("auth")
                     .withSubject(usuario.getEmail())
                     .withExpiresAt(dataExpiracao())
                     .sign(algorithm);
@@ -36,11 +36,7 @@ public class TokenService {
     public String validateToken(String token){
         try {
             Algorithm algoritmo = Algorithm.HMAC256(secret);
-            return JWT.require(algoritmo)
-                    .withIssuer("auth-api")
-                    .build()
-                    .verify(token)
-                    .getSubject();
+            return JWT.require(algoritmo).withIssuer("auth").build().verify(token).getSubject();
         } catch (JWTVerificationException ex) {
             throw new RuntimeException("Token JWT inválido ou expirado!");
         }

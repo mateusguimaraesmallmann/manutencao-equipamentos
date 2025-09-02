@@ -6,6 +6,6 @@ import com.example.back_end.models.Category;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
-    boolean existById(Long id);
+    boolean existsById(Long id);
     
 }

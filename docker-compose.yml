@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+# ================= DATA BASES ===================
+  postgres-db:
+    container_name: postgres-db
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: manutencao_equipamentos
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    networks:
+      - manutencao-equipamentos-net
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "admin"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+# =============== MICROSERVIÇOS ==================
+# =============== BACKEND ========================
+  backend:
+    container_name: backend
+    build:
+      context: ./back-end
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+    networks:
+      - manutencao-equipamentos-net
+
+# =============== FRONTEND =======================
+#  frontend:
+#    container_name: frontend
+#    build:
+#      context: ./front-end
+#      dockerfile: Dockerfile
+#    ports:
+#      - "4200:80"
+#    volumes:
+#      - ./front-end:/app
+#      - /app/node_modules
+#    depends_on:
+#      postgres-db:
+#        condition: service_healthy
+#    networks:
+#      - bantads-net
+
+# =============== NETWORK ========================
+networks:
+  manutencao-equipamentos-net:
+    driver: bridge

@@ -7,6 +7,7 @@ import com.example.back_end.models.User;
 
 public interface  UsuarioRepository extends JpaRepository<User, String> {
 
-    UserDetails findByLogin(String login);
+    UserDetails findByEmail(String email);
+    boolean existsByEmail(String email);
     
 }

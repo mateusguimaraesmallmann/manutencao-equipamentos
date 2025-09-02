@@ -26,41 +26,43 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "order")
-@Entity(name = "order")
+@Table(name = "orders")
+@Entity
 public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "cliente_id")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "cliente_id", nullable = false)
     @JsonProperty("client")
-    private Client client;
+    private User client;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "categoria_id")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "categoria_id", nullable = false)
     @JsonProperty("category")
     private Category category;
 
     @JsonProperty("equipment_description")
-    @Column(name = "descricao_equipamento")
+    @Column(name = "descricao_equipamento", nullable = false)
     private String descricaoEquipamento;
 
     @JsonProperty("deffect_description")
-    @Column(name = "defeito")
+    @Column(name = "defeito", nullable = false)
     private String defeito;
 
     @JsonProperty("created_at")
-    @Column(name = "data_hora")
+    @Column(name = "data_hora", nullable = false)
     private LocalDateTime dataHora;
 
     @JsonProperty("status")
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 30)
     private OrderStatus estado;
 
     @JsonProperty("price")
-    @Column(name = "valor_orcamento")
-    private BigDecimal valorOrcamento;  
+    @Column(name = "valor_orcamento", precision = 14, scale = 2)
+    private BigDecimal valorOrcamento;
+
 }

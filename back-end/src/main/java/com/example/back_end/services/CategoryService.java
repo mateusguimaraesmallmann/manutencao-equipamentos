@@ -23,7 +23,7 @@ public class CategoryService{
     }
 
     public Category atualizar(Long id, Category category) {
-        if(!categoryRepository.existById(id)){
+        if(!categoryRepository.existsById(id)){
             throw new RuntimeException("Categoria não econtrada com a id:" + id);
         }
         category.setId(id);
@@ -31,7 +31,7 @@ public class CategoryService{
     }
 
     public void excluir(Long id){
-        if(!categoryRepository.existById(id)){
+        if(!categoryRepository.existsById(id)){
             throw new RuntimeException("Categoria não econtrada com a id:" + id);
         }
         categoryRepository.deleteById(id);

@@ -23,7 +23,7 @@ public class AuthenticationController {
     private static final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
 
     @Autowired
-    AuthorizationService authorizationService;
+    private AuthorizationService authorizationService;
 
     @PostMapping("/login")
     public ResponseEntity<Object> login(@RequestBody @Validated LoginDTO loginDTO) {
@@ -33,6 +33,9 @@ public class AuthenticationController {
         } catch (BadCredentialsException e) {
             logger.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
     
