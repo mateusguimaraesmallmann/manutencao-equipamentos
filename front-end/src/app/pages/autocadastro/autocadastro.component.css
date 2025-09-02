@@ -1,0 +1,46 @@
+.autocadastro-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    background: #f5f5f5;
+    padding: 2rem 1rem;
+  }
+  
+  .autocadastro-card {
+    width: 100%;
+    max-width: 800px;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    margin-top: 2rem;
+  }
+  
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  
+  mat-form-field {
+    font-size: 20px;
+    width: 100%;
+    margin: 0;
+    min-height: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  
+  .input {
+    box-sizing: border-box;
+  }
+  
+  .btns {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
