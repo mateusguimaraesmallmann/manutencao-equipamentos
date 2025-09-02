@@ -1,0 +1,64 @@
+<div class="autocadastro-container">
+    <mat-card class="autocadastro-card">
+      <mat-card-title>Autocadastro</mat-card-title>
+  
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-grid">
+          <mat-form-field appearance="fill">
+            <mat-label>Nome</mat-label>
+            <input matInput formControlName="nome">
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill">
+            <mat-label>CPF</mat-label>
+            <input matInput formControlName="cpf" required mask="000.000.000-00">
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill">
+            <mat-label>E-mail</mat-label>
+            <input matInput formControlName="email" required type="email">
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill">
+            <mat-label> Telefone</mat-label>
+            <input matInput formControlName="telefone" required mask="(00) 00000-0000">
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill">
+            <mat-label>CEP</mat-label>
+            <input matInput formControlName="cep" required (blur)="buscarEndereco()">
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill">
+            <mat-label>Rua</mat-label>
+            <input matInput formControlName="rua" required>
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill">
+            <mat-label>Número</mat-label>
+            <input matInput formControlName="numero" required>
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill">
+            <mat-label>Bairro</mat-label>
+            <input matInput formControlName="bairro" required>
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill">
+            <mat-label>Cidade</mat-label>
+            <input matInput formControlName="cidade" required>
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill">
+            <mat-label>Estado</mat-label>
+            <input matInput formControlName="estado" required>
+          </mat-form-field>
+        </div>
+  
+        <div class="btns">
+          <button mat-raised-button color="primary" type="submit">Cadastrar</button>
+          <button mat-button type="button" (click)="voltarLogin()">Voltar</button>
+        </div>
+      </form>
+    </mat-card>
+  </div>
