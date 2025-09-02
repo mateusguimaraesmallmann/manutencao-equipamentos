@@ -4,36 +4,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.back_end.enums.OrderStatus;
-<<<<<<< HEAD
 import com.example.back_end.models.ChangeHistory;
 import com.example.back_end.models.Order;
 import com.example.back_end.models.User;
+import com.example.back_end.repositorys.ChangeHistoryRepository;
 import com.example.back_end.repositorys.OrderRepository;
-=======
-import com.example.back_end.models.Order;
-import com.example.back_end.models.User;
->>>>>>> a2e711113b73efe407a70e7d5e5cba042d328166
 
 @Service
 public class OrderService {
 
-@Autowired
-private OrderRepository orderRepository;
+    @Autowired
+    private OrderRepository orderRepository;
 
-@Autowired
-private ChangeHistoryRepository changeHistoryRepository;
+    @Autowired
+    private ChangeHistoryRepository changeHistoryRepository;
 
     public Order criarSolicitacao(Order order) {
-<<<<<<< HEAD
         order.setEstado(OrderStatus.ABERTA);
         order.setDataHora(LocalDateTime.now());
         Order nova = orderRepository.save(order);
         registrarHistorico(nova, null, OrderStatus.ABERTA, null);
         return nova;
-=======
-        // to be implemented
-        return new Order();
->>>>>>> a2e711113b73efe407a70e7d5e5cba042d328166
     }
 
     public Order buscarDetalhada(Long id) {
