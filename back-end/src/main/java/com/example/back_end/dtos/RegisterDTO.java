@@ -1,6 +1,6 @@
 package com.example.back_end.dtos;
 
-public record AutocadastroDTO(
+public record RegisterDTO(
     String cpf,
     String nome,
     String email, 
