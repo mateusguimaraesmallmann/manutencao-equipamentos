@@ -35,23 +35,6 @@ services:
     networks:
       - manutencao-equipamentos-net
 
-# =============== FRONTEND =======================
-#  frontend:
-#    container_name: frontend
-#    build:
-#      context: ./front-end
-#      dockerfile: Dockerfile
-#    ports:
-#      - "4200:80"
-#    volumes:
-#      - ./front-end:/app
-#      - /app/node_modules
-#    depends_on:
-#      postgres-db:
-#        condition: service_healthy
-#    networks:
-#      - bantads-net
-
 # =============== NETWORK ========================
 networks:
   manutencao-equipamentos-net:
