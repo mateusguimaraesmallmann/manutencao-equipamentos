@@ -1,0 +1,19 @@
+
+<div class="orcamento-container" *ngIf="solicitacao"></div>
+    <mat-card class="orcamento-card">
+      <mat-card-title>Detalhes da Solicitação</mat-card-title>
+  
+      <mat-card-content>
+        <p><strong>Equipamento:</strong> {{ solicitacao.equipamento }}</p>
+        <p><strong>Categoria:</strong> {{ solicitacao.categoria }}</p>
+        <p><strong>Defeito:</strong> {{ solicitacao.defeito }}</p>
+        <p><strong>Data/Hora:</strong> {{ solicitacao.dataHora | date: 'dd/MM/yyyy HH:mm' }}</p>
+        <p class="orcamento-valor"><strong>Orçamento:</strong> R$ {{ solicitacao.orcamento }}</p>
+      </mat-card-content>
+  
+      <mat-card-actions class="botoes">
+        <button mat-raised-button color="primary" (click)="aprovar()">Aprovar Serviço</button>
+        <button mat-raised-button color="warn" (click)="rejeitar()">Rejeitar Serviço</button>
+      </mat-card-actions>
+    </mat-card>
+
