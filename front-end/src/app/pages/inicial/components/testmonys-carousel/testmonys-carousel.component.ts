@@ -11,24 +11,24 @@ import { CarouselModule } from 'primeng/carousel'
 export class TestmonysCarouselComponent {
   testmonys: TestmonyCardComponent[] = [
     {
-      personName: "Pessoas Aleatoria",
-      testmony: "foi uma experiencia incrivel lidar com a equipe e tals e tals"
+      personName: "João Mendes",
+      testmony: "Equipe muito atenciosa e profissional. Resolveram meu problema rapidamente e ainda deram orientações para evitar futuras falhas"
     },
     {
-      personName: "Pessoas Aleatoria",
-      testmony: "foi uma experiencia incrivel lidar com a equipe e tals e tals"
+      personName: "Maria Oliveira",
+      testmony: "Fiquei impressionada com a agilidade no atendimento. Além da manutenção, recebi dicas úteis para melhorar o desempenho do meu equipamento."
     },
     {
-      personName: "Pessoas Aleatoria",
-      testmony: "foi uma experiencia incrivel lidar com a equipe e tals e tals"
+      personName: "Carlos Ferreira",
+      testmony: "Serviço de qualidade e preço justo. Recomendo a todos que buscam confiança e segurança no conserto de seus equipamentos."
     },
     {
-      personName: "Pessoas Aleatoria",
-      testmony: "foi uma experiencia incrivel lidar com a equipe e tals e tals"
+      personName: "Fernanda Lima",
+      testmony: "Atendimento excelente! Resolveram em poucas horas o que outros demorariam dias. Voltarei sempre que precisar."
     },
     {
-      personName: "Pessoas Aleatoria",
-      testmony: "foi uma experiencia incrivel lidar com a equipe e tals e tals"
+      personName: "Rafael Souza",
+      testmony: "Equipe de confiança, explicaram todo o processo com clareza e entregaram o equipamento funcionando perfeitamente."
     }
   ]
 
