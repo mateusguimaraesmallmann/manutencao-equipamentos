@@ -18,7 +18,7 @@
 
     <ng-template #end>
       <div class="flex items-center gap-2">
-        <p-button label="Login"  severity="secondary" [rounded]="true"  [style] = "{'margin-right': '1rem'}"/>
+        <p-button label="Login"  severity="secondary" [rounded]="true"  [style] = "{'margin-right': '1rem'}" (onClick)="goToLogin()"/>
       </div>
     </ng-template>
   </p-toolbar>
