@@ -1,35 +1,38 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { RouterModule } from '@angular/router';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
+import { Router, RouterModule } from '@angular/router';
+
+// Módulos do PrimeNG que substituem os do Angular Material
+import { CardModule } from 'primeng/card';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
+    // Módulos essenciais do Angular (permanecem os mesmos)
     CommonModule,
     ReactiveFormsModule,
     RouterModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule
+
+    // Módulos do PrimeNG
+    CardModule,
+    InputTextModule,
+    PasswordModule,
+    ButtonModule
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-
 export class LoginComponent {
-  loginForm!: FormGroup;   
+  loginForm!: FormGroup;
   errorMessage: string = '';
 
   constructor(private fb: FormBuilder, private router: Router) {
-    this.loginForm = this.fb.group({  
+    this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
@@ -46,12 +49,6 @@ export class LoginComponent {
       this.errorMessage = 'Usuário ou senha incorretos!';
     }
   }
-    
-/*
-  onLogin() {
-    this.router.navigate(['/pagina-cliente']);
-  }
-    */
 
   goToRegister(): void {
     this.router.navigate(['/autocadastro']);

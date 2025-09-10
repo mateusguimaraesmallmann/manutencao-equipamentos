@@ -1,33 +1,52 @@
-<div class="login-container">
-    <mat-card class="login-card">
-      <mat-card-title>Login</mat-card-title>
-  
+<div class="wallpaper">
+  <p-card styleClass="login-card">
+    <ng-template pTemplate="title">
+      <div class="login-title">Login</div>
+    </ng-template>
+
+    <ng-template pTemplate="content">
       <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-        <mat-form-field appearance="fill">
-          <mat-label>E-mail</mat-label>
-          <input matInput type="email" formControlName="email" />
-          <mat-error *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+        
+        <div class="field">
+          <label class="field-label" for="email">E-mail</label>
+          <input
+            pInputText
+            id="email"
+            type="email"
+            formControlName="email"
+            class="w-full" />
+          <small
+            *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+            class="p-error">
             E-mail inválido.
-          </mat-error>
-        </mat-form-field>
-  
-        <mat-form-field appearance="fill">
-          <mat-label>Senha</mat-label>
-          <input matInput type="password" formControlName="password" />
-          <mat-error *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          </small>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="password">Senha</label>
+          <p-password
+            inputId="password"
+            formControlName="password"
+            [feedback]="false"
+            styleClass="w-full"
+            inputStyleClass="w-full">
+          </p-password>
+          <small
+            *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+            class="p-error">
             Senha obrigatória.
-          </mat-error>
-        </mat-form-field>
-  
+          </small>
+        </div>
+
         <div class="error" *ngIf="errorMessage">
           {{ errorMessage }}
         </div>
-  
+
         <div class="btns">
-          <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Login</button>
-          <button mat-button type="button" (click)="goToRegister()">Autocadastro</button>
+          <button pButton type="button" label="Autocadastro" (click)="goToRegister()" class="p-button-text"></button>
+          <button pButton type="submit" label="Entrar" [disabled]="loginForm.invalid"></button>
         </div>
       </form>
-    </mat-card>
-  </div>
-  
+    </ng-template>
+  </p-card>
+</div>

@@ -1,38 +1,70 @@
-.login-container {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f2f2f2;
-  }
-  
-  .login-card {
-    width: 400px;
-    padding: 2rem;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  
-    mat-card-title {
-      text-align: center;
-      font-size: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
-  
-    mat-form-field {
-      width: 100%;
-      margin-bottom: 1rem;
-    }
-  
-    .btns {
-      display: flex;
-      justify-content: flex-end;
-      gap: 1rem;
-      margin-top: 1.5rem;
-    }
-  
-    .error {
-      color: red;
-      text-align: center;
-      margin-top: 1rem;
-    }
-  }
+.wallpaper {
+  height: 100vh;
+  width: 100vw;
+  background-image: url('assets/paginaInicialLogin.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:host ::ng-deep .login-card {
+  width: 350px;
+  padding: 1rem 2rem 2rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: white !important;
+}
+
+/* Título centralizado */
+.login-title {
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+/* Campos alinhados à esquerda */
+.field {
+  width: 100%;
+  margin-top: 1.25rem;  /* espaçamento entre os campos */
+  text-align: left;
+}
+
+/* Rótulo acima do campo */
+.field-label {
+  display: block;
+  margin-bottom: .5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Botões centralizados */
+.btns {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--surface-d);
+}
+
+/* PrimeNG ajustes */
+:host ::ng-deep .p-password { width: 100%; }
+
+.p-error {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.error {
+  color: var(--red-500);
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* (Opcional) – não usamos mais p-float-label, pode remover estas linhas se quiser
+:host ::ng-deep .p-float-label { display: block; position: relative; }
+*/
