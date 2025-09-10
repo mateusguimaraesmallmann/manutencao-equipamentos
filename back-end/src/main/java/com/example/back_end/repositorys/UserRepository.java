@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.back_end.models.User;
 
-public interface  UsuarioRepository extends JpaRepository<User, Long> {
+public interface  UserRepository extends JpaRepository<User, Long> {
 
     UserDetails findByEmail(String email);
     boolean existsByEmail(String email);

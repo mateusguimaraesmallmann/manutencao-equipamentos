@@ -8,10 +8,8 @@ import com.example.back_end.models.ClienteProfile;
 
 public interface ClientRepository extends JpaRepository<ClienteProfile, Long>{
 
-    Optional<ClienteProfile> findByCpf(String cpf);
-    Optional<ClienteProfile> findByEmail(String email);
-
     boolean existsByCpf(String cpf);
-    boolean existsByEmail(String email);
-    
+
+    Optional<ClienteProfile> findByCpf(String cpf);
+   
 }

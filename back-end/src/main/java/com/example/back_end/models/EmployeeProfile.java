@@ -22,7 +22,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class FuncionarioProfile {
+public class EmployeeProfile {
 
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)

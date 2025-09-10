@@ -9,13 +9,13 @@ import org.springframework.stereotype.Service;
 import com.example.back_end.enums.Tipo;
 import com.example.back_end.dtos.EmployeeCreateDTO;
 import com.example.back_end.dtos.EmployeeDTO;
-import com.example.back_end.models.Employee;
+import com.example.back_end.models.EmployeeProfile;
 import com.example.back_end.repositorys.EmployeeRepository;
 
 @Service
 public class EmployeeService {
 
-    @Autowired
+    /*@Autowired
     private EmployeeRepository employeeRepository;
 
     @Autowired
@@ -29,7 +29,7 @@ public class EmployeeService {
     }
 
     public EmployeeDTO buscarPorId(Long id) {
-        Employee e = employeeRepository.findById(id)
+        EmployeeProfile e = employeeRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Funcionário não encontrado"));
         return new EmployeeDTO(e.getId(), e.getName(), e.getEmail(), e.getBirthday());
     }
@@ -39,14 +39,14 @@ public class EmployeeService {
             throw new RuntimeException("E-mail já cadastrado.");
         }
 
-        Employee e = new Employee();
+        EmployeeProfile e = new Employee();
         e.setName(dto.name());
         e.setEmail(dto.email());
         e.setBirthdate(dto.birthdate());
         e.setPassword(passwordEncoder.encode(dto.password()));
         e.setRole(Tipo.FUNCIONARIO);
 
-        Employee salvo = employeeRepository.save(e);
+        EmployeeProfile salvo = employeeRepository.save(e);
         return new EmployeeDTO(salvo.getId(), salvo.getName(), salvo.getEmail(), salvo.getBirthday());
     }
 
@@ -61,6 +61,6 @@ public class EmployeeService {
         }
 
         employeeRepository.deleteById(id);
-    }
+    }*/
     
 }

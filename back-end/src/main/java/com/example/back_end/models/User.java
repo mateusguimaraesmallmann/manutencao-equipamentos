@@ -57,12 +57,11 @@ public class User implements UserDetails {
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonIgnore
-    private FuncionarioProfile funcionarioProfile;
+    private EmployeeProfile employeeProfile;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return java.util.Collections.singletonList(new SimpleGrantedAuthority(role.name())
-        );
+        return java.util.Collections.singletonList(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override
@@ -75,20 +74,12 @@ public class User implements UserDetails {
         return email;
     }
 
-    @Override public boolean isAccountNonExpired() { 
-        return true; 
-    }
+    @Override public boolean isAccountNonExpired() { return true; }
     
-    @Override public boolean isAccountNonLocked() { 
-        return true; 
-    }
+    @Override public boolean isAccountNonLocked() { return true; }
     
-    @Override public boolean isCredentialsNonExpired() { 
-        return true; 
-    }
+    @Override public boolean isCredentialsNonExpired() { return true; }
     
-    @Override public boolean isEnabled() { 
-        return true; 
-    }
+    @Override public boolean isEnabled() { return true; }
     
 }

@@ -23,7 +23,7 @@ import com.example.back_end.services.EmployeeService;
 @RequestMapping("/funcionarios")
 public class EmployeeController {
 
-    @Autowired
+    /*@Autowired
     private EmployeeService employeeService;
 
     @GetMapping
@@ -45,6 +45,6 @@ public class EmployeeController {
     public ResponseEntity<Void> excluir(@PathVariable Long id, @AuthenticationPrincipal User usuarioAtual) {
         employeeService.excluir(id, usuarioAtual.getId());
         return ResponseEntity.noContent().build();
-    }
+    }*/
     
 }

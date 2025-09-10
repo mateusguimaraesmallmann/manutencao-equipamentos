@@ -14,7 +14,7 @@ import org.springframework.context.ApplicationContext;
 import com.example.back_end.dtos.LoginDTO;
 import com.example.back_end.dtos.TokenDTO;
 import com.example.back_end.models.User;
-import com.example.back_end.repositorys.UsuarioRepository;
+import com.example.back_end.repositorys.UserRepository;
 import com.example.back_end.security.TokenService;
 
 @Service
@@ -23,7 +23,7 @@ public class AuthorizationService implements UserDetailsService {
     private static final Logger logger = LoggerFactory.getLogger(AuthorizationService.class);
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private TokenService tokenService;
@@ -36,7 +36,7 @@ public class AuthorizationService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try{
-            return usuarioRepository.findByEmail(username);
+            return userRepository.findByEmail(username);
         } catch(UsernameNotFoundException e){
             logger.error(e.getMessage());
             throw new UsernameNotFoundException("Usuario não encontrado: " + username);
