@@ -90,7 +90,7 @@ public class ClientService {
 
         } catch (Exception ex) {
             logger.error(ex.getMessage());
-            throw new Exception("Erro ao realizar o cadastro do usuário!");
+            throw new Exception("Erro ao realizar o cadastro do cliente!");
         }
 
     }
