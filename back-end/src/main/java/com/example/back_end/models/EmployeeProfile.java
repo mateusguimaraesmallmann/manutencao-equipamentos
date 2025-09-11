@@ -3,7 +3,6 @@ package com.example.back_end.models;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,6 +11,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,8 +34,8 @@ public class EmployeeProfile {
     @JsonIgnore
     private User user;
 
-    @Column(name = "birthday")
-    @JsonProperty("birthday")
+    @Column(name = "birthday", nullable = false)
+    @Temporal(TemporalType.DATE)
     private LocalDate birthday;
     
 }
