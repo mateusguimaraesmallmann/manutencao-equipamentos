@@ -1,0 +1,35 @@
+<p-table [value]="solicitacoes" [paginator]="true" [rows]="10">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Data/Hora</th>
+      <th>Descrição</th>
+      <th>Estado</th>
+      <th>Ações</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-solicitacao>
+    <tr>
+      <td>{{ solicitacao.createdAt | date:'dd/MM/yyyy HH:mm' }}</td>
+      <td>{{ limitarDescricao(solicitacao.equipamentoDescricao) }}</td>
+      <td>{{ solicitacao.estado }}</td>
+      <td>
+        <!-- Botão Visualizar sempre aparece -->
+        <button pButton type="button" 
+                label="Visualizar" 
+                class="p-button-info" 
+                (click)="visualizarSolicitacao(solicitacao.id)">
+        </button>
+
+        <!-- Botão de ação condicional -->
+        @if (getAcaoBotao(solicitacao.estado)) {
+          <button pButton type="button" 
+                  [label]="getAcaoBotao(solicitacao.estado)" 
+                  class="p-button-success" 
+                  (click)="acaoSolicitacao(solicitacao)">
+          </button>
+        }
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
