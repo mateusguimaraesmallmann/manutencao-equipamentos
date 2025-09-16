@@ -10,7 +10,7 @@ export class SolicitacoesService {
   solicitacoes$ = this._solicitacoes$.asObservable();
 
   constructor() {
-    this.seedIfEmpty();
+    this.criarMassaInicialSeVazia();
     this.loadAll();
   }
 
@@ -37,46 +37,34 @@ export class SolicitacoesService {
     return this._solicitacoes$.value.find(s => s.id === id);
   }
 
-  private seedIfEmpty() {
-    const exists = localStorage.getItem(STORAGE_KEY);
-    if (exists) return;
-
+  private criarMassaInicialSeVazia(): void {
+    if (localStorage.getItem('solicitacoes')) return;
+  
     const now = new Date();
-    const mkDate = (minusHours: number) => new Date(now.getTime() - minusHours * 3600_000).toISOString();
-
-    const seed: Solicitacao[] = [
-      {
-        id: crypto.randomUUID(),
-        createdAt: mkDate(24),
-        clienteNome: 'João',
-        descricaoProduto: 'Notebook Lenovo IdeaPad 3 com tela trincada',
-        estado: EstadoSolicitacao.ABERTA,
-      },
-      {
-        id: crypto.randomUUID(),
-        createdAt: mkDate(20),
-        clienteNome: 'Joana',
-        descricaoProduto: 'Impressora HP LaserJet com atolamento recorrente',
-        estado: EstadoSolicitacao.ABERTA,
-      },
-      {
-        id: crypto.randomUUID(),
-        createdAt: mkDate(12),
-        clienteNome: 'José',
-        descricaoProduto: 'Desktop gamer sem vídeo após atualização BIOS',
-        estado: EstadoSolicitacao.ORCADA,
-      },
-      {
-        id: crypto.randomUUID(),
-        createdAt: mkDate(4),
-        clienteNome: 'Joaquina',
-        descricaoProduto: 'Teclado mecânico com teclas falhando',
-        estado: EstadoSolicitacao.ABERTA,
-      },
+    const agoH = (h: number) => new Date(now.getTime() - h * 3600_000).toISOString();
+  
+    const me = (() => {
+      try {
+        return JSON.parse(localStorage.getItem('currentUser') || '{}')?.email || 'func@example.com';
+      } catch {
+        return 'func@example.com';
+      }
+    })();
+  
+    const massa: Solicitacao[] = [
+      { id: crypto.randomUUID(), createdAt: agoH(48), clienteNome: 'João',     descricaoProduto: 'Notebook com tela trincada',           estado: EstadoSolicitacao.ABERTA },
+      { id: crypto.randomUUID(), createdAt: agoH(40), clienteNome: 'José',     descricaoProduto: 'Desktop sem vídeo',                    estado: EstadoSolicitacao['ORCADA'], orcamentoValor: 350 },
+      { id: crypto.randomUUID(), createdAt: agoH(36), clienteNome: 'Joana',    descricaoProduto: 'Impressora atolando',                  estado: EstadoSolicitacao.REJEITADA },
+      { id: crypto.randomUUID(), createdAt: agoH(30), clienteNome: 'Joaquina', descricaoProduto: 'Teclado intermitente',                 estado: EstadoSolicitacao.APROVADA },
+      { id: crypto.randomUUID(), createdAt: agoH(24), clienteNome: 'Mario',    descricaoProduto: 'Mouse com duplo clique',               estado: EstadoSolicitacao.REDIRECIONADA, redirecionadaPara: { email: me } },
+      { id: crypto.randomUUID(), createdAt: agoH(18), clienteNome: 'Maria',    descricaoProduto: 'Notebook superaquecendo',              estado: EstadoSolicitacao.ARRUMADA },
+      { id: crypto.randomUUID(), createdAt: agoH(12), clienteNome: 'Paula',    descricaoProduto: 'Desktop travando',                     estado: EstadoSolicitacao.PAGA },
+      { id: crypto.randomUUID(), createdAt: agoH( 6), clienteNome: 'Pedro',    descricaoProduto: 'Impressora sem tinta',                 estado: EstadoSolicitacao.FINALIZADA },
     ];
-
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(seed));
+  
+    localStorage.setItem('solicitacoes', JSON.stringify(massa));
   }
+  
 
 registrarOrcamento(
   id: string,

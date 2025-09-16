@@ -20,6 +20,7 @@ export interface Solicitacao {
   descricaoProduto: string;
   estado: EstadoSolicitacao;
   orcamentoValor?: number;
+  redirecionadaPara?: { id?: string; nome?: string; email?: string };
   historico?: Array<{
     quando: string;
     de: EstadoSolicitacao;
