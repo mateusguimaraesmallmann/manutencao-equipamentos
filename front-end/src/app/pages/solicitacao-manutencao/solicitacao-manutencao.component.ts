@@ -38,7 +38,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatTooltipModule
   ],
   templateUrl: './solicitacao-manutencao.component.html',
-  styleUrls: ['./solicitacao-manutencao.component.scss']
+  styleUrls: ['./solicitacao-manutencao.component.css']
 })
 
 export class SolicitacaoManutencaoComponent {
