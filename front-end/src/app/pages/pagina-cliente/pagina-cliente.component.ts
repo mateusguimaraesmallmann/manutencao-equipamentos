@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Solicitacao, EstadoSolicitacao } from '../../shared';
-import { SolicitacoesService } from '../../service/solicitacoes.service';
+import { SolicitacoesService } from '../../services/solicitacoes.service';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';

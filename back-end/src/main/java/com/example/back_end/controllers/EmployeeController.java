@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.back_end.dtos.ClientDTO;
 import com.example.back_end.dtos.EmployeeCreateDTO;
 import com.example.back_end.dtos.EmployeeDTO;
 import com.example.back_end.models.User;
@@ -32,6 +31,16 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
+    @GetMapping
+    public ResponseEntity<List<EmployeeDTO>> listar() {
+        return ResponseEntity.ok(employeeService.listar());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<EmployeeDTO> buscarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(employeeService.buscarPorId(id));
+    }
+
     @PostMapping("/criar")
     public ResponseEntity<?> criar(@RequestBody @Validated EmployeeCreateDTO dto) {
         try {
@@ -44,20 +53,10 @@ public class EmployeeController {
 
     }
 
-    /*@GetMapping
-    public ResponseEntity<List<EmployeeDTO>> listar() {
-        return ResponseEntity.ok(employeeService.listar());
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<EmployeeDTO> buscarPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(employeeService.buscarPorId(id));
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir(@PathVariable Long id, @AuthenticationPrincipal User usuarioAtual) {
         employeeService.excluir(id, usuarioAtual.getId());
         return ResponseEntity.noContent().build();
     }
-    */
+    
 }

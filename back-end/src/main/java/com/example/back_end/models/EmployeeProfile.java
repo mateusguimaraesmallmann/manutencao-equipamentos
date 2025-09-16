@@ -11,8 +11,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,7 +33,6 @@ public class EmployeeProfile {
     private User user;
 
     @Column(name = "birthday", nullable = false)
-    @Temporal(TemporalType.DATE)
     private LocalDate birthday;
     
 }
