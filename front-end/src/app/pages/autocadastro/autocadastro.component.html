@@ -1,64 +1,75 @@
+<div class="wallpaper">
 <div class="autocadastro-container">
-    <mat-card class="autocadastro-card">
-      <mat-card-title>Autocadastro</mat-card-title>
-  
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <div class="form-grid">
-          <mat-form-field appearance="fill">
-            <mat-label>Nome</mat-label>
-            <input matInput formControlName="nome">
-          </mat-form-field>
-  
-          <mat-form-field appearance="fill">
-            <mat-label>CPF</mat-label>
-            <input matInput formControlName="cpf" required mask="000.000.000-00">
-          </mat-form-field>
-  
-          <mat-form-field appearance="fill">
-            <mat-label>E-mail</mat-label>
-            <input matInput formControlName="email" required type="email">
-          </mat-form-field>
-  
-          <mat-form-field appearance="fill">
-            <mat-label> Telefone</mat-label>
-            <input matInput formControlName="telefone" required mask="(00) 00000-0000">
-          </mat-form-field>
-  
-          <mat-form-field appearance="fill">
-            <mat-label>CEP</mat-label>
-            <input matInput formControlName="cep" required (blur)="buscarEndereco()">
-          </mat-form-field>
-  
-          <mat-form-field appearance="fill">
-            <mat-label>Rua</mat-label>
-            <input matInput formControlName="rua" required>
-          </mat-form-field>
-  
-          <mat-form-field appearance="fill">
-            <mat-label>Número</mat-label>
-            <input matInput formControlName="numero" required>
-          </mat-form-field>
-  
-          <mat-form-field appearance="fill">
-            <mat-label>Bairro</mat-label>
-            <input matInput formControlName="bairro" required>
-          </mat-form-field>
-  
-          <mat-form-field appearance="fill">
-            <mat-label>Cidade</mat-label>
-            <input matInput formControlName="cidade" required>
-          </mat-form-field>
-  
-          <mat-form-field appearance="fill">
-            <mat-label>Estado</mat-label>
-            <input matInput formControlName="estado" required>
-          </mat-form-field>
+  <p-card class="autocadastro-card">
+    <ng-template pTemplate="header">
+      Autocadastro
+    </ng-template>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="grid form-grid">
+
+        <div class="col-12 md:col-6 field">
+          <label class="field-label" for="nome">Nome</label>
+          <input pInputText id="nome" formControlName="nome" class="w-full" />
         </div>
-  
-        <div class="btns">
-          <button mat-raised-button color="primary" type="submit">Cadastrar</button>
-          <button mat-button type="button" (click)="voltarLogin()">Voltar</button>
+
+        <div class="col-12 md:col-6 field">
+          <label class="field-label" for="cpf">CPF</label>
+          <p-inputMask id="cpf" formControlName="cpf" mask="999.999.999-99" class="w-full"></p-inputMask>
         </div>
-      </form>
-    </mat-card>
-  </div>
+
+        <div class="col-12 md:col-6 field">
+          <label class="field-label" for="email">E-mail</label>
+          <input pInputText id="email" type="email" formControlName="email" class="w-full" />
+        </div>
+
+        <div class="col-12 md:col-6 field">
+          <label class="field-label" for="telefone">Telefone</label>
+          <p-inputMask id="telefone" formControlName="telefone" mask="(99) 99999-9999" class="w-full"></p-inputMask>
+        </div>
+
+        <div class="col-12 md:col-4 field">
+          <label class="field-label" for="cep">CEP</label>
+          <p-inputMask
+            id="cep"
+            formControlName="cep"
+            mask="99999-999"
+            class="w-full"
+            (onBlur)="buscarEndereco()"
+          ></p-inputMask>
+        </div>
+
+        <div class="col-12 md:col-8 field">
+          <label class="field-label" for="rua">Rua</label>
+          <input pInputText id="rua" formControlName="rua" class="w-full" />
+        </div>
+
+        <div class="col-12 md:col-4 field">
+          <label class="field-label" for="numero">Número</label>
+          <input pInputText id="numero" formControlName="numero" class="w-full" />
+        </div>
+
+        <div class="col-12 md:col-8 field">
+          <label class="field-label" for="bairro">Bairro</label>
+          <input pInputText id="bairro" formControlName="bairro" class="w-full" />
+        </div>
+
+        <div class="col-12 md:col-8 field">
+          <label class="field-label" for="cidade">Cidade</label>
+          <input pInputText id="cidade" formControlName="cidade" class="w-full" />
+        </div>
+
+        <div class="col-12 md:col-4 field">
+          <label class="field-label" for="estado">Estado</label>
+          <input pInputText id="estado" formControlName="estado" class="w-full" />
+        </div>
+
+      </div>
+
+      <div class="btns flex gap-2 mt-3">
+        <button pButton type="submit" label="Cadastrar" class="p-button-raised p-button-primary"></button>
+        <button pButton type="button" label="Voltar" class="p-button-text" (click)="voltarLogin()"></button>
+      </div>
+    </form>
+  </p-card>
+</div>

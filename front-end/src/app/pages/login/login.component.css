@@ -65,6 +65,6 @@
   margin-top: 1rem;
 }
 
-/* (Opcional) – não usamos mais p-float-label, pode remover estas linhas se quiser
-:host ::ng-deep .p-float-label { display: block; position: relative; }
-*/
+.btns {
+  color:var(--red-500)
+}
