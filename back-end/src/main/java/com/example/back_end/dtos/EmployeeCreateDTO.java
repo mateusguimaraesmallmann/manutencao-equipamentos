@@ -24,5 +24,5 @@ public record EmployeeCreateDTO(
 
     @NotNull
     @JsonFormat(pattern = "yyyy-MM-dd")
-    LocalDate birthdate
+    LocalDate birthday
 ) {}

@@ -1,6 +1,7 @@
 package com.example.back_end.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +34,19 @@ public class EmployeeService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    public List<EmployeeDTO> listar() {
+        return employeeRepository.findAll()
+            .stream().map(e -> 
+                new EmployeeDTO(e.getId(), e.getUser().getName(), e.getUser().getEmail(), e.getBirthday())).toList();
+    }
+
+    public EmployeeDTO buscarPorId(Long id) {
+        EmployeeProfile e = employeeRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Funcionário não encontrado"));
+        
+        return new EmployeeDTO(e.getId(), e.getUser().getName(), e.getUser().getEmail(), e.getBirthday());
+    }
+
     @Transactional
     public EmployeeDTO criar(EmployeeCreateDTO dto) throws Exception {
         
@@ -51,7 +65,7 @@ public class EmployeeService {
 
             EmployeeProfile employee = new EmployeeProfile();
             employee.setUser(user);
-            employee.setBirthday(dto.birthdate());
+            employee.setBirthday(dto.birthday());
 
             EmployeeProfile saved = employeeRepository.save(employee);
 
@@ -68,19 +82,6 @@ public class EmployeeService {
 
     }
 
-    /*public List<EmployeeDTO> listar() {
-        return employeeRepository.findAll()
-            .stream()
-            .map(e -> new EmployeeDTO(e.getId(), e.getName(), e.getEmail(), e.getBirthday()))
-            .toList();
-    }
-
-    public EmployeeDTO buscarPorId(Long id) {
-        EmployeeProfile e = employeeRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Funcionário não encontrado"));
-        return new EmployeeDTO(e.getId(), e.getName(), e.getEmail(), e.getBirthday());
-    }
-
     public void excluir(Long id, Long idUsuarioAtual) {
         if (id.equals(idUsuarioAtual)) {
             throw new RuntimeException("Você não pode se excluir.");
@@ -91,7 +92,12 @@ public class EmployeeService {
             throw new RuntimeException("Não é possível remover o único funcionário do sistema.");
         }
 
-        employeeRepository.deleteById(id);
-    }*/
+        Optional<EmployeeProfile> func = employeeRepository.findById(id);
+        if(func.isPresent()) {
+            userRepository.deleteById(func.get().getUser().getId());
+        } else {
+            throw new RuntimeException("Funcionário não encontrado no sistema.");
+        }
+    }
     
 }
