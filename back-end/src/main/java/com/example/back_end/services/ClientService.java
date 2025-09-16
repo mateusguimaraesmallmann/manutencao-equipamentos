@@ -1,5 +1,8 @@
 package com.example.back_end.services;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +38,23 @@ public class ClientService {
 
     @Autowired
     private EmailService emailService;
+
+    public List<ClientDTO> listar() {
+        return clientRepository.findAll()
+            .stream().map(c -> 
+                new ClientDTO(c.getId(), c.getCpf(), c.getUser().getName(), c.getUser().getEmail(), c.getPhone(), 
+                    c.getEndereco().getZipCode(), c.getEndereco().getNumber(), c.getEndereco().getComplement(), 
+                    c.getEndereco().getCity(), c.getEndereco().getState() )).toList();
+    }
+
+    public ClientDTO buscarPorId(Long id) {
+        ClienteProfile c = clientRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+        
+        return new ClientDTO(c.getId(), c.getCpf(), c.getUser().getName(), c.getUser().getEmail(), c.getPhone(), 
+                    c.getEndereco().getZipCode(), c.getEndereco().getNumber(), c.getEndereco().getComplement(), 
+                    c.getEndereco().getCity(), c.getEndereco().getState());
+    }
     
     @Transactional
     public ClientDTO register(RegisterDTO dto) throws Exception {
@@ -93,6 +113,19 @@ public class ClientService {
             throw new Exception("Erro ao realizar o cadastro do cliente!");
         }
 
+    }
+
+    public void excluir(Long id, Long idUsuarioAtual) {
+        if (id.equals(idUsuarioAtual)) {
+            throw new RuntimeException("Você não pode se excluir.");
+        }
+
+        Optional<ClienteProfile> client = clientRepository.findById(id);
+        if(client.isPresent()) {
+            userRepository.deleteById(client.get().getUser().getId());
+        } else {
+            throw new RuntimeException("Cliente não encontrado no sistema.");
+        }
     }
     
 }
