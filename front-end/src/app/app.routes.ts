@@ -4,6 +4,7 @@ import {ClientSignUpComponent} from './pages/client-sign-up/client-sign-up.compo
 import { LoginComponent } from './pages/login/login.component';
 import { AutocadastroComponent } from './pages/autocadastro/autocadastro.component';
 import { ClienteComponent } from './pages/pagina-cliente/pagina-cliente.component';
+import { FuncionarioInicialComponent } from './pages/funcionario-inicial/funcionario-inicial.component';
 
 
 export const routes: Routes = [
@@ -11,5 +12,6 @@ export const routes: Routes = [
   {path:'sign-up', component: ClientSignUpComponent},
   {path:'login', component: LoginComponent},
   {path:'autocadastro', component: AutocadastroComponent}, 
-  {path:'cliente', component: ClienteComponent}
+  {path:'cliente', component: ClienteComponent},
+  {path: 'funcionario', component: FuncionarioInicialComponent}
 ];

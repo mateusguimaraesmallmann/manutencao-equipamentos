@@ -1,0 +1,5 @@
+.table-wrap { overflow: auto; }
+table { width: 100%; }
+.sem-dados {
+  padding: 24px; display: flex; gap: 8px; align-items: center; color: #666;
+}

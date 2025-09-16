@@ -1,1 +1,1 @@
-export * from './solicitacao.model'
+export * from './models/solicitacao.model'
