@@ -45,13 +45,11 @@ export class SolicitacaoManutencaoComponent {
   form: FormGroup;
   categorias: string[] = ['Notebook', 'Desktop', 'Impressora', 'Mouse', 'Teclado'];
 
-  // ✅ propriedades usadas no template
   isSubmitting = false;
   selectedFiles: File[] = [];
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
-      // existentes
       equipamento: ['', [Validators.required, Validators.maxLength(100)]],
       numeroSerie: [''],
       categoria: ['', Validators.required],
@@ -68,7 +66,6 @@ export class SolicitacaoManutencaoComponent {
   onFilesSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length) {
-      // limita a 5 arquivos conforme sua mensagem
       this.selectedFiles = Array.from(input.files).slice(0, 5);
     }
   }

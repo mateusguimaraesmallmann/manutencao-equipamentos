@@ -47,7 +47,6 @@ export class EfetuarOrcamentoComponent implements OnInit {
   }
 
   get funcionarioLogado() {
-    // Ajuste conforme seu RF002. Exemplo simples:
     const raw = localStorage.getItem('currentUser');
     return raw ? JSON.parse(raw) : { nome: 'Funcionário', email: 'func@example.com' };
   }

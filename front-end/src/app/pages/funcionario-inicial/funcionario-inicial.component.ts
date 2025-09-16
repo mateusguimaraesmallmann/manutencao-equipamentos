@@ -3,15 +3,12 @@ import { CommonModule } from '@angular/common';
 import { SolicitacoesService } from '../../services/solicitacoes.service';
 import { Solicitacao, EstadoSolicitacao } from '../../shared/models/solicitacao.model';
 import { Router } from '@angular/router';
-
-// Material
+import { RouterModule } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
-
-// Pipe
 import { TruncatePipe } from '../../shared/pipes/truncate.pipe';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs/operators';
@@ -21,6 +18,7 @@ import { map } from 'rxjs/operators';
   standalone: true,
   imports: [
     CommonModule,
+    RouterModule,
     MatTableModule,
     MatButtonModule,
     MatIconModule,
@@ -47,8 +45,5 @@ export class FuncionarioInicialComponent {
   abertas: Signal<Solicitacao[]> = toSignal(this.all$, { initialValue: [] });
 
   displayedColumns = ['dataHora', 'cliente', 'descricao', 'acao'];
-
-  abrirOrcamento(s: Solicitacao) {
-    this.router.navigate(['/orcamento', s.id]);
-  }
+  
 }
