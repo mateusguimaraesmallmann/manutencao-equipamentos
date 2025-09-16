@@ -1,7 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Solicitacao, EstadoSolicitacao } from '../shared/models/solicitacao.model';
-import { BehaviorSubject, Observable } from 'rxjs';
-
+import { BehaviorSubject, Observable, of } from 'rxjs';
 
 const STORAGE_KEY = 'solicitacoes';
 
@@ -78,4 +77,33 @@ export class SolicitacoesService {
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(seed));
   }
+
+registrarOrcamento(
+  id: string,
+  valor: number,
+  funcionario: { nome: string; email?: string }
+): Observable<Solicitacao | undefined> {
+  const list = this._solicitacoes$.value.slice();
+  const idx = list.findIndex(s => s.id === id);
+  if (idx === -1) return of(undefined);
+
+  const nowIso = new Date().toISOString();
+
+  const atual = { ...list[idx] };
+  const de = atual.estado;
+
+  atual.orcamentoValor = valor;
+  atual.estado = EstadoSolicitacao.ORCADA;
+  atual.historico = [
+    ...(atual.historico ?? []),
+    { quando: nowIso, de, para: EstadoSolicitacao.ORCADA, funcionario: funcionario.nome }
+  ];
+
+  list[idx] = atual;
+  this.saveAll(list);
+
+  return of(atual);
+}
+
+
 }
