@@ -4,8 +4,9 @@ import { Router, RouterModule } from '@angular/router';
 
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
-import { SolicitacoesService } from '../../services/solicitacoes.service';
-import { Solicitacao, EstadoSolicitacao } from '../../shared/models/solicitacao.model';
+import { SolicitacoesService } from '../../../services/solicitacoes.service';
+import { Solicitacao, EstadoSolicitacao } from '../../../shared/models/solicitacao.model';
+import { Cliente } from '../../../shared/models/cliente.model';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,7 +20,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
-import { TruncatePipe } from '../../shared/pipes/truncate.pipe';
+import { TruncatePipe } from '../../../shared/pipes/truncate.pipe';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { startWith } from 'rxjs/operators';
 
@@ -114,7 +115,7 @@ export class FuncionarioInicialComponent {
   }
 
   abrirManutencao(s: Solicitacao) {
-    this.snack.open('Efetuar Manutenção (RF014) — em breve', 'OK', { duration: 2500 });
+    this.router.navigate(['/manutencao', s.id]);
   }
 
   finalizarSolicitacao(s: Solicitacao) {
@@ -150,5 +151,7 @@ contagem = computed(() => {
   for (const s of list) c[s.estado]++;
   return c;
 });
+
+
 
 }

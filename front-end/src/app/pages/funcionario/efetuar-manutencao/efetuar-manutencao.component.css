@@ -1,0 +1,3 @@
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.form .w-full { width: 100%; }
+.actions { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }

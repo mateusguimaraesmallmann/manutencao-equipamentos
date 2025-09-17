@@ -78,8 +78,8 @@
           </button>
 
           <button *ngIf="s.estado === Estado.APROVADA || s.estado === Estado.REDIRECIONADA"
-                  mat-stroked-button color="accent"
-                  (click)="abrirManutencao(s)">
+                mat-stroked-button color="accent"
+                [routerLink]="['/manutencao', s.id]">
             Efetuar Manutenção
           </button>
 

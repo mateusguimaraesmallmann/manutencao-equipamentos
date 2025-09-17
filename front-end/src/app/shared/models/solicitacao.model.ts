@@ -20,6 +20,9 @@ export interface Solicitacao {
   descricaoProduto: string;
   estado: EstadoSolicitacao;
   orcamentoValor?: number;
+  manutencaoDescricao?: string;
+  manutencaoOrientacoes?: string;
+  manutencaoData?: string;
   redirecionadaPara?: { id?: string; nome?: string; email?: string };
   historico?: Array<{
     quando: string;

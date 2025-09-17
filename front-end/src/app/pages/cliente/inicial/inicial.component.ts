@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { ToolbarModule } from 'primeng/toolbar';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
-import { HeaderComponent } from '../../components/header/header.component';
+import { HeaderComponent } from '../../../components/header/header.component';
 import { CardModule } from 'primeng/card'
 import { TestmonysCarouselComponent } from "./components/testmonys-carousel/testmonys-carousel.component";
-import { FooterComponent } from "../../components/footer/footer.component";
+import { FooterComponent } from "../../../components/footer/footer.component";
 
 @Component({
   selector: 'app-inicial',

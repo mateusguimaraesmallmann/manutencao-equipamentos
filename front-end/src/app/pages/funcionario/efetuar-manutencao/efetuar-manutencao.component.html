@@ -1,0 +1,68 @@
+<mat-card *ngIf="solicitacao as s; else notFound">
+    <mat-card-title>Efetuar Manutenção</mat-card-title>
+    <mat-card-subtitle>Revise os dados e registre a manutenção ou redirecione</mat-card-subtitle>
+  
+    <div class="grid">
+      <div>
+        <h4>Solicitação</h4>
+        <p><b>ID:</b> {{ s.id }}</p>
+        <p><b>Abertura:</b> {{ s.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
+        <p><b>Descrição:</b> {{ s.descricaoProduto }}</p>
+        <p><b>Estado atual:</b> {{ s.estado }}</p>
+        <ng-container *ngIf="s.orcamentoValor">
+          <p><b>Orçamento:</b> {{ s.orcamentoValor | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</p>
+        </ng-container>
+      </div>
+  
+      <div>
+        <h4>Cliente</h4>
+        <p><b>Nome:</b> {{ s.cliente?.nome || s.clienteNome }}</p>
+        <p *ngIf="s.cliente?.email"><b>E-mail:</b> {{ s.cliente?.email }}</p>
+        <p *ngIf="s.cliente?.telefone"><b>Telefone:</b> {{ s.cliente?.telefone }}</p>
+        <ng-container *ngIf="s.cliente?.endereco as e">
+          <p><b>Endereço:</b> {{ e.rua }}, {{ e.numero }} - {{ e.bairro }} - {{ e.cidade }}/{{ e.estado }} (CEP {{ e.cep }})</p>
+        </ng-container>
+      </div>
+    </div>
+  
+    <form [formGroup]="form" class="form" (ngSubmit)="salvarManutencao()">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Descrição da Manutenção</mat-label>
+        <textarea matInput rows="4" formControlName="descricao" placeholder="Explique o que foi feito" required></textarea>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Orientações para o Cliente</mat-label>
+        <textarea matInput rows="3" formControlName="orientacoes" placeholder="Cuidados e observações"></textarea>
+      </mat-form-field>
+  
+      <!-- RF015 (opcional) -->
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Redirecionar para</mat-label>
+        <mat-select formControlName="destino">
+          <mat-option [value]="null">(não redirecionar)</mat-option>
+          <mat-option *ngFor="let f of funcionarios" [value]="f">
+            {{ f.nome }} — {{ f.email }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <div class="actions">
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.get('descricao')?.invalid">
+          Salvar Manutenção (→ ARRUMADA)
+        </button>
+        <button mat-stroked-button color="accent" type="button" (click)="redirecionar()">
+          Redirecionar
+        </button>
+        <button mat-button type="button" (click)="voltar()">Voltar</button>
+      </div>
+    </form>
+  </mat-card>
+  
+  <ng-template #notFound>
+    <mat-card>
+      <mat-card-title>Solicitação não encontrada</mat-card-title>
+      <button mat-button (click)="voltar()">Voltar</button>
+    </mat-card>
+  </ng-template>
+  

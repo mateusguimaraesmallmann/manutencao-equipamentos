@@ -7,9 +7,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { SolicitacoesService } from '../../services/solicitacoes.service';
-import { Solicitacao } from '../../shared/models/solicitacao.model';
-import { Cliente } from '../../shared/models/cliente.model';
+import { SolicitacoesService } from '../../../services/solicitacoes.service';
+import { Solicitacao } from '../../../shared/models/solicitacao.model';
+import { Cliente } from '../../../shared/models/cliente.model';
 
 
 @Component({
