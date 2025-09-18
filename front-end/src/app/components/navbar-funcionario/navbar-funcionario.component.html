@@ -1,0 +1,30 @@
+<mat-toolbar color="primary" class="topbar">
+    <button mat-button [routerLink]="['/funcionario']">
+      <mat-icon>home</mat-icon>
+      Início
+    </button>
+  
+    <button mat-button [routerLink]="['/equipamentos']" routerLinkActive="active">
+      <mat-icon>category</mat-icon>
+      Equipamentos
+    </button>
+  
+    <button mat-button [routerLink]="['/funcionarios']" routerLinkActive="active">
+      <mat-icon>group</mat-icon>
+      Funcionários
+    </button>
+  
+    <button mat-button [routerLink]="['/relatorios']" routerLinkActive="active">
+      <mat-icon>description</mat-icon>
+      Relatórios
+    </button>
+  
+    <span class="spacer"></span>
+  
+    <span class="user">Olá, {{ userName }}</span>
+    <button mat-button (click)="logoff()" aria-label="Sair">
+      <mat-icon>logout</mat-icon>
+      Sair
+    </button>
+  </mat-toolbar>
+  

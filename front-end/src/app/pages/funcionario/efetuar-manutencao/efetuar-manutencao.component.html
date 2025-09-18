@@ -12,6 +12,9 @@
         <ng-container *ngIf="s.orcamentoValor">
           <p><b>Orçamento:</b> {{ s.orcamentoValor | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</p>
         </ng-container>
+        <ng-container *ngIf="s.redirecionadaPara">
+          <p><b>Destinada a:</b> {{ s.redirecionadaPara?.nome }} ({{ s.redirecionadaPara?.email }})</p>
+        </ng-container>
       </div>
   
       <div>
@@ -36,27 +39,35 @@
         <textarea matInput rows="3" formControlName="orientacoes" placeholder="Cuidados e observações"></textarea>
       </mat-form-field>
   
-      <!-- RF015 (opcional) -->
+      <div class="actions">
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.get('descricao')?.invalid">
+          Salvar Manutenção (→ ARRUMADA)
+        </button>
+        <button mat-button type="button" (click)="voltar()">Voltar</button>
+      </div>
+    </form>
+    <hr>
+  
+    <div class="redirecionar">
+      <h4>Redirecionar Manutenção</h4>
+  
       <mat-form-field appearance="outline" class="w-full">
-        <mat-label>Redirecionar para</mat-label>
+        <mat-label>Escolha o funcionário</mat-label>
         <mat-select formControlName="destino">
           <mat-option [value]="null">(não redirecionar)</mat-option>
           <mat-option *ngFor="let f of funcionarios" [value]="f">
             {{ f.nome }} — {{ f.email }}
           </mat-option>
         </mat-select>
+        <mat-hint>Você não pode redirecionar para si mesmo.</mat-hint>
       </mat-form-field>
   
       <div class="actions">
-        <button mat-raised-button color="primary" type="submit" [disabled]="form.get('descricao')?.invalid">
-          Salvar Manutenção (→ ARRUMADA)
-        </button>
         <button mat-stroked-button color="accent" type="button" (click)="redirecionar()">
-          Redirecionar
+          Redirecionar (→ REDIRECIONADA)
         </button>
-        <button mat-button type="button" (click)="voltar()">Voltar</button>
       </div>
-    </form>
+    </div>
   </mat-card>
   
   <ng-template #notFound>

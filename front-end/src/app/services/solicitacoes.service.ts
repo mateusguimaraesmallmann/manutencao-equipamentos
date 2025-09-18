@@ -245,4 +245,32 @@ redirecionarManutencao(
   return of(atual);
 }
 
+finalizarSolicitacao(
+  id: string,
+  funcionario: { nome: string; email?: string }
+): Observable<Solicitacao | undefined> {
+  const list = this._solicitacoes$.value.slice();
+  const idx = list.findIndex(s => s.id === id);
+  if (idx === -1) return of(undefined);
+
+  const atual = { ...list[idx] };
+  if (atual.estado !== EstadoSolicitacao.PAGA) {
+    return of(undefined);
+  }
+
+  const nowIso = new Date().toISOString();
+  const de = atual.estado;
+
+  atual.estado = EstadoSolicitacao.FINALIZADA;
+  atual.finalizacaoData = nowIso;
+  atual.historico = [
+    ...(atual.historico ?? []),
+    { quando: nowIso, de, para: EstadoSolicitacao.FINALIZADA, funcionario: funcionario.nome }
+  ];
+
+  list[idx] = atual;
+  this.saveAll(list);
+  return of(atual);
+}
+
 }

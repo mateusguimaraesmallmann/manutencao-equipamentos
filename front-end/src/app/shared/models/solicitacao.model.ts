@@ -24,6 +24,7 @@ export interface Solicitacao {
   manutencaoOrientacoes?: string;
   manutencaoData?: string;
   redirecionadaPara?: { id?: string; nome?: string; email?: string };
+  finalizacaoData?: string;
   historico?: Array<{
     quando: string;
     de: EstadoSolicitacao;

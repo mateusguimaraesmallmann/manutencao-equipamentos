@@ -1,0 +1,6 @@
+.actions { margin: 8px 0 16px; }
+.table-wrap { overflow: auto; }
+.chip { padding: 2px 8px; border-radius: 999px; font-size: 12px; }
+.chip.ativo { background: #e6f4ea; color: #1e7e34; }
+.chip.inativo { background: #fdecea; color: #b02a37; }
+.sem-dados { display: grid; place-items: center; gap: 8px; padding: 24px; color: #666; }

@@ -15,6 +15,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { CategoriasService } from '../../../services/categorias.service';
 
 
 @Component({
@@ -43,12 +44,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 export class SolicitacaoManutencaoComponent {
   form: FormGroup;
-  categorias: string[] = ['Notebook', 'Desktop', 'Impressora', 'Mouse', 'Teclado'];
+  categorias: string[] = [];
 
   isSubmitting = false;
   selectedFiles: File[] = [];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private categoriasService: CategoriasService) {
     this.form = this.fb.group({
       equipamento: ['', [Validators.required, Validators.maxLength(100)]],
       numeroSerie: [''],
@@ -60,6 +61,12 @@ export class SolicitacaoManutencaoComponent {
       email: ['', Validators.email],
       defeito: ['', [Validators.required, Validators.maxLength(1000)]],
       aceiteTermos: [false, Validators.requiredTrue]
+    });
+  }
+
+  ngOnInit(): void {
+    this.categoriasService.ativas$.subscribe(cats => {
+      this.categorias = cats.map(c => c.nome);
     });
   }
 

@@ -1,0 +1,60 @@
+<app-navbar-funcionario></app-navbar-funcionario>
+
+<mat-card>
+  <mat-card-title>Categorias de Equipamentos</mat-card-title>
+  <mat-card-subtitle>Crie, edite ou remova (remoção lógica) as categorias usadas nas solicitações</mat-card-subtitle>
+
+  <div class="actions">
+    <button mat-raised-button color="primary" (click)="adicionar()">
+      <mat-icon>add</mat-icon>
+      Nova Categoria
+    </button>
+  </div>
+
+  <div class="table-wrap" *ngIf="categoriasSig().length; else vazio">
+    <table mat-table [dataSource]="categoriasSig()" class="mat-elevation-z1">
+
+      <ng-container matColumnDef="nome">
+        <th mat-header-cell *matHeaderCellDef> Nome </th>
+        <td mat-cell *matCellDef="let c">{{ c.nome }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Status </th>
+        <td mat-cell *matCellDef="let c">
+          <span class="chip" [class.ativo]="c.ativo" [class.inativo]="!c.ativo">
+            {{ c.ativo ? 'Ativa' : 'Inativa' }}
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="acao">
+        <th mat-header-cell *matHeaderCellDef> Ação </th>
+        <td mat-cell *matCellDef="let c">
+          <button mat-stroked-button color="primary" (click)="editar(c)" [disabled]="!c.ativo">
+            <mat-icon>edit</mat-icon> Editar
+          </button>
+
+          <button mat-stroked-button color="warn" (click)="remover(c)" *ngIf="c.ativo">
+            <mat-icon>delete</mat-icon> Remover
+          </button>
+
+          <button mat-stroked-button color="accent" (click)="reativar(c)" *ngIf="!c.ativo">
+            <mat-icon>restore</mat-icon> Reativar
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <ng-template #vazio>
+    <div class="sem-dados">
+      <mat-icon>inbox</mat-icon>
+      <div>Nenhuma categoria cadastrada.</div>
+    </div>
+  </ng-template>
+</mat-card>
+

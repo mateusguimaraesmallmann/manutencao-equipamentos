@@ -43,60 +43,74 @@ export class EfetuarManutencaoComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id')!;
-    this.solicitacao = this.service.getById(id);
+    const found = this.service.getById(id);
+    if (!found) {
+      this.snack.open('Solicitação não encontrada.', 'OK', { duration: 2500 });
+      this.router.navigate(['/funcionario']);
+      return;
+    }
+    this.solicitacao = found;
 
     this.form = this.fb.group({
       descricao: ['', [Validators.required, Validators.maxLength(1000)]],
       orientacoes: ['', [Validators.maxLength(1000)]],
-      destino: [null] // para RF015
+      destino: [null as {nome: string; email: string} | null] // RF015
     });
 
-    this.funcionarios = this.carregarFuncionarios();
+    const meEmail = this.funcionarioLogado.email;
+    this.funcionarios = this.carregarFuncionarios()
+      .filter(f => f.email !== meEmail);
   }
 
-  get funcionarioLogado() {
+  get funcionarioLogado(): { nome: string; email: string } {
     try {
-      return JSON.parse(localStorage.getItem('currentUser') || '{}') || { nome: 'Funcionário', email: 'func@example.com' };
+      const u = JSON.parse(localStorage.getItem('currentUser') || '{}');
+      return { nome: u?.nome ?? 'Funcionário', email: u?.email ?? 'func@example.com' };
     } catch {
       return { nome: 'Funcionário', email: 'func@example.com' };
     }
   }
 
   salvarManutencao(): void {
-    if (!this.solicitacao || this.form.invalid) return;
-    const { descricao, orientacoes } = this.form.value;
+    if (!this.solicitacao || this.form.get('descricao')?.invalid) {
+      this.snack.open('Descreva a manutenção realizada.', 'OK', { duration: 2000 });
+      return;
+    }
+    const { descricao, orientacoes } = this.form.value as { descricao: string; orientacoes?: string };
 
-    this.service.efetuarManutencao(this.solicitacao.id, { descricao, orientacoes }, {
-      nome: this.funcionarioLogado?.nome,
-      email: this.funcionarioLogado?.email
-    }).subscribe(ok => {
-      if (ok) {
-        this.snack.open('Manutenção registrada. Estado → ARRUMADA.', 'OK', { duration: 3000 });
-        this.router.navigate(['/funcionario']);
-      } else {
-        this.snack.open('Solicitação não encontrada.', 'OK', { duration: 3000 });
-      }
-    });
+    this.service.efetuarManutencao(this.solicitacao.id, { descricao, orientacoes }, this.funcionarioLogado)
+      .subscribe((ok: Solicitacao | undefined) => {
+        if (ok) {
+          this.snack.open('Manutenção registrada (estado: ARRUMADA).', 'OK', { duration: 3000 });
+          this.router.navigate(['/funcionario']);
+        } else {
+          this.snack.open('Falha ao salvar manutenção.', 'OK', { duration: 3000 });
+        }
+      });
   }
 
   redirecionar(): void {
     if (!this.solicitacao) return;
-    const destino = this.form.value.destino;
+    const destino = this.form.value.destino as { nome: string; email: string } | null;
+
     if (!destino) {
-      this.snack.open('Selecione um destino para redirecionar.', 'OK', { duration: 2500 });
+      this.snack.open('Selecione um funcionário de destino.', 'OK', { duration: 2500 });
       return;
     }
-    this.service.redirecionarManutencao(this.solicitacao.id, destino, {
-      nome: this.funcionarioLogado?.nome,
-      email: this.funcionarioLogado?.email
-    }).subscribe(ok => {
-      if (ok) {
-        this.snack.open(`Solicitação redirecionada para ${destino.nome}.`, 'OK', { duration: 3000 });
-        this.router.navigate(['/funcionario']);
-      } else {
-        this.snack.open('Solicitação não encontrada.', 'OK', { duration: 3000 });
-      }
-    });
+    if (destino.email === this.funcionarioLogado.email) {
+      this.snack.open('Não é possível redirecionar para si mesmo.', 'OK', { duration: 2500 });
+      return;
+    }
+
+    this.service.redirecionarManutencao(this.solicitacao.id, destino, this.funcionarioLogado)
+      .subscribe((ok: Solicitacao | undefined) => {
+        if (ok) {
+          this.snack.open(`Solicitação redirecionada para ${destino.nome}.`, 'OK', { duration: 3000 });
+          this.router.navigate(['/funcionario']);
+        } else {
+          this.snack.open('Falha ao redirecionar.', 'OK', { duration: 3000 });
+        }
+      });
   }
 
   voltar(): void {
@@ -106,10 +120,8 @@ export class EfetuarManutencaoComponent implements OnInit {
   private carregarFuncionarios(): Array<{nome: string; email: string}> {
     try {
       const raw = localStorage.getItem('funcionarios');
-      if (raw) {
-        const arr = JSON.parse(raw);
-        if (Array.isArray(arr) && arr.length) return arr;
-      }
+      const arr = raw ? JSON.parse(raw) : null;
+      if (Array.isArray(arr) && arr.length) return arr;
     } catch {}
     return [
       { nome: 'Maria', email: 'maria@empresa.com' },

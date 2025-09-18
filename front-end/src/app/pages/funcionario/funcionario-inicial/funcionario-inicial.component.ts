@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SolicitacoesService } from '../../../services/solicitacoes.service';
 import { Solicitacao, EstadoSolicitacao } from '../../../shared/models/solicitacao.model';
 import { Cliente } from '../../../shared/models/cliente.model';
+import { NavbarFuncionarioComponent } from '../../../components/navbar-funcionario/navbar-funcionario.component';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
@@ -42,7 +43,8 @@ import { startWith } from 'rxjs/operators';
     MatSnackBarModule,
     MatFormFieldModule,
     MatInputModule,
-    TruncatePipe
+    TruncatePipe,
+    NavbarFuncionarioComponent
   ],
   templateUrl: './funcionario-inicial.component.html',
   styleUrls: ['./funcionario-inicial.component.css']
@@ -119,8 +121,27 @@ export class FuncionarioInicialComponent {
   }
 
   finalizarSolicitacao(s: Solicitacao) {
-    this.snack.open('Finalizar Solicitação (RF016) — em breve', 'OK', { duration: 2500 });
-  }
+    if (s.estado !== this.Estado.PAGA) {
+      this.snack.open('Só é possível finalizar solicitações com status PAGA.', 'OK', { duration: 2500 });
+      return;
+    }
+  
+    const ok = confirm(`Finalizar a solicitação de ${s.clienteNome}?`);
+    if (!ok) return;
+  
+    const user = (() => {
+      try { return JSON.parse(localStorage.getItem('currentUser') || '{}'); } catch { return {}; }
+    })();
+  
+    this.service.finalizarSolicitacao(s.id, { nome: user?.nome ?? 'Funcionário', email: user?.email })
+      .subscribe((res) => {
+        if (res) {
+          this.snack.open('Solicitação finalizada com sucesso.', 'OK', { duration: 3000 });
+        } else {
+          this.snack.open('Não foi possível finalizar. Verifique o status.', 'OK', { duration: 3000 });
+        }
+      });
+  }  
 
   estadoClass(e: EstadoSolicitacao): string {
     switch (e) {
@@ -151,7 +172,5 @@ contagem = computed(() => {
   for (const s of list) c[s.estado]++;
   return c;
 });
-
-
 
 }
