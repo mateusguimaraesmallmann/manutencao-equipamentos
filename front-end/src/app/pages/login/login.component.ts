@@ -72,7 +72,7 @@ export class LoginComponent {
         }
         if (ok) {
           localStorage.setItem('currentUser', JSON.stringify({ nome: c.nome, email: c.email, perfil: 'CLIENTE' }));
-          this.router.navigate(['/cliente']);
+          this.router.navigate(['/pagina-cliente']);
           return;
         }
       }

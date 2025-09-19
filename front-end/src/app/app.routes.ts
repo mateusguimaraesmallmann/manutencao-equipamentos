@@ -10,6 +10,8 @@ import { EfetuarManutencaoComponent } from './pages/funcionario/efetuar-manutenc
 import { EquipamentosComponent } from './pages/funcionario/equipamentos/equipamentos.component';
 import { FuncionariosComponent } from './pages/funcionario/funcionarios/funcionarios.component';
 import { RelatoriosComponent } from './pages/funcionario/relatorios/relatorios.component';
+import { SolicitacaoDetalheComponent } from './pages/cliente/solicitacao-detalhe/solicitacao-detalhe.component';
+
 
 import { funcionarioGuard } from './guards/funcionario.guard';
 
@@ -22,6 +24,8 @@ export const routes: Routes = [
   { path: 'autocadastro', component: AutocadastroComponent },
   { path: 'pagina-cliente', component: ClienteComponent },
   { path: 'solicitacao-manutencao', component: SolicitacaoManutencaoComponent },
+  { path: 'cliente/solicitacao/:id', component: SolicitacaoDetalheComponent },
+
 
   { path: 'funcionario', component: FuncionarioInicialComponent },
   { path: 'orcamento/:id', component: EfetuarOrcamentoComponent },

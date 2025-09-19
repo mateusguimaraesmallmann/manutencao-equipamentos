@@ -54,7 +54,7 @@ export class EfetuarManutencaoComponent implements OnInit {
     this.form = this.fb.group({
       descricao: ['', [Validators.required, Validators.maxLength(1000)]],
       orientacoes: ['', [Validators.maxLength(1000)]],
-      destino: [null as {nome: string; email: string} | null] // RF015
+      destino: [null as {nome: string; email: string} | null]
     });
 
     const meEmail = this.funcionarioLogado.email;

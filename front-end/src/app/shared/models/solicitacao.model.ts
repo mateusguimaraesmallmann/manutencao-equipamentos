@@ -17,7 +17,9 @@ export interface Solicitacao {
   clienteNome: string;
   clienteId?: string;
   cliente?: Cliente;
+  clienteEmail?: string;
   descricaoProduto: string;
+  defeito?: string;
   estado: EstadoSolicitacao;
   orcamentoValor?: number;
   manutencaoDescricao?: string;

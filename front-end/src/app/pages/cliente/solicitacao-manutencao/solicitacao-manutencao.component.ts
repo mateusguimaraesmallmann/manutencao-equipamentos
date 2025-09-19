@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,6 +17,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CategoriasService } from '../../../services/categorias.service';
+import { EstadoSolicitacao, Solicitacao } from '../../../shared/models/solicitacao.model';
 
 
 @Component({
@@ -45,22 +47,17 @@ import { CategoriasService } from '../../../services/categorias.service';
 export class SolicitacaoManutencaoComponent {
   form: FormGroup;
   categorias: string[] = [];
-
   isSubmitting = false;
-  selectedFiles: File[] = [];
 
-  constructor(private fb: FormBuilder, private categoriasService: CategoriasService) {
+  constructor(
+    private fb: FormBuilder,
+    private categoriasService: CategoriasService,
+    private router: Router
+  ) {
     this.form = this.fb.group({
       equipamento: ['', [Validators.required, Validators.maxLength(100)]],
-      numeroSerie: [''],
       categoria: ['', Validators.required],
-      prioridade: ['Média', Validators.required],
-      dataPreferencial: [null],
-      localizacao: [''],
-      telefone: [''],
-      email: ['', Validators.email],
-      defeito: ['', [Validators.required, Validators.maxLength(1000)]],
-      aceiteTermos: [false, Validators.requiredTrue]
+      defeito: ['', [Validators.required, Validators.maxLength(1000)]]
     });
   }
 
@@ -70,83 +67,48 @@ export class SolicitacaoManutencaoComponent {
     });
   }
 
-  onFilesSelected(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length) {
-      this.selectedFiles = Array.from(input.files).slice(0, 5);
-    }
-  }
-
-  removeFile(index: number) {
-    this.selectedFiles.splice(index, 1);
+  voltar() {
+    this.router.navigate(['/pagina-cliente']);
   }
 
   onReset() {
-    this.form.reset({
-      prioridade: 'Média',
-      aceiteTermos: false
-    });
-    this.selectedFiles = [];
+    this.form.reset();
   }
 
-  preencherExemplo() {
-    this.form.patchValue({
-      equipamento: 'Impressora HP LaserJet 1020',
-      numeroSerie: 'BR-HP-1020-0001',
-      categoria: 'Impressora',
-      prioridade: 'Média',
-      dataPreferencial: null,
-      localizacao: 'Bloco B, 3º andar, TI',
-      telefone: '(41) 99999-0000',
-      email: 'cliente@example.com',
-      defeito: 'Papel atolando com frequência e impressão falha.'
-    });
-  }
-
-  scrollTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  onSubmit() {
-    if (this.form.invalid || this.isSubmitting) return;
+  async onSubmit() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
 
     this.isSubmitting = true;
 
-    const novaSolicitacao = {
-      id: crypto.randomUUID?.() ?? String(Date.now()),
+    const user = (() => {
+      try { return JSON.parse(localStorage.getItem('currentUser') || 'null'); }
+      catch { return null; }
+    })();
+
+    const nova: Solicitacao = {
+      id: crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2),
       createdAt: new Date().toISOString(),
-      clienteNome: this.guardarNomeCliente(),
+      clienteNome: (user?.nome || '').toString(),
+      clienteEmail: (user?.email || '').toString().toLowerCase(),
       descricaoProduto: this.form.value.equipamento,
-      estado: 'ABERTA',
-      numeroSerie: this.form.value.numeroSerie,
-      categoria: this.form.value.categoria,
-      prioridade: this.form.value.prioridade,
-      dataPreferencial: this.form.value.dataPreferencial,
-      localizacao: this.form.value.localizacao,
-      telefone: this.form.value.telefone,
-      email: this.form.value.email,
       defeito: this.form.value.defeito,
-      anexos: this.selectedFiles.map(f => ({ name: f.name, size: f.size, type: f.type }))
+      estado: EstadoSolicitacao.ABERTA,
+      historico: []
     };
 
-    const solicitacoes = JSON.parse(localStorage.getItem('solicitacoes') || '[]');
-    solicitacoes.push(novaSolicitacao);
-    localStorage.setItem('solicitacoes', JSON.stringify(solicitacoes));
+    const list: Solicitacao[] = (() => {
+      try { return JSON.parse(localStorage.getItem('solicitacoes') || '[]'); }
+      catch { return []; }
+    })();
 
-    // feedback e limpeza
-    alert('Solicitação registrada com sucesso!');
-    this.onReset();
+    list.push(nova);
+    localStorage.setItem('solicitacoes', JSON.stringify(list));
+
     this.isSubmitting = false;
-  }
-
-  private guardarNomeCliente(): string {
-    try {
-      const raw = localStorage.getItem('currentUser');
-      if (raw) {
-        const u = JSON.parse(raw);
-        return u?.nome || 'Cliente';
-      }
-    } catch {}
-    return 'Cliente';
+    alert('Solicitação registrada com sucesso!');
+    this.router.navigate(['/pagina-cliente']); // volta para a home do cliente
   }
 }

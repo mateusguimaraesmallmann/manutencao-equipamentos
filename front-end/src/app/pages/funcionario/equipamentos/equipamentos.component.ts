@@ -44,7 +44,6 @@ export class EquipamentosComponent {
 
   displayedColumns = ['nome', 'status', 'acao'];
 
-  // lista completa (ativas primeiro)
   categoriasSig: Signal<Categoria[]> = toSignal(
     this.service.categorias$.pipe(
       map(list =>
