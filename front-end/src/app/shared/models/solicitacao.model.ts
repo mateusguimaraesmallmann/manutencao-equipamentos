@@ -22,6 +22,8 @@ export interface Solicitacao {
   defeito?: string;
   estado: EstadoSolicitacao;
   orcamentoValor?: number;
+  categoria?: string;
+  pagaEm?: string;
   manutencaoDescricao?: string;
   manutencaoOrientacoes?: string;
   manutencaoData?: string;

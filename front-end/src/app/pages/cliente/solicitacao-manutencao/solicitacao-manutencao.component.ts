@@ -95,6 +95,7 @@ export class SolicitacaoManutencaoComponent {
       clienteEmail: (user?.email || '').toString().toLowerCase(),
       descricaoProduto: this.form.value.equipamento,
       defeito: this.form.value.defeito,
+      categoria: this.form.value.categoria,
       estado: EstadoSolicitacao.ABERTA,
       historico: []
     };
