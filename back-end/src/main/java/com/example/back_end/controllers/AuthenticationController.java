@@ -1,43 +1,36 @@
 package com.example.back_end.controllers;
 
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import org.springframework.security.authentication.BadCredentialsException;
-
 import com.example.back_end.dtos.LoginDTO;
 import com.example.back_end.dtos.TokenDTO;
 import com.example.back_end.services.AuthorizationService;
+import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping(path = "/auth")
 public class AuthenticationController {
 
-    private static final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
+    private static final Logger log = LoggerFactory.getLogger(AuthenticationController.class);
 
-    @Autowired
-    private AuthorizationService authorizationService;
+    private final AuthorizationService authorizationService;
 
-    @PostMapping("/login")
-    public ResponseEntity<Object> login(@RequestBody @Validated LoginDTO loginDTO) {
+    public AuthenticationController(AuthorizationService authorizationService) {
+        this.authorizationService = authorizationService;
+    }
+
+    @PostMapping(path = "/login")
+    public ResponseEntity<TokenDTO> login(@RequestBody @Valid LoginDTO loginDTO) {
         try {
             TokenDTO token = authorizationService.login(loginDTO);
-            return ResponseEntity.status(HttpStatus.OK).body(token);
+            return ResponseEntity.ok(token);
         } catch (BadCredentialsException e) {
-            logger.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            // Não logue stacktrace para credenciais inválidas (ruído e possível vazamento)
+            log.warn("Tentativa de login inválida para usuário: {}", loginDTO.login());
+            throw e; // delega para o ControllerAdvice
         }
     }
-    
 }
