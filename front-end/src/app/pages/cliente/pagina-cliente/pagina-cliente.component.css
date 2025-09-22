@@ -1,0 +1,63 @@
+.mb-2 {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1.5rem;
+}
+:host ::ng-deep .p-button {
+  border-radius: 8px;
+  font-weight: 500;
+  padding: 0.5rem 1.25rem;
+}
+:host ::ng-deep .p-button .pi {
+  margin-right: 0.5rem;
+}
+:host ::ng-deep .p-button-info {
+  background-color: #2196f3;
+  border: none;
+}
+:host ::ng-deep .p-button-info:hover {
+  background-color: #1976d2;
+}
+:host ::ng-deep .p-datatable {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+:host ::ng-deep .p-datatable-thead > tr > th {
+  background: #f4f6f8;
+  font-weight: 600;
+  color: #444;
+  text-align: left;
+  padding: 0.75rem;
+}
+:host ::ng-deep .p-datatable-tbody > tr > td {
+  padding: 0.75rem;
+  vertical-align: middle;
+}
+td:nth-child(3) {
+  font-weight: 500;
+  color: #555;
+}
+td.flex {
+  display: flex;
+  gap: 0.5rem;
+}
+:host ::ng-deep .p-datatable-tbody > tr:hover {
+  background-color: #f9f9f9;
+}
+:host ::ng-deep .p-paginator {
+  border: none;
+  padding: 1rem;
+  justify-content: center;
+}
+:host ::ng-deep .p-paginator .p-paginator-pages .p-paginator-page {
+  border-radius: 6px;
+  margin: 0 2px;
+}
+:host ::ng-deep .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  background: #2196f3;
+  color: #fff;
+}
+:host ::ng-deep .p-paginator .p-paginator-pages .p-paginator-page:hover {
+  background: #e0e0e0;
+}
