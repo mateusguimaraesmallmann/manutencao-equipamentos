@@ -14,6 +14,7 @@ import { SolicitacaoDetalheComponent } from './pages/cliente/solicitacao-detalhe
 
 
 import { funcionarioGuard } from './guards/funcionario.guard';
+import { RelatorioTesteComponent } from './pages/cliente/relatorio/relatorio.component';
 
 export const routes: Routes = [
 
@@ -25,6 +26,7 @@ export const routes: Routes = [
   { path: 'pagina-cliente', component: ClienteComponent },
   { path: 'solicitacao-manutencao', component: SolicitacaoManutencaoComponent },
   { path: 'cliente/solicitacao/:id', component: SolicitacaoDetalheComponent },
+  {path: 'teste-relatorio', component: RelatorioTesteComponent},
 
 
   { path: 'funcionario', component: FuncionarioInicialComponent },
