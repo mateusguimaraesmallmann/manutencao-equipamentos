@@ -27,7 +27,7 @@ style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;"
             
             <div class="flex flex-col items-center gap-2">
               <span class="animate-bounce h-8 w-8 bg-primary text-primary-contrast rounded-full inline-flex items-center justify-center">
-              <i class="pi pi-arrow-down"style="
+              <i class="pi pi-arrow-down" style="
                                 color: aliceblue;
                                 font-size: 3rem;"></i>
               </span>
@@ -36,8 +36,18 @@ style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;"
     </div>
 
 </div>
-<p-card [style]="{'max-width': '80dvw', 'justify-self': 'center', 'margin-top': '10dvh'}" header="QUEM SOMOS?">
-    <p style="font-size: larger; text-align: justify;">
+<p-card [style]="
+        {
+            'max-width': '80dvw', 
+            'justify-self': 'center', 
+            'margin-top': '10dvh',
+            'box-shadow': '0 0 30px rgba(0, 0, 0, 0.08)',
+            'backdrop-filter': 'blur(10.6px)',
+            '-webkit-backdrop-filter': 'blur(10.6px)'
+        }" 
+            header="QUEM SOMOS?">
+
+    <p>
     Somos especializados em manutenção preventiva e corretiva de equipamentos, oferecendo soluções ágeis, seguras e de alta qualidade. Nosso compromisso é garantir o pleno funcionamento dos seus equipamentos, prolongando sua vida útil e reduzindo custos operacionais.
     Com uma equipe técnica qualificada e atendimento personalizado, trabalhamos para que você tenha tranquilidade e confiança no dia a dia. Conte conosco para cuidar dos seus equipamentos com excelência e profissionalismo.
     </p>
@@ -46,7 +56,38 @@ style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;"
 style="margin-top: 3rem;"
 >    
     <app-testmonys-carousel></app-testmonys-carousel>
-</div>    
+</div>
+<div>
+    <p-card [style]="
+                {
+                    'max-width': '80dvw',
+                    'min-width' : '80dvw',
+                    'justify-self': 'center', 
+                    'margin-top': '10dvh',
+                    'margin-bottom': '10dvh',
+                    'box-shadow': '0 0 30px rgba(0, 0, 0, 0.08)',
+                    'backdrop-filter': 'blur(10.6px)',
+                    '-webkit-backdrop-filter': 'blur(10.6px)'
+                }">
+        <h1 class="card-title">
+            Não espere o problema aparecer. Cadastre-se agora e deixe a manutenção com a gente!
+        </h1>
+        <div class="button-group">
+            <p-button class="btn" 
+                    label="Cadastre-se" 
+                    size="large"
+                    (onClick)="goToAutoCadatro()"
+                    />
+            <p-button class="btn"
+                    label="Faça o login" 
+                    size="large" 
+                    severity="secondary"
+                    (onClick)="goToLogin()"
+                    />
+        </div>
+        
+    </p-card>
+</div>
 <div class="footer">
     <app-footer>
         

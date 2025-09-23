@@ -5,6 +5,8 @@ import { HeaderComponent } from '../../../components/header/header.component';
 import { CardModule } from 'primeng/card'
 import { TestmonysCarouselComponent } from "./components/testmonys-carousel/testmonys-carousel.component";
 import { FooterComponent } from "../../../components/footer/footer.component";
+import { ButtonModule } from "primeng/button";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inicial',
@@ -12,7 +14,7 @@ import { FooterComponent } from "../../../components/footer/footer.component";
     AnimateOnScrollModule,
     HeaderComponent,
     CardModule,
-    TestmonysCarouselComponent, FooterComponent],
+    TestmonysCarouselComponent, FooterComponent, ButtonModule],
   styles: [
     `
             :host {
@@ -43,5 +45,14 @@ import { FooterComponent } from "../../../components/footer/footer.component";
   styleUrl: './inicial.component.css'
 })
 export class InicialComponent {
+    constructor(
+    private router: Router
+  ) {}
 
+    goToLogin() {
+    this.router.navigate(['/login']);
+  }
+    goToAutoCadatro() {
+    this.router.navigate(['/autocadastro']);
+  }
 }
