@@ -36,20 +36,21 @@ public class EmployeeService {
 
     public List<EmployeeDTO> listar() {
         return employeeRepository.findAll()
-            .stream().map(e -> 
-                new EmployeeDTO(e.getId(), e.getUser().getName(), e.getUser().getEmail(), e.getBirthday())).toList();
+                .stream()
+                .map(e -> new EmployeeDTO(e.getId(), e.getUser().getName(), e.getUser().getEmail(), e.getBirthday()))
+                .toList();
     }
 
     public EmployeeDTO buscarPorId(Long id) {
         EmployeeProfile e = employeeRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Funcionário não encontrado"));
-        
+                .orElseThrow(() -> new RuntimeException("Funcionário não encontrado"));
+
         return new EmployeeDTO(e.getId(), e.getUser().getName(), e.getUser().getEmail(), e.getBirthday());
     }
 
     @Transactional
     public EmployeeDTO criar(EmployeeCreateDTO dto) throws Exception {
-        
+
         try {
 
             if (userRepository.existsByEmail(dto.email())) {
@@ -70,12 +71,12 @@ public class EmployeeService {
             EmployeeProfile saved = employeeRepository.save(employee);
 
             return new EmployeeDTO(
-                saved.getId(),
-                saved.getUser().getName(),
-                saved.getUser().getEmail(),
-                saved.getBirthday());
+                    saved.getId(),
+                    saved.getUser().getName(),
+                    saved.getUser().getEmail(),
+                    saved.getBirthday());
 
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             logger.error(ex.getMessage());
             throw new Exception("Erro ao realizar o cadastro do funcionário!");
         }
@@ -93,11 +94,35 @@ public class EmployeeService {
         }
 
         Optional<EmployeeProfile> func = employeeRepository.findById(id);
-        if(func.isPresent()) {
+        if (func.isPresent()) {
             userRepository.deleteById(func.get().getUser().getId());
         } else {
             throw new RuntimeException("Funcionário não encontrado no sistema.");
         }
     }
-    
+
+    public EmployeeRepository getEmployeeRepository() {
+        return employeeRepository;
+    }
+
+    public void setEmployeeRepository(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
+
+    public UserRepository getUserRepository() {
+        return userRepository;
+    }
+
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public PasswordEncoder getPasswordEncoder() {
+        return passwordEncoder;
+    }
+
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
 }

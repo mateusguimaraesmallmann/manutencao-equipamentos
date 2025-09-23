@@ -42,7 +42,7 @@ public class CategoryController {
                 .fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(created.getId())
-                .toURI();
+                .toUri();
 
         return ResponseEntity.created(location).body(created);
     }

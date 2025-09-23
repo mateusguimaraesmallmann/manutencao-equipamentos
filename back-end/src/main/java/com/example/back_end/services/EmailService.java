@@ -29,10 +29,18 @@ public class EmailService {
 
     private String corpoEmail(String password) {
         return new StringBuilder()
-            .append("Olá!\n\n")
-            .append("Sua conta foi criada com sucesso.\n")
-            .append("Sua senha temporária é: ").append(password)
-            .toString();
+                .append("Olá!\n\n")
+                .append("Sua conta foi criada com sucesso.\n")
+                .append("Sua senha temporária é: ").append(password)
+                .toString();
     }
-    
+
+    public JavaMailSender getMailSender() {
+        return mailSender;
+    }
+
+    public void setMailSender(JavaMailSender mailSender) {
+        this.mailSender = mailSender;
+    }
+
 }

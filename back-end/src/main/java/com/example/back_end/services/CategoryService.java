@@ -46,9 +46,9 @@ public class CategoryService {
     }
 
     @Transactional
-    public Category atualizar(Long id, Category partial) {
+    public Category atualizar(Long id, Category partial) throws NotFoundException {
         Category managed = categoryRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Categoria não encontrada. id=" + id));
+                .orElseThrow(() -> new NotFoundException());
 
         copyNonNullProperties(partial, managed, "id");
 
@@ -58,14 +58,14 @@ public class CategoryService {
     }
 
     @Transactional
-    public void excluir(Long id) {
+    public void excluir(Long id) throws Exception {
         try {
             categoryRepository.deleteById(id);
             log.debug("Categoria excluída: id={}", id);
         } catch (EmptyResultDataAccessException e) {
-            throw new NotFoundException("Categoria não encontrada. id=" + id);
+            throw new NotFoundException();
         } catch (DataIntegrityViolationException e) {
-            throw new ConflictException("Não é possível excluir a categoria pois existem vínculos. id=" + id);
+            throw new Exception("Não é possível excluir a categoria pois existem vínculos. id=" + id);
         }
     }
 
