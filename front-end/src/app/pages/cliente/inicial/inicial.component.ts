@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inicial',
+  templateUrl: './inicial.component.html',
+  styleUrl: './inicial.component.css',
   imports: [ToolbarModule,
     AnimateOnScrollModule,
     HeaderComponent,
@@ -37,12 +39,15 @@ import { Router } from '@angular/router';
                     animation-duration: 3s;
                     animation-iteration-count: infinite;
                 }
+
+                .box {
+                    background-image: radial-gradient(var(--primary-300), var(--primary-600));
+                    border-radius: 50% !important;
+                    color: var(--primary-color-text);
+                }
             }
         `
-  ],
-  standalone: true,
-  templateUrl: './inicial.component.html',
-  styleUrl: './inicial.component.css'
+  ]
 })
 export class InicialComponent {
     constructor(
