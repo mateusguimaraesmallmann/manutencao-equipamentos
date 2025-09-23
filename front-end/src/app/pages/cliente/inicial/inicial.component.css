@@ -18,10 +18,32 @@
     justify-content: center;
     align-items: center;
 }
+.card-title{
+    text-align: center;
+}
+.button-group{
+    display: flex;
+    justify-self: center;
+    width: max-content;
+}
+.btn{
+    margin: 0 1dvw;
+}
+p{
+    font-size: 20px;
+    text-align: justify;
+}
+
 @media (max-width: 1000px) {
     .wallpaper-text-subtitle{
         font-size: 1.7dvh;
         letter-spacing: 1px;
+    }
+    h1{
+        font-size: 22px;
+    }
+    p{
+        font-size: 13px;
     }
     
 }
