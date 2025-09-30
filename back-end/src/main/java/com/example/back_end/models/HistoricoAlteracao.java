@@ -2,7 +2,7 @@ package com.example.back_end.models;
 
 import java.time.LocalDateTime;
 
-import com.example.back_end.enums.OrderStatus;
+import com.example.back_end.enums.EstadoSolicitacao;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,23 +26,23 @@ import lombok.Setter;
 @AllArgsConstructor
 @Table(name = "historico_alteracao")
 @Entity
-public class ChangeHistory {
+public class HistoricoAlteracao {
 
-    @Id
+    @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id", nullable = false)
-    private Order order;
+    @JoinColumn(name = "solicitacao_id", nullable = false)
+    private Solicitacao solicitacao;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "estado_anterior", nullable = false, length = 30)
-    private OrderStatus estadoAnterior;
+    private EstadoSolicitacao estadoAnterior;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "estado_novo", nullable = false, length = 30)
-    private OrderStatus estadoNovo;
+    private EstadoSolicitacao estadoNovo;
 
     @Column(name = "data_hora", nullable = false)
     private LocalDateTime dataHora;

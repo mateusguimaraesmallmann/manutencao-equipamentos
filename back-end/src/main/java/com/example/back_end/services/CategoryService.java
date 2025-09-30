@@ -2,88 +2,53 @@ package com.example.back_end.services;
 
 import com.example.back_end.models.Category;
 import com.example.back_end.repositorys.CategoryRepository;
-import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanWrapper;
-import org.springframework.beans.BeanWrapperImpl;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class CategoryService {
 
     private static final Logger log = LoggerFactory.getLogger(CategoryService.class);
 
-    private final CategoryRepository categoryRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
-    public CategoryService(final CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
-
-    @Transactional(Transactional.TxType.SUPPORTS)
     public List<Category> findAll() {
         return categoryRepository.findAll();
     }
 
-    @Transactional(Transactional.TxType.SUPPORTS)
     public Optional<Category> findById(Long id) {
         return categoryRepository.findById(id);
     }
 
-    @Transactional
     public Category save(Category category) {
-        Category saved = categoryRepository.save(category);
-        log.debug("Categoria criada: id={}", saved.getId());
-        return saved;
+        return categoryRepository.save(category);
     }
 
-    @Transactional
-    public Category atualizar(Long id, Category partial) throws NotFoundException {
-        Category managed = categoryRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException());
+    public Category atualizar(Long id, Category category) {
+        if(!categoryRepository.existsById(id)) {
+            throw new RuntimeException("Categoria não econtrada com a id:" + id);
+        }
 
-        copyNonNullProperties(partial, managed, "id");
+        Category managed = categoryRepository.findById(id).get();
+        managed.setNome(category.getNome());
 
-        Category updated = categoryRepository.save(managed);
-        log.debug("Categoria atualizada: id={}", updated.getId());
-        return updated;
+        categoryRepository.save(managed);
+        return managed;
     }
 
-    @Transactional
-    public void excluir(Long id) throws Exception {
+    public void excluir(Long id) {
+        log.info("Excluindo categoria id={}", id);
         try {
             categoryRepository.deleteById(id);
-            log.debug("Categoria excluída: id={}", id);
-        } catch (EmptyResultDataAccessException e) {
-            throw new NotFoundException();
-        } catch (DataIntegrityViolationException e) {
-            throw new Exception("Não é possível excluir a categoria pois existem vínculos. id=" + id);
+        } catch (Exception ex) {
+            throw new RuntimeException("Erro ao excluir a categoria de id: " + id);
         }
     }
 
-    private static void copyNonNullProperties(Object source, Object target, String... ignoreProperties) {
-        BeanWrapper src = new BeanWrapperImpl(source);
-        BeanWrapper trg = new BeanWrapperImpl(target);
-
-        Set<String> ignore = new HashSet<>(Set.of(ignoreProperties != null ? ignoreProperties : new String[0]));
-
-        for (var pd : src.getPropertyDescriptors()) {
-            String name = pd.getName();
-            if ("class".equals(name) || ignore.contains(name)) {
-                continue;
-            }
-            Object val = src.getPropertyValue(name);
-            if (val != null && trg.isWritableProperty(name)) {
-                trg.setPropertyValue(name, val);
-            }
-        }
-    }
 }

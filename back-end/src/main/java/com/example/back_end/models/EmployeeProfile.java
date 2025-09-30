@@ -32,7 +32,7 @@ public class EmployeeProfile {
     @JsonIgnore
     private User user;
 
-    @Column(name = "birthday", nullable = false)
-    private LocalDate birthday;
+    @Column(name = "dataNascimento", nullable = false)
+    private LocalDate dataNascimento;
     
 }

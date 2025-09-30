@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.back_end.models.Order;
+import com.example.back_end.models.Solicitacao;
 import com.example.back_end.models.User;
 import com.example.back_end.services.OrderService;
 
@@ -23,13 +23,13 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping
-    public ResponseEntity<Order> criarSolicitacao(@RequestBody Order order) {
-        Order nova = orderService.criarSolicitacao(order);
+    public ResponseEntity<Solicitacao> criarSolicitacao(@RequestBody Solicitacao solicitacao) {
+        Solicitacao nova = orderService.criarSolicitacao(solicitacao);
         return ResponseEntity.status(HttpStatus.CREATED).body(nova);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Order> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<Solicitacao> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(orderService.buscarDetalhada(id));
     }
 

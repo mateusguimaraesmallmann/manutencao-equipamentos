@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -21,6 +23,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 
 import com.example.back_end.enums.Tipo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -29,8 +33,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Getter
 @NoArgsConstructor 
 @AllArgsConstructor
+@Entity
 @Table(name = "users")
-@Entity(name = "users")
 public class User implements UserDetails {
 
     @Id
@@ -38,7 +42,7 @@ public class User implements UserDetails {
     private Long id;
     
     @Column(nullable = false)
-    private String name;
+    private String nome;
     
     @Column(nullable = false, unique = true)
     private String email;
@@ -51,6 +55,15 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private Tipo role;
 
+    @Column(name = "ativo", nullable = false)
+    private Boolean ativo = true;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "updatedAt")
+    private LocalDateTime updatedAt;
+
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonIgnore
     private ClienteProfile clienteProfile;
@@ -58,6 +71,15 @@ public class User implements UserDetails {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonIgnore
     private EmployeeProfile employeeProfile;
+
+    @PrePersist
+    void onCreate() {
+        if (createdAt == null) {createdAt = LocalDateTime.now();}
+        if (ativo == null) { ativo = true; }
+    }
+
+    @PreUpdate
+    void onUpdate() { updatedAt = LocalDateTime.now();}
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -73,13 +95,5 @@ public class User implements UserDetails {
     public String getUsername() {
         return email;
     }
-
-    @Override public boolean isAccountNonExpired() { return true; }
-    
-    @Override public boolean isAccountNonLocked() { return true; }
-    
-    @Override public boolean isCredentialsNonExpired() { return true; }
-    
-    @Override public boolean isEnabled() { return true; }
     
 }

@@ -16,24 +16,32 @@ import lombok.Setter;
 @Embeddable
 public class Endereco {
 
-    @Column(name = "zip_code")
-    @JsonProperty("zip_code")
-    private String zipCode;
+    @Column(name = "cep", nullable = false, length = 9)
+    @JsonProperty("cep")
+    private String cep;
 
-    @Column(name = "city")
-    @JsonProperty("city")
-    private String city;
+    @Column(name = "rua", nullable = false, length = 120)
+    @JsonProperty("rua")
+    private String rua;
 
-    @Column(name = "state")
-    @JsonProperty("state")
-    private String state;
+    @Column(name = "numero", nullable = false, length = 10)
+    @JsonProperty("numero")
+    private String numero;
 
-    @Column(name = "number")
-    @JsonProperty("number")
-    private String number;
+    @Column(name = "bairro", nullable = false, length = 80)
+    @JsonProperty("bairro")
+    private String bairro;
 
-    @Column(name = "complement")
-    @JsonProperty("complement")
-    private String complement;
+    @Column(name = "cidade", nullable = false, length = 80)
+    @JsonProperty("cidade")
+    private String cidade;
+
+    @Column(name = "estado", nullable = false, length = 2)
+    @JsonProperty("estado")
+    private String estado;
+
+    @Column(name = "complemento")
+    @JsonProperty("complemento")
+    private String complemento;
     
 }

@@ -2,7 +2,6 @@ package com.example.back_end.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
@@ -34,15 +33,14 @@ public class ClienteProfile {
     private User user;
 
     @Column(name = "cpf", nullable = false, unique = true, length = 11)
-    @JsonProperty("document")
+    @JsonProperty("cpf")
     private String cpf;
 
-    @Column(name = "phone")
-    @JsonProperty("phone")
-    private String phone;
+    @Column(name = "telefone", length = 20)
+    @JsonProperty("telefone")
+    private String telefone;
 
     @Embedded
-    @JsonUnwrapped
     private Endereco endereco;
     
 }

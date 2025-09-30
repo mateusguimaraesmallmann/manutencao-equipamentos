@@ -42,18 +42,18 @@ public class ClientService {
     public List<ClientDTO> listar() {
         return clientRepository.findAll()
             .stream().map(c -> 
-                new ClientDTO(c.getId(), c.getCpf(), c.getUser().getName(), c.getUser().getEmail(), c.getPhone(), 
-                    c.getEndereco().getZipCode(), c.getEndereco().getNumber(), c.getEndereco().getComplement(), 
-                    c.getEndereco().getCity(), c.getEndereco().getState() )).toList();
+                new ClientDTO(c.getId(), c.getCpf(), c.getUser().getNome(), c.getUser().getEmail(), c.getTelefone(), 
+                    c.getEndereco().getCep(), c.getEndereco().getNumero(), c.getEndereco().getComplemento(), 
+                    c.getEndereco().getCidade(), c.getEndereco().getEstado() )).toList();
     }
 
     public ClientDTO buscarPorId(Long id) {
         ClienteProfile c = clientRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
         
-        return new ClientDTO(c.getId(), c.getCpf(), c.getUser().getName(), c.getUser().getEmail(), c.getPhone(), 
-                    c.getEndereco().getZipCode(), c.getEndereco().getNumber(), c.getEndereco().getComplement(), 
-                    c.getEndereco().getCity(), c.getEndereco().getState());
+        return new ClientDTO(c.getId(), c.getCpf(), c.getUser().getNome(), c.getUser().getEmail(), c.getTelefone(), 
+                    c.getEndereco().getCep(), c.getEndereco().getNumero(), c.getEndereco().getComplemento(), 
+                    c.getEndereco().getCidade(), c.getEndereco().getEstado() );
     }
     
     @Transactional
@@ -71,7 +71,7 @@ public class ClientService {
             String password = GeneratePassword.generatePassword();
 
             User user = new User();
-            user.setName(dto.nome().trim());
+            user.setNome(dto.nome().trim());
             user.setEmail(dto.email());
             user.setPassword(passwordEncoder.encode(password));
             user.setRole(Tipo.CLIENTE);
@@ -80,14 +80,14 @@ public class ClientService {
             ClienteProfile profile = new ClienteProfile();
             profile.setUser(user);
             profile.setCpf(dto.cpf());
-            profile.setPhone(dto.telefone().trim());
+            profile.setTelefone(dto.telefone().trim());
 
             Endereco end = new Endereco();
-            end.setZipCode(dto.cep().trim());
-            end.setNumber(dto.numero());
-            end.setComplement(dto.complemento());
-            end.setCity(dto.cidade());
-            end.setState(dto.estado());
+            end.setCep(dto.cep().trim());
+            end.setNumero(dto.numero());
+            end.setComplemento(dto.complemento());
+            end.setCidade(dto.cidade());
+            end.setEstado(dto.estado());
 
             profile.setEndereco(end);
 
@@ -99,14 +99,14 @@ public class ClientService {
             return new ClientDTO(
                 saved.getId(),
                 saved.getCpf(),
-                user.getName(),
+                user.getNome(),
                 user.getEmail(),
-                saved.getPhone(),
-                saved.getEndereco().getZipCode(),
-                saved.getEndereco().getNumber(),
-                saved.getEndereco().getComplement(),
-                saved.getEndereco().getCity(),
-                saved.getEndereco().getState());
+                saved.getTelefone(),
+                saved.getEndereco().getCep(),
+                saved.getEndereco().getNumero(),
+                saved.getEndereco().getComplemento(),
+                saved.getEndereco().getCidade(),
+                saved.getEndereco().getEstado());
 
         } catch (Exception ex) {
             logger.error(ex.getMessage());

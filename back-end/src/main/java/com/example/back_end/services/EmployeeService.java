@@ -37,7 +37,7 @@ public class EmployeeService {
     public List<EmployeeDTO> listar() {
         return employeeRepository.findAll()
                 .stream()
-                .map(e -> new EmployeeDTO(e.getId(), e.getUser().getName(), e.getUser().getEmail(), e.getBirthday()))
+                .map(e -> new EmployeeDTO(e.getId(), e.getUser().getNome(), e.getUser().getEmail(), e.getDataNascimento()))
                 .toList();
     }
 
@@ -45,7 +45,7 @@ public class EmployeeService {
         EmployeeProfile e = employeeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Funcionário não encontrado"));
 
-        return new EmployeeDTO(e.getId(), e.getUser().getName(), e.getUser().getEmail(), e.getBirthday());
+        return new EmployeeDTO(e.getId(), e.getUser().getNome(), e.getUser().getEmail(), e.getDataNascimento());
     }
 
     @Transactional
@@ -58,7 +58,7 @@ public class EmployeeService {
             }
 
             User user = new User();
-            user.setName(dto.name().trim());
+            user.setNome(dto.name().trim());
             user.setEmail(dto.email());
             user.setPassword(passwordEncoder.encode(dto.password()));
             user.setRole(Tipo.FUNCIONARIO);
@@ -66,15 +66,15 @@ public class EmployeeService {
 
             EmployeeProfile employee = new EmployeeProfile();
             employee.setUser(user);
-            employee.setBirthday(dto.birthday());
+            employee.setDataNascimento(dto.birthday());
 
             EmployeeProfile saved = employeeRepository.save(employee);
 
             return new EmployeeDTO(
                     saved.getId(),
-                    saved.getUser().getName(),
+                    saved.getUser().getNome(),
                     saved.getUser().getEmail(),
-                    saved.getBirthday());
+                    saved.getDataNascimento());
 
         } catch (Exception ex) {
             logger.error(ex.getMessage());
