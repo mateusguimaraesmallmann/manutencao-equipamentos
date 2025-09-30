@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.back_end.dtos.EmployeeCreateDTO;
-import com.example.back_end.dtos.EmployeeDTO;
+import com.example.back_end.dtos.request.EmployeeCreateDTO;
+import com.example.back_end.dtos.response.EmployeeDTO;
 import com.example.back_end.models.User;
 import com.example.back_end.services.EmployeeService;
 

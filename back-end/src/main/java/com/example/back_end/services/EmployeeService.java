@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.back_end.enums.Tipo;
 import com.example.back_end.exceptions.UsuarioJaExistenteException;
-import com.example.back_end.dtos.EmployeeCreateDTO;
-import com.example.back_end.dtos.EmployeeDTO;
+import com.example.back_end.dtos.request.EmployeeCreateDTO;
+import com.example.back_end.dtos.response.EmployeeDTO;
 import com.example.back_end.models.EmployeeProfile;
 import com.example.back_end.models.User;
 import com.example.back_end.repositorys.EmployeeRepository;

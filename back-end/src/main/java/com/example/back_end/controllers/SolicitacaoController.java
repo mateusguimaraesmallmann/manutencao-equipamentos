@@ -13,47 +13,47 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.back_end.models.Solicitacao;
 import com.example.back_end.models.User;
-import com.example.back_end.services.OrderService;
+import com.example.back_end.services.SolicitacaoService;
 
 @RestController
-@RequestMapping("/orders")
-public class OrderController {
+@RequestMapping("/solicitacoes")
+public class SolicitacaoController {
 
     @Autowired
-    private OrderService orderService;
+    private SolicitacaoService solicitacaoService;
 
     @PostMapping
     public ResponseEntity<Solicitacao> criarSolicitacao(@RequestBody Solicitacao solicitacao) {
-        Solicitacao nova = orderService.criarSolicitacao(solicitacao);
+        Solicitacao nova = solicitacaoService.criarSolicitacao(solicitacao);
         return ResponseEntity.status(HttpStatus.CREATED).body(nova);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Solicitacao> buscarPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(orderService.buscarDetalhada(id));
+        return ResponseEntity.ok(solicitacaoService.buscarDetalhada(id));
     }
 
     @PostMapping("/{id}/aprovar")
     public ResponseEntity<Void> aprovar(@PathVariable Long id, @AuthenticationPrincipal User usuario) {
-        orderService.aprovar(id, usuario);
+        solicitacaoService.aprovar(id, usuario);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/{id}/rejeitar")
     public ResponseEntity<Void> rejeitar(@PathVariable Long id, @RequestBody String motivo, @AuthenticationPrincipal User usuario) {
-        orderService.rejeitar(id, motivo, usuario);
+        solicitacaoService.rejeitar(id, motivo, usuario);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/{id}/resgatar")
     public ResponseEntity<Void> resgatar(@PathVariable Long id, @AuthenticationPrincipal User usuario) {
-        orderService.resgatar(id, usuario);
+        solicitacaoService.resgatar(id, usuario);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/{id}/pagar")
     public ResponseEntity<Void> pagar(@PathVariable Long id, @AuthenticationPrincipal User usuario) {
-        orderService.pagar(id, usuario);
+        solicitacaoService.pagar(id, usuario);
         return ResponseEntity.ok().build();
     }
     

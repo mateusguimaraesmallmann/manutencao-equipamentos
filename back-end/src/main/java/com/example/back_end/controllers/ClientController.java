@@ -2,8 +2,6 @@ package com.example.back_end.controllers;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -13,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.back_end.dtos.ClientDTO;
+import com.example.back_end.dtos.response.ClienteDTO;
 import com.example.back_end.models.User;
 import com.example.back_end.services.ClientService;
 
@@ -21,18 +19,16 @@ import com.example.back_end.services.ClientService;
 @RequestMapping("/clientes")
 public class ClientController {
 
-    private static final Logger logger = LoggerFactory.getLogger(ClientController.class);
-
     @Autowired
     private ClientService clientService;
 
     @GetMapping
-    public ResponseEntity<List<ClientDTO>> listar() {
+    public ResponseEntity<List<ClienteDTO>> listar() {
         return ResponseEntity.ok(clientService.listar());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ClientDTO> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<ClienteDTO> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(clientService.buscarPorId(id));
     }
 

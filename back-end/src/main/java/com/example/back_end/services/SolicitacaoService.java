@@ -12,7 +12,7 @@ import com.example.back_end.repositorys.HistoricoAlteracaoRepository;
 import com.example.back_end.repositorys.SolicitacaoRepository;
 
 @Service
-public class OrderService {
+public class SolicitacaoService {
 
     @Autowired
     private SolicitacaoRepository solicitacaoRepository;

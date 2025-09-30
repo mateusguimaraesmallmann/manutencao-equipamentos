@@ -1,7 +1,7 @@
 package com.example.back_end.controllers;
 
-import com.example.back_end.dtos.LoginDTO;
-import com.example.back_end.dtos.TokenDTO;
+import com.example.back_end.dtos.request.LoginDTO;
+import com.example.back_end.dtos.response.TokenDTO;
 import com.example.back_end.services.AuthorizationService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;

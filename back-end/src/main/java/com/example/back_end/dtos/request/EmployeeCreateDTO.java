@@ -1,4 +1,4 @@
-package com.example.back_end.dtos;
+package com.example.back_end.dtos.request;
 
 import java.time.LocalDate;
 
@@ -11,18 +11,15 @@ import jakarta.validation.constraints.Size;
 
 public record EmployeeCreateDTO(
     
-    @NotBlank
-    @Size(min = 3, max = 120)
-    String name,
+    @NotBlank @Size(min = 3, max = 120)
+    String nome,
 
-    @NotBlank
-    @Email
+    @NotBlank @Email
     String email,
 
     @NotBlank
-    String password,
+    String senha,
 
-    @NotNull
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    LocalDate birthday
+    @NotNull @JsonFormat(pattern = "yyyy-MM-dd")
+    LocalDate dataNascimento
 ) {}

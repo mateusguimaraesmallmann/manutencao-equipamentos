@@ -10,8 +10,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.example.back_end.dtos.LoginDTO;
-import com.example.back_end.dtos.TokenDTO;
+import com.example.back_end.dtos.request.LoginDTO;
+import com.example.back_end.dtos.response.TokenDTO;
 import com.example.back_end.models.User;
 import com.example.back_end.repositorys.UserRepository;
 import com.example.back_end.security.TokenService;

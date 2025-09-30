@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.back_end.dtos.ClientDTO;
-import com.example.back_end.dtos.RegisterDTO;
+import com.example.back_end.dtos.request.RegisterDTO;
+import com.example.back_end.dtos.response.ClienteDTO;
 import com.example.back_end.enums.Tipo;
 import com.example.back_end.exceptions.UsuarioJaExistenteException;
 import com.example.back_end.models.ClienteProfile;
@@ -39,25 +39,25 @@ public class ClientService {
     @Autowired
     private EmailService emailService;
 
-    public List<ClientDTO> listar() {
+    public List<ClienteDTO> listar() {
         return clientRepository.findAll()
             .stream().map(c -> 
-                new ClientDTO(c.getId(), c.getCpf(), c.getUser().getNome(), c.getUser().getEmail(), c.getTelefone(), 
+                new ClienteDTO(c.getId(), c.getCpf(), c.getUser().getNome(), c.getUser().getEmail(), c.getTelefone(), 
                     c.getEndereco().getCep(), c.getEndereco().getNumero(), c.getEndereco().getComplemento(), 
                     c.getEndereco().getCidade(), c.getEndereco().getEstado() )).toList();
     }
 
-    public ClientDTO buscarPorId(Long id) {
+    public ClienteDTO buscarPorId(Long id) {
         ClienteProfile c = clientRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
         
-        return new ClientDTO(c.getId(), c.getCpf(), c.getUser().getNome(), c.getUser().getEmail(), c.getTelefone(), 
+        return new ClienteDTO(c.getId(), c.getCpf(), c.getUser().getNome(), c.getUser().getEmail(), c.getTelefone(), 
                     c.getEndereco().getCep(), c.getEndereco().getNumero(), c.getEndereco().getComplemento(), 
                     c.getEndereco().getCidade(), c.getEndereco().getEstado() );
     }
     
     @Transactional
-    public ClientDTO register(RegisterDTO dto) throws Exception {
+    public ClienteDTO register(RegisterDTO dto) throws Exception {
 
         try {
 
@@ -96,7 +96,7 @@ public class ClientService {
             //emailService.sendPasswordEmail(dto.email(), password);
             System.out.println("Senha criada: " + password);
 
-            return new ClientDTO(
+            return new ClienteDTO(
                 saved.getId(),
                 saved.getCpf(),
                 user.getNome(),
