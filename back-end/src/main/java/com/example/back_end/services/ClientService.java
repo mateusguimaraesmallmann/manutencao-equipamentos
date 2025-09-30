@@ -39,7 +39,7 @@ public class ClientService {
     @Autowired
     private EmailService emailService;
 
-    public List<ClienteDTO> listar() {
+    /*public List<ClienteDTO> listar() {
         return clientRepository.findAll()
             .stream().map(c -> 
                 new ClienteDTO(c.getId(), c.getCpf(), c.getUser().getNome(), c.getUser().getEmail(), c.getTelefone(), 
@@ -53,7 +53,7 @@ public class ClientService {
         
         return new ClienteDTO(c.getId(), c.getCpf(), c.getUser().getNome(), c.getUser().getEmail(), c.getTelefone(), 
                     c.getEndereco().getCep(), c.getEndereco().getNumero(), c.getEndereco().getComplemento(), 
-                    c.getEndereco().getCidade(), c.getEndereco().getEstado() );
+                    c.getEndereco().getCidade(), c.getEndereco().getEstado());
     }
     
     @Transactional
@@ -126,6 +126,6 @@ public class ClientService {
         } else {
             throw new RuntimeException("Cliente não encontrado no sistema.");
         }
-    }
+    }*/
     
 }

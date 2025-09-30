@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.context.ApplicationContext;
 
 import com.example.back_end.dtos.request.LoginDTO;
 import com.example.back_end.dtos.response.TokenDTO;
@@ -28,7 +29,9 @@ public class AuthorizationService implements UserDetailsService {
     private TokenService tokenService;
 
     @Autowired
-    private AuthenticationManager authenticationManager;
+    private ApplicationContext context;
+
+    private AuthenticationManager manager;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -42,8 +45,9 @@ public class AuthorizationService implements UserDetailsService {
 
     public TokenDTO login(LoginDTO loginDTO) {
         
+        manager = context.getBean(AuthenticationManager.class);
         var authenticationToken = new UsernamePasswordAuthenticationToken(loginDTO.login(), loginDTO.password());
-        var authentication = this.authenticationManager.authenticate(authenticationToken);
+        var authentication = this.manager.authenticate(authenticationToken);
         var tokenJWT = tokenService.generateToken((User) authentication.getPrincipal());
         return new TokenDTO(tokenJWT);
     }

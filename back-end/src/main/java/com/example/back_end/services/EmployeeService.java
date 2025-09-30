@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import com.example.back_end.enums.Tipo;
 import com.example.back_end.exceptions.UsuarioJaExistenteException;
 import com.example.back_end.dtos.request.EmployeeCreateDTO;
-import com.example.back_end.dtos.response.EmployeeDTO;
+//import com.example.back_end.dtos.response.EmployeeDTO;
 import com.example.back_end.models.EmployeeProfile;
 import com.example.back_end.models.User;
 import com.example.back_end.repositorys.EmployeeRepository;
@@ -34,7 +34,7 @@ public class EmployeeService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public List<EmployeeDTO> listar() {
+    /*public List<EmployeeDTO> listar() {
         return employeeRepository.findAll()
                 .stream()
                 .map(e -> new EmployeeDTO(e.getId(), e.getUser().getNome(), e.getUser().getEmail(), e.getDataNascimento()))
@@ -123,6 +123,6 @@ public class EmployeeService {
 
     public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
-    }
+    }*/
 
 }

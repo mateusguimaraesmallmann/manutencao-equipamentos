@@ -3,34 +3,30 @@ package com.example.back_end.controllers;
 import com.example.back_end.dtos.request.LoginDTO;
 import com.example.back_end.dtos.response.TokenDTO;
 import com.example.back_end.services.AuthorizationService;
-import jakarta.validation.Valid;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/auth")
+@RequestMapping("/auth")
 public class AuthenticationController {
 
-    private static final Logger log = LoggerFactory.getLogger(AuthenticationController.class);
+    @Autowired
+    private AuthorizationService authorizationService;
 
-    private final AuthorizationService authorizationService;
-
-    public AuthenticationController(AuthorizationService authorizationService) {
-        this.authorizationService = authorizationService;
-    }
-
-    @PostMapping(path = "/login")
-    public ResponseEntity<TokenDTO> login(@RequestBody @Valid LoginDTO loginDTO) {
+    @PostMapping("/login")
+    public ResponseEntity<Object> login(@RequestBody @Validated LoginDTO loginDTO) {
         try {
             TokenDTO token = authorizationService.login(loginDTO);
-            return ResponseEntity.ok(token);
+            return ResponseEntity.status(HttpStatus.OK).body(token);
         } catch (BadCredentialsException e) {
-            // Não logue stacktrace para credenciais inválidas (ruído e possível vazamento)
-            log.warn("Tentativa de login inválida para usuário: {}", loginDTO.login());
-            throw e; // delega para o ControllerAdvice
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
 }
