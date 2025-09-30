@@ -26,7 +26,6 @@ export const routes: Routes = [
   { path: 'solicitacao-manutencao', component: SolicitacaoManutencaoComponent },
   { path: 'cliente/solicitacao/:id', component: SolicitacaoDetalheComponent },
 
-
   { path: 'funcionario', component: FuncionarioInicialComponent },
   { path: 'orcamento/:id', component: EfetuarOrcamentoComponent },
   { path: 'manutencao/:id', component: EfetuarManutencaoComponent },
