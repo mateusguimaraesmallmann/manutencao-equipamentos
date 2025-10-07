@@ -1,1 +1,13 @@
-<p>videos works!</p>
+<div class="videos-container">
+    <h2>Vídeos</h2>
+    <div class="video-list">
+        <div class="video-item">
+            <h3>{{ videos }}</h3>
+            <video width="320" height="240" controls>
+                <source [src]="videos" type="video/mp4">
+                Seu navegador não suporta o elemento de vídeo.
+            </video>
+            <p>{{ videos }}</p>
+        </div>
+    </div>
+</div>
