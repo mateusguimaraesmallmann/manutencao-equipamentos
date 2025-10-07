@@ -1,15 +1,35 @@
 <div class="perfil-container">
+  <h2>Perfil do Cliente</h2>
 
-    <h2>Editar Dados</h2>
+  <div class="perfil-card">
+    <p><strong>Nome:</strong> {{ cliente.nome }}</p>
+    <p><strong>CPF:</strong> {{ cliente.cpf }}</p>
+    <p><strong>Email:</strong> {{ cliente.email }}</p>
+    <p><strong>Telefone:</strong> {{ cliente.telefone }}</p>
+    <p><strong>Endereço:</strong> {{ cliente.endereco }}</p>
+  </div>
 
-    <div class="perfil-card">
-        <p><strong>Nome:</strong> {{cliente.nome}} </p>
-        <p><strong>CPF:</strong> {{cliente.cpf}}</p> 
-        <p><strong>Email:</strong> {{cliente.email}}</p>
-        <p><strong>Telefone:</strong> {{cliente.telefone}} </p>
-        <p><strong>Endereço:</strong> {{cliente.endereco}} </p>
-    </div>
+  <button (click)="editarDados()">Editar dados</button>
 
-    <button>Editar dados</button>
+  <h3>Histórico de Manutenções</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Equipamento</th>
+        <th>Status</th>
+        <th>Data</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let manutencao of historicoManutencoes">
+        <td>{{ manutencao.equipamento }}</td>
+        <td>{{ manutencao.status }}</td>
+        <td>{{ manutencao.data }}</td>
+      </tr>
+    </tbody>
+  </table>
 
+  <p class="resumo">
+    Equipamentos em aberto: {{ contarEquipamentosEmAberto() }}
+  </p>
 </div>
