@@ -119,4 +119,5 @@ export class CategoriasService {
     createdAt: raw.createdAt,
     updatedAt: raw.updatedAt ?? undefined
   });
+
 }
