@@ -2,18 +2,15 @@ package com.example.back_end.services;
 
 import com.example.back_end.models.Category;
 import com.example.back_end.repositorys.CategoryRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CategoryService {
-
-    private static final Logger log = LoggerFactory.getLogger(CategoryService.class);
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -31,24 +28,22 @@ public class CategoryService {
     }
 
     public Category atualizar(Long id, Category category) {
-        if(!categoryRepository.existsById(id)) {
-            throw new RuntimeException("Categoria não econtrada com a id:" + id);
+        Category c = categoryRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Categoria não encontrada id=" + id));
+
+        c.setNome(category.getNome());
+        if (category.getAtivo() != null) {
+            c.setAtivo(category.getAtivo());
         }
-
-        Category managed = categoryRepository.findById(id).get();
-        managed.setNome(category.getNome());
-
-        categoryRepository.save(managed);
-        return managed;
+        return categoryRepository.save(c);
     }
 
     public void excluir(Long id) {
-        log.info("Excluindo categoria id={}", id);
-        try {
-            categoryRepository.deleteById(id);
-        } catch (Exception ex) {
-            throw new RuntimeException("Erro ao excluir a categoria de id: " + id);
-        }
+        var c = categoryRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
+        c.setAtivo(false);
+        c.setUpdatedAt(LocalDateTime.now());
+        categoryRepository.save(c);
     }
 
 }

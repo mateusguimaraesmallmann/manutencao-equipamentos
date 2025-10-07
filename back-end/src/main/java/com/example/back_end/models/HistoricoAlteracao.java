@@ -37,7 +37,7 @@ public class HistoricoAlteracao {
     private Solicitacao solicitacao;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "estado_anterior", nullable = false, length = 30)
+    @Column(name = "estado_anterior", nullable = true, length = 30)
     private EstadoSolicitacao estadoAnterior;
 
     @Enumerated(EnumType.STRING)

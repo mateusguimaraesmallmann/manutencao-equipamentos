@@ -1,7 +1,7 @@
 package com.example.back_end.services;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -98,21 +98,19 @@ public class EmployeeService {
     }
 
     public void excluir(Long id, Long idUsuarioAtual) {
-        if (id.equals(idUsuarioAtual)) {
-            throw new RuntimeException("Você não pode se excluir.");
-        }
-
         long total = employeeRepository.count();
         if (total <= 1) {
             throw new RuntimeException("Não é possível remover o único funcionário do sistema.");
         }
-
-        Optional<EmployeeProfile> func = employeeRepository.findById(id);
-        if (func.isPresent()) {
-            userRepository.deleteById(func.get().getUser().getId());
-        } else {
-            throw new RuntimeException("Funcionário não encontrado no sistema.");
+        
+        var funcionario = employeeRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Funcionário não encontrado"));
+        if (Objects.equals(funcionario.getUser().getId(), idUsuarioAtual)) {
+            throw new RuntimeException("Você não pode se excluir.");
         }
+
+        funcionario.getUser().setAtivo(false);
+        userRepository.save(funcionario.getUser());      
     }
 
 }

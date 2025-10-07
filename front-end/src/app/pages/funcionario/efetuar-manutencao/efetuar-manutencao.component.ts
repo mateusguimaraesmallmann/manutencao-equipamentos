@@ -12,6 +12,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { SolicitacoesService } from '../../../services/solicitacoes.service';
 import { Solicitacao } from '../../../shared/models/solicitacao.model';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-efetuar-manutencao',
@@ -41,26 +42,32 @@ export class EfetuarManutencaoComponent implements OnInit {
 
   funcionarios: Array<{nome: string; email: string}> = [];
 
-  ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id')!;
-    const found = this.service.getById(id);
-    if (!found) {
+ngOnInit(): void {
+  const id = this.route.snapshot.paramMap.get('id')!;
+  firstValueFrom(this.service.getById$(id))
+    .then(found => {
+      if (!found) {
+        this.snack.open('Solicitação não encontrada.', 'OK', { duration: 2500 });
+        this.router.navigate(['/funcionario']);
+        return;
+      }
+      this.solicitacao = found;
+
+      this.form = this.fb.group({
+        descricao: ['', [Validators.required, Validators.maxLength(1000)]],
+        orientacoes: ['', [Validators.maxLength(1000)]],
+        destino: [null as { nome: string; email: string } | null]
+      });
+
+      const meEmail = this.funcionarioLogado.email;
+      this.funcionarios = this.carregarFuncionarios()
+        .filter(f => f.email !== meEmail);
+    })
+    .catch(() => {
       this.snack.open('Solicitação não encontrada.', 'OK', { duration: 2500 });
       this.router.navigate(['/funcionario']);
-      return;
-    }
-    this.solicitacao = found;
-
-    this.form = this.fb.group({
-      descricao: ['', [Validators.required, Validators.maxLength(1000)]],
-      orientacoes: ['', [Validators.maxLength(1000)]],
-      destino: [null as {nome: string; email: string} | null]
     });
-
-    const meEmail = this.funcionarioLogado.email;
-    this.funcionarios = this.carregarFuncionarios()
-      .filter(f => f.email !== meEmail);
-  }
+}
 
   get funcionarioLogado(): { nome: string; email: string } {
     try {

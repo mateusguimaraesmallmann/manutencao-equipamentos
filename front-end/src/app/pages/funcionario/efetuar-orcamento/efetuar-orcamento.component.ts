@@ -10,6 +10,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { SolicitacoesService } from '../../../services/solicitacoes.service';
 import { Solicitacao } from '../../../shared/models/solicitacao.model';
 import { Cliente } from '../../../shared/models/cliente.model';
+import { firstValueFrom } from 'rxjs';
 
 
 @Component({
@@ -39,11 +40,24 @@ export class EfetuarOrcamentoComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id')!;
-    this.solicitacao = this.service.getById(id);
 
-    this.form = this.fb.group({
-      valor: [this.solicitacao?.orcamentoValor ?? null, [Validators.required, Validators.min(0.01)]]
-    });
+    firstValueFrom(this.service.getById$(id))
+      .then(s => {
+        if (!s) {
+          this.snack.open('Solicitação não encontrada.', 'OK', { duration: 2500 });
+          this.router.navigate(['/funcionario']);
+          return;
+        }
+
+        this.solicitacao = s;
+        this.form.patchValue({
+          valor: s.orcamentoValor ?? null
+        });
+      })
+      .catch(() => {
+        this.snack.open('Solicitação não encontrada.', 'OK', { duration: 2500 });
+        this.router.navigate(['/funcionario']);
+      });
   }
 
   get funcionarioLogado() {

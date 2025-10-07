@@ -1,6 +1,7 @@
 package com.example.back_end.services;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -145,9 +146,9 @@ public class ClientService {
     }
 
     public void excluir(Long id, Long idUsuarioAtual) {
-        if (id.equals(idUsuarioAtual)) {
+        if (Objects.equals(clientRepository.findById(id).map(c -> c.getUser().getId()).orElse(null), idUsuarioAtual)) {
             throw new RuntimeException("Você não pode se excluir.");
-        } else {
+        }else {
             ClienteProfile cliente = clientRepository.findById(id).get();
             cliente.getUser().setAtivo(false);
             clientRepository.save(cliente);

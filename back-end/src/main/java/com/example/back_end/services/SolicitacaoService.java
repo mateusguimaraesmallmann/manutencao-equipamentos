@@ -81,6 +81,7 @@ public class SolicitacaoService {
         historico.setEstadoAnterior(anterior);
         historico.setEstadoNovo(novo);
         historico.setDataHora(LocalDateTime.now());
+        historico.setAutor(user);
         historicoAlteracaoRepository.save(historico);
     }
     
