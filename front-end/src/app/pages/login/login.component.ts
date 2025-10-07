@@ -6,6 +6,8 @@ import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
+import { AutenticacaoService } from '../../services/autenticacao.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +28,7 @@ export class LoginComponent {
   loginForm!: FormGroup;
   errorMessage = '';
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private auth: AutenticacaoService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -44,41 +46,18 @@ export class LoginComponent {
     this.errorMessage = '';
 
     const email = (this.loginForm.get('email')?.value || '').toString().trim().toLowerCase();
-    const senha = (this.loginForm.get('password')?.value || '').toString();
+    const senha  = (this.loginForm.get('password')?.value || '').toString();
 
     try {
-      const funcionarios = JSON.parse(localStorage.getItem('funcionarios') || '[]');
-      const f = funcionarios.find((x: any) => x?.ativo && x?.email?.toLowerCase() === email);
-      if (f) {
-        const hash = await this.rehashSenhaComSalt(senha, f.senhaSalt);
-        if (hash === f.senhaHash) {
-          localStorage.setItem('currentUser', JSON.stringify({ nome: f.nome, email: f.email, perfil: 'FUNCIONARIO' }));
-          this.router.navigate(['/funcionario']);
-          return;
-        }
+      const user = await firstValueFrom(this.auth.login(email, senha));
+      if (user?.perfil === 'FUNCIONARIO') {
+        this.router.navigate(['/funcionario']);
+      } else {
+        this.router.navigate(['/pagina-cliente']);
       }
-    } catch {}
-
-    try {
-      const clientes = JSON.parse(localStorage.getItem('clientes') || '[]');
-      const c = clientes.find((x: any) => x?.email?.toLowerCase() === email);
-      if (c) {
-        let ok = false;
-        if (c.senhaSalt && c.senhaHash) {
-          const hash = await this.rehashSenhaComSalt(senha, c.senhaSalt);
-          ok = hash === c.senhaHash;
-        } else if (c.senha) {
-          ok = c.senha === senha;
-        }
-        if (ok) {
-          localStorage.setItem('currentUser', JSON.stringify({ nome: c.nome, email: c.email, perfil: 'CLIENTE' }));
-          this.router.navigate(['/pagina-cliente']);
-          return;
-        }
-      }
-    } catch {}
-
-    this.errorMessage = 'Usuário ou senha incorretos.';
+    } catch {
+      this.errorMessage = 'Usuário ou senha incorretos.';
+    }
   }
 
   goToRegister(): void {
