@@ -1,13 +1,12 @@
 package com.example.back_end.dtos.response;
 
-public record ClienteDTO(
-    
+public record EmployeeDTO (
+
     String id,
     String nome,
-    String cpf,
     String email,
-    String telefone,
-    EnderecoDTO endereco,
+    String dataNascimento,
+    Boolean ativo,
     String createdAt,
-    Boolean ativo
-) {}
+    String updateAt    
+){}

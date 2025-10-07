@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.back_end.dtos.request.EmployeeCreateDTO;
-//import com.example.back_end.dtos.response.EmployeeDTO;
+import com.example.back_end.dtos.response.EmployeeDTO;
 import com.example.back_end.models.User;
 import com.example.back_end.services.EmployeeService;
 
@@ -31,7 +31,7 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-    /*@GetMapping
+    @GetMapping
     public ResponseEntity<List<EmployeeDTO>> listar() {
         return ResponseEntity.ok(employeeService.listar());
     }
@@ -57,6 +57,6 @@ public class EmployeeController {
     public ResponseEntity<Void> excluir(@PathVariable Long id, @AuthenticationPrincipal User usuarioAtual) {
         employeeService.excluir(id, usuarioAtual.getId());
         return ResponseEntity.noContent().build();
-    }*/
+    }
     
 }

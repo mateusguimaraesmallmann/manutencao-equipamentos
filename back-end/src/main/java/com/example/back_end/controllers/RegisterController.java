@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.back_end.dtos.request.RegisterDTO;
-//import com.example.back_end.dtos.response.ClientDTO;
+import com.example.back_end.dtos.response.ClienteDTO;
 import com.example.back_end.services.ClientService;
 
 @RestController
@@ -24,15 +24,15 @@ public class RegisterController {
     @Autowired
     private ClientService clientService;
 
-    /*@PostMapping
+    @PostMapping
     public ResponseEntity<Object> register(@RequestBody @Validated RegisterDTO registerDTO) {
         try {
-            ClientDTO created = clientService.register(registerDTO);
+            ClienteDTO created = clientService.register(registerDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body(created);
         } catch (Exception e) {
             logger.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-    }*/
+    }
     
 }

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import com.example.back_end.enums.Tipo;
 import com.example.back_end.exceptions.UsuarioJaExistenteException;
 import com.example.back_end.dtos.request.EmployeeCreateDTO;
-//import com.example.back_end.dtos.response.EmployeeDTO;
+import com.example.back_end.dtos.response.EmployeeDTO;
 import com.example.back_end.models.EmployeeProfile;
 import com.example.back_end.models.User;
 import com.example.back_end.repositorys.EmployeeRepository;
@@ -34,10 +34,16 @@ public class EmployeeService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    /*public List<EmployeeDTO> listar() {
+    public List<EmployeeDTO> listar() {
         return employeeRepository.findAll()
                 .stream()
-                .map(e -> new EmployeeDTO(e.getId(), e.getUser().getNome(), e.getUser().getEmail(), e.getDataNascimento()))
+                .map(e -> new EmployeeDTO(String.valueOf(e.getId()),
+                        e.getUser().getNome(),
+                        e.getUser().getEmail(),
+                        e.getDataNascimento().toString(),
+                        e.getUser().getAtivo(),
+                        e.getUser().getCreatedAt().toString(),
+                        e.getUser().getUpdatedAt().toString()))
                 .toList();
     }
 
@@ -45,7 +51,13 @@ public class EmployeeService {
         EmployeeProfile e = employeeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Funcionário não encontrado"));
 
-        return new EmployeeDTO(e.getId(), e.getUser().getNome(), e.getUser().getEmail(), e.getDataNascimento());
+        return new EmployeeDTO(String.valueOf(e.getId()),
+                e.getUser().getNome(),
+                e.getUser().getEmail(),
+                e.getDataNascimento().toString(),
+                e.getUser().getAtivo(),
+                e.getUser().getCreatedAt().toString(),
+                e.getUser().getUpdatedAt().toString());
     }
 
     @Transactional
@@ -58,23 +70,25 @@ public class EmployeeService {
             }
 
             User user = new User();
-            user.setNome(dto.name().trim());
+            user.setNome(dto.nome().trim());
             user.setEmail(dto.email());
-            user.setPassword(passwordEncoder.encode(dto.password()));
+            user.setPassword(passwordEncoder.encode(dto.senha()));
             user.setRole(Tipo.FUNCIONARIO);
             user = userRepository.save(user);
 
             EmployeeProfile employee = new EmployeeProfile();
             employee.setUser(user);
-            employee.setDataNascimento(dto.birthday());
+            employee.setDataNascimento(dto.dataNascimento());
 
             EmployeeProfile saved = employeeRepository.save(employee);
 
-            return new EmployeeDTO(
-                    saved.getId(),
+            return new EmployeeDTO(String.valueOf(saved.getId()),
                     saved.getUser().getNome(),
                     saved.getUser().getEmail(),
-                    saved.getDataNascimento());
+                    saved.getDataNascimento().toString(),
+                    saved.getUser().getAtivo(),
+                    saved.getUser().getCreatedAt().toString(),
+                    saved.getUser().getUpdatedAt().toString());
 
         } catch (Exception ex) {
             logger.error(ex.getMessage());
@@ -100,29 +114,5 @@ public class EmployeeService {
             throw new RuntimeException("Funcionário não encontrado no sistema.");
         }
     }
-
-    public EmployeeRepository getEmployeeRepository() {
-        return employeeRepository;
-    }
-
-    public void setEmployeeRepository(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
-    }
-
-    public UserRepository getUserRepository() {
-        return userRepository;
-    }
-
-    public void setUserRepository(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
-    public PasswordEncoder getPasswordEncoder() {
-        return passwordEncoder;
-    }
-
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }*/
 
 }

@@ -22,7 +22,7 @@ public class ClientController {
     @Autowired
     private ClientService clientService;
 
-    /*@GetMapping
+    @GetMapping
     public ResponseEntity<List<ClienteDTO>> listar() {
         return ResponseEntity.ok(clientService.listar());
     }
@@ -36,6 +36,6 @@ public class ClientController {
     public ResponseEntity<Void> excluir(@PathVariable Long id, @AuthenticationPrincipal User usuarioAtual) {
         clientService.excluir(id, usuarioAtual.getId());
         return ResponseEntity.noContent().build();
-    }*/
+    }
     
 }
