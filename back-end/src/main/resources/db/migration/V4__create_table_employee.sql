@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS employee_profile (
+  id BIGSERIAL PRIMARY KEY,
+  user_id BIGINT NOT NULL UNIQUE REFERENCES users(id) ON DELETE CASCADE,
+  data_nascimento DATE NOT NULL
+);

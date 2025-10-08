@@ -6,13 +6,15 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 
 import { Solicitacao, EstadoSolicitacao } from '../../../shared/models/solicitacao.model';
+import { NavbarClienteComponent } from '../../../components/navbar-cliente/navbar-cliente.component';
 
 @Component({
   selector: 'app-pagina-cliente',
   standalone: true,
   imports: [CommonModule, 
             TableModule, 
-            ButtonModule],
+            ButtonModule,
+            NavbarClienteComponent],
   templateUrl: './pagina-cliente.component.html',
   styleUrls: ['./pagina-cliente.component.css']
 })

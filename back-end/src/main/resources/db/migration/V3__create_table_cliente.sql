@@ -1,0 +1,13 @@
+CREATE TABLE IF NOT EXISTS cliente_profile (
+  id BIGSERIAL PRIMARY KEY,
+  user_id BIGINT NOT NULL UNIQUE REFERENCES users(id) ON DELETE CASCADE,
+  cpf VARCHAR(11) NOT NULL UNIQUE,
+  telefone VARCHAR(20),
+  cep VARCHAR(20),
+  rua VARCHAR(255),
+  numero VARCHAR(50),
+  bairro VARCHAR(120),
+  cidade VARCHAR(120),
+  estado VARCHAR(2),
+  complemento VARCHAR(255)
+);

@@ -119,8 +119,7 @@ public class ClientService {
 
             ClienteProfile saved = clientRepository.save(profile);
 
-            emailService.sendPasswordEmail(dto.email(), password);
-            System.out.println("Senha criada: " + password);
+            //emailService.sendPasswordEmail(dto.email(), password);
 
             return new ClienteDTO(String.valueOf(saved.getId()),
                     saved.getUser().getNome(),

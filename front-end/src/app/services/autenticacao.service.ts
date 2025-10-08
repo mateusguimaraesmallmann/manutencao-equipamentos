@@ -66,23 +66,13 @@ export class AutenticacaoService {
     );
   }
 
-  logout(): Observable<void> {
-    return this.http.post<void>(API_LOGOUT, {}).pipe(
-      tap(() => {
-        this._token = null;
-        localStorage.removeItem('auth_token');
-        this._user.next(null);
-        localStorage.removeItem('auth_user');
-      }),
-      catchError(() => {
-        this._token = null;
-        localStorage.removeItem('auth_token');
-        this._user.next(null);
-        localStorage.removeItem('auth_user');
-        return new Observable<void>(sub => { sub.next(); sub.complete(); });
-      })
-    );
+  logout() {
+    this._token = null;
+    this._user.next(null);
+    localStorage.removeItem('auth_token');
+    localStorage.removeItem('auth_user');
   }
+
   private extractToken(res: any): string | null {
     return res?.token ?? res?.access_token ?? res?.accessToken ?? null;
   }
