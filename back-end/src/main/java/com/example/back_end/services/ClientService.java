@@ -96,6 +96,12 @@ public class ClientService {
 
             String password = GeneratePassword.generatePassword();
 
+            System.out.println("Senha gerada =========================================================================================== ");
+
+            System.out.println("Senha gerada :" + password);
+
+            System.out.println("Senha gerada =========================================================================================== ");
+
             User user = new User();
             user.setNome(dto.nome().trim());
             user.setEmail(dto.email());

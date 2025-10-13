@@ -9,30 +9,20 @@ import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputMaskModule } from 'primeng/inputmask';
 import { ButtonModule } from 'primeng/button';
+import { AutocadastroService } from '../../../services/autocadastro.service';
+import { RegisterRequest  } from '../../../services/autocadastro.service';
 
 @Component({
   selector: 'app-autocadastro',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    CardModule,
-    InputTextModule,
-    InputMaskModule,
-    ButtonModule
-  ],
+  imports: [ CommonModule, ReactiveFormsModule, HttpClientModule, CardModule, InputTextModule, InputMaskModule, ButtonModule ],
   templateUrl: './autocadastro.component.html',
   styleUrls: ['./autocadastro.component.css']
 })
 export class AutocadastroComponent {
   form: FormGroup;
 
-  constructor(
-    public router: Router,
-    private http: HttpClient,
-    private fb: FormBuilder
-  ) {
+  constructor( public router: Router, private http: HttpClient, private fb: FormBuilder, private auth: AutocadastroService ) {
     this.form = this.fb.group({
       nome: ['', Validators.required],
       cpf: ['', [Validators.required]],
@@ -92,53 +82,50 @@ export class AutocadastroComponent {
 
     const v = this.form.value;
 
-    const cpfDigits = (v.cpf || '').replace(/\D/g, '');
-    const cepDigits = (v.cep || '').replace(/\D/g, '');
-    const emailNorm = (v.email || '').toString().trim().toLowerCase();
-
-    const clientes = (() => {
-      try { return JSON.parse(localStorage.getItem('clientes') || '[]'); }
-      catch { return []; }
-    })();
-
-    const emailJaExiste = clientes.some((c: any) => (c.email || '').toLowerCase() === emailNorm);
-    const cpfJaExiste = clientes.some((c: any) => ((c.cpf || '').toString().replace(/\D/g, '') === cpfDigits));
-
-    if (emailJaExiste) { alert('E-mail já cadastrado!'); return; }
-    if (cpfJaExiste)   { alert('CPF já cadastrado!');   return; }
-
-    const senha = this.gerarSenha();
-    const { salt, hash } = await this.hashSenha(senha);
-
-    const now = new Date().toISOString();
-    const novoCliente = {
-      id: crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2),
+    const dto: RegisterRequest = {
+      cpf: (v.cpf || '').replace(/\D/g, ''),
       nome: (v.nome || '').toString().trim(),
-      cpf: cpfDigits,
-      email: emailNorm,
-      telefone: v.telefone || '',
-      endereco: {
-        cep: cepDigits,
-        rua: v.rua || '',
-        numero: v.numero || '',
-        bairro: v.bairro || '',
-        cidade: v.cidade || '',
-        estado: v.estado || '',
-      },
-      perfil: 'CLIENTE',
-      senhaSalt: salt,
-      senhaHash: hash,
-      createdAt: now
+      email: (v.email || '').toString().trim().toLowerCase(),
+      telefone: (v.telefone || '').replace(/\D/g, ''),
+      cep: (v.cep || '').replace(/\D/g, ''),
+      rua: (v.rua || '').toString().trim(),
+      bairro: (v.bairro || '').toString().trim(),
+      numero: (v.numero || '').toString().trim(),
+      complemento: (v.complemento || '').toString().trim() || undefined,
+      cidade: (v.cidade || '').toString().trim(),
+      estado: ((v.estado || '') as string).toUpperCase().slice(0, 2),
     };
 
-    // "envio" de senha por e-mail (simulado)
-    console.log(`Senha enviada para ${novoCliente.email}: ${senha}`);
+    this.auth.register(dto).subscribe({
+      next: (created) => {
+        alert('Cadastro realizado com sucesso! Você receberá sua senha por e-mail.');
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        if (err.status === 409) {
+          const detail = err.error?.detail || err.error?.message || err.error || 'Conflito de cadastro.';
+          if ((detail as string).toLowerCase().includes('e-mail') || (detail as string).toLowerCase().includes('email')) {
+            this.form.get('email')?.setErrors({ server: detail });
+          } else if ((detail as string).toLowerCase().includes('cpf')) {
+            this.form.get('cpf')?.setErrors({ server: detail });
+          }
+          alert(detail);
+          return;
+        }
 
-    clientes.push(novoCliente);
-    localStorage.setItem('clientes', JSON.stringify(clientes));
+        if (err.status === 400 && err.error?.errors && Array.isArray(err.error.errors)) {
+          err.error.errors.forEach((e: any) => {
+            const field = e.field;
+            const message = e.message || 'Inválido';
+            this.form.get(field)?.setErrors({ server: message });
+          });
+          return;
+        }
 
-    alert('Cadastro realizado com sucesso! Sua senha foi enviada por e-mail.');
-    this.router.navigate(['/login']);
+        console.error('Erro no autocadastro', err);
+        alert('Não foi possível concluir o cadastro. Tente novamente.');
+      }
+    });
   }
 
   voltarLogin() {
