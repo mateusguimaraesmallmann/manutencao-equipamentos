@@ -1,8 +1,6 @@
 package com.example.back_end.security;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -23,7 +21,7 @@ public class TokenService {
     public String generateToken(User usuario){
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
-            Instant now = LocalDateTime.now().toInstant(ZoneOffset.of("-03:00"));
+            Instant now = Instant.now();
 
             return JWT.create()
                     .withIssuer("auth")
@@ -50,12 +48,12 @@ public class TokenService {
                       .verify(token)
                       .getSubject();
         } catch (JWTVerificationException ex) {
-            throw new RuntimeException("Token JWT inválido ou expirado!");
+            return null;
         }
     }
 
     private Instant dataExpiracao() {
-        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
+        return Instant.now().plusSeconds(2 * 60 * 60);
     }
     
 }

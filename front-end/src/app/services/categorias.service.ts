@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Categoria } from '../shared/models/categoria.model';
+import { AutenticacaoService } from './autenticacao.service';
 
 const API_BASE = 'http://localhost:8080';
 const API = `${API_BASE}/categorias`;
@@ -16,15 +17,22 @@ export class CategoriasService {
     map(list => list.filter(c => c.ativo).sort((a, b) => a.nome.localeCompare(b.nome)))
   );
 
-  constructor(private http: HttpClient) {
-    this.refresh().subscribe();
+  constructor(private http: HttpClient, private auth: AutenticacaoService) {
+    this.auth.user$.subscribe(user => {
+      if (user) {
+        this.refresh().subscribe();
+      } else {
+        this._state.next([]);
+      }
+    });
   }
 
   refresh(): Observable<Categoria[]> {
     return this.http.get<any[]>(API).pipe(
       map(arr => arr.map(this.normalize)),
       tap(list => this._state.next(list)),
-      catchError(() => {
+      catchError(err => {
+        console.error('Erro ao listar categorias', err);
         this._state.next([]);
         return of([]);
       })
