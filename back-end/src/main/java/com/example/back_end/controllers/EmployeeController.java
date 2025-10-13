@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.back_end.dtos.request.EmployeeCreateDTO;
+import com.example.back_end.dtos.request.EmployeeUpdateDTO;
 import com.example.back_end.dtos.response.EmployeeDTO;
 import com.example.back_end.models.User;
 import com.example.back_end.services.EmployeeService;
@@ -53,10 +55,22 @@ public class EmployeeController {
 
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<EmployeeDTO> atualizar(@PathVariable Long id, @RequestBody @Validated EmployeeUpdateDTO dto) {
+        EmployeeDTO updated = employeeService.atualizar(id, dto);
+        return ResponseEntity.ok(updated);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir(@PathVariable Long id, @AuthenticationPrincipal User usuarioAtual) {
         employeeService.excluir(id, usuarioAtual.getId());
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}/reativar")
+    public ResponseEntity<EmployeeDTO> reativar(@PathVariable Long id) {
+        EmployeeDTO updated = employeeService.reativar(id);
+        return ResponseEntity.ok(updated);
     }
     
 }

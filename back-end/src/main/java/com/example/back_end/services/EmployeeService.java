@@ -1,17 +1,21 @@
 package com.example.back_end.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.example.back_end.enums.Tipo;
 import com.example.back_end.exceptions.UsuarioJaExistenteException;
 import com.example.back_end.dtos.request.EmployeeCreateDTO;
+import com.example.back_end.dtos.request.EmployeeUpdateDTO;
 import com.example.back_end.dtos.response.EmployeeDTO;
 import com.example.back_end.models.EmployeeProfile;
 import com.example.back_end.models.User;
@@ -97,6 +101,32 @@ public class EmployeeService {
 
     }
 
+    public EmployeeDTO atualizar(Long id, EmployeeUpdateDTO dto) {
+        EmployeeProfile emp = employeeRepository.findById(id)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Funcionário não encontrado"));
+
+        User user = emp.getUser();
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Funcionário sem usuário associado");
+        }
+
+        user.setNome(dto.nome().trim());
+        emp.setDataNascimento(dto.dataNascimento());
+
+        user.setUpdatedAt(LocalDateTime.now());
+        employeeRepository.save(emp);
+
+        EmployeeDTO employeeDto = new EmployeeDTO(emp.getId().toString(),
+            emp.getUser().getNome(),
+            emp.getUser().getEmail(),
+            emp.getDataNascimento().toString(),
+            emp.getUser().getAtivo(),
+            emp.getUser().getCreatedAt().toString(),
+            emp.getUser().getUpdatedAt().toString());
+
+        return employeeDto;
+    }
+
     public void excluir(Long id, Long idUsuarioAtual) {
         long total = employeeRepository.count();
         if (total <= 1) {
@@ -111,6 +141,31 @@ public class EmployeeService {
 
         funcionario.getUser().setAtivo(false);
         userRepository.save(funcionario.getUser());      
+    }
+
+    public EmployeeDTO reativar(Long id) {
+        EmployeeProfile emp = employeeRepository.findById(id)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Funcionário não encontrado"));
+
+        User user = emp.getUser();
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Funcionário sem usuário associado");
+        }
+
+        user.setAtivo(true);
+        user.setUpdatedAt(LocalDateTime.now());
+
+        employeeRepository.save(emp);
+
+        EmployeeDTO employeeDto = new EmployeeDTO(emp.getId().toString(),
+            emp.getUser().getNome(),
+            emp.getUser().getEmail(),
+            emp.getDataNascimento().toString(),
+            emp.getUser().getAtivo(),
+            emp.getUser().getCreatedAt().toString(),
+            emp.getUser().getUpdatedAt().toString());
+
+        return employeeDto;
     }
 
 }

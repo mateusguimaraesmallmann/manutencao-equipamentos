@@ -18,17 +18,7 @@ import { FuncionarioDialogComponent } from './funcionario-dialog/funcionario-dia
 @Component({
   selector: 'app-funcionarios',
   standalone: true,
-  imports: [
-    CommonModule, 
-    RouterModule,
-    MatCardModule, 
-    MatTableModule, 
-    MatButtonModule, 
-    MatIconModule, 
-    MatSnackBarModule, 
-    MatDialogModule,
-    NavbarFuncionarioComponent
-  ],
+  imports: [ CommonModule, RouterModule, MatCardModule, MatTableModule, MatButtonModule, MatIconModule, MatSnackBarModule, MatDialogModule, NavbarFuncionarioComponent ],
   templateUrl: './funcionarios.component.html',
   styleUrls: ['./funcionarios.component.css']
 })

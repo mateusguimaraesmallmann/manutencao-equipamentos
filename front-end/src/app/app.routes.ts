@@ -30,7 +30,7 @@ export const routes: Routes = [
   { path: 'orcamento/:id', component: EfetuarOrcamentoComponent },
   { path: 'manutencao/:id', component: EfetuarManutencaoComponent },
   { path: 'equipamentos', component: EquipamentosComponent },
-  { path: 'funcionarios', component: FuncionariosComponent, canMatch: [funcionarioGuard] },
+  { path: 'funcionarios', component: FuncionariosComponent}, //canMatch: [funcionarioGuard] 
   { path: 'relatorios', component: RelatoriosComponent },
 
   { path: '**', redirectTo: 'login' }
