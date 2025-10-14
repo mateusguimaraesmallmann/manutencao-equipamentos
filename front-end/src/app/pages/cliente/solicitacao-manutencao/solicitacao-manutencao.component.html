@@ -1,48 +1,94 @@
-<!--<app-navbar-cliente></app-navbar-cliente> -->
+<!-- <app-navbar-cliente></app-navbar-cliente> -->
 
 <div class="solicitacao-container" [class.submitting]="isSubmitting">
-  <mat-card class="solicitacao-card">
-    <mat-card-title>Solicitação de Manutenção</mat-card-title>
-    <mat-card-subtitle>Preencha os dados abaixo para abrir seu chamado</mat-card-subtitle>
+  <p-card class="solicitacao-card">
+    <ng-template pTemplate="title">
+      Solicitação de Manutenção
+    </ng-template>
+    <ng-template pTemplate="subtitle">
+      Preencha os dados abaixo para abrir seu chamado.
+    </ng-template>
 
-    <mat-card-content>
+    <ng-template pTemplate="content">
       <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
         <div class="grid">
+
           <!-- Equipamento -->
-          <mat-form-field appearance="fill" class="col-12">
-            <mat-label>Descrição do Equipamento</mat-label>
-            <input matInput formControlName="equipamento" maxlength="100" placeholder="Ex.: Impressora HP LaserJet 1020">
-            <mat-hint align="end">{{ form.get('equipamento')?.value?.length || 0 }}/100</mat-hint>
-            <mat-error *ngIf="form.get('equipamento')?.hasError('required')">Obrigatório.</mat-error>
-          </mat-form-field>
+          <div class="col-12 p-field">
+            <label for="equipamento">Descrição do Equipamento</label>
+            <input
+              pInputText
+              id="equipamento"
+              formControlName="equipamento"
+              maxlength="100"
+              placeholder="Ex.: Impressora HP LaserJet 1020"
+            />
+            <small class="p-d-block p-text-secondary">
+              {{ form.get('equipamento')?.value?.length || 0 }}/100
+            </small>
+            <small
+              class="p-error"
+              *ngIf="form.get('equipamento')?.hasError('required') && form.get('equipamento')?.touched"
+              >Obrigatório.</small
+            >
+          </div>
 
           <!-- Categoria -->
-          <mat-form-field appearance="fill" class="col-12">
-            <mat-label>Categoria</mat-label>
-            <mat-select formControlName="categoria" required>
-              <mat-option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</mat-option>
-            </mat-select>
-            <mat-error *ngIf="form.get('categoria')?.hasError('required')">Obrigatório.</mat-error>
-          </mat-form-field>
+          <div class="col-12 p-field">
+            <label for="categoria">Categoria</label>
+            <p-dropdown
+              id="categoria"
+              [options]="categorias"
+              formControlName="categoria"
+              placeholder="Selecione uma categoria"
+            ></p-dropdown>
+            <small
+              class="p-error"
+              *ngIf="form.get('categoria')?.hasError('required') && form.get('categoria')?.touched"
+              >Obrigatório.</small
+            >
+          </div>
 
           <!-- Descrição do Defeito -->
-          <mat-form-field appearance="fill" class="col-12">
-            <mat-label>Descrição do Defeito</mat-label>
-            <textarea matInput rows="5" formControlName="defeito" maxlength="1000"
-                      placeholder="Descreva o problema com detalhes"></textarea>
-            <mat-hint align="end">{{ form.get('defeito')?.value?.length || 0 }}/1000</mat-hint>
-            <mat-error *ngIf="form.get('defeito')?.hasError('required')">Obrigatório.</mat-error>
-          </mat-form-field>
+          <div class="col-12 p-field">
+            <label for="defeito">Descrição do Defeito</label>
+            <textarea
+              pInputTextarea
+              id="defeito"
+              rows="5"
+              formControlName="defeito"
+              maxlength="1000"
+              placeholder="Descreva o problema com detalhes"
+              autoResize="true"
+            ></textarea>
+            <small class="p-d-block p-text-secondary">
+              {{ form.get('defeito')?.value?.length || 0 }}/1000
+            </small>
+            <small
+              class="p-error"
+              *ngIf="form.get('defeito')?.hasError('required') && form.get('defeito')?.touched"
+              >Obrigatório.</small
+            >
+          </div>
         </div>
 
         <div class="botoes">
-          <button mat-button type="button" (click)="voltar()">Voltar</button>
-          <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || isSubmitting">
-            Enviar Solicitação
-          </button>
+          <button
+            pButton
+            type="button"
+            label="Voltar"
+            class="p-button-text"
+            (click)="voltar()"
+          ></button>
+          <button
+            pButton
+            type="submit"
+            label="Enviar Solicitação"
+            icon="pi pi-send"
+            [disabled]="form.invalid || isSubmitting"
+          ></button>
         </div>
       </form>
-    </mat-card-content>
-  </mat-card>
+    </ng-template>
+  </p-card>
 </div>
-

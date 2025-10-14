@@ -1,29 +1,62 @@
 .solicitacao-container {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f4f4f4;
-  }
-  
-  .solicitacao-card {
-    width: 600px;
-    padding: 2rem;
-    border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  }
-  
-  mat-form-field {
-    width: 100%;
-    margin-bottom: 1rem;
-  }
-  
-  .botoes {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 1.5rem;
-  }
-  
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+}
+
+.solicitacao-card {
+  width: 600px;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border: 2px solid #e0e0e0;
+}
+
+/* Campos do formulário */
+.p-field {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.p-field label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+input[pinputtext],
+textarea[pinputtextarea],
+.p-dropdown {
+  width: 100%;
+}
+
+/* Mensagens de erro e contadores */
+.p-error {
+  color: #f44336;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+.p-text-secondary {
+  font-size: 0.8rem;
+  color: #777;
+}
+
+/* Botões */
+.botoes {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+  gap: 1rem;
+}
+
+.p-button {
+  border-radius: 8px;
+}
+
   /*só pra commitar mesmo*/
 .extra-1 { color: red; }
 .extra-2 { color: blue; }

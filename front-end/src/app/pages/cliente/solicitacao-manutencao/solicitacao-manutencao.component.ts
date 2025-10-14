@@ -2,23 +2,17 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatButtonModule } from '@angular/material/button';
-//import { NavbarClienteComponent } from '../../components/navbar-cliente/navbar-cliente.component';
-import { MatIconModule } from '@angular/material/icon';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatTooltipModule } from '@angular/material/tooltip';
+
+// PrimeNG imports
+import { CardModule } from 'primeng/card';
+import { InputTextModule } from 'primeng/inputtext';
+import { TextareaModule } from 'primeng/textarea';
+import { DropdownModule } from 'primeng/dropdown';
+import { ButtonModule } from 'primeng/button';
+
+// Serviços e modelos da sua aplicação
 import { CategoriasService } from '../../../services/categorias.service';
 import { EstadoSolicitacao, Solicitacao } from '../../../shared/models/solicitacao.model';
-
 
 @Component({
   selector: 'app-solicitacao-manutencao',
@@ -26,24 +20,15 @@ import { EstadoSolicitacao, Solicitacao } from '../../../shared/models/solicitac
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatButtonModule,
-    MatIconModule,
-    MatProgressBarModule,
-    MatButtonToggleModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatCheckboxModule,
-    MatChipsModule,
-    MatTooltipModule
+    CardModule,
+    InputTextModule,
+    TextareaModule,
+    DropdownModule,
+    ButtonModule
   ],
   templateUrl: './solicitacao-manutencao.component.html',
   styleUrls: ['./solicitacao-manutencao.component.css']
 })
-
 export class SolicitacaoManutencaoComponent {
   form: FormGroup;
   categorias: string[] = [];
@@ -67,15 +52,15 @@ export class SolicitacaoManutencaoComponent {
     });
   }
 
-  voltar() {
+  voltar(): void {
     this.router.navigate(['/pagina-cliente']);
   }
 
-  onReset() {
+  onReset(): void {
     this.form.reset();
   }
 
-  async onSubmit() {
+  async onSubmit(): Promise<void> {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -84,8 +69,11 @@ export class SolicitacaoManutencaoComponent {
     this.isSubmitting = true;
 
     const user = (() => {
-      try { return JSON.parse(localStorage.getItem('currentUser') || 'null'); }
-      catch { return null; }
+      try {
+        return JSON.parse(localStorage.getItem('currentUser') || 'null');
+      } catch {
+        return null;
+      }
     })();
 
     const nova: Solicitacao = {
@@ -101,8 +89,11 @@ export class SolicitacaoManutencaoComponent {
     };
 
     const list: Solicitacao[] = (() => {
-      try { return JSON.parse(localStorage.getItem('solicitacoes') || '[]'); }
-      catch { return []; }
+      try {
+        return JSON.parse(localStorage.getItem('solicitacoes') || '[]');
+      } catch {
+        return [];
+      }
     })();
 
     list.push(nova);
@@ -110,6 +101,6 @@ export class SolicitacaoManutencaoComponent {
 
     this.isSubmitting = false;
     alert('Solicitação registrada com sucesso!');
-    this.router.navigate(['/pagina-cliente']); // volta para a home do cliente
+    this.router.navigate(['/pagina-cliente']);
   }
 }
