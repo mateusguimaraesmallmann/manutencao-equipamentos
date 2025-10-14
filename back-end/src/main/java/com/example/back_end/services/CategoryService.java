@@ -29,7 +29,7 @@ public class CategoryService {
 
     public Category atualizar(Long id, Category category) {
         Category c = categoryRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Categoria não encontrada id=" + id));
+                .orElseThrow(() -> new RuntimeException("Categoria não encontrada id=" + id));
 
         c.setNome(category.getNome());
         if (category.getAtivo() != null) {
@@ -40,10 +40,80 @@ public class CategoryService {
 
     public void excluir(Long id) {
         var c = categoryRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
+                .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
         c.setAtivo(false);
         c.setUpdatedAt(LocalDateTime.now());
         categoryRepository.save(c);
     }
+
+    /*
+     * @Autowired
+     * private CategoryRepository categoryRepository;
+     * 
+     * public List<Category> findAll() {
+     * return categoryRepository.findAll();
+     * }
+     * 
+     * public Optional<Category> findById(Long id) {
+     * return categoryRepository.findById(id);
+     * }
+     * 
+     * public Category save(Category category) {
+     * return categoryRepository.save(category);
+     * }
+     * 
+     * public Category atualizar(Long id, Category category) {
+     * Category c = categoryRepository.findById(id)
+     * .orElseThrow(() -> new RuntimeException("Categoria não encontrada id=" +
+     * id));
+     * 
+     * c.setNome(category.getNome());
+     * if (category.getAtivo() != null) {
+     * c.setAtivo(category.getAtivo());
+     * }
+     * return categoryRepository.save(c);
+     * }
+     * 
+     * public void excluir(Long id) {
+     * var c = categoryRepository.findById(id)
+     * .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
+     * c.setAtivo(false);
+     * c.setUpdatedAt(LocalDateTime.now());
+     * categoryRepository.save(c);
+     * }@Autowired
+     * private CategoryRepository categoryRepository;
+     * 
+     * public List<Category> findAll() {
+     * return categoryRepository.findAll();
+     * }
+     * 
+     * public Optional<Category> findById(Long id) {
+     * return categoryRepository.findById(id);
+     * }
+     * 
+     * public Category save(Category category) {
+     * return categoryRepository.save(category);
+     * }
+     * 
+     * public Category atualizar(Long id, Category category) {
+     * Category c = categoryRepository.findById(id)
+     * .orElseThrow(() -> new RuntimeException("Categoria não encontrada id=" +
+     * id));
+     * 
+     * c.setNome(category.getNome());
+     * if (category.getAtivo() != null) {
+     * c.setAtivo(category.getAtivo());
+     * }
+     * return categoryRepository.save(c);
+     * }
+     * 
+     * public void excluir(Long id) {
+     * var c = categoryRepository.findById(id)
+     * .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
+     * c.setAtivo(false);
+     * c.setUpdatedAt(LocalDateTime.now());
+     * categoryRepository.save(c);
+     * }
+     */
 
 }
