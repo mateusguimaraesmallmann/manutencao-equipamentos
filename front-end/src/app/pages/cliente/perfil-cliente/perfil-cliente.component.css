@@ -1,13 +1,13 @@
 .perfil-container {
-  max-width: 600px;
+  max-width: 650px;
   margin: 40px auto;
-  padding: 20px;
+  padding: 25px;
   border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #f9f9f9;
+  border-radius: 10px;
+  background-color: #fdfdfd;
 }
 
-h2, h3 {
+h2, h3, h4 {
   text-align: center;
   color: #333;
   margin-bottom: 15px;
@@ -21,7 +21,7 @@ h2, h3 {
 
 button {
   display: block;
-  margin: 10px auto 30px auto;
+  margin: 10px auto 25px auto;
   padding: 10px 25px;
   background-color: #007bff;
   border: none;
@@ -38,7 +38,7 @@ button:hover {
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 th, td {
@@ -55,4 +55,36 @@ th {
   text-align: center;
   font-weight: bold;
   color: #444;
+}
+
+.lista-avaliacoes {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.lista-avaliacoes li {
+  padding: 6px 0;
+  border-bottom: 1px dashed #ddd;
+  color: #555;
+}
+
+.form-avaliacao {
+  background-color: #f2f8ff;
+  border-radius: 8px;
+  padding: 15px;
+}
+
+.form-avaliacao label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.form-avaliacao input {
+  width: 100%;
+  padding: 6px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }

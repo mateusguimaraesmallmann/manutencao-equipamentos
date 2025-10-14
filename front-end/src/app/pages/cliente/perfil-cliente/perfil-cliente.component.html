@@ -29,7 +29,25 @@
     </tbody>
   </table>
 
-  <p class="resumo">
-    Equipamentos em aberto: {{ contarEquipamentosEmAberto() }}
-  </p>
+  <p class="resumo">Equipamentos em aberto: {{ contarEquipamentosEmAberto() }}</p>
+
+  <h3>Avaliações de Serviços</h3>
+  <p>Média das avaliações: <strong>{{ calcularMediaAvaliacoes() }}</strong> / 5</p>
+
+  <ul class="lista-avaliacoes">
+    <li *ngFor="let a of avaliacoes">
+      ⭐ {{ a.nota }} - "{{ a.comentario }}"
+    </li>
+  </ul>
+
+  <div class="form-avaliacao">
+    <h4>Deixe sua avaliação</h4>
+    <label>Nota:
+      <input type="number" [(ngModel)]="novaAvaliacao.nota" min="1" max="5">
+    </label>
+    <label>Comentário:
+      <input type="text" [(ngModel)]="novaAvaliacao.comentario" placeholder="Escreva algo...">
+    </label>
+    <button (click)="adicionarAvaliacao()">Enviar Avaliação</button>
+  </div>
 </div>
