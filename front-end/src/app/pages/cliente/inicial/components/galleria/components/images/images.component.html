@@ -1,1 +1,12 @@
-<p>images works!</p>
+<div class="card">
+    <p-galleria [value]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '800px'}"
+        [numVisible]="5" [showThumbnails]="true" [showIndicators]="true" [circular]="true" [autoPlay]="true"
+        [transitionInterval]="3000">
+        <ng-template pTemplate="item" let-item>
+            <img [src]="item.url" [alt]="item.title" style="width: 100%; height: 400px; object-fit: cover;" />
+        </ng-template>
+        <ng-template pTemplate="thumbnail" let-item>
+            <img [src]="item.url" [alt]="item.title" style="width: 100px; height: 67px; object-fit: cover;" />
+        </ng-template>
+    </p-galleria>
+</div>

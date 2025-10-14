@@ -1,0 +1,57 @@
+.card {
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 1rem;
+}
+
+:host ::ng-deep .p-galleria {
+    background: transparent;
+    padding: 0;
+}
+
+:host ::ng-deep .p-galleria-item-wrapper {
+    padding: 1rem;
+}
+
+:host ::ng-deep .p-galleria-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+:host ::ng-deep .p-galleria-thumbnail-wrapper {
+    background: #f8f9fa;
+    padding: 1rem 0;
+}
+
+:host ::ng-deep .p-galleria-thumbnail-item {
+    opacity: 0.6;
+    transition: opacity 0.3s;
+}
+
+:host ::ng-deep .p-galleria-thumbnail-item.p-galleria-thumbnail-item-current {
+    opacity: 1;
+}
+
+:host ::ng-deep .p-galleria-thumbnail-item:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+:host ::ng-deep .p-galleria-indicators {
+    padding: 1rem;
+}
+
+:host ::ng-deep .p-galleria-indicator button {
+    background-color: #e9ecef;
+    width: 12px;
+    height: 12px;
+    transition: background-color 0.2s;
+    border-radius: 50%;
+}
+
+:host ::ng-deep .p-galleria-indicator.p-highlight button {
+    background-color: #3B82F6;
+}
