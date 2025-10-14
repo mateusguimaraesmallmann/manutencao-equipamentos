@@ -59,10 +59,10 @@ export class FuncionariosService {
 
   criar(payload: FuncionarioCriarPayload): Observable<boolean> {
     const body = {
-      name: payload.nome.trim(),
+      nome: payload.nome.trim(),
       email: payload.email.trim().toLowerCase(),
-      password: payload.senha,
-      birthdate: payload.dataNascimento
+      senha: payload.senha,
+      dataNascimento: payload.dataNascimento
     };
     return this.http.post<any>(`${API}/criar`, body).pipe(
       map(this.normalize),
@@ -81,8 +81,8 @@ export class FuncionariosService {
 
   atualizar(id: string, payload: FuncionarioAtualizarPayload): Observable<boolean> {
     const body: any = {
-      name: payload.nome.trim(),
-      birthdate: payload.dataNascimento
+      nome: payload.nome.trim(),
+      dataNascimento: payload.dataNascimento
     };
 
     return this.http.put<any>(`${API}/${id}`, body).pipe(

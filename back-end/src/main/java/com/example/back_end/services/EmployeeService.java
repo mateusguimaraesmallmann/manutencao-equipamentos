@@ -78,6 +78,8 @@ public class EmployeeService {
             user.setEmail(dto.email());
             user.setPassword(passwordEncoder.encode(dto.senha()));
             user.setRole(Tipo.FUNCIONARIO);
+            user.setCreatedAt(LocalDateTime.now());;
+            user.setUpdatedAt(LocalDateTime.now());;
             user = userRepository.save(user);
 
             EmployeeProfile employee = new EmployeeProfile();
