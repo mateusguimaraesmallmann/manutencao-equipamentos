@@ -13,80 +13,42 @@
       <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
         <div class="grid">
 
-          <!-- Equipamento -->
           <div class="col-12 p-field">
             <label for="equipamento">Descrição do Equipamento</label>
-            <input
-              pInputText
-              id="equipamento"
-              formControlName="equipamento"
-              maxlength="100"
-              placeholder="Ex.: Impressora HP LaserJet 1020"
-            />
+            <input pInputText id="equipamento" formControlName="equipamento" maxlength="200"
+              placeholder="Ex.: Impressora HP LaserJet 1020" />
             <small class="p-d-block p-text-secondary">
-              {{ form.get('equipamento')?.value?.length || 0 }}/100
+              {{ form.get('equipamento')?.value?.length || 0 }}/200
             </small>
-            <small
-              class="p-error"
-              *ngIf="form.get('equipamento')?.hasError('required') && form.get('equipamento')?.touched"
-              >Obrigatório.</small
-            >
+            <small class="p-error"
+              *ngIf="form.get('equipamento')?.hasError('required') && form.get('equipamento')?.touched">Obrigatório.</small>
           </div>
 
-          <!-- Categoria -->
           <div class="col-12 p-field">
             <label for="categoria">Categoria</label>
-            <p-dropdown
-              id="categoria"
-              [options]="categorias"
-              formControlName="categoria"
-              placeholder="Selecione uma categoria"
-            ></p-dropdown>
-            <small
-              class="p-error"
-              *ngIf="form.get('categoria')?.hasError('required') && form.get('categoria')?.touched"
-              >Obrigatório.</small
-            >
+            <p-dropdown id="categoria" [options]="categorias" optionLabel="label" optionValue="value"
+              formControlName="categoria" placeholder="Selecione uma categoria">
+            </p-dropdown>
+            <small class="p-error"
+              *ngIf="form.get('categoria')?.hasError('required') && form.get('categoria')?.touched">Obrigatório.</small>
           </div>
 
-          <!-- Descrição do Defeito -->
           <div class="col-12 p-field">
             <label for="defeito">Descrição do Defeito</label>
-            <textarea
-              pInputTextarea
-              id="defeito"
-              rows="5"
-              formControlName="defeito"
-              maxlength="1000"
-              placeholder="Descreva o problema com detalhes"
-              autoResize="true"
-            ></textarea>
+            <textarea pInputTextarea id="defeito" rows="5" formControlName="defeito" maxlength="500"
+              placeholder="Descreva o problema com detalhes" autoResize="true"></textarea>
             <small class="p-d-block p-text-secondary">
-              {{ form.get('defeito')?.value?.length || 0 }}/1000
+              {{ form.get('defeito')?.value?.length || 0 }}/500
             </small>
-            <small
-              class="p-error"
-              *ngIf="form.get('defeito')?.hasError('required') && form.get('defeito')?.touched"
-              >Obrigatório.</small
-            >
+            <small class="p-error"
+              *ngIf="form.get('defeito')?.hasError('required') && form.get('defeito')?.touched">Obrigatório.</small>
           </div>
         </div>
 
         <div class="botoes">
-          <button
-            pButton
-            type="button"
-            label="Voltar"
-            class="p-button-text"
-            (click)="voltar()"
-          ></button>
-          <button
-            pButton
-            type="submit"
-            label="Enviar Solicitação"
-            icon="pi pi-send"
-            [disabled]="form.invalid || isSubmitting"
-          ></button>
+          <button pButton type="button" label="Voltar" class="p-button-text" (click)="voltar()"></button>
+          <button pButton type="submit" label="Enviar Solicitação" icon="pi pi-send"
+            [disabled]="form.invalid || isSubmitting"></button>
         </div>
       </form>
     </ng-template>

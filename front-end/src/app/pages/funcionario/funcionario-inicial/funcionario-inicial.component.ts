@@ -63,7 +63,7 @@ export class FuncionarioInicialComponent {
     fim: [null as Date | null]
   });
 
-  private todasSig: Signal<Solicitacao[]> = toSignal(this.service.solicitacoes$, { initialValue: [] });
+  //private todasSig: Signal<Solicitacao[]> = toSignal(this.service.solicitacoes$, { initialValue: [] });
 
   private filtrosSig = toSignal(
     this.filtros.valueChanges.pipe(startWith(this.filtros.value)),
@@ -74,7 +74,7 @@ export class FuncionarioInicialComponent {
     try { return JSON.parse(localStorage.getItem('currentUser') || '{}')?.email; } catch { return undefined; }
   }
 
-  visiveis: Signal<Solicitacao[]> = computed(() => {
+  /*visiveis: Signal<Solicitacao[]> = computed(() => {
     const list = this.todasSig();
     const { modo, inicio, fim } = this.filtrosSig() as {
       modo: 'TODAS' | 'HOJE' | 'PERIODO'; inicio: Date | null; fim: Date | null;
@@ -108,7 +108,7 @@ export class FuncionarioInicialComponent {
     return filtered.sort((a, b) =>
       new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
     );
-  });
+  });*/
 
   displayedColumns = ['dataHora', 'cliente', 'descricao', 'estado', 'acao'];
 
@@ -121,18 +121,18 @@ export class FuncionarioInicialComponent {
   }
 
   finalizarSolicitacao(s: Solicitacao) {
-    if (s.estado !== this.Estado.PAGA) {
+    /*if (s.estado !== this.Estado.PAGA) {
       this.snack.open('Só é possível finalizar solicitações com status PAGA.', 'OK', { duration: 2500 });
       return;
     }
-  
+
     const ok = confirm(`Finalizar a solicitação de ${s.clienteNome}?`);
     if (!ok) return;
-  
+
     const user = (() => {
       try { return JSON.parse(localStorage.getItem('currentUser') || '{}'); } catch { return {}; }
     })();
-  
+
     this.service.finalizarSolicitacao(s.id, { nome: user?.nome ?? 'Funcionário', email: user?.email })
       .subscribe((res) => {
         if (res) {
@@ -140,37 +140,37 @@ export class FuncionarioInicialComponent {
         } else {
           this.snack.open('Não foi possível finalizar. Verifique o status.', 'OK', { duration: 3000 });
         }
-      });
-  }  
+      });*/
+  }
 
   estadoClass(e: EstadoSolicitacao): string {
     switch (e) {
-      case EstadoSolicitacao.ABERTA:        return 'estado-chip aberta';
-      case EstadoSolicitacao['ORCADA']:     return 'estado-chip orcada';
-      case EstadoSolicitacao.REJEITADA:     return 'estado-chip rejeitada';
-      case EstadoSolicitacao.APROVADA:      return 'estado-chip aprovada';
+      case EstadoSolicitacao.ABERTA: return 'estado-chip aberta';
+      case EstadoSolicitacao['ORCADA']: return 'estado-chip orcada';
+      case EstadoSolicitacao.REJEITADA: return 'estado-chip rejeitada';
+      case EstadoSolicitacao.APROVADA: return 'estado-chip aprovada';
       case EstadoSolicitacao.REDIRECIONADA: return 'estado-chip redirecionada';
-      case EstadoSolicitacao.ARRUMADA:      return 'estado-chip arrumada';
-      case EstadoSolicitacao.PAGA:          return 'estado-chip paga';
-      case EstadoSolicitacao.FINALIZADA:    return 'estado-chip finalizada';
+      case EstadoSolicitacao.ARRUMADA: return 'estado-chip arrumada';
+      case EstadoSolicitacao.PAGA: return 'estado-chip paga';
+      case EstadoSolicitacao.FINALIZADA: return 'estado-chip finalizada';
       default: return 'estado-chip';
     }
   }
 
-contagem = computed(() => {
-  const list = this.visiveis();
-  const c: Record<EstadoSolicitacao, number> = {
-    [EstadoSolicitacao.ABERTA]: 0,
-    [EstadoSolicitacao.ORCADA]: 0,
-    [EstadoSolicitacao.REJEITADA]: 0,
-    [EstadoSolicitacao.APROVADA]: 0,
-    [EstadoSolicitacao.REDIRECIONADA]: 0,
-    [EstadoSolicitacao.ARRUMADA]: 0,
-    [EstadoSolicitacao.PAGA]: 0,
-    [EstadoSolicitacao.FINALIZADA]: 0,
-  };
-  for (const s of list) c[s.estado]++;
-  return c;
-});
+  /*contagem = computed(() => {
+    const list = this.visiveis();
+    const c: Record<EstadoSolicitacao, number> = {
+      [EstadoSolicitacao.ABERTA]: 0,
+      [EstadoSolicitacao.ORCADA]: 0,
+      [EstadoSolicitacao.REJEITADA]: 0,
+      [EstadoSolicitacao.APROVADA]: 0,
+      [EstadoSolicitacao.REDIRECIONADA]: 0,
+      [EstadoSolicitacao.ARRUMADA]: 0,
+      [EstadoSolicitacao.PAGA]: 0,
+      [EstadoSolicitacao.FINALIZADA]: 0,
+    };
+    for (const s of list) c[s.estado]++;
+    return c;
+  });*/
 
 }

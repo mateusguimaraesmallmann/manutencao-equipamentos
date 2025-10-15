@@ -40,34 +40,34 @@ export class EfetuarManutencaoComponent implements OnInit {
   solicitacao?: Solicitacao;
   form!: FormGroup;
 
-  funcionarios: Array<{nome: string; email: string}> = [];
+  funcionarios: Array<{ nome: string; email: string }> = [];
 
-ngOnInit(): void {
-  const id = this.route.snapshot.paramMap.get('id')!;
-  firstValueFrom(this.service.getById$(id))
-    .then(found => {
-      if (!found) {
+  ngOnInit(): void {
+    const id = this.route.snapshot.paramMap.get('id')!;
+    /*firstValueFrom(this.service.getById$(id))
+      .then(found => {
+        if (!found) {
+          this.snack.open('Solicitação não encontrada.', 'OK', { duration: 2500 });
+          this.router.navigate(['/funcionario']);
+          return;
+        }
+        this.solicitacao = found;
+
+        this.form = this.fb.group({
+          descricao: ['', [Validators.required, Validators.maxLength(1000)]],
+          orientacoes: ['', [Validators.maxLength(1000)]],
+          destino: [null as { nome: string; email: string } | null]
+        });
+
+        const meEmail = this.funcionarioLogado.email;
+        this.funcionarios = this.carregarFuncionarios()
+          .filter(f => f.email !== meEmail);
+      })
+      .catch(() => {
         this.snack.open('Solicitação não encontrada.', 'OK', { duration: 2500 });
         this.router.navigate(['/funcionario']);
-        return;
-      }
-      this.solicitacao = found;
-
-      this.form = this.fb.group({
-        descricao: ['', [Validators.required, Validators.maxLength(1000)]],
-        orientacoes: ['', [Validators.maxLength(1000)]],
-        destino: [null as { nome: string; email: string } | null]
-      });
-
-      const meEmail = this.funcionarioLogado.email;
-      this.funcionarios = this.carregarFuncionarios()
-        .filter(f => f.email !== meEmail);
-    })
-    .catch(() => {
-      this.snack.open('Solicitação não encontrada.', 'OK', { duration: 2500 });
-      this.router.navigate(['/funcionario']);
-    });
-}
+      });*/
+  }
 
   get funcionarioLogado(): { nome: string; email: string } {
     try {
@@ -79,7 +79,7 @@ ngOnInit(): void {
   }
 
   salvarManutencao(): void {
-    if (!this.solicitacao || this.form.get('descricao')?.invalid) {
+    /*if (!this.solicitacao || this.form.get('descricao')?.invalid) {
       this.snack.open('Descreva a manutenção realizada.', 'OK', { duration: 2000 });
       return;
     }
@@ -93,11 +93,11 @@ ngOnInit(): void {
         } else {
           this.snack.open('Falha ao salvar manutenção.', 'OK', { duration: 3000 });
         }
-      });
+      });*/
   }
 
   redirecionar(): void {
-    if (!this.solicitacao) return;
+    /*if (!this.solicitacao) return;
     const destino = this.form.value.destino as { nome: string; email: string } | null;
 
     if (!destino) {
@@ -117,19 +117,19 @@ ngOnInit(): void {
         } else {
           this.snack.open('Falha ao redirecionar.', 'OK', { duration: 3000 });
         }
-      });
+      });*/
   }
 
   voltar(): void {
     this.router.navigate(['/funcionario']);
   }
 
-  private carregarFuncionarios(): Array<{nome: string; email: string}> {
+  private carregarFuncionarios(): Array<{ nome: string; email: string }> {
     try {
       const raw = localStorage.getItem('funcionarios');
       const arr = raw ? JSON.parse(raw) : null;
       if (Array.isArray(arr) && arr.length) return arr;
-    } catch {}
+    } catch { }
     return [
       { nome: 'Maria', email: 'maria@empresa.com' },
       { nome: 'Mário', email: 'mario@empresa.com' }

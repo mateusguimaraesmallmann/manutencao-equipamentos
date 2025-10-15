@@ -4,5 +4,4 @@ export interface Categoria {
     ativo: boolean;
     createdAt: string;
     updatedAt?: string;
-  }
-  
+}

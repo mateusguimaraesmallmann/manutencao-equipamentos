@@ -41,7 +41,7 @@ export class EfetuarOrcamentoComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id')!;
 
-    firstValueFrom(this.service.getById$(id))
+    /*firstValueFrom(this.service.getById$(id))
       .then(s => {
         if (!s) {
           this.snack.open('Solicitação não encontrada.', 'OK', { duration: 2500 });
@@ -57,7 +57,7 @@ export class EfetuarOrcamentoComponent implements OnInit {
       .catch(() => {
         this.snack.open('Solicitação não encontrada.', 'OK', { duration: 2500 });
         this.router.navigate(['/funcionario']);
-      });
+      });*/
   }
 
   get funcionarioLogado() {
@@ -66,7 +66,7 @@ export class EfetuarOrcamentoComponent implements OnInit {
   }
 
   salvar(): void {
-    if (!this.solicitacao || this.form.invalid) return;
+    /*if (!this.solicitacao || this.form.invalid) return;
     const valor = Number(this.form.value.valor);
 
     this.service.registrarOrcamento(this.solicitacao.id, valor, {
@@ -83,7 +83,7 @@ export class EfetuarOrcamentoComponent implements OnInit {
       } else {
         this.snack.open('Solicitação não encontrada.', 'OK', { duration: 3000 });
       }
-    });
+    });*/
   }
 
   cancelar(): void {

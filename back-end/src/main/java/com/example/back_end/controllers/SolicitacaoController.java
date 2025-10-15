@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.back_end.dtos.request.SolicitacaoCreateDTO;
+import com.example.back_end.dtos.response.SolicitacaoDTO;
 import com.example.back_end.models.Solicitacao;
 import com.example.back_end.models.User;
 import com.example.back_end.services.SolicitacaoService;
@@ -23,8 +25,8 @@ public class SolicitacaoController {
     private SolicitacaoService solicitacaoService;
 
     @PostMapping
-    public ResponseEntity<Solicitacao> criarSolicitacao(@RequestBody Solicitacao solicitacao) {
-        Solicitacao nova = solicitacaoService.criarSolicitacao(solicitacao);
+    public ResponseEntity<SolicitacaoDTO> criarSolicitacao(@RequestBody SolicitacaoCreateDTO solicitacaoCreateDTO) {
+        SolicitacaoDTO nova = solicitacaoService.criarSolicitacao(solicitacaoCreateDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(nova);
     }
 
