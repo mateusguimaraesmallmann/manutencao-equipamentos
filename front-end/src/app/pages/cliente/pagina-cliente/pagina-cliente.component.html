@@ -21,11 +21,10 @@
       <td>{{ limitarDescricao(s.descricaoProduto) }}</td>
       <td>{{ s.estado }}</td>
       <td class="flex gap-2 flex-wrap">
-        <button pButton type="button" label="Visualizar" class="p-button-info"
-                (click)="visualizarSolicitacao(s.id)"></button>
+        <button pButton type="button" label="Visualizar" class="p-button-info" 
+          (click)="visualizarSolicitacao(s.id)">
+        </button>
       </td>
     </tr>
   </ng-template>
 </p-table>
-
-

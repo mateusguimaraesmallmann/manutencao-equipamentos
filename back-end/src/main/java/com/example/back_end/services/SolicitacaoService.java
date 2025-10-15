@@ -1,6 +1,8 @@
 package com.example.back_end.services;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.back_end.dtos.request.SolicitacaoCreateDTO;
 import com.example.back_end.dtos.response.SolicitacaoDTO;
+import com.example.back_end.dtos.response.SolicitacaoResumoDTO;
 import com.example.back_end.enums.EstadoSolicitacao;
 import com.example.back_end.models.Category;
 import com.example.back_end.models.HistoricoAlteracao;
@@ -33,6 +36,23 @@ public class SolicitacaoService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    public List<SolicitacaoResumoDTO> buscarSolicitacoesByCliente(Long id) {
+        
+        List<SolicitacaoResumoDTO> listDto = new ArrayList<>();
+        List<Solicitacao> list = solicitacaoRepository.listSolicitacoesByCliente(id);
+        for(Solicitacao s : list){
+            SolicitacaoResumoDTO dto = new SolicitacaoResumoDTO(
+                s.getId(),
+                s.getCreatedAt().toString(),
+                s.getDescricaoProduto(),
+                s.getEstado()
+            );
+            listDto.add(dto);
+        }
+
+        return listDto;
+    }
 
     public SolicitacaoDTO criarSolicitacao(SolicitacaoCreateDTO dto) {
         
@@ -72,7 +92,7 @@ public class SolicitacaoService {
   
     }
 
-    public Solicitacao buscarDetalhada(Long id) {
+    /*public Solicitacao buscarDetalhada(Long id) {
         return solicitacaoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Solicitação não encontrada"));
     }
@@ -128,6 +148,6 @@ public class SolicitacaoService {
         historico.setDataHora(LocalDateTime.now());
         historico.setAutor(user);
         historicoAlteracaoRepository.save(historico);
-    }
+    }*/
 
 }

@@ -1,5 +1,7 @@
 package com.example.back_end.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.back_end.dtos.request.SolicitacaoCreateDTO;
 import com.example.back_end.dtos.response.SolicitacaoDTO;
+import com.example.back_end.dtos.response.SolicitacaoResumoDTO;
 import com.example.back_end.models.Solicitacao;
 import com.example.back_end.models.User;
 import com.example.back_end.services.SolicitacaoService;
@@ -24,18 +27,23 @@ public class SolicitacaoController {
     @Autowired
     private SolicitacaoService solicitacaoService;
 
+    @GetMapping("/cliente/{id}")
+    public ResponseEntity<List<SolicitacaoResumoDTO>> buscarSolicitacoesByCliente(@PathVariable Long id) {
+        return ResponseEntity.ok(solicitacaoService.buscarSolicitacoesByCliente(id));
+    }
+
+    /*@GetMapping("/{id}")
+    public ResponseEntity<Solicitacao> buscarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(solicitacaoService.buscarDetalhada(id));
+    }*/
+
     @PostMapping
     public ResponseEntity<SolicitacaoDTO> criarSolicitacao(@RequestBody SolicitacaoCreateDTO solicitacaoCreateDTO) {
         SolicitacaoDTO nova = solicitacaoService.criarSolicitacao(solicitacaoCreateDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(nova);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Solicitacao> buscarPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(solicitacaoService.buscarDetalhada(id));
-    }
-
-    @PostMapping("/{id}/aprovar")
+    /*@PostMapping("/{id}/aprovar")
     public ResponseEntity<Void> aprovar(@PathVariable Long id, @AuthenticationPrincipal User usuario) {
         solicitacaoService.aprovar(id, usuario);
         return ResponseEntity.ok().build();
@@ -57,6 +65,6 @@ public class SolicitacaoController {
     public ResponseEntity<Void> pagar(@PathVariable Long id, @AuthenticationPrincipal User usuario) {
         solicitacaoService.pagar(id, usuario);
         return ResponseEntity.ok().build();
-    }
+    }*/
     
 }
