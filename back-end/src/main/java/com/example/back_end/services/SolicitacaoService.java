@@ -14,7 +14,8 @@ import org.springframework.web.server.ResponseStatusException;
 import com.example.back_end.dtos.request.SolicitacaoCreateDTO;
 import com.example.back_end.dtos.response.HistoricoDTO;
 import com.example.back_end.dtos.response.SolicitacaoDetalheDTO;
-import com.example.back_end.dtos.response.SolicitacaoResumoDTO;
+import com.example.back_end.dtos.response.SolicitacaoFuncionarioResumoDTO;
+import com.example.back_end.dtos.response.SolicitacaoClienteResumoDTO;
 import com.example.back_end.enums.EstadoSolicitacao;
 import com.example.back_end.models.Category;
 import com.example.back_end.models.HistoricoAlteracao;
@@ -40,12 +41,25 @@ public class SolicitacaoService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public List<SolicitacaoResumoDTO> buscarSolicitacoesByCliente(Long id) {
+    public List<SolicitacaoClienteResumoDTO> buscarSolicitacoesByCliente(Long id) {
         return solicitacaoRepository.findAllByClienteIdOrderByCreatedAtAsc(id)
             .stream()
-            .map(s -> new SolicitacaoResumoDTO(
+            .map(s -> new SolicitacaoClienteResumoDTO(
                 s.getId(),
                 s.getCreatedAt().toString(),
+                s.getDescricaoProduto(),
+                s.getEstado()
+            ))
+            .toList();
+    }
+
+    public List<SolicitacaoFuncionarioResumoDTO> buscarSolicitacoesAbertas() {
+        return solicitacaoRepository.findAllByEstado(EstadoSolicitacao.ABERTA)
+            .stream()
+            .map(s -> new SolicitacaoFuncionarioResumoDTO(
+                s.getId(),
+                s.getCreatedAt().toString(),
+                s.getCliente().getNome(),
                 s.getDescricaoProduto(),
                 s.getEstado()
             ))

@@ -8,7 +8,7 @@ import { TableModule } from 'primeng/table';
 import { Solicitacao, EstadoSolicitacao } from '../../../shared/models/solicitacao.model';
 import { NavbarClienteComponent } from '../../../components/navbar-cliente/navbar-cliente.component';
 import { SolicitacoesService } from '../../../services/solicitacoes.service';
-import { SolicitacaoResumoDTO } from '../../../shared/dtos/solicitacao-resumo.dto';
+import { SolicitacaoResumoDTO } from '../../../shared/dtos/solicitacao-cliente-resumo.dto';
 
 @Component({
   selector: 'app-pagina-cliente',

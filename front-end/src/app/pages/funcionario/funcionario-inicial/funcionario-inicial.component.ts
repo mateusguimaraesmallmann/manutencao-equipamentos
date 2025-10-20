@@ -24,27 +24,14 @@ import { MatInputModule } from '@angular/material/input';
 import { TruncatePipe } from '../../../shared/pipes/truncate.pipe';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { startWith } from 'rxjs/operators';
+import { FuncionarioSolicitacaoResumoDTO } from '../../../shared/dtos/solicitacao-funcionario-resumo.dto';
 
 @Component({
   selector: 'app-funcionario-inicial',
   standalone: true,
   imports: [
-    CommonModule,
-    RouterModule,
-    ReactiveFormsModule,
-    MatTableModule,
-    MatButtonModule,
-    MatIconModule,
-    MatCardModule,
-    MatChipsModule,
-    MatButtonToggleModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatSnackBarModule,
-    MatFormFieldModule,
-    MatInputModule,
-    TruncatePipe,
-    NavbarFuncionarioComponent
+    CommonModule, RouterModule, ReactiveFormsModule, MatTableModule, MatButtonModule, MatIconModule, MatCardModule, MatChipsModule, MatButtonToggleModule,
+    MatDatepickerModule, MatNativeDateModule, MatSnackBarModule, MatFormFieldModule, MatInputModule, TruncatePipe, NavbarFuncionarioComponent
   ],
   templateUrl: './funcionario-inicial.component.html',
   styleUrls: ['./funcionario-inicial.component.css']
@@ -53,9 +40,9 @@ export class FuncionarioInicialComponent {
   private service = inject(SolicitacoesService);
   private router = inject(Router);
   private fb = inject(FormBuilder);
-  private snack = inject(MatSnackBar);
 
   Estado = EstadoSolicitacao;
+  displayedColumns = ['dataHora', 'cliente', 'descricao', 'estado', 'acao'];
 
   filtros: FormGroup = this.fb.group({
     modo: ['TODAS' as 'TODAS' | 'HOJE' | 'PERIODO'],
@@ -63,114 +50,28 @@ export class FuncionarioInicialComponent {
     fim: [null as Date | null]
   });
 
-  //private todasSig: Signal<Solicitacao[]> = toSignal(this.service.solicitacoes$, { initialValue: [] });
+  data: FuncionarioSolicitacaoResumoDTO[] = [];
 
-  private filtrosSig = toSignal(
-    this.filtros.valueChanges.pipe(startWith(this.filtros.value)),
-    { initialValue: this.filtros.value }
-  );
-
-  private get meEmail(): string | undefined {
-    try { return JSON.parse(localStorage.getItem('currentUser') || '{}')?.email; } catch { return undefined; }
-  }
-
-  /*visiveis: Signal<Solicitacao[]> = computed(() => {
-    const list = this.todasSig();
-    const { modo, inicio, fim } = this.filtrosSig() as {
-      modo: 'TODAS' | 'HOJE' | 'PERIODO'; inicio: Date | null; fim: Date | null;
-    };
-    const me = this.meEmail;
-
-    const startOf = (d: Date) => new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0).getTime();
-    const endOf = (d: Date) => new Date(d.getFullYear(), d.getMonth(), d.getDate(), 23, 59, 59, 999).getTime();
-
-    const today = new Date();
-
-    const filtered = list.filter(s => {
-      if (s.estado === EstadoSolicitacao.REDIRECIONADA) {
-        if (!s.redirecionadaPara?.email || s.redirecionadaPara.email !== me) return false;
-      }
-
-      const ts = new Date(s.createdAt).getTime();
-
-      if (modo === 'HOJE') {
-        return ts >= startOf(today) && ts <= endOf(today);
-      }
-
-      if (modo === 'PERIODO') {
-        if (inicio && ts < startOf(inicio)) return false;
-        if (fim && ts > endOf(fim)) return false;
-      }
-
-      return true;
+  ngOnInit(): void {
+    this.service.listarSolicitacoesAbertas().subscribe({
+      next: res => this.data = res,
+      error: () => this.data = []
     });
-
-    return filtered.sort((a, b) =>
-      new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-    );
-  });*/
-
-  displayedColumns = ['dataHora', 'cliente', 'descricao', 'estado', 'acao'];
-
-  abrirOrcamento(s: Solicitacao) {
-    this.router.navigate(['/orcamento', s.id]);
   }
 
-  abrirManutencao(s: Solicitacao) {
-    this.router.navigate(['/manutencao', s.id]);
+  desc30(s: string): string {
+    return s?.length > 30 ? s.slice(0,30) + '…' : (s || '');
   }
 
-  finalizarSolicitacao(s: Solicitacao) {
-    /*if (s.estado !== this.Estado.PAGA) {
-      this.snack.open('Só é possível finalizar solicitações com status PAGA.', 'OK', { duration: 2500 });
-      return;
-    }
-
-    const ok = confirm(`Finalizar a solicitação de ${s.clienteNome}?`);
-    if (!ok) return;
-
-    const user = (() => {
-      try { return JSON.parse(localStorage.getItem('currentUser') || '{}'); } catch { return {}; }
-    })();
-
-    this.service.finalizarSolicitacao(s.id, { nome: user?.nome ?? 'Funcionário', email: user?.email })
-      .subscribe((res) => {
-        if (res) {
-          this.snack.open('Solicitação finalizada com sucesso.', 'OK', { duration: 3000 });
-        } else {
-          this.snack.open('Não foi possível finalizar. Verifique o status.', 'OK', { duration: 3000 });
-        }
-      });*/
+  abrirOrcamento(row: FuncionarioSolicitacaoResumoDTO) {
+    this.router.navigate(['/orcamento', row.id]);
   }
 
-  estadoClass(e: EstadoSolicitacao): string {
+  estadoClass(e: EstadoSolicitacao | string): string {
     switch (e) {
       case EstadoSolicitacao.ABERTA: return 'estado-chip aberta';
-      case EstadoSolicitacao['ORCADA']: return 'estado-chip orcada';
-      case EstadoSolicitacao.REJEITADA: return 'estado-chip rejeitada';
-      case EstadoSolicitacao.APROVADA: return 'estado-chip aprovada';
-      case EstadoSolicitacao.REDIRECIONADA: return 'estado-chip redirecionada';
-      case EstadoSolicitacao.ARRUMADA: return 'estado-chip arrumada';
-      case EstadoSolicitacao.PAGA: return 'estado-chip paga';
-      case EstadoSolicitacao.FINALIZADA: return 'estado-chip finalizada';
       default: return 'estado-chip';
     }
   }
-
-  /*contagem = computed(() => {
-    const list = this.visiveis();
-    const c: Record<EstadoSolicitacao, number> = {
-      [EstadoSolicitacao.ABERTA]: 0,
-      [EstadoSolicitacao.ORCADA]: 0,
-      [EstadoSolicitacao.REJEITADA]: 0,
-      [EstadoSolicitacao.APROVADA]: 0,
-      [EstadoSolicitacao.REDIRECIONADA]: 0,
-      [EstadoSolicitacao.ARRUMADA]: 0,
-      [EstadoSolicitacao.PAGA]: 0,
-      [EstadoSolicitacao.FINALIZADA]: 0,
-    };
-    for (const s of list) c[s.estado]++;
-    return c;
-  });*/
 
 }

@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.back_end.dtos.request.SolicitacaoCreateDTO;
 import com.example.back_end.dtos.response.SolicitacaoDetalheDTO;
-import com.example.back_end.dtos.response.SolicitacaoResumoDTO;
+import com.example.back_end.dtos.response.SolicitacaoFuncionarioResumoDTO;
+import com.example.back_end.dtos.response.SolicitacaoClienteResumoDTO;
 import com.example.back_end.models.Solicitacao;
 import com.example.back_end.models.User;
 import com.example.back_end.services.SolicitacaoService;
@@ -28,8 +29,13 @@ public class SolicitacaoController {
     private SolicitacaoService solicitacaoService;
 
     @GetMapping("/cliente/{id}")
-    public ResponseEntity<List<SolicitacaoResumoDTO>> buscarSolicitacoesByCliente(@PathVariable Long id) {
+    public ResponseEntity<List<SolicitacaoClienteResumoDTO>> buscarSolicitacoesByCliente(@PathVariable Long id) {
         return ResponseEntity.ok(solicitacaoService.buscarSolicitacoesByCliente(id));
+    }
+
+    @GetMapping("/abertas")
+    public ResponseEntity<List<SolicitacaoFuncionarioResumoDTO>> buscarSolicitacoesAbertas() {
+        return ResponseEntity.ok(solicitacaoService.buscarSolicitacoesAbertas());
     }
 
     @GetMapping("/{id}")
