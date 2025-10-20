@@ -1,16 +1,19 @@
 package com.example.back_end.services;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.example.back_end.dtos.request.SolicitacaoCreateDTO;
-import com.example.back_end.dtos.response.SolicitacaoDTO;
+import com.example.back_end.dtos.response.HistoricoDTO;
+import com.example.back_end.dtos.response.SolicitacaoDetalheDTO;
 import com.example.back_end.dtos.response.SolicitacaoResumoDTO;
 import com.example.back_end.enums.EstadoSolicitacao;
 import com.example.back_end.models.Category;
@@ -38,23 +41,18 @@ public class SolicitacaoService {
     private CategoryRepository categoryRepository;
 
     public List<SolicitacaoResumoDTO> buscarSolicitacoesByCliente(Long id) {
-        
-        List<SolicitacaoResumoDTO> listDto = new ArrayList<>();
-        List<Solicitacao> list = solicitacaoRepository.listSolicitacoesByCliente(id);
-        for(Solicitacao s : list){
-            SolicitacaoResumoDTO dto = new SolicitacaoResumoDTO(
+        return solicitacaoRepository.findAllByClienteIdOrderByCreatedAtAsc(id)
+            .stream()
+            .map(s -> new SolicitacaoResumoDTO(
                 s.getId(),
                 s.getCreatedAt().toString(),
                 s.getDescricaoProduto(),
                 s.getEstado()
-            );
-            listDto.add(dto);
-        }
-
-        return listDto;
+            ))
+            .toList();
     }
 
-    public SolicitacaoDTO criarSolicitacao(SolicitacaoCreateDTO dto) {
+    public void criarSolicitacao(SolicitacaoCreateDTO dto) {
         
         String login = SecurityContextHolder.getContext().getAuthentication().getName();
         User userLogado = Optional.ofNullable(userRepository.findByEmail(login))
@@ -80,24 +78,37 @@ public class SolicitacaoService {
         h.setDataHora(LocalDateTime.now());
         h.setAutor(userLogado);
         historicoAlteracaoRepository.save(h);
-
-        return new SolicitacaoDTO(
-            salva.getId(),
-            salva.getDescricaoProduto(),
-            salva.getDefeito(),
-            salva.getEstado().name(),
-            salva.getCreatedAt().toString(),
-            salva.getCategoria() != null ? salva.getCategoria().getId() : null
-        );
   
     }
 
-    /*public Solicitacao buscarDetalhada(Long id) {
-        return solicitacaoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Solicitação não encontrada"));
+    public SolicitacaoDetalheDTO buscarDetalhe(Long id) {
+        Solicitacao s = solicitacaoRepository.findById(id)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Solicitação não encontrada"));
+
+        List<HistoricoDTO> hist = s.getHistorico().stream()
+            .sorted(Comparator.comparing(HistoricoAlteracao::getDataHora))
+            .map(h -> new HistoricoDTO(
+                h.getDataHora().toString(),
+                h.getEstadoAnterior(),
+                h.getEstadoNovo(),
+                h.getAutor() != null ? h.getAutor().getNome() : null
+            ))
+            .toList();
+
+        return new SolicitacaoDetalheDTO(
+            s.getId(),
+            s.getCreatedAt().toString(),
+            s.getCliente() != null ? s.getCliente().getNome() : null,
+            s.getCliente() != null ? s.getCliente().getEmail() : null,
+            s.getDescricaoProduto(),
+            s.getDefeito(),
+            s.getEstado(),
+            s.getOrcamentoValor(),
+            hist
+        );
     }
 
-    public void aprovar(Long id, User user) {
+    /*public void aprovar(Long id, User user) {
         Solicitacao order = buscarDetalhada(id);
         EstadoSolicitacao anterior = order.getEstado();
         order.setEstado(EstadoSolicitacao.APROVADA);

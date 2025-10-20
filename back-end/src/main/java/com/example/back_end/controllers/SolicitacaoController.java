@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.back_end.dtos.request.SolicitacaoCreateDTO;
-import com.example.back_end.dtos.response.SolicitacaoDTO;
+import com.example.back_end.dtos.response.SolicitacaoDetalheDTO;
 import com.example.back_end.dtos.response.SolicitacaoResumoDTO;
 import com.example.back_end.models.Solicitacao;
 import com.example.back_end.models.User;
@@ -32,15 +32,15 @@ public class SolicitacaoController {
         return ResponseEntity.ok(solicitacaoService.buscarSolicitacoesByCliente(id));
     }
 
-    /*@GetMapping("/{id}")
-    public ResponseEntity<Solicitacao> buscarPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(solicitacaoService.buscarDetalhada(id));
-    }*/
+    @GetMapping("/{id}")
+    public ResponseEntity<SolicitacaoDetalheDTO> buscarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(solicitacaoService.buscarDetalhe(id));
+    }
 
     @PostMapping
-    public ResponseEntity<SolicitacaoDTO> criarSolicitacao(@RequestBody SolicitacaoCreateDTO solicitacaoCreateDTO) {
-        SolicitacaoDTO nova = solicitacaoService.criarSolicitacao(solicitacaoCreateDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(nova);
+    public ResponseEntity<?> criarSolicitacao(@RequestBody SolicitacaoCreateDTO solicitacaoCreateDTO) {
+        this.solicitacaoService.criarSolicitacao(solicitacaoCreateDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     /*@PostMapping("/{id}/aprovar")

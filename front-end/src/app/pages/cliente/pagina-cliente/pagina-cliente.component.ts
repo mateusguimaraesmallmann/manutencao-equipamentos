@@ -76,7 +76,7 @@ export class ClienteComponent implements OnInit {
     }
   }
 
-  visualizarSolicitacao(id: string) {
+  visualizarSolicitacao(id: number) {
     this.router.navigate(['/cliente/solicitacao', id]);
   }
 
