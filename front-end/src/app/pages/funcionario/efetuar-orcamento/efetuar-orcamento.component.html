@@ -14,7 +14,7 @@
       <div>
         <h4>Cliente</h4>
         <ng-container *ngIf="s.cliente as c">
-          <p><b>Nome:</b> {{ c.nome || s.clienteNome }}</p>
+          <p><b>Nome:</b> {{ c.nome }}</p>
           <p><b>E-mail:</b> {{ c.email }}</p>
           <p><b>Telefone:</b> {{ c.telefone }}</p>
   
@@ -27,7 +27,7 @@
         </ng-container>
   
         <ng-container *ngIf="!s.cliente">
-          <p><b>Nome:</b> {{ s.clienteNome }}</p>
+          <p><b>Nome:</b> {{ s.cliente }}</p>
         </ng-container>
       </div>
     </div>
@@ -57,5 +57,3 @@
       <button mat-button (click)="cancelar()">Voltar</button>
     </mat-card>
   </ng-template>
-  
-  

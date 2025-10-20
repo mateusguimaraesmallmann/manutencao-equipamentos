@@ -12,12 +12,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.back_end.dtos.request.SolicitacaoCreateDTO;
+import com.example.back_end.dtos.response.ClienteDTO;
+import com.example.back_end.dtos.response.EnderecoDTO;
 import com.example.back_end.dtos.response.HistoricoDTO;
-import com.example.back_end.dtos.response.SolicitacaoDetalheDTO;
+import com.example.back_end.dtos.response.SolicitacaoClienteDetalheDTO;
 import com.example.back_end.dtos.response.SolicitacaoFuncionarioResumoDTO;
 import com.example.back_end.dtos.response.SolicitacaoClienteResumoDTO;
+import com.example.back_end.dtos.response.SolicitacaoFuncionarioDetalheDTO;
 import com.example.back_end.enums.EstadoSolicitacao;
 import com.example.back_end.models.Category;
+import com.example.back_end.models.Endereco;
 import com.example.back_end.models.HistoricoAlteracao;
 import com.example.back_end.models.Solicitacao;
 import com.example.back_end.models.User;
@@ -95,7 +99,7 @@ public class SolicitacaoService {
   
     }
 
-    public SolicitacaoDetalheDTO buscarDetalhe(Long id) {
+    public SolicitacaoClienteDetalheDTO buscarSolicitacaoClientePorId(Long id) {
         Solicitacao s = solicitacaoRepository.findById(id)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Solicitação não encontrada"));
 
@@ -106,10 +110,9 @@ public class SolicitacaoService {
                 h.getEstadoAnterior(),
                 h.getEstadoNovo(),
                 h.getAutor() != null ? h.getAutor().getNome() : null
-            ))
-            .toList();
+            )).toList();
 
-        return new SolicitacaoDetalheDTO(
+        return new SolicitacaoClienteDetalheDTO(
             s.getId(),
             s.getCreatedAt().toString(),
             s.getCliente() != null ? s.getCliente().getNome() : null,
@@ -120,6 +123,53 @@ public class SolicitacaoService {
             s.getOrcamentoValor(),
             hist
         );
+    }
+
+    public SolicitacaoFuncionarioDetalheDTO buscarSolicitacaoFuncionarioPorId(Long id) {
+        Solicitacao s = solicitacaoRepository.findById(id)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Solicitação não encontrada"));
+        
+        User cliente = s.getCliente();
+        Endereco endereco = cliente.getClienteProfile().getEndereco();
+
+        EnderecoDTO endDTO = new EnderecoDTO(
+            endereco.getCep(), 
+            endereco.getRua(), 
+            endereco.getNumero(), 
+            endereco.getBairro(), 
+            endereco.getCidade(), 
+            endereco.getEstado(), 
+            endereco.getComplemento());
+        
+        ClienteDTO cliDTO = new ClienteDTO(
+            cliente.getClienteProfile().getId().toString(), 
+            cliente.getNome(), 
+            cliente.getClienteProfile().getCpf(), 
+            cliente.getEmail(), 
+            cliente.getClienteProfile().getTelefone(), 
+            endDTO, 
+            cliente.getCreatedAt().toString(), 
+            cliente.getAtivo());
+
+        List<HistoricoDTO> hist = s.getHistorico().stream()
+            .sorted(Comparator.comparing(HistoricoAlteracao::getDataHora))
+            .map(h -> new HistoricoDTO(
+                h.getDataHora().toString(),
+                h.getEstadoAnterior(),
+                h.getEstadoNovo(),
+                h.getAutor() != null ? h.getAutor().getNome() : null
+            )).toList();
+        
+        return new SolicitacaoFuncionarioDetalheDTO(
+            s.getId(), 
+            s.getCreatedAt().toString(), 
+            s.getDescricaoProduto(), 
+            s.getDefeito(), 
+            s.getEstado(), 
+            s.getOrcamentoValor(), 
+            cliDTO, 
+            hist);
+    
     }
 
     /*public void aprovar(Long id, User user) {

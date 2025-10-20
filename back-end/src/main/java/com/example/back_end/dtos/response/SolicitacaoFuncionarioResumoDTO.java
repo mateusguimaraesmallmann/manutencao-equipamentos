@@ -8,5 +8,4 @@ public record  SolicitacaoFuncionarioResumoDTO (
     String clienteNome,
     String descricaoProduto,
     EstadoSolicitacao estado
-    
 ) {}

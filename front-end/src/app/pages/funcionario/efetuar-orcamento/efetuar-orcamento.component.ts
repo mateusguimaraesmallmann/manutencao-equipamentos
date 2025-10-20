@@ -11,19 +11,14 @@ import { SolicitacoesService } from '../../../services/solicitacoes.service';
 import { Solicitacao } from '../../../shared/models/solicitacao.model';
 import { Cliente } from '../../../shared/models/cliente.model';
 import { firstValueFrom } from 'rxjs';
+import { FuncionarioSolicitacaoDetalheDTO } from '../../../shared/dtos/solicitacao-funcionario-detalhe.dto';
 
 
 @Component({
   selector: 'app-efetuar-orcamento',
   standalone: true,
   imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSnackBarModule
+    CommonModule, ReactiveFormsModule, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSnackBarModule
   ],
   templateUrl: './efetuar-orcamento.component.html',
   styleUrls: ['./efetuar-orcamento.component.css']
@@ -35,53 +30,51 @@ export class EfetuarOrcamentoComponent implements OnInit {
   private snack = inject(MatSnackBar);
   private service = inject(SolicitacoesService);
 
-  solicitacao?: Solicitacao;
-  form!: FormGroup;
+  solicitacao?: FuncionarioSolicitacaoDetalheDTO;
+  form = this.fb.group({
+    valor: [null as number | null, { validators: [Validators.required, Validators.min(0.01)] }]
+  });
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id')!;
+    const idParam = this.route.snapshot.paramMap.get('id');
+    const id = idParam ? Number(idParam) : NaN;
+    if (Number.isNaN(id)) {
+      this.snack.open('Solicitação inválida.', 'OK', { duration: 2500 });
+      this.router.navigate(['/funcionario']);
+      return;
+    }
 
-    /*firstValueFrom(this.service.getById$(id))
-      .then(s => {
-        if (!s) {
-          this.snack.open('Solicitação não encontrada.', 'OK', { duration: 2500 });
-          this.router.navigate(['/funcionario']);
-          return;
-        }
-
+    this.service.buscarSolicitacaoFuncionarioPorId(id).subscribe({
+      next: (s) => {
         this.solicitacao = s;
-        this.form.patchValue({
-          valor: s.orcamentoValor ?? null
-        });
-      })
-      .catch(() => {
+        this.form.patchValue({ valor: s.orcamentoValor ?? null });
+      },
+      error: () => {
         this.snack.open('Solicitação não encontrada.', 'OK', { duration: 2500 });
         this.router.navigate(['/funcionario']);
-      });*/
-  }
-
-  get funcionarioLogado() {
-    const raw = localStorage.getItem('currentUser');
-    return raw ? JSON.parse(raw) : { nome: 'Funcionário', email: 'func@example.com' };
+      }
+    });
   }
 
   salvar(): void {
     /*if (!this.solicitacao || this.form.invalid) return;
+    const id = this.solicitacao.id;
     const valor = Number(this.form.value.valor);
 
-    this.service.registrarOrcamento(this.solicitacao.id, valor, {
-      nome: this.funcionarioLogado?.nome,
-      email: this.funcionarioLogado?.email
-    }).subscribe((atualizada) => {
-      if (atualizada) {
+    this.service.registrarOrcamento(id, valor).subscribe({
+      next: (atualizada) => {
         this.snack.open(
-          `Serviço Orçado no Valor ${valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`,
+          `Serviço orçado em ${valor.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}.`,
           'OK',
           { duration: 3000 }
         );
         this.router.navigate(['/funcionario']);
-      } else {
-        this.snack.open('Solicitação não encontrada.', 'OK', { duration: 3000 });
+      },
+      error: (err) => {
+        const msg = err?.status === 409
+          ? 'Só é possível orçar solicitações ABERTAS.'
+          : 'Falha ao salvar orçamento.';
+        this.snack.open(msg, 'OK', { duration: 3000 });
       }
     });*/
   }
@@ -89,5 +82,5 @@ export class EfetuarOrcamentoComponent implements OnInit {
   cancelar(): void {
     this.router.navigate(['/funcionario']);
   }
-}
 
+}

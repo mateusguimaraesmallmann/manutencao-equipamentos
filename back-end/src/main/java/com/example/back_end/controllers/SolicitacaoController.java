@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.back_end.dtos.request.SolicitacaoCreateDTO;
-import com.example.back_end.dtos.response.SolicitacaoDetalheDTO;
 import com.example.back_end.dtos.response.SolicitacaoFuncionarioResumoDTO;
+import com.example.back_end.dtos.response.SolicitacaoClienteDetalheDTO;
 import com.example.back_end.dtos.response.SolicitacaoClienteResumoDTO;
+import com.example.back_end.dtos.response.SolicitacaoFuncionarioDetalheDTO;
 import com.example.back_end.models.Solicitacao;
 import com.example.back_end.models.User;
 import com.example.back_end.services.SolicitacaoService;
@@ -28,19 +29,24 @@ public class SolicitacaoController {
     @Autowired
     private SolicitacaoService solicitacaoService;
 
-    @GetMapping("/cliente/{id}")
-    public ResponseEntity<List<SolicitacaoClienteResumoDTO>> buscarSolicitacoesByCliente(@PathVariable Long id) {
-        return ResponseEntity.ok(solicitacaoService.buscarSolicitacoesByCliente(id));
-    }
-
     @GetMapping("/abertas")
     public ResponseEntity<List<SolicitacaoFuncionarioResumoDTO>> buscarSolicitacoesAbertas() {
         return ResponseEntity.ok(solicitacaoService.buscarSolicitacoesAbertas());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<SolicitacaoDetalheDTO> buscarPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(solicitacaoService.buscarDetalhe(id));
+    @GetMapping("/cliente/{id}")
+    public ResponseEntity<List<SolicitacaoClienteResumoDTO>> buscarSolicitacoesByCliente(@PathVariable Long id) {
+        return ResponseEntity.ok(solicitacaoService.buscarSolicitacoesByCliente(id));
+    }
+
+    @GetMapping("/detalhe/cliente/{id}")
+    public ResponseEntity<SolicitacaoClienteDetalheDTO> buscarSolicitacaoClientePorId(@PathVariable Long id) {
+        return ResponseEntity.ok(solicitacaoService.buscarSolicitacaoClientePorId(id));
+    }
+
+    @GetMapping("/detalhe/funcionario/{id}")
+    public ResponseEntity<SolicitacaoFuncionarioDetalheDTO> buscarSolicitacaoFuncionarioPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(solicitacaoService.buscarSolicitacaoFuncionarioPorId(id));
     }
 
     @PostMapping

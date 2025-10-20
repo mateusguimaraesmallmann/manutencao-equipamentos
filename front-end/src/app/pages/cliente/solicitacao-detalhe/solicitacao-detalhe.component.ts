@@ -9,7 +9,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
 
 import { Solicitacao, EstadoSolicitacao } from '../../../shared/models/solicitacao.model';
-import { SolicitacaoDetalheDTO } from '../../../shared/dtos/solicitacao-detalhe-dto';
+import { SolicitacaoDetalheDTO } from '../../../shared/dtos/solicitacao-cliente-detalhe-dto';
 import { SolicitacoesService } from '../../../services/solicitacoes.service';
 
 @Component({
@@ -39,7 +39,7 @@ export class SolicitacaoDetalheComponent {
       return;
     }
 
-    this.solicitacoesService.buscarPorId(id).subscribe({
+    this.solicitacoesService.buscarSolicitacaoClientePorId(id).subscribe({
       next: (s) => this.solicitacao = s,
       error: () => this.solicitacao = undefined
     });

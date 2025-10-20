@@ -5,9 +5,9 @@ import java.util.List;
 
 import com.example.back_end.enums.EstadoSolicitacao;
 
-public record SolicitacaoDetalheDTO(
+public record SolicitacaoClienteDetalheDTO(
     Long id,
-    String createdAt,              // ISO para o Angular formatar
+    String createdAt,
     String clienteNome,
     String clienteEmail,
     String descricaoProduto,

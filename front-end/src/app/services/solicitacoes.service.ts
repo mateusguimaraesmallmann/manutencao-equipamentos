@@ -3,8 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SolicitacaoCreateDTO } from '../shared/dtos/solicitacao-create.dto';
 import { SolicitacaoResumoDTO } from '../shared/dtos/solicitacao-cliente-resumo.dto';
-import { SolicitacaoDetalheDTO } from '../shared/dtos/solicitacao-detalhe-dto';
+import { SolicitacaoDetalheDTO } from '../shared/dtos/solicitacao-cliente-detalhe-dto';
 import { FuncionarioSolicitacaoResumoDTO } from '../shared/dtos/solicitacao-funcionario-resumo.dto';
+import { FuncionarioSolicitacaoDetalheDTO } from '../shared/dtos/solicitacao-funcionario-detalhe.dto';
 
 export interface SolicitacaoDTO {
   id: number;
@@ -34,12 +35,16 @@ export class SolicitacoesService {
     return this.http.get<SolicitacaoResumoDTO[]>(`${API}/cliente/` + user.id);
   }
 
-  buscarPorId(id: number): Observable<SolicitacaoDetalheDTO> {
-    return this.http.get<SolicitacaoDetalheDTO>(`${API}/${id}`);
-  }
-
   listarSolicitacoesAbertas(): Observable<FuncionarioSolicitacaoResumoDTO[]> {
     return this.http.get<FuncionarioSolicitacaoResumoDTO[]>(`${API}/abertas`);
+  }
+
+  buscarSolicitacaoClientePorId(id: number): Observable<SolicitacaoDetalheDTO> {
+    return this.http.get<SolicitacaoDetalheDTO>(`${API}/detalhe/cliente/${id}`);
+  }
+
+  buscarSolicitacaoFuncionarioPorId(id: number): Observable<FuncionarioSolicitacaoDetalheDTO> {
+    return this.http.get<FuncionarioSolicitacaoDetalheDTO>(`${API}/detalhe/funcionario/${id}`);
   }
 
 }
