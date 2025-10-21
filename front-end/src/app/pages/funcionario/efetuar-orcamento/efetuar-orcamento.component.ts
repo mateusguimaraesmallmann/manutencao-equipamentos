@@ -57,7 +57,8 @@ export class EfetuarOrcamentoComponent implements OnInit {
   }
 
   salvar(): void {
-    /*if (!this.solicitacao || this.form.invalid) return;
+    if (!this.solicitacao || this.form.invalid) return;
+    
     const id = this.solicitacao.id;
     const valor = Number(this.form.value.valor);
 
@@ -76,7 +77,7 @@ export class EfetuarOrcamentoComponent implements OnInit {
           : 'Falha ao salvar orçamento.';
         this.snack.open(msg, 'OK', { duration: 3000 });
       }
-    });*/
+    });
   }
 
   cancelar(): void {

@@ -47,4 +47,8 @@ export class SolicitacoesService {
     return this.http.get<FuncionarioSolicitacaoDetalheDTO>(`${API}/detalhe/funcionario/${id}`);
   }
 
+  registrarOrcamento(id: number, valor: number) {
+    return this.http.post<any>(`${API}/orcamento/${id}`, valor);
+  }
+
 }

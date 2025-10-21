@@ -1,5 +1,6 @@
 package com.example.back_end.services;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -170,6 +171,34 @@ public class SolicitacaoService {
             cliDTO, 
             hist);
     
+    }
+
+    public void registrarOrcamento(Long id, BigDecimal valor) {
+        Solicitacao s = solicitacaoRepository.findById(id)
+		    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        
+        if (s.getEstado() != EstadoSolicitacao.ABERTA) {
+		    throw new ResponseStatusException(HttpStatus.CONFLICT, "Só é possível orçar solicitações ABERTAS.");
+	    }
+
+        String login = SecurityContextHolder.getContext().getAuthentication().getName();
+        User userLogado = Optional.ofNullable(userRepository.findByEmail(login))
+            .orElseThrow(() -> new RuntimeException("Usuário autenticado não encontrado."));
+
+        EstadoSolicitacao estadoAnterior = s.getEstado();
+        
+        s.setOrcamentoValor(valor);
+        s.setEstado(EstadoSolicitacao.ORCADA);
+
+        // historico
+        HistoricoAlteracao hist = new HistoricoAlteracao();
+        hist.setSolicitacao(s);
+        hist.setEstadoAnterior(estadoAnterior);
+        hist.setEstadoNovo(EstadoSolicitacao.ORCADA);
+        hist.setDataHora(LocalDateTime.now());
+        hist.setAutor(userLogado);
+        historicoAlteracaoRepository.save(hist);
+
     }
 
     /*public void aprovar(Long id, User user) {

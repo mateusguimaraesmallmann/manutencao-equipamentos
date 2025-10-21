@@ -1,11 +1,11 @@
 package com.example.back_end.controllers;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,8 +18,6 @@ import com.example.back_end.dtos.response.SolicitacaoFuncionarioResumoDTO;
 import com.example.back_end.dtos.response.SolicitacaoClienteDetalheDTO;
 import com.example.back_end.dtos.response.SolicitacaoClienteResumoDTO;
 import com.example.back_end.dtos.response.SolicitacaoFuncionarioDetalheDTO;
-import com.example.back_end.models.Solicitacao;
-import com.example.back_end.models.User;
 import com.example.back_end.services.SolicitacaoService;
 
 @RestController
@@ -55,13 +53,13 @@ public class SolicitacaoController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    /*@PostMapping("/{id}/aprovar")
-    public ResponseEntity<Void> aprovar(@PathVariable Long id, @AuthenticationPrincipal User usuario) {
-        solicitacaoService.aprovar(id, usuario);
+    @PostMapping("/orcamento/{id}")
+    public ResponseEntity<Void> registrarOrcamento(@PathVariable Long id, @RequestBody BigDecimal valor) {
+        solicitacaoService.registrarOrcamento(id, valor);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/{id}/rejeitar")
+    /*@PostMapping("/{id}/rejeitar")
     public ResponseEntity<Void> rejeitar(@PathVariable Long id, @RequestBody String motivo, @AuthenticationPrincipal User usuario) {
         solicitacaoService.rejeitar(id, motivo, usuario);
         return ResponseEntity.ok().build();
