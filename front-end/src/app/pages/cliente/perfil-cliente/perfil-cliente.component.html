@@ -7,9 +7,12 @@
     <p><strong>Email:</strong> {{ cliente.email }}</p>
     <p><strong>Telefone:</strong> {{ cliente.telefone }}</p>
     <p><strong>Endereço:</strong> {{ cliente.endereco }}</p>
+    <p><strong>Data de Cadastro:</strong> {{ cliente.dataCadastro }}</p>
+    <p><strong>Status:</strong> {{ getStatusVip() }}</p>
+    <p><strong>Preferências de Contato:</strong> {{ getPreferenciasContato() }}</p>
   </div>
 
-  <button (click)="editarDados()">Editar dados</button>
+  <button (click)="editarDados()">Editar Dados</button>
 
   <h3>Histórico de Manutenções</h3>
   <table>
@@ -31,23 +34,29 @@
 
   <p class="resumo">Equipamentos em aberto: {{ contarEquipamentosEmAberto() }}</p>
 
-  <h3>Avaliações de Serviços</h3>
-  <p>Média das avaliações: <strong>{{ calcularMediaAvaliacoes() }}</strong> / 5</p>
+  <button class="toggle-btn" (click)="alternarExibicaoEquipamentos()">
+    {{ mostrarEquipamentos ? 'Ocultar Equipamentos Registrados' : 'Ver Equipamentos Registrados' }}
+  </button>
 
-  <ul class="lista-avaliacoes">
-    <li *ngFor="let a of avaliacoes">
-      ⭐ {{ a.nota }} - "{{ a.comentario }}"
-    </li>
-  </ul>
-
-  <div class="form-avaliacao">
-    <h4>Deixe sua avaliação</h4>
-    <label>Nota:
-      <input type="number" [(ngModel)]="novaAvaliacao.nota" min="1" max="5">
-    </label>
-    <label>Comentário:
-      <input type="text" [(ngModel)]="novaAvaliacao.comentario" placeholder="Escreva algo...">
-    </label>
-    <button (click)="adicionarAvaliacao()">Enviar Avaliação</button>
+  <div *ngIf="mostrarEquipamentos" class="equipamentos-card">
+    <h3>Equipamentos Registrados</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Número de Série</th>
+          <th>Garantia</th>
+          <th>Última Manutenção</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let eq of equipamentosRegistrados">
+          <td>{{ eq.nome }}</td>
+          <td>{{ eq.numeroSerie }}</td>
+          <td>{{ eq.garantia }}</td>
+          <td>{{ eq.ultimaManutencao }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

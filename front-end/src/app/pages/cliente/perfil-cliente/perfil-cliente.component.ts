@@ -12,7 +12,14 @@ export class PerfilClienteComponent {
     nome: 'João da Silva',
     email: 'joao@exemplo.com',
     endereco: 'Rua Zero, 123',
-    telefone: '99999-9999'
+    telefone: '99999-9999',
+    dataCadastro: '15/08/2024',
+    vip: true,
+    preferenciasContato: {
+      email: true,
+      whatsapp: true,
+      sms: false
+    }
   };
 
   historicoManutencoes = [
@@ -21,35 +28,36 @@ export class PerfilClienteComponent {
     { id: 3, equipamento: 'Monitor LG 24"', status: 'Aguardando peças', data: '06/10/2025' }
   ];
 
-  avaliacoes = [
-    { nota: 5, comentario: 'Serviço excelente e rápido!' },
-    { nota: 4, comentario: 'Atendimento bom, mas o prazo poderia ser menor.' },
-    { nota: 3, comentario: 'Tive que retornar duas vezes, mas resolveram.' }
+  equipamentosRegistrados = [
+    { nome: 'Notebook Dell Inspiron', numeroSerie: 'ABC12345', garantia: 'Sim', ultimaManutencao: '12/09/2025' },
+    { nome: 'Impressora HP LaserJet', numeroSerie: 'HP998877', garantia: 'Não', ultimaManutencao: '03/10/2025' },
+    { nome: 'Monitor LG 24"', numeroSerie: 'LG54321', garantia: 'Sim', ultimaManutencao: '06/10/2025' }
   ];
 
-  novaAvaliacao = { nota: 0, comentario: '' };
+  mostrarEquipamentos = false;
+
+  alternarExibicaoEquipamentos() {
+    this.mostrarEquipamentos = !this.mostrarEquipamentos;
+  }
 
   editarDados() {
-    alert('Função de edição em desenvolvimento!');
+    alert('Função de edição de dados ainda não disponível.');
+  }
+
+  getStatusVip(): string {
+    return this.cliente.vip ? 'Cliente VIP 💎' : 'Cliente Comum';
   }
 
   contarEquipamentosEmAberto(): number {
     return this.historicoManutencoes.filter(m => m.status !== 'Concluído').length;
   }
 
-  calcularMediaAvaliacoes(): number {
-    if (this.avaliacoes.length === 0) return 0;
-    const soma = this.avaliacoes.reduce((acc, a) => acc + a.nota, 0);
-    return +(soma / this.avaliacoes.length).toFixed(1);
-  }
-
-  adicionarAvaliacao() {
-    if (this.novaAvaliacao.nota > 0 && this.novaAvaliacao.comentario.trim() !== '') {
-      this.avaliacoes.push({ ...this.novaAvaliacao });
-      this.novaAvaliacao = { nota: 0, comentario: '' };
-      alert('Avaliação adicionada com sucesso!');
-    } else {
-      alert('Preencha a nota e o comentário antes de enviar.');
-    }
+  getPreferenciasContato(): string {
+    const prefs = this.cliente.preferenciasContato;
+    const lista: string[] = [];
+    if (prefs.email) lista.push('E-mail');
+    if (prefs.whatsapp) lista.push('WhatsApp');
+    if (prefs.sms) lista.push('SMS');
+    return lista.join(', ');
   }
 }
