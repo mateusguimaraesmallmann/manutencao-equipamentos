@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './videos.css'
 })
 export class Videos {
-  videos!: any[]
+  videos: any[] = []
 }
