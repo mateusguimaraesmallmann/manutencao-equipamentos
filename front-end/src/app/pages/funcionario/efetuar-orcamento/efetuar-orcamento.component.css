@@ -1,3 +1,46 @@
-.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-.form .w { width: 260px; max-width: 100%; }
-.actions { margin-top: 12px; display: flex; gap: 8px; }
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem; /* equivalente a 16px */
+  margin-bottom: 1rem;
+}
+
+.form .w {
+  width: 260px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 0.5rem; 
+  flex-wrap: wrap;
+}
+
+.error {
+  color: #b02a37;
+  font-size: 0.85rem;
+}
+
+h4 {
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form .w {
+    width: 100%;
+  }
+
+  .actions {
+    justify-content: flex-start;
+  }
+}
