@@ -13,20 +13,14 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { SolicitacoesService } from '../../../services/solicitacoes.service';
 import { Solicitacao } from '../../../shared/models/solicitacao.model';
 import { firstValueFrom } from 'rxjs';
+import { FuncionariosService } from '../../../services/funcionarios.service';
+import { AutenticacaoService } from '../../../services/autenticacao.service';
+import { FuncionarioSolicitacaoDetalheDTO } from '../../../shared/dtos/solicitacao-funcionario-detalhe.dto';
 
 @Component({
   selector: 'app-efetuar-manutencao',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatSnackBarModule
-  ],
+  imports: [ CommonModule, ReactiveFormsModule, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSelectModule, MatSnackBarModule ],
   templateUrl: './efetuar-manutencao.component.html',
   styleUrls: ['./efetuar-manutencao.component.css']
 })
@@ -35,104 +29,109 @@ export class EfetuarManutencaoComponent implements OnInit {
   private router = inject(Router);
   private fb = inject(FormBuilder);
   private snack = inject(MatSnackBar);
-  private service = inject(SolicitacoesService);
+  private solicitacoes = inject(SolicitacoesService);
+  private funcionariosSrv = inject(FuncionariosService);
+  private auth = inject(AutenticacaoService);
 
-  solicitacao?: Solicitacao;
+  solicitacao?: FuncionarioSolicitacaoDetalheDTO;
   form!: FormGroup;
 
-  funcionarios: Array<{ nome: string; email: string }> = [];
+  // lista reativa vinda do service, já filtrada para não conter o usuário logado
+  funcionarios$ = combineLatest([this.funcionariosSrv.funcionarios$, this.auth.user$]).pipe(
+    map(([lista, user]) => {
+      if (!user) { return []; }
+      return (lista || []).filter(f => f.email !== user.email);
+    })
+  );
+
+  loading = false;
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id')!;
-    /*firstValueFrom(this.service.getById$(id))
-      .then(found => {
-        if (!found) {
-          this.snack.open('Solicitação não encontrada.', 'OK', { duration: 2500 });
-          this.router.navigate(['/funcionario']);
-          return;
-        }
-        this.solicitacao = found;
+    const id = Number(this.route.snapshot.paramMap.get('id')!);
 
-        this.form = this.fb.group({
-          descricao: ['', [Validators.required, Validators.maxLength(1000)]],
-          orientacoes: ['', [Validators.maxLength(1000)]],
-          destino: [null as { nome: string; email: string } | null]
-        });
+    // seu DTO exige @NotBlank nos dois campos -> required nos dois
+    this.form = this.fb.group({
+      descricao: ['', [Validators.required, Validators.maxLength(500)]],
+      orientacoes: ['', [Validators.required, Validators.maxLength(500)]],
+      destino: [null as string | null] // ID do funcionário (string normalizada no FuncionariosService)
+    });
 
-        const meEmail = this.funcionarioLogado.email;
-        this.funcionarios = this.carregarFuncionarios()
-          .filter(f => f.email !== meEmail);
-      })
-      .catch(() => {
-        this.snack.open('Solicitação não encontrada.', 'OK', { duration: 2500 });
-        this.router.navigate(['/funcionario']);
-      });*/
+    // carrega detalhe da solicitação + garante que temos a lista de funcionários
+    this.loading = true;
+    // se o FuncionariosService já dispara refresh quando loga, basta aguardar o primeiro valor
+    firstValueFrom(
+      this.solicitacoes.buscarSolicitacaoFuncionarioPorId(id)
+    ).then(det => {
+      this.solicitacao = det;
+    }).catch(() => {
+      this.snack.open('Solicitação não encontrada.', 'OK', { duration: 2500 });
+      this.router.navigate(['/funcionario']);
+    }).finally(() => this.loading = false);
   }
 
-  get funcionarioLogado(): { nome: string; email: string } {
-    try {
-      const u = JSON.parse(localStorage.getItem('currentUser') || '{}');
-      return { nome: u?.nome ?? 'Funcionário', email: u?.email ?? 'func@example.com' };
-    } catch {
-      return { nome: 'Funcionário', email: 'func@example.com' };
-    }
-  }
-
-  salvarManutencao(): void {
-    /*if (!this.solicitacao || this.form.get('descricao')?.invalid) {
-      this.snack.open('Descreva a manutenção realizada.', 'OK', { duration: 2000 });
+  async salvarManutencao(): Promise<void> {
+    if (!this.solicitacao) { return; }
+    if (this.form.invalid) {
+      this.snack.open('Preencha descrição e orientações (máx. 500).', 'OK', { duration: 2500 });
       return;
     }
-    const { descricao, orientacoes } = this.form.value as { descricao: string; orientacoes?: string };
 
-    this.service.efetuarManutencao(this.solicitacao.id, { descricao, orientacoes }, this.funcionarioLogado)
-      .subscribe((ok: Solicitacao | undefined) => {
-        if (ok) {
+    const { descricao, orientacoes } = this.form.value as { descricao: string; orientacoes: string };
+    this.loading = true;
+    this.solicitacoes.registrarManutencao(this.solicitacao.id, { descricao, orientacoes })
+      .pipe(finalize(() => this.loading = false))
+      .subscribe({
+        next: () => {
           this.snack.open('Manutenção registrada (estado: ARRUMADA).', 'OK', { duration: 3000 });
           this.router.navigate(['/funcionario']);
-        } else {
-          this.snack.open('Falha ao salvar manutenção.', 'OK', { duration: 3000 });
+        },
+        error: (err) => {
+          this.snack.open(err?.error?.message ?? 'Falha ao salvar manutenção.', 'OK', { duration: 3000 });
         }
-      });*/
+      });
   }
 
   redirecionar(): void {
-    /*if (!this.solicitacao) return;
-    const destino = this.form.value.destino as { nome: string; email: string } | null;
+    if (!this.solicitacao) { return; }
+    const destinoIdStr = this.form.value.destino as string | null;
 
-    if (!destino) {
+    if (!destinoIdStr) {
       this.snack.open('Selecione um funcionário de destino.', 'OK', { duration: 2500 });
       return;
     }
-    if (destino.email === this.funcionarioLogado.email) {
-      this.snack.open('Não é possível redirecionar para si mesmo.', 'OK', { duration: 2500 });
-      return;
-    }
 
-    this.service.redirecionarManutencao(this.solicitacao.id, destino, this.funcionarioLogado)
-      .subscribe((ok: Solicitacao | undefined) => {
-        if (ok) {
-          this.snack.open(`Solicitação redirecionada para ${destino.nome}.`, 'OK', { duration: 3000 });
-          this.router.navigate(['/funcionario']);
-        } else {
-          this.snack.open('Falha ao redirecionar.', 'OK', { duration: 3000 });
+    // regra de UX: impedir redirecionar para si mesmo
+    combineLatest([this.funcionarios$, this.auth.user$]).pipe(
+      map(([lista, user]) => {
+        const me = lista.find(f => f.email === user?.email);
+        return { me, destinoIdStr };
+      }),
+      switchMap(({ me, destinoIdStr }) => {
+        if (me && me.id === destinoIdStr) {
+          this.snack.open('Não é possível redirecionar para si mesmo.', 'OK', { duration: 2500 });
+          return of(null);
         }
-      });*/
+        this.loading = true;
+        return this.solicitacoes.redirecionar(this.solicitacao.id, Number(destinoIdStr))
+          .pipe(finalize(() => this.loading = false));
+      })
+    ).subscribe({
+      next: (res) => {
+        if (res === null) { return; }
+        // buscar nome para mensagem
+        firstValueFrom(this.funcionarios$).then(list => {
+          const f = list.find(x => x.id === destinoIdStr);
+          this.snack.open(`Solicitação redirecionada para ${f?.nome ?? 'o funcionário selecionado'}.`, 'OK', { duration: 3000 });
+          this.router.navigate(['/funcionario']);
+        });
+      },
+      error: (err) => {
+        this.snack.open(err?.error?.message ?? 'Falha ao redirecionar.', 'OK', { duration: 3000 });
+      }
+    });
   }
 
   voltar(): void {
     this.router.navigate(['/funcionario']);
-  }
-
-  private carregarFuncionarios(): Array<{ nome: string; email: string }> {
-    try {
-      const raw = localStorage.getItem('funcionarios');
-      const arr = raw ? JSON.parse(raw) : null;
-      if (Array.isArray(arr) && arr.length) return arr;
-    } catch { }
-    return [
-      { nome: 'Maria', email: 'maria@empresa.com' },
-      { nome: 'Mário', email: 'mario@empresa.com' }
-    ];
   }
 }

@@ -55,8 +55,8 @@
         <mat-label>Escolha o funcionário</mat-label>
         <mat-select formControlName="destino">
           <mat-option [value]="null">(não redirecionar)</mat-option>
-          <mat-option *ngFor="let f of funcionarios" [value]="f">
-            {{ f.nome }} — {{ f.email }}
+          <mat-option *ngFor="let f of funcionarios" [value]="f.id">
+            {{ f.nome }}
           </mat-option>
         </mat-select>
         <mat-hint>Você não pode redirecionar para si mesmo.</mat-hint>
@@ -76,4 +76,3 @@
       <button mat-button (click)="voltar()">Voltar</button>
     </mat-card>
   </ng-template>
-  

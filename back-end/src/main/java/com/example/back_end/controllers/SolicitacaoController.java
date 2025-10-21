@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.back_end.dtos.request.EfetuarManutencaoDTO;
+import com.example.back_end.dtos.request.RedirecionarDTO;
 import com.example.back_end.dtos.request.SolicitacaoCreateDTO;
 import com.example.back_end.dtos.response.SolicitacaoFuncionarioResumoDTO;
 import com.example.back_end.dtos.response.SolicitacaoClienteDetalheDTO;
@@ -33,18 +35,18 @@ public class SolicitacaoController {
     }
 
     @GetMapping("/cliente/{id}")
-    public ResponseEntity<List<SolicitacaoClienteResumoDTO>> buscarSolicitacoesByCliente(@PathVariable Long id) {
-        return ResponseEntity.ok(solicitacaoService.buscarSolicitacoesByCliente(id));
+    public ResponseEntity<List<SolicitacaoClienteResumoDTO>> buscarSolicitacoesByCliente(@PathVariable Long idSolicitacao) {
+        return ResponseEntity.ok(solicitacaoService.buscarSolicitacoesByCliente(idSolicitacao));
     }
 
     @GetMapping("/detalhe/cliente/{id}")
-    public ResponseEntity<SolicitacaoClienteDetalheDTO> buscarSolicitacaoClientePorId(@PathVariable Long id) {
-        return ResponseEntity.ok(solicitacaoService.buscarSolicitacaoClientePorId(id));
+    public ResponseEntity<SolicitacaoClienteDetalheDTO> buscarSolicitacaoClientePorId(@PathVariable Long idSolicitacao) {
+        return ResponseEntity.ok(solicitacaoService.buscarSolicitacaoClientePorId(idSolicitacao));
     }
 
     @GetMapping("/detalhe/funcionario/{id}")
-    public ResponseEntity<SolicitacaoFuncionarioDetalheDTO> buscarSolicitacaoFuncionarioPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(solicitacaoService.buscarSolicitacaoFuncionarioPorId(id));
+    public ResponseEntity<SolicitacaoFuncionarioDetalheDTO> buscarSolicitacaoFuncionarioPorId(@PathVariable Long idSolicitacao) {
+        return ResponseEntity.ok(solicitacaoService.buscarSolicitacaoFuncionarioPorId(idSolicitacao));
     }
 
     @PostMapping
@@ -54,8 +56,20 @@ public class SolicitacaoController {
     }
 
     @PostMapping("/orcamento/{id}")
-    public ResponseEntity<Void> registrarOrcamento(@PathVariable Long id, @RequestBody BigDecimal valor) {
-        solicitacaoService.registrarOrcamento(id, valor);
+    public ResponseEntity<Void> registrarOrcamento(@PathVariable Long idSolicitacao, @RequestBody BigDecimal valor) {
+        solicitacaoService.registrarOrcamento(idSolicitacao, valor);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/manutencao/{id}")
+    public ResponseEntity<Void> registrarManutencao(@PathVariable Long idSolicitacao, @RequestBody EfetuarManutencaoDTO manutencaoDTO) {
+        solicitacaoService.registrarManutencao(idSolicitacao, manutencaoDTO);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/redirecionar/{id}")
+    public ResponseEntity<Void> redirecionar(@PathVariable Long idSolicitacao, @RequestBody RedirecionarDTO redirecionarDTO) {
+        solicitacaoService.redirecionar(idSolicitacao, redirecionarDTO);
         return ResponseEntity.ok().build();
     }
 

@@ -51,4 +51,12 @@ export class SolicitacoesService {
     return this.http.post<any>(`${API}/orcamento/${id}`, valor);
   }
 
+  registrarManutencao(id: number, body: { descricao: string; orientacoes: string }) {
+    return this.http.post<void>(`${API}/manutencao/${id}`, body);
+  }
+
+  redirecionar(id: number, funcionarioDestinoId: number) {
+    return this.http.post<void>(`${API}/redirecionar/${id}`, { funcionarioDestinoId });
+  }
+
 }
