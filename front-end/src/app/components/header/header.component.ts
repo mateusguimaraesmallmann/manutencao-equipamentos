@@ -3,11 +3,12 @@ import { Toolbar } from 'primeng/toolbar';
 import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule, ButtonSeverity } from 'primeng/button';
 import { Router } from '@angular/router';
+import { ɵɵRouterLink } from "@angular/router/testing";
 
 
 @Component({
   selector: 'app-header',
-  imports: [Toolbar, AvatarModule, ButtonModule],
+  imports: [Toolbar, AvatarModule, ButtonModule, ɵɵRouterLink],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
@@ -22,12 +23,20 @@ export class HeaderComponent {
 
   @Input() logoColor:string = "white"
   @Input() personName:string = ""
-  @Input() buttons!: HeaderButton[]
   @Input() backgroudColor!: string
+  @Input() buttons!: HeaderButton[]
+  @Input() headerlinks!: HeaderLink[]
+  @Input() severityLink!: string
 }
 class HeaderButton {
   label!: string
   severity: ButtonSeverity
   onCLick: any
+  icon!: string
+}
+
+class HeaderLink{
+  label!: string
+  routerLink!: string
   icon!: string
 }

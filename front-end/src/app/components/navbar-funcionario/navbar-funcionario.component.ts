@@ -1,21 +1,17 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { AutenticacaoService } from '../../services/autenticacao.service';
+import { HeaderComponent } from "../header/header.component";
 
 @Component({
   selector: 'app-navbar-funcionario',
   standalone: true,
   imports: [
-            CommonModule, 
-            RouterModule, 
-            MatToolbarModule, 
-            MatButtonModule, 
-            MatIconModule
-          ],
+    CommonModule,
+    RouterModule,
+    HeaderComponent
+],
   templateUrl: './navbar-funcionario.component.html',
   styleUrls: ['./navbar-funcionario.component.css']
 })
@@ -28,7 +24,7 @@ export class NavbarFuncionarioComponent {
     catch { return 'Funcionário'; }
   }
 
-  logoff(): void {
+  logoff = () => {
     this.auth.logout();
     this.router.navigate(['/login']);
   }

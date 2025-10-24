@@ -31,8 +31,8 @@ import { FuncionarioSolicitacaoResumoDTO } from '../../../shared/dtos/solicitaca
   standalone: true,
   imports: [
     CommonModule, RouterModule, ReactiveFormsModule, MatTableModule, MatButtonModule, MatIconModule, MatCardModule, MatChipsModule, MatButtonToggleModule,
-    MatDatepickerModule, MatNativeDateModule, MatSnackBarModule, MatFormFieldModule, MatInputModule, TruncatePipe, NavbarFuncionarioComponent
-  ],
+    MatDatepickerModule, MatNativeDateModule, MatSnackBarModule, MatFormFieldModule, MatInputModule, TruncatePipe, NavbarFuncionarioComponent,
+],
   templateUrl: './funcionario-inicial.component.html',
   styleUrls: ['./funcionario-inicial.component.css']
 })

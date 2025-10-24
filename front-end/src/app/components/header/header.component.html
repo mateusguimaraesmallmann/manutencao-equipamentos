@@ -12,10 +12,26 @@
         <i class="pi pi-microchip"
           [style.fontSize]="'2rem'"
           [style.color]="logoColor"></i>
-          <span style="margin-left: 1rem; font-size: 2rem;">
-            Olá, {{personName}}
-          </span>
+          @if(personName != ""){
+            <span style="margin-left: 1rem; font-size: 2rem;">
+              Olá, {{personName}}
+            </span>
+          }
       </div>
+    </ng-template>
+
+    <ng-template #center>
+      @for (link of headerlinks; track link) {
+        <div>
+          <a [routerLink]="['/' + link.routerLink]" pButton text 
+          style="text-decoration: none;">
+            <i [class]="link.icon" pButtonIcon></i>
+            <span pButtonLabel >
+                {{link.label}}
+            </span>
+          </a>
+        </div>
+      }
     </ng-template>
 
     <ng-template #end>
@@ -26,7 +42,8 @@
             [severity]="btn.severity" 
             [rounded]="true" 
             [style] = "{'margin-right': '1rem'}" 
-            (onClick)="btn.onCLick()"/>
+            (onClick)="btn.onCLick()"
+            [rounded]="false"/>
         </div>
       }
     </ng-template>

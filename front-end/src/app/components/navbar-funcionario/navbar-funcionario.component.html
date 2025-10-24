@@ -1,30 +1,36 @@
-<mat-toolbar color="primary" class="topbar">
-    <button mat-button [routerLink]="['/funcionario']">
-      <mat-icon>home</mat-icon>
-      Início
-    </button>
-  
-    <button mat-button [routerLink]="['/equipamentos']" routerLinkActive="active">
-        <mat-icon>laptop</mat-icon>
-      Equipamentos
-    </button>
-  
-    <button mat-button [routerLink]="['/funcionarios']" routerLinkActive="active">
-      <mat-icon>group</mat-icon>
-      Funcionários
-    </button>
-  
-    <button mat-button [routerLink]="['/relatorios']" routerLinkActive="active">
-      <mat-icon>description</mat-icon>
-      Relatórios
-    </button>
-  
-    <span class="spacer"></span>
-  
-    <span class="user">Olá, {{ userName }}</span>
-    <button mat-button (click)="logoff()" aria-label="Sair">
-      <mat-icon>logout</mat-icon>
-      Sair
-    </button>
-  </mat-toolbar>
-  
+
+<app-header
+  [logoColor]="'black'"
+  [personName]="userName"
+  [backgroudColor]="'#FAF9FD'"
+  [buttons]="[
+      {
+        label: 'Sair',
+        severity: 'secondary',
+        onCLick: logoff,
+        icon: 'pi pi-sign-out'
+      }
+    ]"
+    [headerlinks]="[
+      {
+        label: 'Início',
+        routerLink: 'funcionario',
+        icon: 'pi pi-home',
+      },
+      {
+        label: 'Equipamentos',
+        routerLink: 'equipamentos',
+        icon: 'pi pi-desktop'
+      },
+      {
+        label: 'Funcionários',
+        routerLink: 'funcionarios',
+        icon: 'pi pi-users'
+      },
+      {
+        label: 'Relatórios',
+        routerLink: 'relatorios',
+        icon: 'pi pi-file'
+      }
+    ]"
+></app-header>

@@ -1,10 +1,9 @@
 <app-navbar-cliente
 [novaSolicitacao]="novaSolicitacao"
+style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;"
 ></app-navbar-cliente>
 
-<div class="mb-2">
-  <br>
-</div>
+<div class="content">
 
 <div class="table">
   <p-table [value]="solicitacoes" [paginator]="true" [rows]="10" [responsiveLayout]="'scroll'">
@@ -30,4 +29,5 @@
       </tr>
     </ng-template>
   </p-table>
+</div>
 </div>

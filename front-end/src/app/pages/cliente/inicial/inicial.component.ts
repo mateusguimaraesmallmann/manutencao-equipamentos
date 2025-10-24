@@ -54,9 +54,7 @@ export class InicialComponent {
     private router: Router
   ) {}
 
-    goToLogin() {
-    this.router.navigate(['/login']);
-  }
+    goToLogin = () => this.router.navigate(['/login']);
     goToAutoCadatro() {
     this.router.navigate(['/autocadastro']);
   }

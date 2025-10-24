@@ -1,3 +1,8 @@
+.content{
+  margin-top: 6rem;
+}
+
+
 .table-wrap { overflow: auto; }
 table { width: 100%; }
 .sem-dados {

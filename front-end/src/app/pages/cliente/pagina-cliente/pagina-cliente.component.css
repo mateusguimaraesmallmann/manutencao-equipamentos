@@ -3,6 +3,9 @@
   justify-self: center;
   width: 80dvw;
 }
+.content{
+  margin-top: 6rem;
+}
 .mb-2 {
   display: flex;
   justify-content: flex-end;

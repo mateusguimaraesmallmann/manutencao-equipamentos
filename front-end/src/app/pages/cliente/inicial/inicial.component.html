@@ -1,6 +1,14 @@
 <app-header
-style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;"
->
+    style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;"
+    [backgroudColor]="'none'"
+    [buttons]="[
+        {
+            label: 'Login',
+            severity: 'contrast',
+            onCLick: goToLogin,
+            icon: ''
+        }
+    ]">
 </app-header>
 <div class="wallpaper">
     <div class="wallpaper-text">
