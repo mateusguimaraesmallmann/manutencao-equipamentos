@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Toolbar } from 'primeng/toolbar';
 import { AvatarModule } from 'primeng/avatar';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule, ButtonSeverity } from 'primeng/button';
 import { Router } from '@angular/router';
 
 
@@ -19,4 +19,15 @@ export class HeaderComponent {
   goToLogin() {
     this.router.navigate(['/login']);
   }
+
+  @Input() logoColor:string = "white"
+  @Input() personName:string = ""
+  @Input() buttons!: HeaderButton[]
+  @Input() backgroudColor!: string
+}
+class HeaderButton {
+  label!: string
+  severity: ButtonSeverity
+  onCLick: any
+  icon!: string
 }

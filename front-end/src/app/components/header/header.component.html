@@ -4,22 +4,31 @@
           'box-shadow': '0 4px 30px rgba(0, 0, 0, 0.5)',
           'backdrop-filter': 'blur(10.6px)',
           '-webkit-backdrop-filter': 'blur(10.6px)',
-          'border':'none'
+          'border':'none',
+          'background-color': backgroudColor
            }">
     <ng-template #start>
       <div class="flex items-center gap-2">
         <i class="pi pi-microchip"
-        style="
-        font-size: 2rem;
-        color: white;
-        "></i>
+          [style.fontSize]="'2rem'"
+          [style.color]="logoColor"></i>
+          <span style="margin-left: 1rem; font-size: 2rem;">
+            Olá, {{personName}}
+          </span>
       </div>
     </ng-template>
 
     <ng-template #end>
-      <div class="flex items-center gap-2">
-        <p-button label="Login"  severity="secondary" [rounded]="true"  [style] = "{'margin-right': '1rem'}" (onClick)="goToLogin()"/>
-      </div>
+      @for (btn of buttons; track btn) {
+        <div class="flex items-center gap-2">
+          <p-button [label]="btn.label" 
+            [icon]="btn.icon"
+            [severity]="btn.severity" 
+            [rounded]="true" 
+            [style] = "{'margin-right': '1rem'}" 
+            (onClick)="btn.onCLick()"/>
+        </div>
+      }
     </ng-template>
   </p-toolbar>
 </div>

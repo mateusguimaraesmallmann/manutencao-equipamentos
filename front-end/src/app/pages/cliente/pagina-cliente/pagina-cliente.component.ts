@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule, ButtonSeverity } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 
 import { Solicitacao, EstadoSolicitacao } from '../../../shared/models/solicitacao.model';
@@ -13,7 +13,7 @@ import { SolicitacaoResumoDTO } from '../../../shared/dtos/solicitacao-cliente-r
 @Component({
   selector: 'app-pagina-cliente',
   standalone: true,
-  imports: [CommonModule, TableModule, ButtonModule, NavbarClienteComponent ], 
+  imports: [CommonModule, TableModule, ButtonModule, NavbarClienteComponent], 
   templateUrl: './pagina-cliente.component.html',
   styleUrls: ['./pagina-cliente.component.css']
 })
@@ -28,9 +28,7 @@ export class ClienteComponent implements OnInit {
     this.carregarSolicitacoes();
   }
 
-  novaSolicitacao() {
-    this.router.navigate(['/solicitacao-manutencao']);
-  }
+  novaSolicitacao = () => this.router.navigate(['/solicitacao-manutencao'])
 
   private carregarSolicitacoes() {
     this.solicitacoesService.listarSolicitacoesByCliente().subscribe({
@@ -79,5 +77,4 @@ export class ClienteComponent implements OnInit {
   visualizarSolicitacao(id: number) {
     this.router.navigate(['/cliente/solicitacao', id]);
   }
-
 }

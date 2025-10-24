@@ -1,3 +1,8 @@
+.table{
+  align-self: center;
+  justify-self: center;
+  width: 80dvw;
+}
 .mb-2 {
   display: flex;
   justify-content: flex-end;

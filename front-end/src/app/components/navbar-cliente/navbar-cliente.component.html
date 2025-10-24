@@ -1,12 +1,19 @@
-<mat-toolbar color="primary" class="topbar">
-
-  <span class="spacer"></span>
-
-  <span class="user">Olá, {{ userName }}</span>
-
-  <button mat-button (click)="logoff()" aria-label="Sair">
-    <mat-icon>logout</mat-icon>
-    Sair
-  </button>
-
-</mat-toolbar>
+<app-header
+  [logoColor]="'black'"
+  [personName]="userName"
+  [backgroudColor]="'#FAF9FD'"
+  [buttons]="[
+      {
+        label: 'Nova Solicitação',
+        severity: null,
+        onCLick: novaSolicitacao,
+        icon: 'pi pi-plus'
+      },
+      {
+        label: 'Sair',
+        severity: 'secondary',
+        onCLick: logoff,
+        icon: 'pi pi-sign-out'
+      }
+    ]"
+></app-header>
