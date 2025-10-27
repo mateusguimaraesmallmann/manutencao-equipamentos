@@ -38,7 +38,6 @@ export class EfetuarManutencaoComponent implements OnInit {
 
   trackById = (_: number, f: { id: string }) => f.id;
 
-  // lista reativa vinda do service, já filtrada para não conter o usuário logado
   funcionarios$ = combineLatest([this.funcionariosSrv.funcionarios$, this.auth.user$]).pipe(
     map(([lista, user]) => {
       if (!user) { return []; }
@@ -51,16 +50,13 @@ export class EfetuarManutencaoComponent implements OnInit {
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id')!);
 
-    // seu DTO exige @NotBlank nos dois campos -> required nos dois
     this.form = this.fb.group({
       descricao: ['', [Validators.required, Validators.maxLength(500)]],
       orientacoes: ['', [Validators.required, Validators.maxLength(500)]],
-      destino: [null as string | null] // ID do funcionário (string normalizada no FuncionariosService)
+      destino: [null as string | null]
     });
 
-    // carrega detalhe da solicitação + garante que temos a lista de funcionários
     this.loading = true;
-    // se o FuncionariosService já dispara refresh quando loga, basta aguardar o primeiro valor
     firstValueFrom(
       this.solicitacoes.buscarSolicitacaoFuncionarioPorId(id)
     ).then(det => {
@@ -84,7 +80,7 @@ export class EfetuarManutencaoComponent implements OnInit {
       .pipe(finalize(() => this.loading = false))
       .subscribe({
         next: () => {
-          this.snack.open('Manutenção registrada (estado: ARRUMADA).', 'OK', { duration: 3000 });
+          this.snack.open('Manutenção registrada', 'OK', { duration: 3000 });
           this.router.navigate(['/funcionario']);
         },
         error: (err) => {
@@ -102,7 +98,6 @@ export class EfetuarManutencaoComponent implements OnInit {
       return;
     }
 
-    // regra de UX: impedir redirecionar para si mesmo
     combineLatest([this.funcionarios$, this.auth.user$]).pipe(
       map(([lista, user]) => {
         const me = lista.find(f => f.email === user!.email);
@@ -120,7 +115,6 @@ export class EfetuarManutencaoComponent implements OnInit {
     ).subscribe({
       next: (res) => {
         if (res === null) { return; }
-        // buscar nome para mensagem
         firstValueFrom(this.funcionarios$).then(list => {
           const f = list.find(x => x.id === destinoIdStr);
           this.snack.open(`Solicitação redirecionada para ${f?.nome ?? 'o funcionário selecionado'}.`, 'OK', { duration: 3000 });
