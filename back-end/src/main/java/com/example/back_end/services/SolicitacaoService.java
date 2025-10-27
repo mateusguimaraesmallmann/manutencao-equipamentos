@@ -61,9 +61,7 @@ public class SolicitacaoService {
                 s.getId(),
                 s.getCreatedAt().toString(),
                 s.getDescricaoProduto(),
-                s.getEstado()
-            ))
-            .toList();
+                s.getEstado())).toList();
     }
 
     public List<SolicitacaoFuncionarioResumoDTO> buscarSolicitacoesAbertas() {
@@ -74,9 +72,7 @@ public class SolicitacaoService {
                 s.getCreatedAt().toString(),
                 s.getCliente().getNome(),
                 s.getDescricaoProduto(),
-                s.getEstado()
-            ))
-            .toList();
+                s.getEstado())).toList();
     }
 
     public void criarSolicitacao(SolicitacaoCreateDTO dto) {
@@ -268,57 +264,96 @@ public class SolicitacaoService {
 
     }
 
-    /*public void aprovar(Long id, User user) {
-        Solicitacao order = buscarDetalhada(id);
-        EstadoSolicitacao anterior = order.getEstado();
-        order.setEstado(EstadoSolicitacao.APROVADA);
-        solicitacaoRepository.save(order);
-        registrarHistorico(order, anterior, EstadoSolicitacao.APROVADA, user);
+    public void aprovar(Long idSolicitacao) {
+        Solicitacao s = solicitacaoRepository.findById(idSolicitacao)
+		    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        
+        String login = SecurityContextHolder.getContext().getAuthentication().getName();
+        User userLogado = Optional.ofNullable(userRepository.findByEmail(login))
+            .orElseThrow(() -> new RuntimeException("Usuário autenticado não encontrado."));
+
+        EstadoSolicitacao estadoAnterior = s.getEstado();
+        s.setEstado(EstadoSolicitacao.APROVADA);
+
+        solicitacaoRepository.save(s);
+
+        HistoricoAlteracao hist = new HistoricoAlteracao();
+        hist.setSolicitacao(s);
+        hist.setEstadoAnterior(estadoAnterior);
+        hist.setEstadoNovo(s.getEstado());
+        hist.setDataHora(LocalDateTime.now());
+        hist.setAutor(userLogado);
+        historicoAlteracaoRepository.save(hist);
+
     }
 
-    public void rejeitar(Long id, String motivo, User user) {
-        Solicitacao order = buscarDetalhada(id);
-        EstadoSolicitacao anterior = order.getEstado();
-        order.setEstado(EstadoSolicitacao.REJEITADA);
-        solicitacaoRepository.save(order);
-        registrarHistorico(order, anterior, EstadoSolicitacao.REJEITADA, user);
+    public void rejeitar(Long idSolicitacao) {
+        Solicitacao s = solicitacaoRepository.findById(idSolicitacao)
+		    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        
+        String login = SecurityContextHolder.getContext().getAuthentication().getName();
+        User userLogado = Optional.ofNullable(userRepository.findByEmail(login))
+            .orElseThrow(() -> new RuntimeException("Usuário autenticado não encontrado."));
+
+        EstadoSolicitacao estadoAnterior = s.getEstado();
+        s.setEstado(EstadoSolicitacao.REJEITADA);
+
+        solicitacaoRepository.save(s);
+
+        HistoricoAlteracao hist = new HistoricoAlteracao();
+        hist.setSolicitacao(s);
+        hist.setEstadoAnterior(estadoAnterior);
+        hist.setEstadoNovo(s.getEstado());
+        hist.setDataHora(LocalDateTime.now());
+        hist.setAutor(userLogado);
+        historicoAlteracaoRepository.save(hist);
+
     }
 
-    public void resgatar(Long id, User user) {
-        Solicitacao order = buscarDetalhada(id);
+    public void resgatar(Long idSolicitacao) {
+        Solicitacao s = solicitacaoRepository.findById(idSolicitacao)
+		    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        
+        String login = SecurityContextHolder.getContext().getAuthentication().getName();
+        User userLogado = Optional.ofNullable(userRepository.findByEmail(login))
+            .orElseThrow(() -> new RuntimeException("Usuário autenticado não encontrado."));
 
-        if (order.getEstado() != EstadoSolicitacao.REJEITADA) {
-            throw new IllegalStateException("Somente solicitações rejeitadas podem ser resgatadas.");
-        }
+        EstadoSolicitacao estadoAnterior = s.getEstado();
+        s.setEstado(EstadoSolicitacao.APROVADA);
 
-        EstadoSolicitacao anterior = order.getEstado();
-        order.setEstado(EstadoSolicitacao.APROVADA);
-        solicitacaoRepository.save(order);
-        registrarHistorico(order, anterior, EstadoSolicitacao.APROVADA, user);
+        solicitacaoRepository.save(s);
+
+        HistoricoAlteracao hist = new HistoricoAlteracao();
+        hist.setSolicitacao(s);
+        hist.setEstadoAnterior(estadoAnterior);
+        hist.setEstadoNovo(s.getEstado());
+        hist.setDataHora(LocalDateTime.now());
+        hist.setAutor(userLogado);
+        historicoAlteracaoRepository.save(hist);
+        
     }
 
-    public void pagar(Long id, User user) {
-        Solicitacao order = buscarDetalhada(id);
+    public void pagar(Long idSolicitacao) {
+        Solicitacao s = solicitacaoRepository.findById(idSolicitacao)
+		    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        
+        String login = SecurityContextHolder.getContext().getAuthentication().getName();
+        User userLogado = Optional.ofNullable(userRepository.findByEmail(login))
+            .orElseThrow(() -> new RuntimeException("Usuário autenticado não encontrado."));
 
-        if (order.getEstado() != EstadoSolicitacao.ARRUMADA) {
-            throw new IllegalStateException("Só é possível pagar uma solicitação arrumada.");
-        }
+        EstadoSolicitacao estadoAnterior = s.getEstado();
+        s.setEstado(EstadoSolicitacao.FINALIZADA);
 
-        order.setEstado(EstadoSolicitacao.PAGA);
-        order.setPagaEm(LocalDateTime.now());
-        solicitacaoRepository.save(order);
-        registrarHistorico(order, EstadoSolicitacao.ARRUMADA, EstadoSolicitacao.PAGA, user);
+        solicitacaoRepository.save(s);
+
+        HistoricoAlteracao hist = new HistoricoAlteracao();
+        hist.setSolicitacao(s);
+        hist.setEstadoAnterior(estadoAnterior);
+        hist.setEstadoNovo(s.getEstado());
+        hist.setDataHora(LocalDateTime.now());
+        hist.setAutor(userLogado);
+        historicoAlteracaoRepository.save(hist);
+        
     }
-
-    private void registrarHistorico(Solicitacao solicitacao, EstadoSolicitacao anterior, EstadoSolicitacao novo,
-            User user) {
-        HistoricoAlteracao historico = new HistoricoAlteracao();
-        historico.setSolicitacao(solicitacao);
-        historico.setEstadoAnterior(anterior);
-        historico.setEstadoNovo(novo);
-        historico.setDataHora(LocalDateTime.now());
-        historico.setAutor(user);
-        historicoAlteracaoRepository.save(historico);
-    }*/
 
 }

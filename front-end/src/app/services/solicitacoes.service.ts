@@ -55,6 +55,23 @@ export class SolicitacoesService {
     return this.http.post<void>(`${API}/manutencao/${id}`, body);
   }
 
+  aprovar(id: number) {
+    return this.http.post<void>(`${API}/aprovar/${id}`, null);
+  }
+
+  rejeitar(id: number ) {
+    return this.http.post<void>(`${API}/rejeitar/${id}`, null);
+  }
+
+  resgatar(id: number ) {
+    return this.http.post<void>(`${API}/resgatar/${id}`, null);
+  }
+
+  pagar(id: number ) {
+    return this.http.post<void>(`${API}/pagar/${id}`, null);
+  }
+
+  //ainda nao funcional
   redirecionar(id: number, funcionarioDestinoId: number) {
     return this.http.post<void>(`${API}/redirecionar/${id}`, { funcionarioDestinoId });
   }

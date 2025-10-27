@@ -20,11 +20,34 @@
       <td>{{ s.createdAt | date:'dd/MM/yyyy HH:mm' }}</td>
       <td>{{ limitarDescricao(s.descricaoProduto) }}</td>
       <td>{{ s.estado }}</td>
+  
       <td class="flex gap-2 flex-wrap">
-        <button pButton type="button" label="Visualizar" class="p-button-info" 
-          (click)="visualizarSolicitacao(s.id)">
+        
+        <!-- ORÇADA -->
+        <button *ngIf="isOrcada(s.estado)" pButton type="button"
+                label="Aprovar/Rejeitar Serviço" class="p-button-warning"
+                (click)="mostrarOrcamento(s.id)">
+        </button>
+
+        <!-- REJEITADA -->
+        <button *ngIf="isRejeitada(s.estado)" pButton type="button"
+                label="Resgatar Serviço" class="p-button-secondary"
+                (click)="resgatarServico(s.id)">
+        </button>
+
+        <!-- ARRUMADA -->
+        <button *ngIf="isArrumada(s.estado)" pButton type="button"
+                label="Pagar Serviço" class="p-button-success"
+                (click)="pagarServico(s.id)">
+        </button>
+
+        <!-- Outros estados -->
+        <button *ngIf="mostrarVisualizar(s.estado)" pButton type="button"
+                label="Visualizar Serviço" class="p-button-info"
+                (click)="visualizarSolicitacao(s.id)">
         </button>
       </td>
+
     </tr>
   </ng-template>
 </p-table>

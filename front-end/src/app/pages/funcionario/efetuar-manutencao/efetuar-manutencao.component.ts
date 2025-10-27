@@ -12,7 +12,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { SolicitacoesService } from '../../../services/solicitacoes.service';
 import { Solicitacao } from '../../../shared/models/solicitacao.model';
-import { firstValueFrom } from 'rxjs';
+import { finalize, firstValueFrom, combineLatest, map, of, switchMap } from 'rxjs';
 import { FuncionariosService } from '../../../services/funcionarios.service';
 import { AutenticacaoService } from '../../../services/autenticacao.service';
 import { FuncionarioSolicitacaoDetalheDTO } from '../../../shared/dtos/solicitacao-funcionario-detalhe.dto';
@@ -35,6 +35,8 @@ export class EfetuarManutencaoComponent implements OnInit {
 
   solicitacao?: FuncionarioSolicitacaoDetalheDTO;
   form!: FormGroup;
+
+  trackById = (_: number, f: { id: string }) => f.id;
 
   // lista reativa vinda do service, já filtrada para não conter o usuário logado
   funcionarios$ = combineLatest([this.funcionariosSrv.funcionarios$, this.auth.user$]).pipe(
@@ -103,7 +105,7 @@ export class EfetuarManutencaoComponent implements OnInit {
     // regra de UX: impedir redirecionar para si mesmo
     combineLatest([this.funcionarios$, this.auth.user$]).pipe(
       map(([lista, user]) => {
-        const me = lista.find(f => f.email === user?.email);
+        const me = lista.find(f => f.email === user!.email);
         return { me, destinoIdStr };
       }),
       switchMap(({ me, destinoIdStr }) => {
@@ -112,7 +114,7 @@ export class EfetuarManutencaoComponent implements OnInit {
           return of(null);
         }
         this.loading = true;
-        return this.solicitacoes.redirecionar(this.solicitacao.id, Number(destinoIdStr))
+        return this.solicitacoes.redirecionar(this.solicitacao!.id, Number(destinoIdStr))
           .pipe(finalize(() => this.loading = false));
       })
     ).subscribe({
