@@ -10,6 +10,7 @@ import com.example.back_end.models.Solicitacao;
 public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long> {
 
     List<Solicitacao> findAllByClienteIdOrderByCreatedAtAsc(Long id);
+    List<Solicitacao> findAllByResponsavelAtualIdAsc(Long id);
     List<Solicitacao> findAllByEstado(EstadoSolicitacao estado);
     
 }

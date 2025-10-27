@@ -76,6 +76,21 @@ public class SolicitacaoService {
                 s.getEstado())).toList();
     }
 
+    public List<SolicitacaoFuncionarioResumoDTO> buscarSolicitacoesFuncionario() {
+        String login = SecurityContextHolder.getContext().getAuthentication().getName();
+        User userLogado = Optional.ofNullable(userRepository.findByEmail(login))
+            .orElseThrow(() -> new RuntimeException("Usuário autenticado não encontrado."));
+    
+        return solicitacaoRepository.findAllByResponsavelAtualIdAsc(userLogado.getId())
+            .stream()
+            .map(s -> new SolicitacaoFuncionarioResumoDTO(
+                s.getId(),
+                s.getCreatedAt().toString(),
+                s.getCliente().getNome(),
+                s.getDescricaoProduto(),
+                s.getEstado())).toList();
+    }
+
     public void criarSolicitacao(SolicitacaoCreateDTO dto) {
         
         String login = SecurityContextHolder.getContext().getAuthentication().getName();

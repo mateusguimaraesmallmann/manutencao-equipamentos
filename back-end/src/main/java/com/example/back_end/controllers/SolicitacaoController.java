@@ -34,6 +34,11 @@ public class SolicitacaoController {
         return ResponseEntity.ok(solicitacaoService.buscarSolicitacoesAbertas());
     }
 
+    @GetMapping("/funcionario")
+    public ResponseEntity<List<SolicitacaoFuncionarioResumoDTO>> buscarSolicitacoesFuncionario() {
+        return ResponseEntity.ok(solicitacaoService.buscarSolicitacoesFuncionario());
+    }
+
     @GetMapping("/cliente/{id}")
     public ResponseEntity<List<SolicitacaoClienteResumoDTO>> buscarSolicitacoesByCliente(@PathVariable("id")Long idSolicitacao) {
         return ResponseEntity.ok(solicitacaoService.buscarSolicitacoesByCliente(idSolicitacao));

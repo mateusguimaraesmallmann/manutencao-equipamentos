@@ -43,6 +43,10 @@ export class SolicitacoesService {
     return this.http.get<FuncionarioSolicitacaoResumoDTO[]>(`${API}/abertas`);
   }
 
+  listarSolicitacoesFuncionario(): Observable<FuncionarioSolicitacaoResumoDTO[]> {
+    return this.http.get<FuncionarioSolicitacaoResumoDTO[]>(`${API}/funcionario`);
+  }
+
   buscarSolicitacaoClientePorId(id: number): Observable<SolicitacaoDetalheDTO> {
     return this.http.get<SolicitacaoDetalheDTO>(`${API}/detalhe/cliente/${id}`);
   }

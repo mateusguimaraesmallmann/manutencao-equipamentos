@@ -11,7 +11,7 @@ import { EquipamentosComponent } from './pages/funcionario/equipamentos/equipame
 import { FuncionariosComponent } from './pages/funcionario/funcionarios/funcionarios.component';
 import { RelatoriosComponent } from './pages/funcionario/relatorios/relatorios.component';
 import { SolicitacaoDetalheComponent } from './pages/cliente/solicitacao-detalhe/solicitacao-detalhe.component';
-
+import { ConsultarSolicitacoesComponent } from './pages/funcionario/consultar-solicitacoes/consultar-solicitacoes/consultar-solicitacoes.component';
 
 import { funcionarioGuard } from './guards/funcionario.guard';
 
@@ -30,7 +30,8 @@ export const routes: Routes = [
   { path: 'orcamento/:id', component: EfetuarOrcamentoComponent },
   { path: 'manutencao/:id', component: EfetuarManutencaoComponent },
   { path: 'equipamentos', component: EquipamentosComponent },
-  { path: 'funcionarios', component: FuncionariosComponent}, //canMatch: [funcionarioGuard] 
+  { path: 'funcionarios', component: FuncionariosComponent}, //canMatch: [funcionarioGuard]
+  { path: 'consultar-solicitacoes', component: ConsultarSolicitacoesComponent },
   { path: 'relatorios', component: RelatoriosComponent },
 
   { path: '**', redirectTo: 'login' }
