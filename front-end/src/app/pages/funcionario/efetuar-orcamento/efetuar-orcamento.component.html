@@ -42,13 +42,7 @@
   <form [formGroup]="form" class="form" (ngSubmit)="salvar()">
     <div class="field w">
       <label for="valor"><b>Valor do Orçamento (R$)</b></label>
-      <p-inputNumber
-        inputId="valor"
-        mode="currency"
-        currency="BRL"
-        locale="pt-BR"
-        formControlName="valor"
-        [min]="0.01"
+      <p-inputNumber inputId="valor" mode="currency" currency="BRL" locale="pt-BR" formControlName="valor" [min]="0.01"
         placeholder="0,00">
       </p-inputNumber>
 
@@ -61,20 +55,11 @@
     </div>
 
     <div class="actions">
-      <p-button
-        label="Salvar Orçamento"
-        icon="pi pi-save"
-        styleClass="p-button-raised p-button-primary"
-        type="submit"
+      <p-button label="Salvar Orçamento" icon="pi pi-save" styleClass="p-button-raised p-button-primary" type="submit"
         [disabled]="form.invalid">
       </p-button>
 
-      <p-button
-        label="Voltar"
-        icon="pi pi-arrow-left"
-        styleClass="p-button-text"
-        type="button"
-        (onClick)="cancelar()">
+      <p-button label="Voltar" icon="pi pi-arrow-left" styleClass="p-button-text" type="button" (onClick)="cancelar()">
       </p-button>
     </div>
   </form>
@@ -86,11 +71,7 @@
       <h2>Solicitação não encontrada</h2>
     </ng-template>
 
-    <p-button
-      label="Voltar"
-      icon="pi pi-arrow-left"
-      styleClass="p-button-text"
-      (onClick)="cancelar()">
+    <p-button label="Voltar" icon="pi pi-arrow-left" styleClass="p-button-text" (onClick)="cancelar()">
     </p-button>
   </p-card>
 </ng-template>

@@ -16,6 +16,10 @@ export interface SolicitacaoDTO {
   categoriaId: number;
 }
 
+export interface RedirecionarDTO {
+  funcionarioDestinoId: number;
+}
+
 const API_BASE = 'http://localhost:8080';
 const API = `${API_BASE}/solicitacoes`;
 
@@ -71,9 +75,9 @@ export class SolicitacoesService {
     return this.http.post<void>(`${API}/pagar/${id}`, null);
   }
 
-  //ainda nao funcional
   redirecionar(id: number, funcionarioDestinoId: number) {
-    return this.http.post<void>(`${API}/redirecionar/${id}`, { funcionarioDestinoId });
+    const body: RedirecionarDTO = { funcionarioDestinoId };
+    return this.http.post<void>(`${API}/redirecionar/${id}`, body);
   }
 
 }

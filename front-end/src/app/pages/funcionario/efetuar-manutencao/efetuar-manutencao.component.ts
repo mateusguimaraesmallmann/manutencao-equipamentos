@@ -12,10 +12,11 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { SolicitacoesService } from '../../../services/solicitacoes.service';
 import { Solicitacao } from '../../../shared/models/solicitacao.model';
-import { finalize, firstValueFrom, combineLatest, map, of, switchMap } from 'rxjs';
+import { firstValueFrom, combineLatest, map, switchMap, take, shareReplay, Observable, of } from 'rxjs';
 import { FuncionariosService } from '../../../services/funcionarios.service';
 import { AutenticacaoService } from '../../../services/autenticacao.service';
 import { FuncionarioSolicitacaoDetalheDTO } from '../../../shared/dtos/solicitacao-funcionario-detalhe.dto';
+import { Funcionario } from '../../../shared/models/funcionario.model';
 
 @Component({
   selector: 'app-efetuar-manutencao',
@@ -29,23 +30,15 @@ export class EfetuarManutencaoComponent implements OnInit {
   private router = inject(Router);
   private fb = inject(FormBuilder);
   private snack = inject(MatSnackBar);
-  private solicitacoes = inject(SolicitacoesService);
-  private funcionariosSrv = inject(FuncionariosService);
+  private solicitacoesService = inject(SolicitacoesService);
+  private funcionariosService = inject(FuncionariosService);
   private auth = inject(AutenticacaoService);
 
   solicitacao?: FuncionarioSolicitacaoDetalheDTO;
   form!: FormGroup;
 
   trackById = (_: number, f: { id: string }) => f.id;
-
-  funcionarios$ = combineLatest([this.funcionariosSrv.funcionarios$, this.auth.user$]).pipe(
-    map(([lista, user]) => {
-      if (!user) { return []; }
-      return (lista || []).filter(f => f.email !== user.email);
-    })
-  );
-
-  loading = false;
+  funcionarios$!: Observable<Funcionario[]>;
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id')!);
@@ -53,18 +46,26 @@ export class EfetuarManutencaoComponent implements OnInit {
     this.form = this.fb.group({
       descricao: ['', [Validators.required, Validators.maxLength(500)]],
       orientacoes: ['', [Validators.required, Validators.maxLength(500)]],
-      destino: [null as string | null]
+      destino: [null as number | null]
     });
 
-    this.loading = true;
     firstValueFrom(
-      this.solicitacoes.buscarSolicitacaoFuncionarioPorId(id)
-    ).then(det => {
-      this.solicitacao = det;
-    }).catch(() => {
-      this.snack.open('Solicitação não encontrada.', 'OK', { duration: 2500 });
-      this.router.navigate(['/funcionario']);
-    }).finally(() => this.loading = false);
+      this.solicitacoesService.buscarSolicitacaoFuncionarioPorId(id))
+      .then(det => { this.solicitacao = det;})
+      .catch(() => {
+        this.snack.open('Solicitação não encontrada.', 'OK', { duration: 2500 });
+        this.router.navigate(['/funcionario']);
+      });
+    
+    this.funcionarios$ = this.auth.user$.pipe(
+      take(1),
+      switchMap(user =>
+        this.funcionariosService.refresh().pipe(
+          map(l => (l ?? []).filter(f => f.email !== user?.email))
+        )
+      ),
+      shareReplay(1)
+    );
   }
 
   async salvarManutencao(): Promise<void> {
@@ -75,9 +76,7 @@ export class EfetuarManutencaoComponent implements OnInit {
     }
 
     const { descricao, orientacoes } = this.form.value as { descricao: string; orientacoes: string };
-    this.loading = true;
-    this.solicitacoes.registrarManutencao(this.solicitacao.id, { descricao, orientacoes })
-      .pipe(finalize(() => this.loading = false))
+    this.solicitacoesService.registrarManutencao(this.solicitacao.id, { descricao, orientacoes })
       .subscribe({
         next: () => {
           this.snack.open('Manutenção registrada', 'OK', { duration: 3000 });
@@ -91,38 +90,21 @@ export class EfetuarManutencaoComponent implements OnInit {
 
   redirecionar(): void {
     if (!this.solicitacao) { return; }
-    const destinoIdStr = this.form.value.destino as string | null;
 
-    if (!destinoIdStr) {
+    const destinoId = this.form.value.destino;
+    if (!Number.isFinite(destinoId)) {
       this.snack.open('Selecione um funcionário de destino.', 'OK', { duration: 2500 });
       return;
     }
 
-    combineLatest([this.funcionarios$, this.auth.user$]).pipe(
-      map(([lista, user]) => {
-        const me = lista.find(f => f.email === user!.email);
-        return { me, destinoIdStr };
-      }),
-      switchMap(({ me, destinoIdStr }) => {
-        if (me && me.id === destinoIdStr) {
-          this.snack.open('Não é possível redirecionar para si mesmo.', 'OK', { duration: 2500 });
-          return of(null);
-        }
-        this.loading = true;
-        return this.solicitacoes.redirecionar(this.solicitacao!.id, Number(destinoIdStr))
-          .pipe(finalize(() => this.loading = false));
-      })
-    ).subscribe({
-      next: (res) => {
-        if (res === null) { return; }
-        firstValueFrom(this.funcionarios$).then(list => {
-          const f = list.find(x => x.id === destinoIdStr);
-          this.snack.open(`Solicitação redirecionada para ${f?.nome ?? 'o funcionário selecionado'}.`, 'OK', { duration: 3000 });
-          this.router.navigate(['/funcionario']);
-        });
+    this.solicitacoesService.redirecionar(this.solicitacao.id, destinoId).subscribe({
+      next: () => {
+        this.snack.open('Solicitacação redirecionada com sucesso.', 'OK', { duration: 3000 });
+        this.router.navigate(['/funcionario']);
       },
       error: (err) => {
-        this.snack.open(err?.error?.message ?? 'Falha ao redirecionar.', 'OK', { duration: 3000 });
+        console.error(err);
+        this.snack.open('Falha ao redirecionar solicitacação.', 'OK', { duration: 3500 });
       }
     });
   }
@@ -130,4 +112,5 @@ export class EfetuarManutencaoComponent implements OnInit {
   voltar(): void {
     this.router.navigate(['/funcionario']);
   }
+
 }

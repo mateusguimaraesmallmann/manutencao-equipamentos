@@ -46,15 +46,15 @@
   </form>
   <hr>
 
-  <div class="redirecionar">
+  <div class="redirecionar" [formGroup]="form">
     <h4>Redirecionar Manutenção</h4>
 
     <mat-form-field appearance="outline" class="w-full">
       <mat-label>Escolha o funcionário</mat-label>
       <mat-select formControlName="destino">
-        <mat-option [value]="null">(não redirecionar)</mat-option>
-        <!-- usar o Observable com async -->
-        <mat-option *ngFor="let f of (funcionarios$ | async) ?? []; trackBy: trackById" [value]="f.id">
+        <mat-option
+          *ngFor="let f of (funcionarios$ | async) ?? []; trackBy: trackById"
+          [value]="+f.id">
           {{ f.nome }}
         </mat-option>
       </mat-select>
@@ -67,6 +67,7 @@
       </button>
     </div>
   </div>
+
 </mat-card>
 
 <ng-template #notFound>

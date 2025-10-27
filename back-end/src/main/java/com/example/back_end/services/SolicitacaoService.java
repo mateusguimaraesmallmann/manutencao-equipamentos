@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -245,11 +246,20 @@ public class SolicitacaoService {
         EmployeeProfile func = employeeRepository.findById(redirecionarDTO.funcionarioDestinoId())
 		    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        //depois add regra para não redirecionar para si mesmo
+        // Regra: não redirecionar para si mesmo (origem == destino)
+        if (Objects.equals(userLogado.getId(), func.getUser().getId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Não é possível redirecionar para si mesmo.");
+        }
+
+        // (Opcional) Evitar redirecionar para o mesmo responsável atual
+        if (s.getResponsavelAtual() != null && Objects.equals(s.getResponsavelAtual().getId(), func.getUser().getId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Solicitação já está com esse responsável.");
+        }
 
         EstadoSolicitacao estadoAnterior = s.getEstado();
-        s.setEstado(EstadoSolicitacao.REDIRECIONADA);
+
         s.setResponsavelAtual(func.getUser());
+        s.setEstado(EstadoSolicitacao.REDIRECIONADA);
 
         solicitacaoRepository.save(s);
     
