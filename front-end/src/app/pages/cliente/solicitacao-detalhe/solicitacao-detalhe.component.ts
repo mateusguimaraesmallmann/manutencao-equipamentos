@@ -11,6 +11,7 @@ import { MatTableModule } from '@angular/material/table';
 import { Solicitacao, EstadoSolicitacao } from '../../../shared/models/solicitacao.model';
 import { SolicitacaoDetalheDTO } from '../../../shared/dtos/solicitacao-cliente-detalhe-dto';
 import { SolicitacoesService } from '../../../services/solicitacoes.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-solicitacao-detalhe',
@@ -28,7 +29,8 @@ export class SolicitacaoDetalheComponent {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private solicitacoesService: SolicitacoesService
+    private solicitacoesService: SolicitacoesService,
+    private snack: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -47,6 +49,56 @@ export class SolicitacaoDetalheComponent {
 
   voltar() {
     this.router.navigate(['/pagina-cliente']);
+  }
+
+  podeAprovarOuRejeitar(): boolean {
+    return this.solicitacao?.estado === 'ORCADA';
+  }
+
+  podePagar(): boolean {
+    return this.solicitacao?.estado === 'ARRUMADA';
+  }
+
+  aprovar(): void {
+    if (!this.solicitacao) { return; }
+    this.solicitacoesService.aprovar(this.solicitacao.id).subscribe({
+      next: () => {
+        this.snack.open('Serviço aprovado com sucesso.', 'OK', { duration: 3000 });
+        this.router.navigate(['/pagina-cliente']);
+      },
+      error: (err) => {
+        console.error(err);
+        this.snack.open('Falha ao aprovar serviço.', 'OK', { duration: 3500 });
+      }
+    });
+  }
+
+  rejeitar(): void {
+    if (!this.solicitacao) { return; }
+    this.solicitacoesService.rejeitar(this.solicitacao!.id).subscribe({
+      next: () => {
+        this.snack.open('Serviço rejeitado.', 'OK', { duration: 3000 });
+        this.router.navigate(['/pagina-cliente']);
+      },
+      error: (err) => {
+        console.error(err);
+        this.snack.open('Falha ao rejeitar serviço.', 'OK', { duration: 3500 });
+      }
+    });
+  }
+
+  pagar(){
+    if (!this.solicitacao) { return; }
+    this.solicitacoesService.pagar(this.solicitacao!.id).subscribe({
+      next: () => {
+        this.snack.open('Serviço pago.', 'OK', { duration: 3000 });
+        this.router.navigate(['/pagina-cliente']);
+      },
+      error: (err) => {
+        console.error(err);
+        this.snack.open('Falha ao pagar serviço.', 'OK', { duration: 3500 });
+      }
+    });
   }
   
 }

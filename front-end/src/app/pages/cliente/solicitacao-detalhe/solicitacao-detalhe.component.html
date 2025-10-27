@@ -57,19 +57,15 @@
     <div class="actions">
       <button mat-stroked-button type="button" (click)="voltar()">Voltar</button>
       
-      <!--
       <ng-container *ngIf="podeAprovarOuRejeitar()">
         <button mat-raised-button color="primary" type="button" (click)="aprovar()">Aprovar Serviço</button>
         <button mat-raised-button color="warn" type="button" (click)="rejeitar()">Rejeitar Serviço</button>
       </ng-container>
   
-      <ng-container *ngIf="podeResgatar()">
-        <button mat-raised-button color="accent" type="button" (click)="resgatar()">Resgatar Serviço</button>
-      </ng-container>
-  
       <ng-container *ngIf="podePagar()">
         <button mat-raised-button color="primary" type="button" (click)="pagar()">Pagar Serviço</button>
-      </ng-container>-->
+      </ng-container>
+
     </div>
   </mat-card>
   
@@ -79,4 +75,3 @@
       <button mat-button (click)="voltar()">Voltar</button>
     </mat-card>
   </ng-template>
-  

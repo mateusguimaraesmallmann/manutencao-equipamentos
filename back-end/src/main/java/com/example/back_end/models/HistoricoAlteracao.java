@@ -48,5 +48,9 @@ public class HistoricoAlteracao {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "autor_id", nullable = false)
     private User autor;
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "destino_id")
+    private User destino;
     
 }

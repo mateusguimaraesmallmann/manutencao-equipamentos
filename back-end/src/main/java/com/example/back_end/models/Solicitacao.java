@@ -76,13 +76,13 @@ public class Solicitacao {
     @Column(name = "manutencao_data")
     private LocalDate manutencaoData;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "redirecionada_para_id")
-    @JsonIgnore
-    private User redirecionadaPara;
-
     @Column(name = "finalizacao_data")
     private LocalDateTime finalizacaoData;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "responsavel_atual_id")
+    @JsonIgnore
+    private User responsavelAtual;
 
     @OneToMany(mappedBy = "solicitacao", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("dataHora ASC")

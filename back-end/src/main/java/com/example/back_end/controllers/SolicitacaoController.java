@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.back_end.dtos.request.EfetuarManutencaoDTO;
+import com.example.back_end.dtos.request.RedirecionarDTO;
 import com.example.back_end.dtos.request.SolicitacaoCreateDTO;
 import com.example.back_end.dtos.response.SolicitacaoFuncionarioResumoDTO;
 import com.example.back_end.dtos.response.SolicitacaoClienteDetalheDTO;
@@ -33,18 +35,18 @@ public class SolicitacaoController {
     }
 
     @GetMapping("/cliente/{id}")
-    public ResponseEntity<List<SolicitacaoClienteResumoDTO>> buscarSolicitacoesByCliente(@PathVariable Long id) {
-        return ResponseEntity.ok(solicitacaoService.buscarSolicitacoesByCliente(id));
+    public ResponseEntity<List<SolicitacaoClienteResumoDTO>> buscarSolicitacoesByCliente(@PathVariable("id")Long idSolicitacao) {
+        return ResponseEntity.ok(solicitacaoService.buscarSolicitacoesByCliente(idSolicitacao));
     }
 
     @GetMapping("/detalhe/cliente/{id}")
-    public ResponseEntity<SolicitacaoClienteDetalheDTO> buscarSolicitacaoClientePorId(@PathVariable Long id) {
-        return ResponseEntity.ok(solicitacaoService.buscarSolicitacaoClientePorId(id));
+    public ResponseEntity<SolicitacaoClienteDetalheDTO> buscarSolicitacaoClientePorId(@PathVariable("id") Long idSolicitacao) {
+        return ResponseEntity.ok(solicitacaoService.buscarSolicitacaoClientePorId(idSolicitacao));
     }
 
     @GetMapping("/detalhe/funcionario/{id}")
-    public ResponseEntity<SolicitacaoFuncionarioDetalheDTO> buscarSolicitacaoFuncionarioPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(solicitacaoService.buscarSolicitacaoFuncionarioPorId(id));
+    public ResponseEntity<SolicitacaoFuncionarioDetalheDTO> buscarSolicitacaoFuncionarioPorId(@PathVariable("id") Long idSolicitacao) {
+        return ResponseEntity.ok(solicitacaoService.buscarSolicitacaoFuncionarioPorId(idSolicitacao));
     }
 
     @PostMapping
@@ -54,27 +56,45 @@ public class SolicitacaoController {
     }
 
     @PostMapping("/orcamento/{id}")
-    public ResponseEntity<Void> registrarOrcamento(@PathVariable Long id, @RequestBody BigDecimal valor) {
-        solicitacaoService.registrarOrcamento(id, valor);
+    public ResponseEntity<Void> registrarOrcamento(@PathVariable("id") Long idSolicitacao, @RequestBody BigDecimal valor) {
+        solicitacaoService.registrarOrcamento(idSolicitacao, valor);
         return ResponseEntity.ok().build();
     }
 
-    /*@PostMapping("/{id}/rejeitar")
-    public ResponseEntity<Void> rejeitar(@PathVariable Long id, @RequestBody String motivo, @AuthenticationPrincipal User usuario) {
-        solicitacaoService.rejeitar(id, motivo, usuario);
+    @PostMapping("/manutencao/{id}")
+    public ResponseEntity<Void> registrarManutencao(@PathVariable("id") Long idSolicitacao, @RequestBody EfetuarManutencaoDTO manutencaoDTO) {
+        solicitacaoService.registrarManutencao(idSolicitacao, manutencaoDTO);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/{id}/resgatar")
-    public ResponseEntity<Void> resgatar(@PathVariable Long id, @AuthenticationPrincipal User usuario) {
-        solicitacaoService.resgatar(id, usuario);
+    @PostMapping("/redirecionar/{id}")
+    public ResponseEntity<Void> redirecionar(@PathVariable("id") Long idSolicitacao, @RequestBody RedirecionarDTO redirecionarDTO) {
+        solicitacaoService.redirecionar(idSolicitacao, redirecionarDTO);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/{id}/pagar")
-    public ResponseEntity<Void> pagar(@PathVariable Long id, @AuthenticationPrincipal User usuario) {
-        solicitacaoService.pagar(id, usuario);
+    @PostMapping("/aprovar/{id}")
+    public ResponseEntity<Void> aprovar(@PathVariable("id") Long idSolicitacao) {
+        solicitacaoService.aprovar(idSolicitacao);
         return ResponseEntity.ok().build();
-    }*/
+    }
+
+    @PostMapping("/rejeitar/{id}")
+    public ResponseEntity<Void> rejeitar(@PathVariable("id") Long idSolicitacao) {
+        solicitacaoService.rejeitar(idSolicitacao);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/resgatar/{id}")
+    public ResponseEntity<Void> resgatar(@PathVariable("id") Long idSolicitacao) {
+        solicitacaoService.resgatar(idSolicitacao);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/pagar/{id}")
+    public ResponseEntity<Void> pagar(@PathVariable("id") Long idSolicitacao) {
+        solicitacaoService.pagar(idSolicitacao);
+        return ResponseEntity.ok().build();
+    }
     
 }

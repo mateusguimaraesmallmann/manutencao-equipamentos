@@ -9,6 +9,7 @@ import { Solicitacao, EstadoSolicitacao } from '../../../shared/models/solicitac
 import { NavbarClienteComponent } from '../../../components/navbar-cliente/navbar-cliente.component';
 import { SolicitacoesService } from '../../../services/solicitacoes.service';
 import { SolicitacaoResumoDTO } from '../../../shared/dtos/solicitacao-cliente-resumo.dto';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-pagina-cliente',
@@ -22,7 +23,7 @@ export class ClienteComponent implements OnInit {
   solicitacoes: SolicitacaoResumoDTO[] = [];
   Estado = EstadoSolicitacao;
 
-  constructor(private router: Router, private solicitacoesService: SolicitacoesService) {}
+  constructor(private router: Router, private solicitacoesService: SolicitacoesService, private snack: MatSnackBar) {}
 
   ngOnInit(): void {
     this.carregarSolicitacoes();
@@ -42,39 +43,50 @@ export class ClienteComponent implements OnInit {
     });
   }
 
-  private getCurrentUser(): { email?: string; nome?: string } | null {
-    try { return JSON.parse(localStorage.getItem('currentUser') || 'null'); }
-    catch { return null; }
-  }
-  
-  private readAllSolicitacoes(): Solicitacao[] {
-    try { return JSON.parse(localStorage.getItem('solicitacoes') || '[]'); }
-    catch { return []; }
-  }
-
-  private writeAllSolicitacoes(list: Solicitacao[]) {
-    localStorage.setItem('solicitacoes', JSON.stringify(list));
-  }
-
-  private isDoCliente(s: Solicitacao, email?: string | null): boolean {
-    return true;
-  }
-
   limitarDescricao(desc: string): string {
     return desc && desc.length > 30 ? desc.substring(0, 30) + '…' : (desc || '');
-  }
-
-  getAcaoBotao(estado: EstadoSolicitacao | string): string {
-    switch (estado) {
-      case 'ORÇADA':
-      case EstadoSolicitacao.ORCADA: return 'Aprovar/Rejeitar Serviço';
-      case EstadoSolicitacao.REJEITADA: return 'Resgatar Serviço';
-      case EstadoSolicitacao.ARRUMADA:  return 'Pagar Serviço';
-      default: return '';
-    }
   }
 
   visualizarSolicitacao(id: number) {
     this.router.navigate(['/cliente/solicitacao', id]);
   }
+
+  isOrcada(estado: EstadoSolicitacao | string): boolean {
+    return estado === 'ORCADA';
+  }
+
+  isRejeitada(estado: EstadoSolicitacao | string): boolean {
+    return estado === 'REJEITADA';
+  }
+
+  isArrumada(estado: EstadoSolicitacao | string): boolean {
+    return estado === 'ARRUMADA';
+  }
+
+  mostrarVisualizar(estado: EstadoSolicitacao | string): boolean {
+    return !['APROVADA', 'ORCADA', 'REJEITADA', 'ARRUMADA'].includes(estado);
+  }
+
+  mostrarOrcamento(id: number) {
+    this.router.navigate(['/cliente/solicitacao', id]);
+  }
+
+  resgatarServico(id: number) {
+    if (id == null) { return; }
+    this.solicitacoesService.resgatar(id).subscribe({
+      next: () => {
+        this.snack.open('Serviço resgatado com sucesso.', 'OK', { duration: 3000 });
+        this.carregarSolicitacoes();
+      },
+      error: (err) => {
+        console.error(err);
+        this.snack.open('Falha ao resgatar serviço.', 'OK', { duration: 3500 });
+      }
+    });
+  }
+
+  pagarServico(id: number) {
+    this.router.navigate(['/cliente/solicitacao', id]);
+  }
+
 }

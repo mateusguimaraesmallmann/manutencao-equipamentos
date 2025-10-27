@@ -1,79 +1,77 @@
 <mat-card *ngIf="solicitacao as s; else notFound">
-    <mat-card-title>Efetuar Manutenção</mat-card-title>
-    <mat-card-subtitle>Revise os dados e registre a manutenção ou redirecione</mat-card-subtitle>
-  
-    <div class="grid">
-      <div>
-        <h4>Solicitação</h4>
-        <p><b>ID:</b> {{ s.id }}</p>
-        <p><b>Abertura:</b> {{ s.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
-        <p><b>Descrição:</b> {{ s.descricaoProduto }}</p>
-        <p><b>Estado atual:</b> {{ s.estado }}</p>
-        <ng-container *ngIf="s.orcamentoValor">
-          <p><b>Orçamento:</b> {{ s.orcamentoValor | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</p>
-        </ng-container>
-        <ng-container *ngIf="s.redirecionadaPara">
-          <p><b>Destinada a:</b> {{ s.redirecionadaPara?.nome }} ({{ s.redirecionadaPara?.email }})</p>
-        </ng-container>
-      </div>
-  
-      <div>
-        <h4>Cliente</h4>
-        <p><b>Nome:</b> {{ s.cliente?.nome || s.clienteNome }}</p>
-        <p *ngIf="s.cliente?.email"><b>E-mail:</b> {{ s.cliente?.email }}</p>
-        <p *ngIf="s.cliente?.telefone"><b>Telefone:</b> {{ s.cliente?.telefone }}</p>
-        <ng-container *ngIf="s.cliente?.endereco as e">
-          <p><b>Endereço:</b> {{ e.rua }}, {{ e.numero }} - {{ e.bairro }} - {{ e.cidade }}/{{ e.estado }} (CEP {{ e.cep }})</p>
-        </ng-container>
-      </div>
+  <mat-card-title>Efetuar Manutenção</mat-card-title>
+  <mat-card-subtitle>Revise os dados e registre a manutenção ou redirecione</mat-card-subtitle>
+
+  <div class="grid">
+    <div>
+      <h4>Solicitação</h4>
+      <p><b>ID:</b> {{ s.id }}</p>
+      <p><b>Abertura:</b> {{ s.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
+      <p><b>Descrição:</b> {{ s.descricaoProduto }}</p>
+      <p><b>Estado atual:</b> {{ s.estado }}</p>
+      <p><b>Orçamento:</b> {{ s.orcamentoValor | currency:'BRL':'symbol':'1.2-2' }}</p>
+
+      <!-- REMOVIDO: s.redirecionadaPara (não existe no DTO atual) -->
+      <!-- Se quiser exibir o responsável atual, exponha no DTO e use aqui. -->
     </div>
-  
-    <form [formGroup]="form" class="form" (ngSubmit)="salvarManutencao()">
-      <mat-form-field appearance="outline" class="w-full">
-        <mat-label>Descrição da Manutenção</mat-label>
-        <textarea matInput rows="4" formControlName="descricao" placeholder="Explique o que foi feito" required></textarea>
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline" class="w-full">
-        <mat-label>Orientações para o Cliente</mat-label>
-        <textarea matInput rows="3" formControlName="orientacoes" placeholder="Cuidados e observações"></textarea>
-      </mat-form-field>
-  
-      <div class="actions">
-        <button mat-raised-button color="primary" type="submit" [disabled]="form.get('descricao')?.invalid">
-          Salvar Manutenção (→ ARRUMADA)
-        </button>
-        <button mat-button type="button" (click)="voltar()">Voltar</button>
-      </div>
-    </form>
-    <hr>
-  
-    <div class="redirecionar">
-      <h4>Redirecionar Manutenção</h4>
-  
-      <mat-form-field appearance="outline" class="w-full">
-        <mat-label>Escolha o funcionário</mat-label>
-        <mat-select formControlName="destino">
-          <mat-option [value]="null">(não redirecionar)</mat-option>
-          <mat-option *ngFor="let f of funcionarios" [value]="f">
-            {{ f.nome }} — {{ f.email }}
-          </mat-option>
-        </mat-select>
-        <mat-hint>Você não pode redirecionar para si mesmo.</mat-hint>
-      </mat-form-field>
-  
-      <div class="actions">
-        <button mat-stroked-button color="accent" type="button" (click)="redirecionar()">
-          Redirecionar (→ REDIRECIONADA)
-        </button>
-      </div>
+
+    <div>
+      <h4>Cliente</h4>
+      <p><b>Nome:</b> {{ s.cliente?.nome }}</p>
+      <p *ngIf="s.cliente?.email"><b>E-mail:</b> {{ s.cliente?.email }}</p>
+      <p *ngIf="s.cliente?.telefone"><b>Telefone:</b> {{ s.cliente?.telefone }}</p>
+      <ng-container *ngIf="s.cliente?.endereco as e">
+        <p><b>Endereço:</b> {{ e.rua }}, {{ e.numero }} - {{ e.bairro }} - {{ e.cidade }}/{{ e.estado }} (CEP {{ e.cep }})</p>
+      </ng-container>
     </div>
+  </div>
+
+  <form [formGroup]="form" class="form" (ngSubmit)="salvarManutencao()">
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Descrição da Manutenção</mat-label>
+      <textarea matInput rows="4" formControlName="descricao" placeholder="Explique o que foi feito" required></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Orientações para o Cliente</mat-label>
+      <textarea matInput rows="3" formControlName="orientacoes" placeholder="Cuidados e observações"></textarea>
+    </mat-form-field>
+
+    <div class="actions">
+      <button mat-raised-button color="primary" type="submit" [disabled]="form.get('descricao')?.invalid">
+        Salvar Manutenção
+      </button>
+      <button mat-button type="button" (click)="voltar()">Voltar</button>
+    </div>
+  </form>
+  <hr>
+
+  <div class="redirecionar">
+    <h4>Redirecionar Manutenção</h4>
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Escolha o funcionário</mat-label>
+      <mat-select formControlName="destino">
+        <mat-option [value]="null">(não redirecionar)</mat-option>
+        <!-- usar o Observable com async -->
+        <mat-option *ngFor="let f of (funcionarios$ | async) ?? []; trackBy: trackById" [value]="f.id">
+          {{ f.nome }}
+        </mat-option>
+      </mat-select>
+      <mat-hint>Você não pode redirecionar para si mesmo.</mat-hint>
+    </mat-form-field>
+
+    <div class="actions">
+      <button mat-stroked-button color="accent" type="button" (click)="redirecionar()">
+        Redirecionar
+      </button>
+    </div>
+  </div>
+</mat-card>
+
+<ng-template #notFound>
+  <mat-card>
+    <mat-card-title>Solicitação não encontrada</mat-card-title>
+    <button mat-button (click)="voltar()">Voltar</button>
   </mat-card>
-  
-  <ng-template #notFound>
-    <mat-card>
-      <mat-card-title>Solicitação não encontrada</mat-card-title>
-      <button mat-button (click)="voltar()">Voltar</button>
-    </mat-card>
-  </ng-template>
-  
+</ng-template>
