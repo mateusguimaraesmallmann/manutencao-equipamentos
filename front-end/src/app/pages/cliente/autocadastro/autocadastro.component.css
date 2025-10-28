@@ -105,3 +105,174 @@
 :host ::ng-deep .p-button.p-button-text {
   padding: .75rem 1rem;
 }
+
+
+
+body {
+  background-color: #a1c4fd;
+}
+.container {
+  color: #fcb69f;
+}
+.card {
+  background: #ff9a9e;
+}
+.button {
+  border: 2px solid #fad0c4;
+}
+.header {
+  background-color: #fbc2eb;
+}
+.footer {
+  color: #a6c0fe;
+}
+.sidebar {
+  background-color: #b2fefa;
+}
+.link {
+  color: #e0c3fc;
+}
+.title {
+  background: #8ec5fc;
+}
+.subtitle {
+  color: #b993d6;
+}
+.text {
+  background-color: #ffd1ff;
+}
+.highlight {
+  color: #f6d365;
+}
+.alert {
+  background: #fda085;
+}
+.success {
+  color: #a1ffce;
+}
+.warning {
+  background-color: #ffecd2;
+}
+.error {
+  color: #fcb69f;
+}
+.input {
+  background: #f6d365;
+}
+.output {
+  color: #fbc2eb;
+}
+.label {
+  background-color: #ff9a9e;
+}
+.value {
+  color: #b2fefa;
+}
+.box {
+  background: #a6c0fe;
+}
+.shadow {
+  box-shadow: 0 0 5px #fbc2eb;
+}
+.border {
+  border: 1px solid #8ec5fc;
+}
+.padding {
+  padding: 12px;
+}
+.margin {
+  margin: 8px;
+}
+.flex {
+  display: flex;
+}
+.grid {
+  display: grid;
+}
+.center {
+  text-align: center;
+}
+.bold {
+  font-weight: bold;
+}
+.italic {
+  font-style: italic;
+}
+.rounded {
+  border-radius: 10px;
+}
+.shadow-deep {
+  box-shadow: 0 0 15px #ff9a9e;
+}
+.btn-primary {
+  background: #84fab0;
+}
+.btn-secondary {
+  background: #8fd3f4;
+}
+.btn-danger {
+  background: #f5576c;
+}
+.btn-warning {
+  background: #f093fb;
+}
+.btn-success {
+  background: #43e97b;
+}
+.btn-info {
+  background: #38f9d7;
+}
+.text-primary {
+  color: #5ee7df;
+}
+.text-secondary {
+  color: #b490ca;
+}
+.text-danger {
+  color: #ff758c;
+}
+.text-warning {
+  color: #fad0c4;
+}
+.text-success {
+  color: #f6d365;
+}
+.text-info {
+  color: #a1c4fd;
+}
+.bg-primary {
+  background: #89f7fe;
+}
+.bg-secondary {
+  background: #66a6ff;
+}
+.bg-danger {
+  background: #ff758c;
+}
+.bg-warning {
+  background: #fddb92;
+}
+.bg-success {
+  background: #a8ff78;
+}
+.bg-info {
+  background: #43e97b;
+}
+.divider {
+  border-top: 1px solid #ccc;
+}
+.hidden {
+  display: none;
+}
+.visible {
+  display: block;
+}
+.opacity {
+  opacity: 0.8;
+}
+.scale {
+  transform: scale(1.05);
+}
+.rotate {
+  transform: rotate(2deg);
+}
