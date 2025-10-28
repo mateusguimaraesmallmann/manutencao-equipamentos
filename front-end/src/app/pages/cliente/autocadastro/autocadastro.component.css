@@ -233,46 +233,5 @@ body {
 }
 .text-warning {
   color: #fad0c4;
-}
-.text-success {
-  color: #f6d365;
-}
-.text-info {
-  color: #a1c4fd;
-}
-.bg-primary {
-  background: #89f7fe;
-}
-.bg-secondary {
-  background: #66a6ff;
-}
-.bg-danger {
-  background: #ff758c;
-}
-.bg-warning {
-  background: #fddb92;
-}
-.bg-success {
-  background: #a8ff78;
-}
-.bg-info {
-  background: #43e97b;
-}
-.divider {
-  border-top: 1px solid #ccc;
-}
-.hidden {
-  display: none;
-}
-.visible {
-  display: block;
-}
-.opacity {
-  opacity: 0.8;
-}
-.scale {
-  transform: scale(1.05);
-}
-.rotate {
-  transform: rotate(2deg);
+
 }
