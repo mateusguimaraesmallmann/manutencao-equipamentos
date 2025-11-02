@@ -1,5 +1,20 @@
 import { Component } from '@angular/core';
 import {Router, RouterOutlet} from '@angular/router'; // Add this import
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_FORMATS, DateAdapter, MAT_DATE_LOCALE_FACTORY } from '@angular/material/core';
+import { NativeDateAdapter } from '@angular/material/core';
+
+export const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'dd/MM/yyyy',
+    monthYearLabel: 'MMM yyyy',
+    dateA11yLabel: 'dd/MM/yyyy',
+    monthYearA11yLabel: 'MMMM yyyy',
+  },
+};
 
 @Component({
   selector: 'app-root',
