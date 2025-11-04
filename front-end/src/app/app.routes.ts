@@ -14,6 +14,8 @@ import { SolicitacaoDetalheComponent } from './pages/cliente/solicitacao-detalhe
 
 
 import { funcionarioGuard } from './guards/funcionario.guard';
+import { funcionario2Guard } from './guards/funcionario/funcionario2.guard';
+import { clienteGuard } from './guards/cliente/cliente.guard';
 
 export const routes: Routes = [
 
@@ -22,11 +24,11 @@ export const routes: Routes = [
   { path: 'inicial', component: InicialComponent },
   { path: 'login', component: LoginComponent },
   { path: 'autocadastro', component: AutocadastroComponent },
-  { path: 'pagina-cliente', component: ClienteComponent },
+  { path: 'pagina-cliente', component: ClienteComponent, canActivate: [clienteGuard]},
   { path: 'solicitacao-manutencao', component: SolicitacaoManutencaoComponent },
   { path: 'cliente/solicitacao/:id', component: SolicitacaoDetalheComponent },
 
-  { path: 'funcionario', component: FuncionarioInicialComponent },
+  { path: 'funcionario', component: FuncionarioInicialComponent,  canActivate: [funcionario2Guard] },
   { path: 'orcamento/:id', component: EfetuarOrcamentoComponent },
   { path: 'manutencao/:id', component: EfetuarManutencaoComponent },
   { path: 'equipamentos', component: EquipamentosComponent },
