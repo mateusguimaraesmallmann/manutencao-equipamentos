@@ -12,11 +12,14 @@ import { Solicitacao, EstadoSolicitacao } from '../../../shared/models/solicitac
 import { SolicitacaoDetalheDTO } from '../../../shared/dtos/solicitacao-cliente-detalhe-dto';
 import { SolicitacoesService } from '../../../services/solicitacoes.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CardModule } from "primeng/card";
+import { TagModule } from 'primeng/tag';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-solicitacao-detalhe',
   standalone: true,
-  imports: [ CommonModule, RouterModule, MatCardModule, MatButtonModule, MatIconModule, MatDividerModule, MatTableModule ],
+  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, MatIconModule, MatDividerModule, MatTableModule, CardModule, TagModule, ButtonModule],
   templateUrl: './solicitacao-detalhe.component.html',
   styleUrls: ['./solicitacao-detalhe.component.css']
 })

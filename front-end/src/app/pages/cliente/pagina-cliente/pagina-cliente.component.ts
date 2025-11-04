@@ -10,11 +10,12 @@ import { NavbarClienteComponent } from '../../../components/navbar-cliente/navba
 import { SolicitacoesService } from '../../../services/solicitacoes.service';
 import { SolicitacaoResumoDTO } from '../../../shared/dtos/solicitacao-cliente-resumo.dto';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TagModule } from "primeng/tag";
 
 @Component({
   selector: 'app-pagina-cliente',
   standalone: true,
-  imports: [CommonModule, TableModule, ButtonModule, NavbarClienteComponent], 
+  imports: [CommonModule, TableModule, ButtonModule, NavbarClienteComponent, TagModule], 
   templateUrl: './pagina-cliente.component.html',
   styleUrls: ['./pagina-cliente.component.css']
 })

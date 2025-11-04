@@ -1,3 +1,36 @@
+.return-button{
+  height: 3.4rem;
+  width: 10rem;
+}
+
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-self: center;
+  flex-direction: column;
+  width: 80dvw;
+
+}
+.buttons-container{
+  display: flex;
+  justify-content: center;
+}
+.buttons-container > button{
+  margin: 0 1%;
+
+}
+
+.header-content{
+  display: flex;
+  justify-self: center;
+  justify-content: space-between;
+  width: 90%;
+  margin-top: 0.5dvh;
+}
+
+
+
 .grid {
     display: grid;
     grid-template-columns: 1fr;

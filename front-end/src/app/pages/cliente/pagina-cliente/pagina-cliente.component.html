@@ -17,32 +17,55 @@
       <tr>
         <td>{{ s.createdAt | date:'dd/MM/yyyy HH:mm' }}</td>
         <td>{{ limitarDescricao(s.descricaoProduto) }}</td>
-        <td>{{ s.estado }}</td>
+        <td>
+          @switch (s.estado) {
+              @case("APROVADA") {<p-tag [value]="s?.estado" severity="success"/>}
+              @case("REJEITADA") {<p-tag [value]="s?.estado" severity="danger"/>}
+              @case("FINALIZADA") {<p-tag [value]="s?.estado" severity="secondary"/>}
+              @case("ORÇADA") {<p-tag [value]="s?.estado" severity="warn"/>}
+              @default {<p-tag [value]="s?.estado" severity="info" />}
+            }
+        </td>
       <td class="flex gap-2 flex-wrap">
-        
-        <!-- ORÇADA -->
+
+        @switch (s.estado) {
+              @case("REJEITADA") {<button pButton type="button"
+                label="Resgatar Serviço" class="p-button-secondary"
+                (click)="resgatarServico(s.id)">
+                </button>}
+              @case("ARRUMADA") {<button pButton type="button"
+                label="Pagar Serviço" class="p-button-success"
+                (click)="pagarServico(s.id)">
+                </button>}
+              @case("ORÇADA") {<button pButton type="button"
+                label="Aprovar/Rejeitar Serviço" class="p-button-warning"
+                (click)="mostrarOrcamento(s.id)">
+                </button>}
+              @default {<button pButton type="button"
+                label="Visualizar Serviço" class="p-button-info"
+                (click)="visualizarSolicitacao(s.id)">
+        </button> }
+            }
+        <!--
         <button *ngIf="isOrcada(s.estado)" pButton type="button"
                 label="Aprovar/Rejeitar Serviço" class="p-button-warning"
                 (click)="mostrarOrcamento(s.id)">
         </button>
 
-        <!-- REJEITADA -->
         <button *ngIf="isRejeitada(s.estado)" pButton type="button"
                 label="Resgatar Serviço" class="p-button-secondary"
                 (click)="resgatarServico(s.id)">
         </button>
 
-        <!-- ARRUMADA -->
         <button *ngIf="isArrumada(s.estado)" pButton type="button"
                 label="Pagar Serviço" class="p-button-success"
                 (click)="pagarServico(s.id)">
         </button>
 
-        <!-- Outros estados -->
         <button *ngIf="mostrarVisualizar(s.estado)" pButton type="button"
                 label="Visualizar Serviço" class="p-button-info"
                 (click)="visualizarSolicitacao(s.id)">
-        </button>
+        </button> -->
       </td>
       </tr>
     </ng-template>

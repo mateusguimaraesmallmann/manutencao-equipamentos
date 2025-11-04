@@ -6,7 +6,7 @@
 .content{
   margin-top: 6rem;
 }
-.mb-2 {
+/* .mb-2 {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 1.5rem;
@@ -68,4 +68,4 @@ td.flex {
 }
 :host ::ng-deep .p-paginator .p-paginator-pages .p-paginator-page:hover {
   background: #e0e0e0;
-}
+} */
