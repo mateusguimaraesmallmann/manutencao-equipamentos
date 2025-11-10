@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { InicialComponent } from './pages/cliente/inicial/inicial.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AutocadastroComponent } from './pages/cliente/autocadastro/autocadastro.component';
 import { ClienteComponent } from './pages/cliente/pagina-cliente/pagina-cliente.component';
@@ -11,7 +10,7 @@ import { EquipamentosComponent } from './pages/funcionario/equipamentos/equipame
 import { FuncionariosComponent } from './pages/funcionario/funcionarios/funcionarios.component';
 import { RelatoriosComponent } from './pages/funcionario/relatorios/relatorios.component';
 import { SolicitacaoDetalheComponent } from './pages/cliente/solicitacao-detalhe/solicitacao-detalhe.component';
-import { ConsultarSolicitacoesComponent } from './pages/funcionario/consultar-solicitacoes/consultar-solicitacoes/consultar-solicitacoes.component';
+import { ConsultarSolicitacoesComponent } from './pages/funcionario/consultar-solicitacoes/consultar-solicitacoes.component';
 
 import { funcionarioGuard } from './guards/funcionario.guard';
 
@@ -19,7 +18,6 @@ export const routes: Routes = [
 
   { path: '', pathMatch: 'full', redirectTo: 'login' },
 
-  { path: 'inicial', component: InicialComponent },
   { path: 'login', component: LoginComponent },
   { path: 'autocadastro', component: AutocadastroComponent },
   { path: 'pagina-cliente', component: ClienteComponent },

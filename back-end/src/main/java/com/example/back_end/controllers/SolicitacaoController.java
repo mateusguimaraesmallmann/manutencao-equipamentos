@@ -1,9 +1,11 @@
 package com.example.back_end.controllers;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.back_end.dtos.request.EfetuarManutencaoDTO;
@@ -34,9 +37,19 @@ public class SolicitacaoController {
         return ResponseEntity.ok(solicitacaoService.buscarSolicitacoesAbertas());
     }
 
-    @GetMapping("/funcionario")
+    /*@GetMapping("/funcionario")
     public ResponseEntity<List<SolicitacaoFuncionarioResumoDTO>> buscarSolicitacoesFuncionario() {
         return ResponseEntity.ok(solicitacaoService.buscarSolicitacoesFuncionario());
+    }*/
+
+    @GetMapping("/funcionario")
+    public ResponseEntity<List<SolicitacaoFuncionarioResumoDTO>> buscarSolicitacoesFuncionario(
+        @RequestParam(name = "modo", required = false, defaultValue = "HOJE") String modo,
+        @RequestParam(name = "inicio", required = false)
+        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio,
+        @RequestParam(name = "fim", required = false)
+        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fim) {
+        return ResponseEntity.ok(solicitacaoService.buscarSolicitacoesFuncionario(modo, inicio, fim));
     }
 
     @GetMapping("/cliente/{id}")

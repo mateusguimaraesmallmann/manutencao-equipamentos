@@ -12,6 +12,8 @@ services:
       POSTGRES_DB: manutencao_equipamentos
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
+      TZ: America/Sao_Paulo
+      PGTZ: America/Sao_Paulo 
     networks:
       - manutencao-equipamentos-net
     healthcheck:
@@ -29,6 +31,9 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    environment:
+      - TZ=America/Sao_Paulo
+      - JAVA_TOOL_OPTIONS=-Duser.timezone=America/Sao_Paulo
     depends_on:
       postgres-db:
         condition: service_healthy
