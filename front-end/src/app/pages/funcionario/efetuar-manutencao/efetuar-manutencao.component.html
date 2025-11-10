@@ -1,78 +1,125 @@
-<mat-card *ngIf="solicitacao as s; else notFound">
-  <mat-card-title>Efetuar Manutenção</mat-card-title>
-  <mat-card-subtitle>Revise os dados e registre a manutenção ou redirecione</mat-card-subtitle>
+<mat-card *ngIf="solicitacao as s; else notFound" class="manu-card">
 
-  <div class="grid">
-    <div>
-      <h4>Solicitação</h4>
-      <p><b>ID:</b> {{ s.id }}</p>
-      <p><b>Abertura:</b> {{ s.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
-      <p><b>Descrição:</b> {{ s.descricaoProduto }}</p>
-      <p><b>Estado atual:</b> {{ s.estado }}</p>
-      <p><b>Orçamento:</b> {{ s.orcamentoValor | currency:'BRL':'symbol':'1.2-2' }}</p>
-
-      <!-- REMOVIDO: s.redirecionadaPara (não existe no DTO atual) -->
-      <!-- Se quiser exibir o responsável atual, exponha no DTO e use aqui. -->
-    </div>
-
-    <div>
-      <h4>Cliente</h4>
-      <p><b>Nome:</b> {{ s.cliente?.nome }}</p>
-      <p *ngIf="s.cliente?.email"><b>E-mail:</b> {{ s.cliente?.email }}</p>
-      <p *ngIf="s.cliente?.telefone"><b>Telefone:</b> {{ s.cliente?.telefone }}</p>
-      <ng-container *ngIf="s.cliente?.endereco as e">
-        <p><b>Endereço:</b> {{ e.rua }}, {{ e.numero }} - {{ e.bairro }} - {{ e.cidade }}/{{ e.estado }} (CEP {{ e.cep }})</p>
-      </ng-container>
+  <div class="hdr">
+    <div class="hdr-left">
+      <h2 class="title">Efetuar Manutenção</h2>
+      <span class="subtitle">Revise os dados e registre a manutenção ou redirecione</span>
     </div>
   </div>
 
-  <form [formGroup]="form" class="form" (ngSubmit)="salvarManutencao()">
-    <mat-form-field appearance="outline" class="w-full">
-      <mat-label>Descrição da Manutenção</mat-label>
-      <textarea matInput rows="4" formControlName="descricao" placeholder="Explique o que foi feito" required></textarea>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="w-full">
-      <mat-label>Orientações para o Cliente</mat-label>
-      <textarea matInput rows="3" formControlName="orientacoes" placeholder="Cuidados e observações"></textarea>
-    </mat-form-field>
-
-    <div class="actions">
-      <button mat-raised-button color="primary" type="submit" [disabled]="form.get('descricao')?.invalid">
-        Salvar Manutenção
-      </button>
-      <button mat-button type="button" (click)="voltar()">Voltar</button>
+  <div class="resume">
+    <div class="chip">
+      <mat-icon>event</mat-icon>
+      <div>
+        <span class="k">Abertura</span>
+        <span class="v">{{ s.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+      </div>
     </div>
-  </form>
-  <hr>
-
-  <div class="redirecionar" [formGroup]="form">
-    <h4>Redirecionar Manutenção</h4>
-
-    <mat-form-field appearance="outline" class="w-full">
-      <mat-label>Escolha o funcionário</mat-label>
-      <mat-select formControlName="destino">
-        <mat-option
-          *ngFor="let f of (funcionarios$ | async) ?? []; trackBy: trackById"
-          [value]="+f.id">
-          {{ f.nome }}
-        </mat-option>
-      </mat-select>
-      <mat-hint>Você não pode redirecionar para si mesmo.</mat-hint>
-    </mat-form-field>
-
-    <div class="actions">
-      <button mat-stroked-button color="accent" type="button" (click)="redirecionar()">
-        Redirecionar
-      </button>
+    <div class="chip">
+      <mat-icon>payments</mat-icon>
+      <div>
+        <span class="k">Orçamento</span>
+        <span class="v">
+          <ng-container *ngIf="s.orcamentoValor != null; else semValor">
+            {{ +s.orcamentoValor | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+          </ng-container>
+          <ng-template #semValor>—</ng-template>
+        </span>
+      </div>
     </div>
   </div>
+  <mat-divider class="my-3"></mat-divider>
+  <div class="grid2">
+    <section class="box">
+      <h4 class="box-title">Solicitação</h4>
+      <dl class="kv">
+        <div class="row"><dt>Abertura</dt><dd>{{ s.createdAt | date:'dd/MM/yyyy HH:mm' }}</dd></div>
+        <div class="row"><dt>Estado atual</dt><dd>{{ s.estado }}</dd></div>
+        <div class="row wrap"><dt>Equipamento</dt><dd>{{ s.descricaoProduto }}</dd></div>
+        <div class="row wrap" *ngIf="s.defeito"><dt>Defeito</dt><dd>{{ s.defeito }}</dd></div>
+      </dl>
+    </section>
 
+    <section class="box">
+      <h4 class="box-title">Cliente</h4>
+      <dl class="kv">
+        <div class="row"><dt>Nome</dt><dd>{{ s.cliente?.nome }}</dd></div>
+        <div class="row" *ngIf="s.cliente?.email"><dt>E-mail</dt><dd>{{ s.cliente?.email }}</dd></div>
+        <div class="row" *ngIf="s.cliente?.telefone"><dt>Telefone</dt><dd>{{ s.cliente?.telefone }}</dd></div>
+        <div class="row wrap" *ngIf="s.cliente?.endereco as e">
+          <dt>Endereço</dt>
+          <dd>{{ e.rua }}, {{ e.numero }} - {{ e.bairro }} - {{ e.cidade }}/{{ e.estado }} (CEP {{ e.cep }})</dd>
+        </div>
+      </dl>
+    </section>
+  </div>
+
+  <mat-divider class="my-3"></mat-divider>
+
+  <section class="form-section">
+    <h4 class="box-title">Registrar manutenção</h4>
+
+    <form [formGroup]="form" (ngSubmit)="salvarManutencao()" class="form">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Descrição da Manutenção</mat-label>
+        <textarea matInput rows="4" formControlName="descricao" placeholder="Explique o que foi feito" maxlength="500" required></textarea>
+        <mat-hint align="end">máx. 500</mat-hint>
+        <mat-error *ngIf="form.get('descricao')?.touched && form.get('descricao')?.hasError('required')">
+          Informe a descrição.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Orientações para o Cliente</mat-label>
+        <textarea matInput rows="3" formControlName="orientacoes" placeholder="Cuidados e observações" maxlength="500" required></textarea>
+        <mat-hint align="end">máx. 500</mat-hint>
+        <mat-error *ngIf="form.get('orientacoes')?.touched && form.get('orientacoes')?.hasError('required')">
+          Informe as orientações.
+        </mat-error>
+      </mat-form-field>
+
+      <div class="actions">
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.get('descricao')?.invalid">
+          Salvar Manutenção
+        </button>
+        <button mat-stroked-button type="button" (click)="voltar()">Voltar</button>
+      </div>
+    </form>
+  </section>
+
+  <mat-divider class="my-3"></mat-divider>
+
+  <section class="form-section">
+    <h4 class="box-title">Redirecionar manutenção</h4>
+
+    <div class="redirecionar" [formGroup]="form">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Escolha o funcionário</mat-label>
+        <mat-select formControlName="destino">
+          <mat-option *ngFor="let f of (funcionarios$ | async) ?? []; trackBy: trackById" [value]="+f.id">
+            {{ f.nome }}
+          </mat-option>
+        </mat-select>
+        <mat-hint>Você não pode redirecionar para si mesmo.</mat-hint>
+      </mat-form-field>
+
+      <div class="actions">
+        <button mat-stroked-button color="accent" type="button" (click)="redirecionar()">
+          Redirecionar
+        </button>
+      </div>
+    </div>
+  </section>
 </mat-card>
 
 <ng-template #notFound>
-  <mat-card>
-    <mat-card-title>Solicitação não encontrada</mat-card-title>
-    <button mat-button (click)="voltar()">Voltar</button>
+  <mat-card class="manu-card">
+    <div class="hdr">
+      <h2 class="title">Solicitação não encontrada</h2>
+      <button mat-stroked-button type="button" (click)="voltar()">
+        <mat-icon>arrow_back</mat-icon>
+        Voltar
+      </button>
+    </div>
   </mat-card>
 </ng-template>

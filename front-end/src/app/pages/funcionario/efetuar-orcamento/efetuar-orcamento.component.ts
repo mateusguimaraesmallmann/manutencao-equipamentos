@@ -9,18 +9,13 @@ import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { SolicitacoesService } from '../../../services/solicitacoes.service';
 import { FuncionarioSolicitacaoDetalheDTO } from '../../../shared/dtos/solicitacao-funcionario-detalhe.dto';
+import { TagModule } from 'primeng/tag';
+import { DividerModule } from 'primeng/divider';
 
 @Component({
   selector: 'app-efetuar-orcamento',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    CardModule,
-    InputNumberModule,
-    ButtonModule,
-    ToastModule
-  ],
+  imports: [ CommonModule, ReactiveFormsModule, CardModule, InputNumberModule, ButtonModule, ToastModule, TagModule, DividerModule ],
   providers: [MessageService],
   templateUrl: './efetuar-orcamento.component.html',
   styleUrls: ['./efetuar-orcamento.component.css']

@@ -46,7 +46,7 @@ public class HistoricoAlteracao {
     private LocalDateTime dataHora;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "autor_id", nullable = false)
+    @JoinColumn(name = "autor_id")
     private User autor;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)

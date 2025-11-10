@@ -41,7 +41,7 @@ export class ConsultarSolicitacoesComponent {
   solicitacoes: FuncionarioSolicitacaoResumoDTO[] = [];
 
   filtroForm = this.fb.group({
-    modo: ['HOJE' as FiltroModo, Validators.required],
+    modo: ['TODAS' as FiltroModo, Validators.required],
     inicio: [null as Date | null],
     fim: [null as Date | null],
   });
@@ -50,7 +50,7 @@ export class ConsultarSolicitacoesComponent {
     this.aplicarFiltro();
   }
 
- aplicarFiltro(): void {
+  aplicarFiltro(): void {
     const { modo, inicio, fim } = this.filtroForm.value;
 
     const params: any = {};

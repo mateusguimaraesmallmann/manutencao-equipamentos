@@ -1,48 +1,65 @@
-<app-navbar-funcionario style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;"></app-navbar-funcionario>
+<app-navbar-funcionario class="navbar-sticky"></app-navbar-funcionario>
 
-<div class="content">  
-  <mat-card>
-    <mat-card-title>Solicitações Abertas</mat-card-title>
-        
+<div class="content">
+  <mat-card class="card">
+    <div class="card-header">
+      <mat-card-title>Solicitações Abertas</mat-card-title>
+      <div class="meta">
+        <mat-icon aria-hidden="true">assignment</mat-icon>
+        <span>{{ data?.length || 0 }}</span>
+      </div>
+    </div>
+
     <div class="table-wrap" *ngIf="data.length; else vazio">
-      <table mat-table [dataSource]="data" class="mat-elevation-z1">
+      <table mat-table [dataSource]="data" class="mat-elevation-z1 tabela">
 
         <ng-container matColumnDef="dataHora">
-          <th mat-header-cell *matHeaderCellDef> Data/Hora </th>
+          <th mat-header-cell *matHeaderCellDef>Data/Hora</th>
           <td mat-cell *matCellDef="let s">
             {{ s.createdAt | date:'dd/MM/yyyy HH:mm' }}
           </td>
         </ng-container>
 
         <ng-container matColumnDef="cliente">
-          <th mat-header-cell *matHeaderCellDef> Cliente </th>
-          <td mat-cell *matCellDef="let s">{{ s.clienteNome }}</td>
+          <th mat-header-cell *matHeaderCellDef>Cliente</th>
+          <td mat-cell *matCellDef="let s">
+            <span class="cliente" [matTooltip]="s.clienteNome">{{ s.clienteNome }}</span>
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="descricao">
-          <th mat-header-cell *matHeaderCellDef> Descrição do produto </th>
-          <td mat-cell *matCellDef="let s">{{ desc30(s.descricaoProduto) }}</td>
+          <th mat-header-cell *matHeaderCellDef>Descrição do produto</th>
+          <td mat-cell *matCellDef="let s">
+            <span class="descricao" [matTooltip]="s.descricaoProduto">
+              {{ desc30(s.descricaoProduto) }}
+            </span>
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="estado">
-          <th mat-header-cell *matHeaderCellDef> Estado </th>
+          <th mat-header-cell *matHeaderCellDef>Estado</th>
           <td mat-cell *matCellDef="let s">
-            <span [class]="estadoClass(s.estado)">{{ s.estado }}</span>
+            <span [class]="estadoClass(s.estado)" [ngClass]="s.estado?.toLowerCase()">
+              {{ s.estado }}
+            </span>
           </td>
         </ng-container>
 
         <ng-container matColumnDef="acao">
-          <th mat-header-cell *matHeaderCellDef> Ação </th>
-          <td mat-cell *matCellDef="let s">
-            <button *ngIf="s.estado === Estado.ABERTA" mat-raised-button color="primary"
+          <th mat-header-cell *matHeaderCellDef class="acao-head">Ação</th>
+          <td mat-cell *matCellDef="let s" class="acao-cell">
+            <button *ngIf="s.estado === Estado.ABERTA"
+                    mat-flat-button color="primary"
+                    class="btn-acao"
                     (click)="abrirOrcamento(s)">
+              <mat-icon>build</mat-icon>
               Efetuar Orçamento
             </button>
           </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="row"></tr>
       </table>
     </div>
 
