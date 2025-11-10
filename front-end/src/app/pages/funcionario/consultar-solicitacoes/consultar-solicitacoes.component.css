@@ -13,17 +13,6 @@ table { width: 100%; }
 .table-wrap { overflow: auto; }
 .sem-dados { padding: 24px; display: flex; gap: 8px; align-items: center; color: #666; }
 
-
-.estado-chip { padding: 2px 8px; border-radius: 12px; font-size: 12px; font-weight: 600; color: #fff; display: inline-block; }
-.estado-chip.aberta        { background: #9e9e9e; } 
-.estado-chip.orcada        { background: #795548; } 
-.estado-chip.rejeitada     { background: #f44336; } 
-.estado-chip.aprovada      { background: #ffeb3b; color: #333; } 
-.estado-chip.redirecionada { background: #9c27b0; } 
-.estado-chip.arrumada      { background: #2196f3; } 
-.estado-chip.paga          { background: #ff9800; } 
-.estado-chip.finalizada    { background: #4caf50; }
-
 .filters { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
 .legend { display: flex; gap: 6px; margin: 8px 0 16px; flex-wrap: wrap; }
 .pill { padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; color: #fff; }

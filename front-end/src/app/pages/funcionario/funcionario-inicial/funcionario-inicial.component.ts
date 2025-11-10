@@ -40,10 +40,10 @@ export class FuncionarioInicialComponent {
   data: FuncionarioSolicitacaoResumoDTO[] = [];
 
   ngOnInit(): void {
-    this.listAll();
-    this.applyFilters();
-    this.filtros.valueChanges.subscribe(() => this.applyFilters());
-
+    this.service.listarSolicitacoesAbertas().subscribe({
+      next: res => this.data = res,
+      error: () => this.data = []
+    });
   }
 
   desc30(s: string): string {
@@ -60,61 +60,4 @@ export class FuncionarioInicialComponent {
       default: return 'estado-chip';
     }
   }
-
-  private applyFilters(): void {
-  const { modo, inicio, fim } = this.filtros.value;
-
-    if (modo === 'TODAS') {
-      this.listAll();
-      return;
-  }
-
-  if (modo === 'HOJE') {
-    const from = startOfToday();
-    const to = endOfToday();
-    this.data = this.data.filter(s => between(parseDate(s.createdAt), from, to));
-    return;
-  }
-
-  // PERÍODO
-  if (inicio || fim) {
-    const i = inicio ? startOfDay(new Date(inicio)) : new Date(0);
-    const f = fim ? endOfDay(new Date(fim)) : endOfDay(new Date(inicio));
-    const [from, to] = i <= f ? [i, f] : [f, i];
-    this.data = this.data.filter(s => between(parseDate(s.createdAt), from, to));
-  } else {
-    this.data = [];
-  }
-}
-
-  listAll() {
-      this.service.listarSolicitacoesAbertas().subscribe({
-      next: res => this.data = res,
-      error: () => this.data = []
-    });
-}
-}
-
-function parseDate(d: string | Date): Date {
-  return d instanceof Date ? d : new Date(d);
-}
-function startOfDay(d: Date): Date {
-  const x = new Date(d);
-  x.setHours(0, 0, 0, 0);
-  return x;
-}
-function endOfDay(d: Date): Date {
-  const x = new Date(d);
-  x.setHours(23, 59, 59, 999);
-  return x;
-}
-function startOfToday(): Date {
-  return startOfDay(new Date());
-}
-function endOfToday(): Date {
-  return endOfDay(new Date());
-}
-function between(date: Date, from: Date, to: Date): boolean {
-  const t = date.getTime();
-  return t >= from.getTime() && t <= to.getTime();
 }
