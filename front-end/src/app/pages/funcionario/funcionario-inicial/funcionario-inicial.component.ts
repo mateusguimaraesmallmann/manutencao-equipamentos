@@ -1,12 +1,8 @@
-import { Component, Signal, computed, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-
 import { SolicitacoesService } from '../../../services/solicitacoes.service';
-import { Solicitacao, EstadoSolicitacao } from '../../../shared/models/solicitacao.model';
-import { Cliente } from '../../../shared/models/cliente.model';
 import { NavbarFuncionarioComponent } from '../../../components/navbar-funcionario/navbar-funcionario.component';
 
 import { MatTableModule } from '@angular/material/table';
@@ -20,18 +16,15 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-
-import { TruncatePipe } from '../../../shared/pipes/truncate.pipe';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { startWith } from 'rxjs/operators';
 import { FuncionarioSolicitacaoResumoDTO } from '../../../shared/dtos/solicitacao-funcionario-resumo.dto';
+import { EstadoSolicitacao } from '../../../shared';
 
 @Component({
   selector: 'app-funcionario-inicial',
   standalone: true,
   imports: [
-    CommonModule, RouterModule, ReactiveFormsModule, MatTableModule, MatButtonModule, MatIconModule, MatCardModule, MatChipsModule, MatButtonToggleModule,
-    MatDatepickerModule, MatNativeDateModule, MatSnackBarModule, MatFormFieldModule, MatInputModule, TruncatePipe, NavbarFuncionarioComponent,
+    CommonModule, RouterModule, MatTableModule, MatButtonModule, MatIconModule, MatCardModule, MatChipsModule, MatButtonToggleModule,
+    MatDatepickerModule, MatNativeDateModule, MatSnackBarModule, MatFormFieldModule, MatInputModule, NavbarFuncionarioComponent,
 ],
   templateUrl: './funcionario-inicial.component.html',
   styleUrls: ['./funcionario-inicial.component.css']
@@ -39,16 +32,9 @@ import { FuncionarioSolicitacaoResumoDTO } from '../../../shared/dtos/solicitaca
 export class FuncionarioInicialComponent {
   private service = inject(SolicitacoesService);
   private router = inject(Router);
-  private fb = inject(FormBuilder);
 
   Estado = EstadoSolicitacao;
   displayedColumns = ['dataHora', 'cliente', 'descricao', 'estado', 'acao'];
-
-  filtros: FormGroup = this.fb.group({
-    modo: ['TODAS' as 'TODAS' | 'HOJE' | 'PERIODO'],
-    inicio: [null as Date | null],
-    fim: [null as Date | null]
-  });
 
   data: FuncionarioSolicitacaoResumoDTO[] = [];
 

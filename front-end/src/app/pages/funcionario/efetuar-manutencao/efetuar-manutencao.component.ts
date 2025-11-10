@@ -104,7 +104,7 @@ export class EfetuarManutencaoComponent implements OnInit {
       },
       error: (err) => {
         console.error(err);
-        this.snack.open('Falha ao redirecionar solicitacação.', 'OK', { duration: 3500 });
+        this.snack.open(err, 'OK', { duration: 3500 });
       }
     });
   }

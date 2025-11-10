@@ -1,38 +1,9 @@
-<app-navbar-funcionario
-style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;"
-></app-navbar-funcionario>
+<app-navbar-funcionario style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;"></app-navbar-funcionario>
 
 <div class="content">  
   <mat-card>
-    <mat-card-title>Solicitações</mat-card-title>
-    <mat-card-subtitle>Filtre por período ou veja todas</mat-card-subtitle>
-
-    <form [formGroup]="filtros" class="filtros">
-      <mat-button-toggle-group formControlName="modo" aria-label="Filtro de período">
-        <mat-button-toggle value="TODAS">Todas</mat-button-toggle>
-        <mat-button-toggle value="HOJE">Hoje</mat-button-toggle>
-        <mat-button-toggle value="PERIODO">Período</mat-button-toggle>
-      </mat-button-toggle-group>
-
-      <div class="periodo" *ngIf="filtros.value.modo === 'PERIODO'">
-        <mat-form-field appearance="outline">
-          <mat-label>Início</mat-label>
-          <input matInput [matDatepicker]="dpInicio" formControlName="inicio">
-          <mat-datepicker-toggle matSuffix [for]="dpInicio"></mat-datepicker-toggle>
-          <mat-datepicker #dpInicio></mat-datepicker>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Fim</mat-label>
-          <input matInput [matDatepicker]="dpFim" formControlName="fim">
-          <mat-datepicker-toggle matSuffix [for]="dpFim"></mat-datepicker-toggle>
-          <mat-datepicker #dpFim></mat-datepicker>
-        </mat-form-field>
-      </div>
-    </form>
-
-    <!--TABELA -->
-
+    <mat-card-title>Solicitações Abertas</mat-card-title>
+        
     <div class="table-wrap" *ngIf="data.length; else vazio">
       <table mat-table [dataSource]="data" class="mat-elevation-z1">
 
@@ -78,7 +49,7 @@ style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;"
     <ng-template #vazio>
       <div class="sem-dados">
         <mat-icon>inbox</mat-icon>
-        <div>Nenhuma solicitação encontrada para o filtro atual.</div>
+        <div>Nenhuma solicitação aberta.</div>
       </div>
     </ng-template>
 

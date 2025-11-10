@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SolicitacaoCreateDTO } from '../shared/dtos/solicitacao-create.dto';
 import { SolicitacaoResumoDTO } from '../shared/dtos/solicitacao-cliente-resumo.dto';
@@ -41,6 +41,15 @@ export class SolicitacoesService {
 
   listarSolicitacoesAbertas(): Observable<FuncionarioSolicitacaoResumoDTO[]> {
     return this.http.get<FuncionarioSolicitacaoResumoDTO[]>(`${API}/abertas`);
+  }
+
+  /*listarSolicitacoesFuncionario(): Observable<FuncionarioSolicitacaoResumoDTO[]> {
+    return this.http.get<FuncionarioSolicitacaoResumoDTO[]>(`${API}/funcionario`);
+  }*/
+
+  listarSolicitacoesFuncionario(params?: Record<string, string>): Observable<FuncionarioSolicitacaoResumoDTO[]> {
+    const httpParams = new HttpParams({ fromObject: params ?? {} });
+    return this.http.get<FuncionarioSolicitacaoResumoDTO[]>(`${API}/funcionario`, { params: httpParams });
   }
 
   buscarSolicitacaoClientePorId(id: number): Observable<SolicitacaoDetalheDTO> {

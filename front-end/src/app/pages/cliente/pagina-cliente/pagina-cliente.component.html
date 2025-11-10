@@ -1,74 +1,44 @@
-<app-navbar-cliente [novaSolicitacao]="novaSolicitacao" style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;"></app-navbar-cliente>
+<app-navbar-cliente [novaSolicitacao]="novaSolicitacao"
+  style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;"></app-navbar-cliente>
 
 <div class="content">
 
-<div class="table">
-  <p-table [value]="solicitacoes" [paginator]="true" [rows]="10" [responsiveLayout]="'scroll'">
-    <ng-template pTemplate="header">
-      <tr>
-        <th style="min-width:140px">Data/Hora</th>
-        <th>Descrição do Equipamento</th>
-        <th style="min-width:120px">Estado</th>
-        <th style="min-width:160px">Ações</th>
-      </tr>
-    </ng-template>
+  <div class="table">
+    <p-table [value]="solicitacoes" [paginator]="true" [rows]="10" [responsiveLayout]="'scroll'">
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="min-width:140px">Data/Hora</th>
+          <th>Descrição do Equipamento</th>
+          <th style="min-width:120px">Estado</th>
+          <th style="min-width:160px">Ações</th>
+        </tr>
+      </ng-template>
 
-    <ng-template pTemplate="body" let-s>
-      <tr>
-        <td>{{ s.createdAt | date:'dd/MM/yyyy HH:mm' }}</td>
-        <td>{{ limitarDescricao(s.descricaoProduto) }}</td>
-        <td>
-          @switch (s.estado) {
-              @case("APROVADA") {<p-tag [value]="s?.estado" severity="success"/>}
-              @case("REJEITADA") {<p-tag [value]="s?.estado" severity="danger"/>}
-              @case("FINALIZADA") {<p-tag [value]="s?.estado" severity="secondary"/>}
-              @case("ORCADA") {<p-tag [value]="s?.estado" severity="warn"/>}
-              @default {<p-tag [value]="s?.estado" severity="info" />}
-            }
-        </td>
-      <td class="flex gap-2 flex-wrap">
+      <ng-template pTemplate="body" let-s>
+        <tr>
+          <td>{{ s.createdAt | date:'dd/MM/yyyy HH:mm' }}</td>
+          <td>{{ limitarDescricao(s.descricaoProduto) }}</td>
+          <td>{{ s.estado }}</td>
+          <td class="flex gap-2 flex-wrap">
 
-        @switch (s.estado) {
-              @case("REJEITADA") {<button pButton type="button"
-                label="Resgatar Serviço" class="p-button-secondary"
-                (click)="resgatarServico(s.id)">
-                </button>}
-              @case("ARRUMADA") {<button pButton type="button"
-                label="Pagar Serviço" class="p-button-success"
-                (click)="pagarServico(s.id)">
-                </button>}
-              @case("ORÇADA") {<button pButton type="button"
-                label="Aprovar/Rejeitar Serviço" class="p-button-warning"
-                (click)="mostrarOrcamento(s.id)">
-                </button>}
-              @default {<button pButton type="button"
-                label="Visualizar Serviço" class="p-button-info"
-                (click)="visualizarSolicitacao(s.id)">
-        </button> }
-            }
-        <!--
-        <button *ngIf="isOrcada(s.estado)" pButton type="button"
-                label="Aprovar/Rejeitar Serviço" class="p-button-warning"
-                (click)="mostrarOrcamento(s.id)">
-        </button>
+            <button *ngIf="isOrcada(s.estado)" pButton type="button" label="Aprovar/Rejeitar Serviço"
+              class="p-button-warning" (click)="mostrarOrcamento(s.id)">
+            </button>
 
-        <button *ngIf="isRejeitada(s.estado)" pButton type="button"
-                label="Resgatar Serviço" class="p-button-secondary"
-                (click)="resgatarServico(s.id)">
-        </button>
+            <button *ngIf="isRejeitada(s.estado)" pButton type="button" label="Resgatar Serviço"
+              class="p-button-secondary" (click)="resgatarServico(s.id)">
+            </button>
 
-        <button *ngIf="isArrumada(s.estado)" pButton type="button"
-                label="Pagar Serviço" class="p-button-success"
-                (click)="pagarServico(s.id)">
-        </button>
+            <button *ngIf="isArrumada(s.estado)" pButton type="button" label="Pagar Serviço" class="p-button-success"
+              (click)="pagarServico(s.id)">
+            </button>
 
-        <button *ngIf="mostrarVisualizar(s.estado)" pButton type="button"
-                label="Visualizar Serviço" class="p-button-info"
-                (click)="visualizarSolicitacao(s.id)">
-        </button> -->
-      </td>
-      </tr>
-    </ng-template>
-  </p-table>
-</div>
+            <button *ngIf="mostrarVisualizar(s.estado)" pButton type="button" label="Visualizar Serviço"
+              class="p-button-info" (click)="visualizarSolicitacao(s.id)">
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
 </div>

@@ -3,6 +3,7 @@ package com.example.back_end.services;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -76,6 +77,58 @@ public class SolicitacaoService {
                         s.getDescricaoProduto(),
                         s.getEstado()))
                 .toList();
+    }
+
+    /*public List<SolicitacaoFuncionarioResumoDTO> buscarSolicitacoesFuncionario() {
+        String login = SecurityContextHolder.getContext().getAuthentication().getName();
+        User userLogado = Optional.ofNullable(userRepository.findByEmail(login))
+            .orElseThrow(() -> new RuntimeException("Usuário autenticado não encontrado."));
+    
+        return solicitacaoRepository.findAllByResponsavelAtualIdOrderByCreatedAtAsc(userLogado.getId())
+            .stream()
+            .map(s -> new SolicitacaoFuncionarioResumoDTO(
+                s.getId(),
+                s.getCreatedAt().toString(),
+                s.getCliente().getNome(),
+                s.getDescricaoProduto(),
+                s.getEstado())).toList();
+    }*/
+
+    public List<SolicitacaoFuncionarioResumoDTO> buscarSolicitacoesFuncionario(String modo, LocalDate inicio, LocalDate fim) {
+        
+        String login = SecurityContextHolder.getContext().getAuthentication().getName();
+        User userLogado = Optional.ofNullable(userRepository.findByEmail(login))
+            .orElseThrow(() -> new RuntimeException("Usuário autenticado não encontrado."));
+    
+        Long meuId = userLogado.getId();
+        List<Solicitacao> lista;
+
+        if ("PERIODO".equalsIgnoreCase(modo) && inicio != null && fim != null) {
+            if (fim.isBefore(inicio)) {
+                throw new IllegalArgumentException("Data fim não pode ser antes da data início.");
+            }
+            LocalDateTime ini = inicio.atStartOfDay();
+            LocalDateTime end = fim.atTime(LocalTime.MAX);
+            lista = solicitacaoRepository.findAllByResponsavelAtualIdAndCreatedAtBetweenOrderByCreatedAtAsc(meuId, ini, end);
+
+        } else if ("TODAS".equalsIgnoreCase(modo)) {
+            lista = solicitacaoRepository.findAllByResponsavelAtualIdOrderByCreatedAtAsc(meuId);
+
+        } else {
+            LocalDate hoje = LocalDate.now();
+            LocalDateTime ini = hoje.atStartOfDay();
+            LocalDateTime end = hoje.atTime(LocalTime.MAX);
+            lista = solicitacaoRepository.findAllByResponsavelAtualIdAndCreatedAtBetweenOrderByCreatedAtAsc(meuId, ini, end);
+        }
+
+        return lista.stream()
+            .map(s -> new SolicitacaoFuncionarioResumoDTO(
+                s.getId(),
+                s.getCreatedAt() != null ? s.getCreatedAt().toString() : null, // ISO-8601
+                s.getCliente() != null ? s.getCliente().getNome() : null,
+                s.getDescricaoProduto(),
+                s.getEstado()
+            )).toList();
     }
 
     public void criarSolicitacao(SolicitacaoCreateDTO dto) {
@@ -247,14 +300,11 @@ public class SolicitacaoService {
         EmployeeProfile func = employeeRepository.findById(redirecionarDTO.funcionarioDestinoId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        // Regra: não redirecionar para si mesmo (origem == destino)
         if (Objects.equals(userLogado.getId(), func.getUser().getId())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Não é possível redirecionar para si mesmo.");
         }
-
-        // (Opcional) Evitar redirecionar para o mesmo responsável atual
-        if (s.getResponsavelAtual() != null
-                && Objects.equals(s.getResponsavelAtual().getId(), func.getUser().getId())) {
+        
+        if (s.getResponsavelAtual() != null && Objects.equals(s.getResponsavelAtual().getId(), func.getUser().getId())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Solicitação já está com esse responsável.");
         }
 
