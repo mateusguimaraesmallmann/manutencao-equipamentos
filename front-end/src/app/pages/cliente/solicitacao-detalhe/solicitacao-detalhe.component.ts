@@ -8,18 +8,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
 
-import { Solicitacao, EstadoSolicitacao } from '../../../shared/models/solicitacao.model';
+import { EstadoSolicitacao } from '../../../shared/models/solicitacao.model';
 import { SolicitacaoDetalheDTO } from '../../../shared/dtos/solicitacao-cliente-detalhe-dto';
 import { SolicitacoesService } from '../../../services/solicitacoes.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CardModule } from "primeng/card";
-import { TagModule } from 'primeng/tag';
-import { ButtonModule } from 'primeng/button';
+import { MatChipsModule } from '@angular/material/chips';
 
 @Component({
   selector: 'app-solicitacao-detalhe',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, MatIconModule, MatDividerModule, MatTableModule, CardModule, TagModule, ButtonModule],
+  imports: [ CommonModule, RouterModule, MatCardModule, MatButtonModule, MatIconModule, MatDividerModule, MatTableModule, MatChipsModule ],
   templateUrl: './solicitacao-detalhe.component.html',
   styleUrls: ['./solicitacao-detalhe.component.css']
 })

@@ -21,7 +21,7 @@ export const MY_DATE_FORMATS = {
   templateUrl: './app.component.html',
   standalone: true,
   styleUrl: './app.component.css',
-  imports: [RouterOutlet] // Add RouterOutlet here
+  imports: [RouterOutlet]
 })
 export class AppComponent {
   constructor(public router: Router){

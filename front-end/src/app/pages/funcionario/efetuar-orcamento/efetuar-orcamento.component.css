@@ -1,46 +1,117 @@
-.grid {
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  background: #f7f8fa;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+  box-sizing: border-box;
+}
+
+.orc-card {
+  width: 100%;
+  max-width: 80%;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  padding: 1rem 1.5rem 2rem;
+}
+
+.hdr {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.hdr-left {
+  padding-left: .25rem;
+}
+
+.title {
+  margin: 0;
+}
+
+.subtitle {
+  color: #6b7280;
+}
+
+.grid2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem; /* equivalente a 16px */
-  margin-bottom: 1rem;
+  gap: 1.5rem;
+  margin-top: 1rem;
 }
 
-.form .w {
-  width: 260px;
-  max-width: 100%;
+.box {
+  padding: .5rem 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+
+.resume {
+  margin: 1rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  gap: 1rem;
+}
+
+.chip {
+  background: #f1f3f6;
+  padding: .75rem 1rem;
+  border-radius: .75rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  min-width: 220px;
+  justify-content: center;
+}
+
+.form {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  align-items: center;
+  margin-top: 2rem;
 }
-
+.field {
+  width: 100%;
+  max-width: 300px;
+  text-align: left;
+}
 .actions {
-  margin-top: 12px;
+  margin-top: 1.25rem;
   display: flex;
-  gap: 0.5rem; 
+  justify-content: center;
+  gap: .75rem;
   flex-wrap: wrap;
 }
-
+.btn-salvar { min-width: 220px; }
 .error {
   color: #b02a37;
-  font-size: 0.85rem;
+  font-size: .85rem;
+  text-align: left;
 }
 
-h4 {
-  margin-bottom: 0.5rem;
-  color: var(--text-color);
+.row dt {
+  font-weight: 700;
+  color: #1f2937;
+  text-transform: none;
 }
 
+.row dd {
+  margin: 0;
+  color: #374151;
+}
 
-@media (max-width: 768px) {
-  .grid {
-    grid-template-columns: 1fr;
-  }
-
-  .form .w {
-    width: 100%;
-  }
-
-  .actions {
-    justify-content: flex-start;
-  }
+.row {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  align-items: start;
+  gap: .75rem;
+  margin-bottom: .35rem;
 }

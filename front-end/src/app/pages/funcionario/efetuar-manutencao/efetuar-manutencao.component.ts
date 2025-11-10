@@ -11,17 +11,20 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { SolicitacoesService } from '../../../services/solicitacoes.service';
-import { Solicitacao } from '../../../shared/models/solicitacao.model';
-import { firstValueFrom, combineLatest, map, switchMap, take, shareReplay, Observable, of } from 'rxjs';
+import { firstValueFrom, map, switchMap, take, shareReplay, Observable } from 'rxjs';
 import { FuncionariosService } from '../../../services/funcionarios.service';
 import { AutenticacaoService } from '../../../services/autenticacao.service';
 import { FuncionarioSolicitacaoDetalheDTO } from '../../../shared/dtos/solicitacao-funcionario-detalhe.dto';
 import { Funcionario } from '../../../shared/models/funcionario.model';
+import { MatChip, MatChipsModule } from '@angular/material/chips';
+import { MatIcon } from '@angular/material/icon';
+import { MatDivider } from '@angular/material/divider';
 
 @Component({
   selector: 'app-efetuar-manutencao',
   standalone: true,
-  imports: [ CommonModule, ReactiveFormsModule, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSelectModule, MatSnackBarModule ],
+  imports: [ CommonModule, ReactiveFormsModule, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule, 
+    MatSelectModule, MatSnackBarModule, MatIcon, MatDivider, MatChipsModule, MatChipsModule ],
   templateUrl: './efetuar-manutencao.component.html',
   styleUrls: ['./efetuar-manutencao.component.css']
 })

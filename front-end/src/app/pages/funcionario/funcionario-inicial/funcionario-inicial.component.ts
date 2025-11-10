@@ -13,9 +13,10 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { FuncionarioSolicitacaoResumoDTO } from '../../../shared/dtos/solicitacao-funcionario-resumo.dto';
 import { EstadoSolicitacao } from '../../../shared';
 
@@ -24,7 +25,7 @@ import { EstadoSolicitacao } from '../../../shared';
   standalone: true,
   imports: [
     CommonModule, RouterModule, MatTableModule, MatButtonModule, MatIconModule, MatCardModule, MatChipsModule, MatButtonToggleModule,
-    MatDatepickerModule, MatNativeDateModule, MatSnackBarModule, MatFormFieldModule, MatInputModule, NavbarFuncionarioComponent,
+    MatDatepickerModule, MatNativeDateModule, MatSnackBarModule, MatFormFieldModule, MatInputModule, NavbarFuncionarioComponent, MatTooltipModule
 ],
   templateUrl: './funcionario-inicial.component.html',
   styleUrls: ['./funcionario-inicial.component.css']

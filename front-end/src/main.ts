@@ -1,5 +1,7 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { appConfig } from './app/app.config.component';
+import { registerLocaleData } from '@angular/common';
+import pt from '@angular/common/locales/pt';
 import { AppComponent } from './app/app.component';
 import { importProvidersFrom } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -20,6 +22,8 @@ appConfig.providers = [
   { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
   { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
 ];
+
+registerLocaleData(pt);
 
 bootstrapApplication(AppComponent, appConfig)
   .catch((err) => console.error(err));

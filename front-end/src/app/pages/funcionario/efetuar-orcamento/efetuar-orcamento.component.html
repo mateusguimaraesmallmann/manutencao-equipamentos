@@ -1,77 +1,120 @@
-<p-card *ngIf="solicitacao as s; else notFound">
+<p-card *ngIf="solicitacao as s; else notFound" class="orc-card">
+
   <ng-template pTemplate="header">
-    <div class="card-header">
-      <div>
-        <h2>Efetuar Orçamento</h2>
-        <p>Preencha o valor e confirme</p>
+    <div class="hdr">
+      <div class="hdr-left">
+        <h2 class="title">Efetuar Orçamento</h2>
       </div>
     </div>
   </ng-template>
 
-  <div class="grid">
-    <div>
-      <h4>Solicitação</h4>
-      <p><b>ID:</b> {{ s.id }}</p>
-      <p><b>Abertura:</b> {{ s.createdAt | date: 'dd/MM/yyyy HH:mm' }}</p>
-      <p><b>Descrição:</b> {{ s.descricaoProduto }}</p>
-      <p><b>Estado atual:</b> {{ s.estado }}</p>
+  <div class="resume">
+    <div class="chip">
+      <i class="pi pi-calendar"></i>
+      <div>
+        <span class="k">Abertura</span>
+        <span class="v">{{ s.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+      </div>
     </div>
 
-    <div>
-      <h4>Cliente</h4>
-      <ng-container *ngIf="s.cliente as c">
-        <p><b>Nome:</b> {{ c.nome }}</p>
-        <p><b>E-mail:</b> {{ c.email }}</p>
-        <p><b>Telefone:</b> {{ c.telefone }}</p>
-
-        <ng-container *ngIf="c.endereco as e">
-          <p>
-            <b>Endereço:</b>
-            {{ e.rua }}, {{ e.numero }} - {{ e.bairro }} -
-            {{ e.cidade }}/{{ e.estado }} (CEP {{ e.cep }})
-          </p>
-        </ng-container>
-      </ng-container>
-
-      <ng-container *ngIf="!s.cliente">
-        <p><b>Nome:</b> {{ s.cliente }}</p>
-      </ng-container>
+    <div class="chip" *ngIf="s.orcamentoValor != null">
+      <i class="pi pi-wallet"></i>
+      <div>
+        <span class="k">Último orçamento</span>
+        <span class="v">{{ s.orcamentoValor | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</span>
+      </div>
     </div>
   </div>
 
-  <form [formGroup]="form" class="form" (ngSubmit)="salvar()">
-    <div class="field w">
+  <p-divider></p-divider>
+
+  <div class="grid2">
+    <section class="box">
+      <h4 class="box-title">Solicitação</h4>
+      <dl class="kv">
+        <div class="row wrap">
+          <dt>Descrição</dt>
+          <dd>{{ s.descricaoProduto }}</dd>
+        </div>
+        <div class="row">
+          <dt>Estado</dt>
+          <dd><p-tag [value]="s.estado" severity="secondary"></p-tag></dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="box">
+      <h4 class="box-title">Cliente</h4>
+
+      <ng-container *ngIf="s.cliente as c; else clienteSimples">
+        <dl class="kv">
+          <div class="row"><dt>Nome</dt><dd>{{ c.nome }}</dd></div>
+          <div class="row"><dt>E-mail</dt><dd>{{ c.email }}</dd></div>
+          <div class="row"><dt>Telefone</dt><dd>{{ c.telefone }}</dd></div>
+          <div class="row wrap" *ngIf="c.endereco as e">
+            <dt>Endereço</dt>
+            <dd>{{ e.rua }}, {{ e.numero }} - {{ e.bairro }} - {{ e.cidade }}/{{ e.estado }} (CEP {{ e.cep }})</dd>
+          </div>
+        </dl>
+      </ng-container>
+
+      <ng-template #clienteSimples>
+        <dl class="kv">
+          <div class="row"><dt>Nome</dt><dd>{{ s.cliente }}</dd></div>
+        </dl>
+      </ng-template>
+    </section>
+  </div>
+
+  <p-divider></p-divider>
+
+  <form [formGroup]="form" (ngSubmit)="salvar()" class="form">
+    <div class="field">
       <label for="valor"><b>Valor do Orçamento (R$)</b></label>
-      <p-inputNumber inputId="valor" mode="currency" currency="BRL" locale="pt-BR" formControlName="valor" [min]="0.01"
-        placeholder="0,00">
+      <p-inputNumber
+        inputId="valor"
+        mode="currency"
+        currency="BRL"
+        locale="pt-BR"
+        formControlName="valor"
+        [min]="0.01"
+        placeholder="0,00"
+        [useGrouping]="true">
       </p-inputNumber>
 
-      <div class="error" *ngIf="form.get('valor')?.hasError('required')">
+      <small class="error" *ngIf="form.get('valor')?.touched && form.get('valor')?.hasError('required')">
         Informe o valor.
-      </div>
-      <div class="error" *ngIf="form.get('valor')?.hasError('min')">
+      </small>
+      <small class="error" *ngIf="form.get('valor')?.touched && form.get('valor')?.hasError('min')">
         Valor mínimo é 0,01.
-      </div>
+      </small>
     </div>
 
     <div class="actions">
-      <p-button label="Salvar Orçamento" icon="pi pi-save" styleClass="p-button-raised p-button-primary" type="submit"
+      <p-button
+        label="Salvar Orçamento"
+        icon="pi pi-save"
+        type="submit"
+        styleClass="p-button-raised p-button-primary btn-salvar"
         [disabled]="form.invalid">
       </p-button>
 
-      <p-button label="Voltar" icon="pi pi-arrow-left" styleClass="p-button-text" type="button" (onClick)="cancelar()">
+      <p-button
+        label="Voltar"
+        icon="pi pi-arrow-left"
+        type="button"
+        styleClass="p-button-text"
+        (onClick)="cancelar()">
       </p-button>
     </div>
   </form>
 </p-card>
 
 <ng-template #notFound>
-  <p-card>
+  <p-card class="orc-card">
     <ng-template pTemplate="header">
       <h2>Solicitação não encontrada</h2>
     </ng-template>
-
-    <p-button label="Voltar" icon="pi pi-arrow-left" styleClass="p-button-text" (onClick)="cancelar()">
-    </p-button>
+    <p-button label="Voltar" icon="pi pi-arrow-left" styleClass="p-button-text" (onClick)="cancelar()"></p-button>
   </p-card>
 </ng-template>

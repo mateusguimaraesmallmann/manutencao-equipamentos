@@ -1,44 +1,85 @@
-<app-navbar-cliente [novaSolicitacao]="novaSolicitacao"
-  style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;"></app-navbar-cliente>
+<app-navbar-cliente
+  [novaSolicitacao]="novaSolicitacao"
+  class="navbar-sticky">
+</app-navbar-cliente>
 
-<div class="content">
-
-  <div class="table">
-    <p-table [value]="solicitacoes" [paginator]="true" [rows]="10" [responsiveLayout]="'scroll'">
-      <ng-template pTemplate="header">
-        <tr>
-          <th style="min-width:140px">Data/Hora</th>
-          <th>Descrição do Equipamento</th>
-          <th style="min-width:120px">Estado</th>
-          <th style="min-width:160px">Ações</th>
-        </tr>
-      </ng-template>
-
-      <ng-template pTemplate="body" let-s>
-        <tr>
-          <td>{{ s.createdAt | date:'dd/MM/yyyy HH:mm' }}</td>
-          <td>{{ limitarDescricao(s.descricaoProduto) }}</td>
-          <td>{{ s.estado }}</td>
-          <td class="flex gap-2 flex-wrap">
-
-            <button *ngIf="isOrcada(s.estado)" pButton type="button" label="Aprovar/Rejeitar Serviço"
-              class="p-button-warning" (click)="mostrarOrcamento(s.id)">
-            </button>
-
-            <button *ngIf="isRejeitada(s.estado)" pButton type="button" label="Resgatar Serviço"
-              class="p-button-secondary" (click)="resgatarServico(s.id)">
-            </button>
-
-            <button *ngIf="isArrumada(s.estado)" pButton type="button" label="Pagar Serviço" class="p-button-success"
-              (click)="pagarServico(s.id)">
-            </button>
-
-            <button *ngIf="mostrarVisualizar(s.estado)" pButton type="button" label="Visualizar Serviço"
-              class="p-button-info" (click)="visualizarSolicitacao(s.id)">
-            </button>
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
+<div class="content container">
+  <div class="toolbar">
+    <div class="left">
+      <h2 class="title">Minhas Solicitações</h2>
+    </div>
   </div>
+
+  <p-table [value]="solicitacoes" [loading]="loading"
+    [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,20]" [rowHover]="true"
+    responsiveLayout="scroll"
+    styleClass="elevated-table">
+
+    <ng-template pTemplate="colgroup">
+      <col style="width: 170px" />
+      <col />
+      <col style="width: 130px" />
+      <col style="width: 180px" />
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Data/Hora</th>
+        <th>Descrição do Equipamento</th>
+        <th>Estado</th>
+        <th class="text-left">Ações</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-s>
+      <tr>
+        <td>{{ s.createdAt | date:'dd/MM/yyyy HH:mm' }}</td>
+        <td>
+          <div class="descricao" [pTooltip]="s.descricaoProduto" tooltipPosition="top">
+            {{ limitarDescricao(s.descricaoProduto) }}
+          </div>
+        </td>
+        <td>
+          <p-tag [value]="formatarEstado(s.estado)" [severity]="mapSeverity(s.estado)"></p-tag>
+        </td>
+
+        <td class="acoes">
+          <ng-container
+            *ngIf="isOrcada(s.estado) || isRejeitada(s.estado) || isArrumada(s.estado) || mostrarVisualizar(s.estado); else noAction">
+
+            <button *ngIf="isOrcada(s.estado)" pButton type="button" label="Aprovar/Rejeitar"
+                    icon="pi pi-file-edit" class="p-button-warning"
+                    (click)="mostrarOrcamento(s.id)" pTooltip="Ver orçamento"></button>
+
+            <button *ngIf="isRejeitada(s.estado)" pButton type="button" label="Resgatar"
+                    icon="pi pi-undo" class="p-button-secondary"
+                    (click)="resgatarServico(s.id)" pTooltip="Resgatar serviço"></button>
+
+            <button *ngIf="isArrumada(s.estado)" pButton type="button" label="Pagar"
+                    icon="pi pi-credit-card" class="p-button-success"
+                    (click)="pagarServico(s.id)" pTooltip="Pagar serviço"></button>
+
+            <button *ngIf="mostrarVisualizar(s.estado)" pButton type="button" label="Visualizar"
+                    icon="pi pi-eye" class="p-button-info"
+                    (click)="visualizarSolicitacao(s.id)" pTooltip="Detalhes da solicitação"></button>
+          </ng-container>
+
+          <ng-template #noAction>
+            <span class="acoes-placeholder" aria-hidden="true">—</span>
+          </ng-template>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="4">
+          <div class="empty">
+            <i class="pi pi-inbox"></i>
+            <p>Nenhuma solicitação encontrada.</p>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
 </div>

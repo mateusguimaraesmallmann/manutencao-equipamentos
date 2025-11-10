@@ -103,6 +103,14 @@ public class SolicitacaoService {
         Long meuId = userLogado.getId();
         List<Solicitacao> lista;
 
+        System.out.println("===================================================================================\n");
+
+        System.out.println("MODO: " + modo + "\n");
+        System.out.println("INICIO: " + inicio + "\n");
+        System.out.println("FIM: " + fim + "\n");
+
+        System.out.println("===================================================================================\n");
+
         if ("PERIODO".equalsIgnoreCase(modo) && inicio != null && fim != null) {
             if (fim.isBefore(inicio)) {
                 throw new IllegalArgumentException("Data fim não pode ser antes da data início.");
@@ -155,7 +163,6 @@ public class SolicitacaoService {
         h.setEstadoAnterior(null);
         h.setEstadoNovo(EstadoSolicitacao.ABERTA);
         h.setDataHora(LocalDateTime.now());
-        h.setAutor(userLogado);
         historicoAlteracaoRepository.save(h);
 
     }
