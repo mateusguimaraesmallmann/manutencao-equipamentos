@@ -11,8 +11,8 @@ INSERT INTO solicitacao (created_at, cliente_id, categoria_id, descricao_produto
 
 INSERT INTO solicitacao (created_at, cliente_id, categoria_id, descricao_produto, defeito, estado, valor_orcamento, responsavel_atual_id) VALUES 
 (TIMESTAMP '2025-11-10 22:56:17.87812', 3, 1, 'Teste filtros 1', 'Não liga', 'APROVADA', 10.00, 1),
-(TIMESTAMP '2025-11-10 22:56:17.87812', 3, 1, 'Teste filtros 2', 'Não liga', 'APROVADA' 10.00, 1),
-(TIMESTAMP '2025-11-10 22:56:17.87812', 3, 1, 'Teste filtros 3', 'Não liga', 'APROVADA' 10.00, 1),
-(TIMESTAMP '2025-11-05 22:56:17.87812', 3, 1, 'Teste filtros 4', 'Não liga', 'APROVADA' 10.00, 1),
-(TIMESTAMP '2025-11-06 22:56:17.87812', 3, 1, 'Teste filtros 5', 'Não liga', 'APROVADA' 10.00, 1),
-(TIMESTAMP '2025-11-07 22:56:17.87812', 3, 1, 'Teste filtros 6', 'Não liga', 'APROVADA' 10.00, 1);
+(TIMESTAMP '2025-11-10 22:56:17.87812', 3, 1, 'Teste filtros 2', 'Não liga', 'APROVADA', 10.00, 1),
+(TIMESTAMP '2025-11-10 22:56:17.87812', 3, 1, 'Teste filtros 3', 'Não liga', 'APROVADA', 10.00, 1),
+(TIMESTAMP '2025-11-05 22:56:17.87812', 3, 1, 'Teste filtros 4', 'Não liga', 'APROVADA', 10.00, 1),
+(TIMESTAMP '2025-11-06 22:56:17.87812', 3, 1, 'Teste filtros 5', 'Não liga', 'APROVADA', 10.00, 1),
+(TIMESTAMP '2025-11-07 22:56:17.87812', 3, 1, 'Teste filtros 6', 'Não liga', 'APROVADA', 10.00, 1);
