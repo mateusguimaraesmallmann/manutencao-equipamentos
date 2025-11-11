@@ -98,4 +98,70 @@ public class Solicitacao {
         h.setSolicitacao(null);
     }
 
+    /*
+     *   @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "cliente_id", nullable = false)
+    @JsonIgnore
+    private User cliente;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categoria_id")
+    @JsonIgnore
+    private Category categoria;
+
+    @Column(name = "descricao_produto", nullable = false, length = 200)
+    private String descricaoProduto;
+
+    @Column(name = "defeito", length = 500)
+    private String defeito;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "estado", nullable = false, length = 30)
+    private EstadoSolicitacao estado;
+
+    @Column(name = "valor_orcamento", precision = 14, scale = 2)
+    private BigDecimal orcamentoValor;
+
+    @Column(name = "paga_em")
+    private LocalDateTime pagaEm;
+
+    @Column(name = "manutencao_descricao", length = 500)
+    private String manutencaoDescricao;
+
+    @Column(name = "manutencao_orientacoes", length = 500)
+    private String manutencaoOrientacoes;
+
+    @Column(name = "manutencao_data")
+    private LocalDate manutencaoData;
+
+    @Column(name = "finalizacao_data")
+    private LocalDateTime finalizacaoData;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "responsavel_atual_id")
+    @JsonIgnore
+    private User responsavelAtual;
+
+    @OneToMany(mappedBy = "solicitacao", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("dataHora ASC")
+    private List<HistoricoAlteracao> historico = new ArrayList<>();
+
+    public void addHistorico(HistoricoAlteracao h) {
+        h.setSolicitacao(this);
+        historico.add(h);
+    }
+
+    public void removeHistorico(HistoricoAlteracao h) {
+        historico.remove(h);
+        h.setSolicitacao(null);
+    }
+     */
+
 }
