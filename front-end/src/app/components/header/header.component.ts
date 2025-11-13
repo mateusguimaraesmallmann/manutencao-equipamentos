@@ -5,7 +5,6 @@ import { ButtonModule, ButtonSeverity } from 'primeng/button';
 import { Router } from '@angular/router';
 import { ɵɵRouterLink } from "@angular/router/testing";
 
-
 @Component({
   selector: 'app-header',
   imports: [Toolbar, AvatarModule, ButtonModule, ɵɵRouterLink],

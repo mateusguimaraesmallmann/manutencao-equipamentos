@@ -1,66 +1,13 @@
-:root {
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
-    --cor-primaria: #3498db;
+:host ::ng-deep .p-toolbar {
+  color: #ffffff;
+}
+
+:host ::ng-deep .p-toolbar .nav-link,
+:host ::ng-deep .p-toolbar .nav-link .p-button-label,
+:host ::ng-deep .p-toolbar .nav-link .p-button-icon {
+  color: #ffffff !important;
+}
+
+:host ::ng-deep .p-toolbar .nav-link.p-button.p-button-text:hover {
+  background: rgba(255, 255, 255, 0.06);
 }

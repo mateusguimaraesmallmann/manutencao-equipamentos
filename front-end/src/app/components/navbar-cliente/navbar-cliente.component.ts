@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { AutenticacaoService } from '../../services/autenticacao.service';
 import { HeaderComponent } from "../header/header.component"
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar-cliente',
@@ -17,15 +18,28 @@ import { HeaderComponent } from "../header/header.component"
 export class NavbarClienteComponent {
   private router = inject(Router);
   private auth = inject(AutenticacaoService);
+
+  userName: string = 'Cliente';
+  private sub?: Subscription;
+
   @Input() novaSolicitacao!: any
 
-  get userName(): string {
-    try { return JSON.parse(localStorage.getItem('auth_user') || '{}')?.nome ?? ''; }
-    catch { return 'Funcionário'; }
+  ngOnInit(): void {
+    this.auth.restoreFromStorage?.();
+
+    this.sub = this.auth.user$.subscribe(user => {
+      const nome = user?.nome?.trim();
+      this.userName = nome ? nome.split(' ')[0] : 'Cliente';
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.sub?.unsubscribe();
   }
 
   logoff = () =>{
     this.auth.logout();
     this.router.navigate(['/login']);
   }
+
 }

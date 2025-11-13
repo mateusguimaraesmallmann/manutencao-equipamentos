@@ -1,50 +1,45 @@
 <div class="card">
-  <p-toolbar [style]="{'padding': '1rem 1rem 1rem 1.5rem',
-           background: 'rgba(255, 255, 255, 0.03)',
-          'box-shadow': '0 4px 30px rgba(0, 0, 0, 0.5)',
-          'backdrop-filter': 'blur(10.6px)',
-          '-webkit-backdrop-filter': 'blur(10.6px)',
-          'border':'none',
-          'background-color': backgroudColor
-           }">
+  <p-toolbar [style]="{
+              'padding': '1rem 1rem 1rem 1.5rem',
+              'background': 'rgba(255, 255, 255, 0.03)',
+              'backdrop-filter': 'blur(10.6px)',
+              '-webkit-backdrop-filter': 'blur(10.6px)',
+              'border': 'none',
+              'background-color': backgroudColor,
+              'color': 'white'
+            }">
     <ng-template #start>
       <div class="flex items-center gap-2">
-        <i class="pi pi-microchip"
-          [style.fontSize]="'2rem'"
-          [style.color]="logoColor"></i>
-          @if(personName != ""){
-            <span style="margin-left: 1rem; font-size: 2rem;">
-              Olá, {{personName}}
-            </span>
-          }
+        <i class="pi pi-microchip" [style.fontSize]="'2rem'" [style.color]="logoColor"></i>
+        @if(personName != ""){
+        <span style="margin-left: 1rem; font-size: 2rem; color: white;">
+          Olá, {{personName}}
+        </span>
+        }
       </div>
     </ng-template>
 
     <ng-template #center>
       @for (link of headerlinks; track link) {
-        <div>
-          <a [routerLink]="['/' + link.routerLink]" pButton text 
+      <div>
+        <a [routerLink]="['/' + link.routerLink]"
+          pButton
+          text
+          class="nav-link"
           style="text-decoration: none;">
-            <i [class]="link.icon" pButtonIcon></i>
-            <span pButtonLabel >
-                {{link.label}}
-            </span>
-          </a>
-        </div>
+          <i [class]="link.icon" pButtonIcon></i>
+          <span pButtonLabel>{{ link.label }}</span>
+        </a>
+      </div>
       }
     </ng-template>
 
     <ng-template #end>
       @for (btn of buttons; track btn) {
-        <div class="flex items-center gap-2">
-          <p-button [label]="btn.label" 
-            [icon]="btn.icon"
-            [severity]="btn.severity" 
-            [rounded]="true" 
-            [style] = "{'margin-right': '1rem'}" 
-            (onClick)="btn.onCLick()"
-            [rounded]="false"/>
-        </div>
+      <div class="flex items-center gap-2">
+        <p-button [label]="btn.label" [icon]="btn.icon" [severity]="btn.severity" [rounded]="true"
+          [style]="{'margin-right': '1rem'}" (onClick)="btn.onCLick()" [rounded]="false" />
+      </div>
       }
     </ng-template>
   </p-toolbar>
