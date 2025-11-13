@@ -1,87 +1,151 @@
 <app-navbar-funcionario></app-navbar-funcionario>
 
-<mat-card class="mb-3">
-    <mat-card-title>Relatório de Receitas por Dia</mat-card-title>
-    <mat-card-subtitle>Filtre por período (opcional) e gere o PDF</mat-card-subtitle>
-  
+<div class="page-content relatorios-container">
+
+  <header class="relatorios-header">
+    <div>
+      <h1>Relatórios de Receitas</h1>
+      <p>Visualize um resumo dos dados e gere os PDFs completos.</p>
+    </div>
+  </header>
+
+  <section class="relatorio-bloco">
+    <div class="bloco-header">
+      <div>
+        <h2>Receitas por Dia</h2>
+        <p>Filtre por período.</p>
+      </div>
+    </div>
+
     <form [formGroup]="filtros" class="filtros">
       <mat-form-field appearance="outline">
-        <mat-label>Início</mat-label>
+        <mat-label>Data inicial (opcional)</mat-label>
         <input matInput [matDatepicker]="dpIni" formControlName="inicio">
         <mat-datepicker-toggle matSuffix [for]="dpIni"></mat-datepicker-toggle>
         <mat-datepicker #dpIni></mat-datepicker>
       </mat-form-field>
-  
+
       <mat-form-field appearance="outline">
-        <mat-label>Fim</mat-label>
+        <mat-label>Data final (opcional)</mat-label>
         <input matInput [matDatepicker]="dpFim" formControlName="fim">
         <mat-datepicker-toggle matSuffix [for]="dpFim"></mat-datepicker-toggle>
         <mat-datepicker #dpFim></mat-datepicker>
       </mat-form-field>
-  
-      <button mat-raised-button color="primary" type="button" (click)="gerarPdfReceitasPorDia()">
-        Gerar PDF (por Dia)
-      </button>
+
+      <div class="filtros-actions">
+        <button mat-stroked-button type="button" (click)="filtros.reset()">
+          Limpar filtros
+        </button>
+      </div>
     </form>
-  
-    <table mat-table [dataSource]="linhasDia()" class="mat-elevation-z1 w-100">
-  
-      <ng-container matColumnDef="dia">
-        <th mat-header-cell *matHeaderCellDef> Dia </th>
-        <td mat-cell *matCellDef="let l">{{ l.dia }}</td>
-      </ng-container>
-  
-      <ng-container matColumnDef="total">
-        <th mat-header-cell *matHeaderCellDef> Total </th>
-        <td mat-cell *matCellDef="let l">{{ l.total | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
-      </ng-container>
-  
-      <tr mat-header-row *matHeaderRowDef="displayedColumnsDia"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumnsDia;"></tr>
-  
-      <tr>
-        <td style="text-align:right; font-weight:600">TOTAL</td>
-        <td style="font-weight:600">
-          {{ totalDia() | currency:'BRL':'symbol':'1.2-2':'pt' }}
-        </td>
-      </tr>
-    </table>
-  </mat-card>
-  
-  <mat-card>
-    <mat-card-title>Relatório de Receitas por Categoria</mat-card-title>
-    <mat-card-subtitle>Desde sempre, agrupado por categoria do equipamento</mat-card-subtitle>
-  
-    <div class="mb-2">
-      <button mat-raised-button color="primary" type="button" (click)="gerarPdfReceitasPorCategoria()">
-        Gerar PDF (por Categoria)
+
+    <div class="tabela-container">
+      <div class="tabela-header">
+        <span class="tabela-titulo">Pré-visualização (até 5 dias)</span>
+        <span class="tabela-info" *ngIf="linhasDia()?.length">
+          Mostrando {{ (linhasDia() | slice:0:5).length }} de {{ linhasDia().length }} dia(s)
+        </span>
+      </div>
+
+      <table mat-table [dataSource]="linhasDia() | slice:0:5" class="mat-elevation-z1 w-100 mat-table-report">
+
+        <ng-container matColumnDef="dia">
+          <th mat-header-cell *matHeaderCellDef> Dia </th>
+          <td mat-cell *matCellDef="let l">{{ l.dia }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="total">
+          <th mat-header-cell *matHeaderCellDef> Total do Dia </th>
+          <td mat-cell *matCellDef="let l">
+            {{ l.total | currency:'BRL':'symbol':'1.2-2':'pt' }}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsDia"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsDia;"></tr>
+
+        <tr *ngIf="!linhasDia() || linhasDia().length === 0">
+          <td class="empty-state" colspan="2">
+            Nenhum registro encontrado para o período informado.
+          </td>
+        </tr>
+
+        <tr class="total-row" *ngIf="linhasDia() && linhasDia().length > 0">
+          <td class="total-label">TOTAL NO PERÍODO</td>
+          <td class="total-value">
+            {{ totalDia() | currency:'BRL':'symbol':'1.2-2':'pt' }}
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="bloco-footer">
+      <button mat-raised-button color="primary" type="button" (click)="gerarPdfReceitasPorDia()">
+        Gerar PDF completo (por Dia)
       </button>
     </div>
-  
-    <table mat-table [dataSource]="linhasCategoria()" class="mat-elevation-z1 w-100">
-  
-      <ng-container matColumnDef="categoria">
-        <th mat-header-cell *matHeaderCellDef> Categoria </th>
-        <td mat-cell *matCellDef="let l">{{ l.categoria }}</td>
-      </ng-container>
-  
-      <ng-container matColumnDef="total">
-        <th mat-header-cell *matHeaderCellDef> Total </th>
-        <td mat-cell *matCellDef="let l">{{ l.total | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
-      </ng-container>
-  
-      <tr mat-header-row *matHeaderRowDef="displayedColumnsCat"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumnsCat;"></tr>
-  
-      <tr>
-        <td style="text-align:right; font-weight:600">TOTAL</td>
-        <td style="font-weight:600">
-          {{ totalCategoria() | currency:'BRL':'symbol':'1.2-2':'pt' }}
-        </td>
-      </tr>
-    </table>
-  </mat-card>
-  
-  <div class="mb-2" style="display:flex; justify-content:flex-end; gap:8px;">
-    <button mat-stroked-button type="button" (click)="voltar()">Voltar</button>
-  </div>
+  </section>
+
+  <section class="relatorio-bloco">
+    <div class="bloco-header">
+      <div>
+        <h2>Receitas por Categoria</h2>
+        <p>Resumo das receitas agrupadas por categoria de equipamento.</p>
+      </div>
+      <span class="badge">Desde o início</span>
+    </div>
+
+    <div class="tabela-container">
+      <div class="tabela-header">
+        <span class="tabela-titulo">Pré-visualização (até 5 categorias)</span>
+        <span class="tabela-info" *ngIf="linhasCategoria()?.length">
+          Mostrando {{ (linhasCategoria() | slice:0:5).length }} de {{ linhasCategoria().length }} categoria(s)
+        </span>
+      </div>
+
+      <table mat-table [dataSource]="linhasCategoria() | slice:0:5" class="mat-elevation-z1 w-100 mat-table-report">
+
+        <ng-container matColumnDef="categoria">
+          <th mat-header-cell *matHeaderCellDef> Categoria </th>
+          <td mat-cell *matCellDef="let l">{{ l.categoria }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="total">
+          <th mat-header-cell *matHeaderCellDef> Total da Categoria </th>
+          <td mat-cell *matCellDef="let l">
+            {{ l.total | currency:'BRL':'symbol':'1.2-2':'pt' }}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsCat"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsCat;"></tr>
+
+        <tr *ngIf="!linhasCategoria() || linhasCategoria().length === 0">
+          <td class="empty-state" colspan="2">
+            Nenhuma receita encontrada para exibição.
+          </td>
+        </tr>
+
+        <tr class="total-row" *ngIf="linhasCategoria() && linhasCategoria().length > 0">
+          <td class="total-label">TOTAL GERAL</td>
+          <td class="total-value">
+            {{ totalCategoria() | currency:'BRL':'symbol':'1.2-2':'pt' }}
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="bloco-footer">
+      <button mat-raised-button color="primary" type="button"
+              (click)="gerarPdfReceitasPorCategoria()">
+        Gerar PDF completo (por Categoria)
+      </button>
+    </div>
+  </section>
+
+  <footer class="relatorios-footer">
+    <button mat-stroked-button type="button" (click)="voltar()">
+      Voltar
+    </button>
+  </footer>
+</div>

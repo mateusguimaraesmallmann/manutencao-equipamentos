@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -16,9 +16,9 @@ import autoTable from 'jspdf-autotable';
 
 import { Solicitacao, EstadoSolicitacao } from '../../../shared/models/solicitacao.model';
 import { NavbarFuncionarioComponent } from '../../../components/navbar-funcionario/navbar-funcionario.component';
-
-type LinhaDia = { dia: string; total: number };
-type LinhaCategoria = { categoria: string; total: number };
+import { MatIconModule } from '@angular/material/icon';
+import { debounceTime } from 'rxjs';
+import { LinhaCategoria, LinhaDia, RelatorioService } from '../../../services/relatorio.service';
 
 @Component({
   selector: 'app-relatorios',
@@ -32,15 +32,18 @@ type LinhaCategoria = { categoria: string; total: number };
     MatNativeDateModule,
     MatInputModule,
     MatButtonModule,
-    MatTableModule, 
+    MatTableModule,
+    MatIconModule,
     NavbarFuncionarioComponent
   ],
   templateUrl: './relatorios.component.html',
   styleUrls: ['./relatorios.component.css']
 })
-export class RelatoriosComponent {
+export class RelatoriosComponent implements OnInit {
+
   private fb = inject(FormBuilder);
   private router = inject(Router);
+  private relatorioService = inject(RelatorioService);
 
   filtros: FormGroup = this.fb.group({
     inicio: [null as Date | null],
@@ -50,96 +53,75 @@ export class RelatoriosComponent {
   displayedColumnsDia = ['dia', 'total'];
   displayedColumnsCat = ['categoria', 'total'];
 
-  private readAllSolicitacoes(): Solicitacao[] {
-    try { return JSON.parse(localStorage.getItem('solicitacoes') || '[]'); }
-    catch { return []; }
+  linhasDia = signal<LinhaDia[]>([]);
+  linhasCategoria = signal<LinhaCategoria[]>([]);
+
+  ngOnInit(): void {
+    this.carregarReceitasPorDia();
+    this.carregarReceitasPorCategoria();
+
+    this.filtros.valueChanges
+      .pipe(debounceTime(300))
+      .subscribe(() => {
+        this.carregarReceitasPorDia();
+      });
   }
 
-  private readCategoriasIndex(): Record<string, string> {
-    try {
-      const arr = JSON.parse(localStorage.getItem('categorias_equipamento') || '[]') as Array<{id?: string; nome?: string; ativo?: boolean}>;
-      const idx: Record<string, string> = {};
-      for (const c of arr || []) {
-        if (c?.id && c?.nome) idx[c.id] = c.nome;
-      }
-      return idx;
-    } catch {
-      return {};
-    }
+  private carregarReceitasPorDia(): void {
+    const { inicio, fim } = this.filtros.value as { inicio: Date | null; fim: Date | null };
+
+    const inicioStr = inicio ? this.toDateParam(inicio) : undefined;
+    const fimStr = fim ? this.toDateParam(fim) : undefined;
+
+    this.relatorioService.obterReceitasPorDia(inicioStr, fimStr)
+      .subscribe({
+        next: (linhas) => this.linhasDia.set(linhas || []),
+        error: (err) => {
+          console.error('Erro ao carregar receitas por dia', err);
+          this.linhasDia.set([]);
+        }
+      });
   }
 
-  private pagas(): Solicitacao[] {
-    return this.readAllSolicitacoes().filter(s => s.estado === EstadoSolicitacao.PAGA && (s.orcamentoValor ?? null) != null);
+  private carregarReceitasPorCategoria(): void {
+    this.relatorioService.obterReceitasPorCategoria()
+      .subscribe({
+        next: (linhas) => this.linhasCategoria.set(linhas || []),
+        error: (err) => {
+          console.error('Erro ao carregar receitas por categoria', err);
+          this.linhasCategoria.set([]);
+        }
+      });
   }
 
-  private categoriaNomeDe(s: Solicitacao): string {
-    const nomeDireto = (s as any).categoria;
-    if (typeof nomeDireto === 'string' && nomeDireto.trim()) return nomeDireto.trim();
-
-    const catId = (s as any).categoriaId;
-    if (typeof catId === 'string' && catId.trim()) {
-      const idx = this.readCategoriasIndex();
-      if (idx[catId]) return idx[catId];
-    }
-    return 'Sem categoria';
-  }
-
-  private receitaDateIso(s: Solicitacao): string {
-    return (s.pagaEm || s.createdAt);
+  private toDateParam(d: Date): string {
+    const ano = d.getFullYear();
+    const mes = String(d.getMonth() + 1).padStart(2, '0');
+    const dia = String(d.getDate()).padStart(2, '0');
+    return `${ano}-${mes}-${dia}`;
   }
 
   private fmtDia(iso: string): string {
     const d = new Date(iso);
     return new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Sao_Paulo' }).format(d);
   }
+
   private fmtMoeda(v: number): string {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(v);
   }
 
-  linhasDia = computed<LinhaDia[]>(() => {
-    const { inicio, fim } = this.filtros.value as { inicio: Date | null; fim: Date | null };
-    const startMs = inicio ? new Date(inicio.getFullYear(), inicio.getMonth(), inicio.getDate(), 0,0,0,0).getTime() : -Infinity;
-    const endMs   = fim    ? new Date(fim.getFullYear(), fim.getMonth(), fim.getDate(), 23,59,59,999).getTime()  : +Infinity;
-
-    const map = new Map<string, number>();
-    for (const s of this.pagas()) {
-      const t = new Date(this.receitaDateIso(s)).getTime();
-      if (t < startMs || t > endMs) continue;
-      const dia = this.fmtDia(this.receitaDateIso(s));
-      const val = Number(s.orcamentoValor || 0);
-      map.set(dia, (map.get(dia) || 0) + val);
-    }
-    const arr: LinhaDia[] = Array.from(map.entries()).map(([dia, total]) => ({ dia, total }));
-    arr.sort((a,b) => {
-      const [da, ma, aa] = a.dia.split('/').map(Number);
-      const [db, mb, ab] = b.dia.split('/').map(Number);
-      return new Date(aa, ma-1, da).getTime() - new Date(ab, mb-1, db).getTime();
-    });
-    return arr;
-  });
-
-  linhasCategoria = computed<LinhaCategoria[]>(() => {
-    const map = new Map<string, number>();
-    for (const s of this.pagas()) {
-      const nome = this.categoriaNomeDe(s);
-      const val = Number(s.orcamentoValor || 0);
-      map.set(nome, (map.get(nome) || 0) + val);
-    }
-    const arr: LinhaCategoria[] = Array.from(map.entries()).map(([categoria, total]) => ({ categoria, total }));
-    arr.sort((a,b) => b.total - a.total);
-    return arr;
-  });
-
   totalDia(): number {
-    return this.linhasDia().reduce((acc, l) => acc + l.total, 0);
-  }
-  totalCategoria(): number {
-    return this.linhasCategoria().reduce((acc, l) => acc + l.total, 0);
+    return this.linhasDia().reduce((acc, l) => acc + (l.total || 0), 0);
   }
 
-  gerarPdfReceitasPorDia() {
+  totalCategoria(): number {
+    return this.linhasCategoria().reduce((acc, l) => acc + (l.total || 0), 0);
+  }
+
+  gerarPdfReceitasPorDia(): void {
     const doc = new jsPDF();
     const { inicio, fim } = this.filtros.value as { inicio: Date | null; fim: Date | null };
+
     const periodo =
       (inicio ? `de ${this.fmtDia(inicio.toISOString())}` : 'desde o início') +
       ' ' +
@@ -151,6 +133,7 @@ export class RelatoriosComponent {
     doc.text(periodo, 14, 22);
 
     const rows = this.linhasDia().map(l => [l.dia, this.fmtMoeda(l.total)]);
+
     autoTable(doc, {
       head: [['Dia', 'Total']],
       body: rows,
@@ -162,12 +145,14 @@ export class RelatoriosComponent {
     doc.save('relatorio-receitas-por-dia.pdf');
   }
 
-  gerarPdfReceitasPorCategoria() {
+  gerarPdfReceitasPorCategoria(): void {
     const doc = new jsPDF();
+
     doc.setFontSize(14);
     doc.text('Relatório de Receitas por Categoria (desde sempre)', 14, 16);
 
     const rows = this.linhasCategoria().map(l => [l.categoria, this.fmtMoeda(l.total)]);
+
     autoTable(doc, {
       head: [['Categoria', 'Total']],
       body: rows,
@@ -179,7 +164,8 @@ export class RelatoriosComponent {
     doc.save('relatorio-receitas-por-categoria.pdf');
   }
 
-  voltar() {
+  voltar(): void {
     this.router.navigate(['/funcionario']);
   }
+
 }
