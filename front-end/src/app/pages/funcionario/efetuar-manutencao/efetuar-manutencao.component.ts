@@ -19,12 +19,13 @@ import { Funcionario } from '../../../shared/models/funcionario.model';
 import { MatChip, MatChipsModule } from '@angular/material/chips';
 import { MatIcon } from '@angular/material/icon';
 import { MatDivider } from '@angular/material/divider';
+import { TelefonePipe } from '../../../shared/pipes/telefone.pipe';
 
 @Component({
   selector: 'app-efetuar-manutencao',
   standalone: true,
   imports: [ CommonModule, ReactiveFormsModule, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule, 
-    MatSelectModule, MatSnackBarModule, MatIcon, MatDivider, MatChipsModule, MatChipsModule ],
+    MatSelectModule, MatSnackBarModule, MatIcon, MatDivider, MatChipsModule, MatChipsModule, TelefonePipe ],
   templateUrl: './efetuar-manutencao.component.html',
   styleUrls: ['./efetuar-manutencao.component.css']
 })

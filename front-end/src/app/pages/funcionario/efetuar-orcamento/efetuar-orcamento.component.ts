@@ -11,11 +11,12 @@ import { SolicitacoesService } from '../../../services/solicitacoes.service';
 import { FuncionarioSolicitacaoDetalheDTO } from '../../../shared/dtos/solicitacao-funcionario-detalhe.dto';
 import { TagModule } from 'primeng/tag';
 import { DividerModule } from 'primeng/divider';
+import { TelefonePipe } from '../../../shared/pipes/telefone.pipe';
 
 @Component({
   selector: 'app-efetuar-orcamento',
   standalone: true,
-  imports: [ CommonModule, ReactiveFormsModule, CardModule, InputNumberModule, ButtonModule, ToastModule, TagModule, DividerModule ],
+  imports: [ CommonModule, ReactiveFormsModule, CardModule, InputNumberModule, ButtonModule, ToastModule, TagModule, DividerModule, TelefonePipe ],
   providers: [MessageService],
   templateUrl: './efetuar-orcamento.component.html',
   styleUrls: ['./efetuar-orcamento.component.css']

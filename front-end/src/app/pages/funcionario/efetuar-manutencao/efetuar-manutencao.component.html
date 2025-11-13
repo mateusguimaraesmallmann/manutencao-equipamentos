@@ -45,7 +45,7 @@
       <dl class="kv">
         <div class="row"><dt>Nome</dt><dd>{{ s.cliente?.nome }}</dd></div>
         <div class="row" *ngIf="s.cliente?.email"><dt>E-mail</dt><dd>{{ s.cliente?.email }}</dd></div>
-        <div class="row" *ngIf="s.cliente?.telefone"><dt>Telefone</dt><dd>{{ s.cliente?.telefone }}</dd></div>
+        <div class="row" *ngIf="s.cliente?.telefone"><dt>Telefone</dt><dd>{{ s.cliente?.telefone | telefone }}</dd></div>
         <div class="row wrap" *ngIf="s.cliente?.endereco as e">
           <dt>Endereço</dt>
           <dd>{{ e.rua }}, {{ e.numero }} - {{ e.bairro }} - {{ e.cidade }}/{{ e.estado }} (CEP {{ e.cep }})</dd>

@@ -32,13 +32,17 @@
     <section class="box">
       <h4 class="box-title">Solicitação</h4>
       <dl class="kv">
+        <div class="row">
+          <dt>Estado</dt>
+          <dd><p-tag [value]="s.estado" severity="secondary"></p-tag></dd>
+        </div>
         <div class="row wrap">
           <dt>Descrição</dt>
           <dd>{{ s.descricaoProduto }}</dd>
         </div>
-        <div class="row">
-          <dt>Estado</dt>
-          <dd><p-tag [value]="s.estado" severity="secondary"></p-tag></dd>
+        <div class="row wrap">
+          <dt>Defeito</dt>
+          <dd>{{ s.defeito }}</dd>
         </div>
       </dl>
     </section>
@@ -50,7 +54,7 @@
         <dl class="kv">
           <div class="row"><dt>Nome</dt><dd>{{ c.nome }}</dd></div>
           <div class="row"><dt>E-mail</dt><dd>{{ c.email }}</dd></div>
-          <div class="row"><dt>Telefone</dt><dd>{{ c.telefone }}</dd></div>
+          <div class="row"><dt>Telefone</dt><dd>{{ c.telefone | telefone }}</dd></div>
           <div class="row wrap" *ngIf="c.endereco as e">
             <dt>Endereço</dt>
             <dd>{{ e.rua }}, {{ e.numero }} - {{ e.bairro }} - {{ e.cidade }}/{{ e.estado }} (CEP {{ e.cep }})</dd>
