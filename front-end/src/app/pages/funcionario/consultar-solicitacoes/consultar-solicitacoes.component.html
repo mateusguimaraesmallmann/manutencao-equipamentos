@@ -1,7 +1,7 @@
 <app-navbar-funcionario style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;"></app-navbar-funcionario>
 
-<div class="content" [formGroup]="filtroForm">
-  <div class="filters">
+<div class="page">
+  <div class="filters" [formGroup]="filtroForm">
     <mat-radio-group formControlName="modo" class="mr-3">
       <mat-radio-button value="HOJE">Hoje</mat-radio-button>
       <mat-radio-button value="PERIODO">Período</mat-radio-button>
@@ -9,14 +9,14 @@
     </mat-radio-group>
 
     <div class="periodo" *ngIf="filtroForm.value.modo === 'PERIODO'">
-      <mat-form-field appearance="outline" class="mr-2">
+      <mat-form-field appearance="outline" class="w-160">
         <mat-label>Início</mat-label>
         <input matInput [matDatepicker]="dpIni" formControlName="inicio">
         <mat-datepicker-toggle matSuffix [for]="dpIni"></mat-datepicker-toggle>
         <mat-datepicker #dpIni></mat-datepicker>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="mr-2">
+      <mat-form-field appearance="outline" class="w-160">
         <mat-label>Fim</mat-label>
         <input matInput [matDatepicker]="dpFim" formControlName="fim">
         <mat-datepicker-toggle matSuffix [for]="dpFim"></mat-datepicker-toggle>
@@ -24,46 +24,60 @@
       </mat-form-field>
     </div>
 
-    <button mat-stroked-button (click)="aplicarFiltro()">Filtrar</button>
-    <button mat-button (click)="limparFiltro()">Limpar</button>
+    <div class="actions">
+      <button mat-stroked-button (click)="aplicarFiltro()">Filtrar</button>
+      <button mat-button (click)="limparFiltro()">Limpar</button>
+    </div>
   </div>
 
-  <p-table [value]="solicitacoes" [paginator]="true" [rows]="10" [responsiveLayout]="'scroll'">
+  <p-table
+    [value]="solicitacoes"
+    [paginator]="true"
+    [rows]="10"
+    [responsiveLayout]="'scroll'"
+    [tableStyle]="{ 'min-width': '880px' }"
+    styleClass="w-100 shadow-sm radius-md">
+
     <ng-template pTemplate="header">
       <tr>
         <th style="min-width:140px">Data/Hora</th>
         <th>Descrição do Equipamento</th>
         <th style="min-width:140px">Estado</th>
-        <th style="min-width:220px">Ações</th>
+        <th style="min-width:260px">Ações</th>
       </tr>
     </ng-template>
 
     <ng-template pTemplate="body" let-s>
       <tr>
-        <td> {{ s.createdAt | date:'dd/MM/yyyy HH:mm' }} </td>
-        <td> {{ limitarDescricao(s.descricaoProduto) }} </td>
-        <td> {{ s.estado }} </td>
-        <td class="flex gap-2 flex-wrap">
-
+        <td>{{ s.createdAt | date:'dd/MM/yyyy HH:mm' }}</td>
+        <td>{{ limitarDescricao(s.descricaoProduto) }}</td>
+        <td>{{ s.estado }}</td>
+        <td class="acao-wrap">
           <button *ngIf="isAberta(s.estado)" pButton type="button"
                   label="Efetuar Orçamento" class="p-button-warning"
-                  (click)="efetuarOrcamento(s.id)">
-          </button>
+                  (click)="efetuarOrcamento(s.id)"></button>
 
           <button *ngIf="isAprovada(s.estado) || isRedirecionada(s.estado)" pButton type="button"
                   label="Efetuar Manutenção" class="p-button-success"
-                  (click)="efetuarManutencao(s.id)">
-          </button>
+                  (click)="efetuarManutencao(s.id)"></button>
 
           <button *ngIf="isPaga(s.estado)" pButton type="button"
                   label="Finalizar Solicitação" class="p-button-secondary"
-                  (click)="finalizarSolicitacao(s.id)">
-          </button>
+                  (click)="finalizarSolicitacao(s.id)"></button>
 
           <button *ngIf="mostrarVisualizar(s.estado)" pButton type="button"
                   label="Visualizar" class="p-button-info"
-                  (click)="visualizar(s.id)">
-          </button>
+                  (click)="visualizar(s.id)"></button>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="4">
+          <div class="sem-dados">
+            Nenhuma solicitação encontrada para o filtro aplicado.
+          </div>
         </td>
       </tr>
     </ng-template>

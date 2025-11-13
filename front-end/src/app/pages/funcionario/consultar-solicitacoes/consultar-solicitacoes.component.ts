@@ -7,7 +7,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core'; // adaptador nativo
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 
 import { TableModule } from 'primeng/table';
@@ -92,7 +92,7 @@ export class ConsultarSolicitacoesComponent {
   }
 
   limparFiltro(): void {
-    this.filtroForm.patchValue({ modo: 'HOJE', inicio: null, fim: null });
+    this.filtroForm.patchValue({ modo: 'TODAS', inicio: null, fim: null });
     this.aplicarFiltro();
   }
 
@@ -109,7 +109,7 @@ export class ConsultarSolicitacoesComponent {
   }
   
   visualizar(id: number) { 
-    this.router.navigate(['/solicitacoes', id]); 
+    this.router.navigate(['/funcionario/solicitacao/', id]); 
   }
 
   limitarDescricao(desc: string): string {

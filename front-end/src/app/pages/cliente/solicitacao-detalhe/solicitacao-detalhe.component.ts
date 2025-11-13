@@ -14,10 +14,12 @@ import { SolicitacoesService } from '../../../services/solicitacoes.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatChipsModule } from '@angular/material/chips';
 
+import { AutenticacaoService } from '../../../services/autenticacao.service';
+
 @Component({
   selector: 'app-solicitacao-detalhe',
   standalone: true,
-  imports: [ CommonModule, RouterModule, MatCardModule, MatButtonModule, MatIconModule, MatDividerModule, MatTableModule, MatChipsModule ],
+  imports: [ CommonModule, RouterModule, MatCardModule, MatButtonModule, MatIconModule, MatDividerModule, MatTableModule, MatChipsModule, ],
   templateUrl: './solicitacao-detalhe.component.html',
   styleUrls: ['./solicitacao-detalhe.component.css']
 })
@@ -31,7 +33,8 @@ export class SolicitacaoDetalheComponent {
     private route: ActivatedRoute,
     private router: Router,
     private solicitacoesService: SolicitacoesService,
-    private snack: MatSnackBar
+    private snack: MatSnackBar,
+    private autenticacaoService: AutenticacaoService
   ) {}
 
   ngOnInit(): void {
@@ -49,15 +52,30 @@ export class SolicitacaoDetalheComponent {
   }
 
   voltar() {
-    this.router.navigate(['/pagina-cliente']);
+    const user = this.autenticacaoService['_user'].value;
+    if(user?.perfil === 'CLIENTE'){
+      this.router.navigate(['/pagina-cliente']);
+    } else {
+      this.router.navigate(['/consultar-solicitacoes']);
+    }
   }
 
   podeAprovarOuRejeitar(): boolean {
-    return this.solicitacao?.estado === 'ORCADA';
+    const user = this.autenticacaoService['_user'].value;
+        if(user?.perfil === 'CLIENTE' && this.solicitacao?.estado === 'ORCADA'){
+      return true;
+    } else {
+      return false;
+    }
   }
 
   podePagar(): boolean {
-    return this.solicitacao?.estado === 'ARRUMADA';
+    const user = this.autenticacaoService['_user'].value;
+    if(user?.perfil === 'CLIENTE' && this.solicitacao?.estado === 'ARRUMADA'){
+      return true;
+    } else {
+      return false;
+    }
   }
 
   aprovar(): void {

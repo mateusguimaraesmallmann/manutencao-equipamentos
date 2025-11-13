@@ -163,6 +163,7 @@ public class SolicitacaoService {
         h.setEstadoAnterior(null);
         h.setEstadoNovo(EstadoSolicitacao.ABERTA);
         h.setDataHora(LocalDateTime.now());
+        h.setAutor(userLogado);
         historicoAlteracaoRepository.save(h);
 
     }

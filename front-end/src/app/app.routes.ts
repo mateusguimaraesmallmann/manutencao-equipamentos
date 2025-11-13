@@ -32,8 +32,8 @@ export const routes: Routes = [
   { path: 'equipamentos', component: EquipamentosComponent },
   { path: 'funcionarios', component: FuncionariosComponent}, //canMatch: [funcionarioGuard]
   { path: 'consultar-solicitacoes', component: ConsultarSolicitacoesComponent },
+  { path: 'funcionario/solicitacao/:id', component: SolicitacaoDetalheComponent },
   { path: 'relatorios', component: RelatoriosComponent },
 
   { path: '**', redirectTo: 'login' }
 ];
-
