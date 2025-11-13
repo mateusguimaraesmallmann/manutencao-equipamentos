@@ -43,10 +43,6 @@ export class SolicitacoesService {
     return this.http.get<FuncionarioSolicitacaoResumoDTO[]>(`${API}/abertas`);
   }
 
-  /*listarSolicitacoesFuncionario(): Observable<FuncionarioSolicitacaoResumoDTO[]> {
-    return this.http.get<FuncionarioSolicitacaoResumoDTO[]>(`${API}/funcionario`);
-  }*/
-
   listarSolicitacoesFuncionario(params?: Record<string, string>): Observable<FuncionarioSolicitacaoResumoDTO[]> {
     const httpParams = new HttpParams({ fromObject: params ?? {} });
     return this.http.get<FuncionarioSolicitacaoResumoDTO[]>(`${API}/funcionario`, { params: httpParams });

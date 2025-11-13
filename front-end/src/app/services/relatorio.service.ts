@@ -5,12 +5,13 @@ import { Observable } from 'rxjs';
 export type LinhaDia = { dia: string; total: number };
 export type LinhaCategoria = { categoria: string; total: number };
 
+const API_BASE = 'http://localhost:8080';
+const API = `${API_BASE}/relatorios`;
+
 @Injectable({ providedIn: 'root' })
 export class RelatorioService {
 
   private http = inject(HttpClient);
-
-  private readonly baseUrl = '/api/relatorios';
 
   obterReceitasPorDia(inicio?: string, fim?: string): Observable<LinhaDia[]> {
     let params = new HttpParams();
@@ -21,11 +22,11 @@ export class RelatorioService {
       params = params.set('fim', fim);
     }
 
-    return this.http.get<LinhaDia[]>(`${this.baseUrl}/receitas-por-dia`, { params });
+    return this.http.get<LinhaDia[]>(`${API}/receitas-por-dia`, { params });
   }
 
   obterReceitasPorCategoria(): Observable<LinhaCategoria[]> {
-    return this.http.get<LinhaCategoria[]>(`${this.baseUrl}/receitas-por-categoria`);
+    return this.http.get<LinhaCategoria[]>(`${API}/receitas-por-categoria`);
   }
 
 }

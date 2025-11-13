@@ -14,5 +14,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long> 
     List<Solicitacao> findAllByResponsavelAtualIdOrderByCreatedAtAsc(Long id);
     List<Solicitacao> findAllByResponsavelAtualIdAndCreatedAtBetweenOrderByCreatedAtAsc(Long id, LocalDateTime inicio, LocalDateTime fim);
     List<Solicitacao> findAllByEstado(EstadoSolicitacao estado);
+    List<Solicitacao> findByEstadoAndOrcamentoValorIsNotNull(EstadoSolicitacao estado);
+    List<Solicitacao> findByEstadoAndOrcamentoValorIsNotNullAndPagaEmBetween(EstadoSolicitacao estado, LocalDateTime inicio, LocalDateTime fim);
     
 }
