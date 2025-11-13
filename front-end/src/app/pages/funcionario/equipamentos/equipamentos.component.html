@@ -3,11 +3,11 @@
 <div class="page">
   <div class="filters card-like">
     <div class="titles">
-      <div class="title">Categorias de Equipamentos</div>
+      <div class="title bold">Categorias de Equipamentos</div>
       <div class="subtitle">Crie, edite ou remova as categorias usadas nas solicitações</div>
     </div>
 
-    <div class="actions">
+    <div class="meta-right">
       <button mat-raised-button color="primary" (click)="adicionar()">
         <mat-icon>add</mat-icon>
         <span class="btn-text">Nova Categoria</span>
@@ -15,62 +15,56 @@
     </div>
   </div>
 
-  <div class="table-block shadow-sm radius-md">
-    <div class="table-wrap" *ngIf="categoriasSig().length; else vazio">
-      <table mat-table [dataSource]="categoriasSig()" class="w-100 dense">
+  <p-table [value]="categoriasSig()" [paginator]="true" [rows]="5" [responsiveLayout]="'scroll'"
+    [tableStyle]="{ 'min-width': '880px' }" styleClass="w-100 shadow-sm radius-md">
 
-        <ng-container matColumnDef="nome">
-          <th mat-header-cell *matHeaderCellDef>Nome</th>
-          <td mat-cell *matCellDef="let c">
-            <div class="nome-cell">
-              <span>{{ c.nome }}</span>
-            </div>
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="status">
-          <th mat-header-cell *matHeaderCellDef class="col-status">Status</th>
-          <td mat-cell *matCellDef="let c" class="col-status">
-            <span class="pill" [class.pill-sucesso]="c.ativo" [class.pill-erro]="!c.ativo">
-              <mat-icon class="pill-ico" *ngIf="c.ativo">check_circle</mat-icon>
-              <mat-icon class="pill-ico" *ngIf="!c.ativo">cancel</mat-icon>
-              {{ c.ativo ? 'Ativa' : 'Inativa' }}
-            </span>
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="acao">
-          <th mat-header-cell *matHeaderCellDef class="col-acao">Ações</th>
-          <td mat-cell *matCellDef="let c" class="col-acao">
-            <div class="acao-wrap">
-              <button mat-stroked-button color="primary" (click)="editar(c)" [disabled]="!c.ativo">
-                <mat-icon>edit</mat-icon>
-                <span class="btn-text">Editar</span>
-              </button>
-
-              <button mat-stroked-button color="warn" (click)="remover(c)" *ngIf="c.ativo">
-                <mat-icon>delete</mat-icon>
-                <span class="btn-text">Remover</span>
-              </button>
-
-              <button mat-stroked-button color="accent" (click)="reativar(c)" *ngIf="!c.ativo">
-                <mat-icon>restore</mat-icon>
-                <span class="btn-text">Reativar</span>
-              </button>
-            </div>
-          </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-    </div>
-
-    <ng-template #vazio>
-      <div class="sem-dados">
-        <mat-icon>inbox</mat-icon>
-        <div>Nenhuma categoria cadastrada.</div>
-      </div>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="min-width:140px">Nome</th>
+        <th>Status</th>
+        <th style="min-width:260px">Ações</th>
+      </tr>
     </ng-template>
-  </div>
+
+    <ng-template pTemplate="body" let-c>
+      <tr>
+        <td><span>{{ c.nome }}</span></td>
+
+        <td class="col-status">
+          <span class="pill" [class.pill-sucesso]="c.ativo" [class.pill-erro]="!c.ativo">
+            <mat-icon class="pill-ico" *ngIf="c.ativo">check_circle</mat-icon>
+            <mat-icon class="pill-ico" *ngIf="!c.ativo">cancel</mat-icon>
+            {{ c.ativo ? 'Ativa' : 'Inativa' }}
+          </span>
+        </td>
+
+        <td class="acao-wrap">
+          <button mat-stroked-button color="primary" (click)="editar(c)" [disabled]="!c.ativo">
+            <mat-icon>edit</mat-icon>
+            <span class="btn-text">Editar</span>
+          </button>
+
+          <button mat-stroked-button color="warn" (click)="remover(c)" *ngIf="c.ativo">
+            <mat-icon>delete</mat-icon>
+            <span class="btn-text">Remover</span>
+          </button>
+
+          <button mat-stroked-button color="accent" (click)="reativar(c)" *ngIf="!c.ativo">
+            <mat-icon>restore</mat-icon>
+            <span class="btn-text">Reativar</span>
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="4">
+          <div class="sem-dados">
+            Nenhuma categoria cadastrada.
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
 </div>

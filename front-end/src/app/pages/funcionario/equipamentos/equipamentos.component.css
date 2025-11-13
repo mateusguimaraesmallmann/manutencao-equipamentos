@@ -1,127 +1,95 @@
-.page {
+.page{
   margin: 96px auto 32px;
   padding: 0 24px;
   max-width: 1200px;
   box-sizing: border-box;
 }
 
-.filters {
+.filters{
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
-  margin-bottom: 12px;
-}
-
-.card-like {
   background: #fff;
   padding: 12px 16px;
   border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, .06);
+  box-shadow: 0 3px 6px rgba(0,0,0,.20);
+  margin-bottom: 20px;
 }
 
-.titles .title {
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 2px;
-}
-
-.titles .subtitle {
-  font-size: 13px;
-  color: #5e6b74;
-}
-
-.actions {
-  display: flex;
-  gap: 8px;
-}
-
-.table-block {
-  background: #fff;
-}
-
-.shadow-sm {
-  box-shadow: 0 2px 6px rgba(0, 0, 0, .06);
-}
-
-.radius-md {
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-.table-wrap {
-  overflow: auto;
-}
-
-.w-100 {
-  width: 100%;
-}
-
-.dense th[mat-header-cell],
-.dense td[mat-cell] {
-  padding: 10px 12px;
-}
-
-tr[mat-header-row] {
-  background: #fafafa;
-}
-
-.nome-cell {
+.periodo{
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
 }
 
-.categoria-ico {
-  opacity: .7;
-}
-
-.col-status {
-  min-width: 140px;
-  text-align: center;
-}
-
-.col-acao {
-  min-width: 300px;
-}
-
-.acao-wrap {
+.actions{
   display: flex;
   gap: 8px;
-  flex-wrap: wrap;
-  justify-content: left;
 }
 
-.pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+.w-160{ 
+  width: 160px; 
+}
+
+.pill{
   padding: 2px 10px;
   border-radius: 999px;
   font-size: 12px;
   font-weight: 600;
-  color: #fff;
-}
-
-.pill-ico {
-  font-size: 16px;
-  height: 16px;
-  width: 16px;
+  color: black;
 }
 
 .pill-sucesso {
-  background: #43a047;
+  color: #155724 !important;
 }
 
 .pill-erro {
-  background: #e53935;
+  color: #721c24 !important;
 }
 
-.sem-dados {
-  padding: 28px;
-  display: grid;
-  place-items: center;
+.w-100{ 
+  width: 100%; 
+}
+
+.shadow-sm{ 
+  box-shadow: 0 2px 6px rgba(0,0,0,.06); 
+}
+
+.radius-md{ 
+  border-radius: 12px; 
+  overflow: hidden; 
+}
+
+.sem-dados{
+  padding: 24px;
+  display: flex;
   gap: 8px;
+  align-items: center;
   color: #666;
+  justify-content: center;
+}
+
+.acao-wrap{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.title.bold {
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.meta-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #607d8b;
+  font-weight: 600;
+}
+
+.meta-right mat-icon {
+  font-size: 22px;
 }

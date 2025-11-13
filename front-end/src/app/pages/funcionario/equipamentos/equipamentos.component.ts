@@ -17,6 +17,7 @@ import { map } from 'rxjs/operators';
 import { CategoriasService } from '../../../services/categorias.service';
 import { Categoria } from '../../../shared/models/categoria.model';
 import { CategoriaDialogComponent } from './categoria-dialog/categoria-dialog.component';
+import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-equipamentos',
@@ -32,7 +33,7 @@ import { CategoriaDialogComponent } from './categoria-dialog/categoria-dialog.co
     MatSnackBarModule,
     MatDialogModule,
     NavbarFuncionarioComponent,
-    CategoriaDialogComponent
+    CategoriaDialogComponent, TableModule
   ],
   templateUrl: './equipamentos.component.html',
   styleUrls: ['./equipamentos.component.css']
@@ -91,4 +92,5 @@ export class EquipamentosComponent {
       if (done) this.snack.open('Categoria reativada.', 'OK', { duration: 2000 });
     });
   }
+  
 }
