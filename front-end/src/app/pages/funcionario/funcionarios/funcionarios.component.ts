@@ -14,11 +14,14 @@ import { NavbarFuncionarioComponent } from '../../../components/navbar-funcionar
 import { FuncionariosService } from '../../../services/funcionarios.service';
 import { Funcionario } from '../../../shared/models/funcionario.model';
 import { FuncionarioDialogComponent } from './funcionario-dialog/funcionario-dialog.component';
+import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-funcionarios',
   standalone: true,
-  imports: [ CommonModule, RouterModule, MatCardModule, MatTableModule, MatButtonModule, MatIconModule, MatSnackBarModule, MatDialogModule, NavbarFuncionarioComponent ],
+  imports: [ CommonModule, RouterModule, MatCardModule, MatTableModule, MatButtonModule, MatIconModule, MatSnackBarModule, MatDialogModule, NavbarFuncionarioComponent, 
+    TableModule
+   ],
   templateUrl: './funcionarios.component.html',
   styleUrls: ['./funcionarios.component.css']
 })
@@ -60,7 +63,7 @@ export class FuncionariosComponent {
   }
 
   remover(f: Funcionario) {
-    const ok = confirm(`Remover (inativar) o funcionário "${f.nome}"?`);
+    const ok = confirm(`Remover o funcionário "${f.nome}"?`);
     if (!ok) return;
     this.service.remover(f.id).subscribe(done => {
       this.snack.open(done ? 'Funcionário removido.' : 'Não é possível remover (talvez seja você ou o último ativo).', 'OK', { duration: 3000 });
@@ -72,4 +75,5 @@ export class FuncionariosComponent {
       this.snack.open(done ? 'Funcionário reativado.' : 'Falha ao reativar.', 'OK', { duration: 2500 });
     });
   }
+
 }
