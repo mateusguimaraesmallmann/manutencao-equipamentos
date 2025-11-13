@@ -1,6 +1,136 @@
-.actions { margin: 8px 0 16px; }
-.table-wrap { overflow: auto; }
-.chip { padding: 2px 8px; border-radius: 999px; font-size: 12px; }
-.chip.ativo { background: #e6f4ea; color: #1e7e34; }
-.chip.inativo { background: #fdecea; color: #b02a37; }
-.sem-dados { display: grid; place-items: center; gap: 8px; padding: 24px; color: #666; }
+.page {
+    margin: 96px auto 32px;
+    padding: 0 24px;
+    max-width: 1200px;
+    box-sizing: border-box;
+}
+
+.filters {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+.card-like {
+    background: #fff;
+    padding: 12px 16px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .06);
+}
+
+.titles .title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.titles .subtitle {
+    font-size: 13px;
+    color: #5e6b74;
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+}
+
+.table-block {
+    background: #fff;
+}
+
+.shadow-sm {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .06);
+}
+
+.radius-md {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.table-wrap {
+    overflow: auto;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.dense th[mat-header-cell],
+.dense td[mat-cell] {
+    padding: 10px 12px;
+}
+
+tr[mat-header-row] {
+    background: #fafafa;
+}
+
+.nome-cell {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.avatar-ico {
+    opacity: .7;
+}
+
+.nome-text {
+    font-weight: 600;
+}
+
+.col-nasc {
+    min-width: 130px;
+    text-align: center;
+}
+
+.col-status {
+    min-width: 120px;
+    text-align: center;
+}
+
+.col-acao {
+    min-width: 320px;
+}
+
+.acao-wrap {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: left;
+}
+
+.pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.pill-ico {
+    font-size: 16px;
+    height: 16px;
+    width: 16px;
+}
+
+.pill-sucesso {
+    background: #43a047;
+}
+
+.pill-erro {
+    background: #e53935;
+}
+
+.sem-dados {
+    padding: 28px;
+    display: grid;
+    place-items: center;
+    gap: 8px;
+    color: #666;
+}
