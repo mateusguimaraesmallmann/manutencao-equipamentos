@@ -79,7 +79,7 @@ export class EquipamentosComponent {
   }
 
   remover(c: Categoria) {
-    const ok = confirm(`Remover a categoria "${c.nome}"? (remoção lógica)`);
+    const ok = confirm(`Remover a categoria "${c.nome}"?`);
     if (!ok) return;
     this.service.remover(c.id).subscribe(done => {
       if (done) this.snack.open('Categoria removida (inativada).', 'OK', { duration: 2000 });
