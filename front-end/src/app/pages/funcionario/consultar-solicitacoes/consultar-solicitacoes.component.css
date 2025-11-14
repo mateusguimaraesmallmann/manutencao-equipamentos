@@ -62,8 +62,15 @@
   justify-content: center;
 }
 
-.acao-wrap{
+.acao-wrap {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
   gap: 8px;
+  min-height: 45px;
+  padding: 10px 0;
+}
+
+.p-datatable .p-datatable-tbody > tr > td:nth-child(4) {
+  width: 260px;
 }

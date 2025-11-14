@@ -105,7 +105,7 @@ export class ConsultarSolicitacoesComponent {
   }
   
   finalizarSolicitacao(id: number) { 
-    this.router.navigate(['/finalizar-solicitacao', id]); 
+    this.router.navigate(['/funcionario/solicitacao/', id]); 
   }
   
   visualizar(id: number) { 
@@ -139,6 +139,22 @@ export class ConsultarSolicitacoesComponent {
   
   mostrarVisualizar(estado: EstadoSolicitacao | string) {
     return !['ABERTA', 'APROVADA', 'REDIRECIONADA', 'PAGA', 'FINALIZADA'].includes(estado);
+  }
+
+  temAlgumaAcao(estado: string): boolean {
+    if (this.isAberta(estado)) {
+      return true;
+    }
+    if (this.isAprovada(estado) || this.isRedirecionada(estado)) {
+      return true;
+    }
+    if (this.isPaga(estado)) {
+      return true;
+    }
+    if (this.mostrarVisualizar(estado)) {
+      return true;
+    }
+    return false;
   }
  
 }

@@ -34,6 +34,7 @@
   <div class="grid2">
     <section class="box">
       <h4 class="box-title">Informações</h4>
+      <mat-divider class="my-3"></mat-divider>
       <dl class="kv">
         <div class="row"><dt>Abertura</dt><dd>{{ s.createdAt | date:'dd/MM/yyyy HH:mm' }}</dd></div>
         <div class="row"><dt>Estado</dt><dd>{{ s.estado }}</dd></div>
@@ -43,11 +44,18 @@
         <div class="row wrap" *ngIf="s.defeito">
           <dt>Defeito</dt><dd>{{ s.defeito }}</dd>
         </div>
+        <div class="row wrap" *ngIf="s.manutencaoDescricao">
+          <dt>Descrição Manutenção</dt><dd>{{ s.manutencaoDescricao }}</dd>
+        </div>
+        <div class="row wrap" *ngIf="s.manutencaoOrientacoes">
+          <dt>Orientações</dt><dd>{{ s.manutencaoOrientacoes }}</dd>
+        </div>
       </dl>
     </section>
 
     <section class="box">
       <h4 class="box-title">Cliente</h4>
+      <mat-divider class="my-3"></mat-divider>
       <dl class="kv">
         <div class="row"><dt>Nome</dt><dd>{{ s.clienteNome }}</dd></div>
         <div class="row"><dt>E-mail</dt><dd>{{ s.clienteEmail }}</dd></div>
@@ -95,6 +103,10 @@
 
     <ng-container *ngIf="podePagar()">
       <button mat-raised-button color="primary" type="button" (click)="pagar()">Pagar Serviço</button>
+    </ng-container>
+
+    <ng-container *ngIf="podeFinalizar()">
+      <button mat-raised-button color="primary" type="button" (click)="finalizar()">Finalizar Serviço</button>
     </ng-container>
   </div>
 </mat-card>

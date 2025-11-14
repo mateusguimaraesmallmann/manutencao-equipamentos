@@ -109,5 +109,11 @@ public class SolicitacaoController {
         solicitacaoService.pagar(idSolicitacao);
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/finalizar/{id}")
+    public ResponseEntity<Void> finalizar(@PathVariable("id") Long idSolicitacao) {
+        solicitacaoService.finalizar(idSolicitacao);
+        return ResponseEntity.ok().build();
+    }
     
 }

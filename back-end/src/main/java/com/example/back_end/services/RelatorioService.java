@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,20 +31,8 @@ public class RelatorioService {
         LocalDate inicioBase = LocalDate.of(2000, 1, 1);
         LocalDate fimBase = LocalDate.of(2100, 12, 31);
 
-        LocalDateTime inicioDt;
-        LocalDateTime fimDt;
-
-        if (inicio != null) {
-            inicioDt = inicio.atStartOfDay();
-        } else {
-            inicioDt = inicioBase.atStartOfDay();
-        }
-
-        if (fim != null) {
-            fimDt = fim.atTime(23, 59, 59);
-        } else {
-            fimDt = fimBase.atTime(23, 59, 59);
-        }
+        LocalDateTime inicioDt = (inicio != null) ? inicio.atStartOfDay() : inicioBase.atStartOfDay();
+        LocalDateTime fimDt    = (fim    != null) ? fim.atTime(23, 59, 59) : fimBase.atTime(23, 59, 59);
 
         if (inicioDt.isAfter(fimDt)) {
             LocalDateTime tmp = inicioDt;
@@ -51,32 +40,35 @@ public class RelatorioService {
             fimDt = tmp;
         }
 
-        List<Solicitacao> finalizadas = solicitacaoRepository
-                .findByEstadoAndOrcamentoValorIsNotNullAndFinalizacaoDataBetween(
-                        EstadoSolicitacao.FINALIZADA,
-                        inicioDt,
-                        fimDt
-                );
+        List<EstadoSolicitacao> estadosReceita = Arrays.asList(EstadoSolicitacao.PAGA, EstadoSolicitacao.FINALIZADA
+        );
+
+        List<Solicitacao> receitas = solicitacaoRepository
+                .findByEstadoInAndOrcamentoValorIsNotNull(estadosReceita);
 
         Map<LocalDate, BigDecimal> mapa = new TreeMap<>();
 
-        for (Solicitacao s : finalizadas) {
-            LocalDate dia;
+        for (Solicitacao s : receitas) {
 
-            if (s.getFinalizacaoData() != null) {
-                dia = s.getFinalizacaoData().toLocalDate();
-            } else if (s.getCreatedAt() != null) {
-                dia = s.getCreatedAt().toLocalDate();
+            LocalDateTime dataReceita = null;
+
+            if (s.getPagaEm() != null) {
+                dataReceita = s.getPagaEm();
+            } else if (s.getFinalizacaoData() != null) {
+                dataReceita = s.getFinalizacaoData();
             } else {
                 continue;
             }
 
-            BigDecimal valor;
-            if (s.getOrcamentoValor() != null) {
-                valor = s.getOrcamentoValor();
-            } else {
-                valor = BigDecimal.ZERO;
+            if (dataReceita.isBefore(inicioDt) || dataReceita.isAfter(fimDt)) {
+                continue;
             }
+
+            LocalDate dia = dataReceita.toLocalDate();
+
+            BigDecimal valor = (s.getOrcamentoValor() != null)
+                    ? s.getOrcamentoValor()
+                    : BigDecimal.ZERO;
 
             mapa.merge(dia, valor, BigDecimal::add);
         }
@@ -94,20 +86,22 @@ public class RelatorioService {
     }
 
     public List<LinhaCategoriaDTO> gerarRelatorioReceitasPorCategoria() {
-        List<Solicitacao> finalizadas = solicitacaoRepository
-                .findByEstadoAndOrcamentoValorIsNotNull(EstadoSolicitacao.FINALIZADA);
+        List<EstadoSolicitacao> estadosReceita = Arrays.asList(
+                EstadoSolicitacao.PAGA,
+                EstadoSolicitacao.FINALIZADA
+        );
+
+        List<Solicitacao> receitas = solicitacaoRepository
+                .findByEstadoInAndOrcamentoValorIsNotNull(estadosReceita);
 
         Map<String, BigDecimal> mapa = new HashMap<>();
 
-        for (Solicitacao s : finalizadas) {
+        for (Solicitacao s : receitas) {
             String categoriaNome = resolveNomeCategoria(s);
 
-            BigDecimal valor;
-            if (s.getOrcamentoValor() != null) {
-                valor = s.getOrcamentoValor();
-            } else {
-                valor = BigDecimal.ZERO;
-            }
+            BigDecimal valor = (s.getOrcamentoValor() != null)
+                    ? s.getOrcamentoValor()
+                    : BigDecimal.ZERO;
 
             mapa.merge(categoriaNome, valor, BigDecimal::add);
         }
@@ -138,4 +132,5 @@ public class RelatorioService {
 
         return nome;
     }
+    
 }

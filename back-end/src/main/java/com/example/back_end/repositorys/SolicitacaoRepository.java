@@ -16,5 +16,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long> 
     List<Solicitacao> findAllByEstado(EstadoSolicitacao estado);
     List<Solicitacao> findByEstadoAndOrcamentoValorIsNotNull(EstadoSolicitacao estado);
     List<Solicitacao> findByEstadoAndOrcamentoValorIsNotNullAndFinalizacaoDataBetween(EstadoSolicitacao estado, LocalDateTime inicio, LocalDateTime fim);
+
+    List<Solicitacao> findByEstadoInAndOrcamentoValorIsNotNull(List<EstadoSolicitacao> estados);
     
 }

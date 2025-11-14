@@ -33,10 +33,9 @@
   <p-table
     [value]="solicitacoes"
     [paginator]="true"
-    [rows]="10"
+    [rows]="10" [rowsPerPageOptions]="[5,10,20]" [rowHover]="true"
     [responsiveLayout]="'scroll'"
-    [tableStyle]="{ 'min-width': '880px' }"
-    styleClass="w-100 shadow-sm radius-md">
+    styleClass="elevated-table">
 
     <ng-template pTemplate="header">
       <tr>
@@ -52,23 +51,27 @@
         <td>{{ s.createdAt | date:'dd/MM/yyyy HH:mm' }}</td>
         <td>{{ limitarDescricao(s.descricaoProduto) }}</td>
         <td>{{ s.estado }}</td>
+        
         <td class="acao-wrap">
-          <button *ngIf="isAberta(s.estado)" pButton type="button"
-                  label="Efetuar Orçamento" class="p-button-warning"
-                  (click)="efetuarOrcamento(s.id)"></button>
+          <ng-container *ngIf="temAlgumaAcao(s.estado);">
+            <button *ngIf="isAberta(s.estado)" pButton type="button"
+                    label="Efetuar Orçamento" class="p-button-warning"
+                    (click)="efetuarOrcamento(s.id)"></button>
 
-          <button *ngIf="isAprovada(s.estado) || isRedirecionada(s.estado)" pButton type="button"
-                  label="Efetuar Manutenção" class="p-button-success"
-                  (click)="efetuarManutencao(s.id)"></button>
+            <button *ngIf="isAprovada(s.estado) || isRedirecionada(s.estado)" pButton type="button"
+                    label="Efetuar Manutenção" class="p-button-success"
+                    (click)="efetuarManutencao(s.id)"></button>
 
-          <button *ngIf="isPaga(s.estado)" pButton type="button"
-                  label="Finalizar Solicitação" class="p-button-secondary"
-                  (click)="finalizarSolicitacao(s.id)"></button>
+            <button *ngIf="isPaga(s.estado)" pButton type="button"
+                    label="Finalizar Solicitação" class="p-button-secondary"
+                    (click)="finalizarSolicitacao(s.id)"></button>
 
-          <button *ngIf="mostrarVisualizar(s.estado)" pButton type="button"
-                  label="Visualizar" class="p-button-info"
-                  (click)="visualizar(s.id)"></button>
-        </td>
+            <button *ngIf="mostrarVisualizar(s.estado)" pButton type="button"
+                    label="Visualizar" class="p-button-info"
+                    (click)="visualizar(s.id)"></button>
+          </ng-container>
+        </td>     
+        
       </tr>
     </ng-template>
 
