@@ -37,14 +37,9 @@ public class SolicitacaoController {
         return ResponseEntity.ok(solicitacaoService.buscarSolicitacoesAbertas());
     }
 
-    /*@GetMapping("/funcionario")
-    public ResponseEntity<List<SolicitacaoFuncionarioResumoDTO>> buscarSolicitacoesFuncionario() {
-        return ResponseEntity.ok(solicitacaoService.buscarSolicitacoesFuncionario());
-    }*/
-
     @GetMapping("/funcionario")
     public ResponseEntity<List<SolicitacaoFuncionarioResumoDTO>> buscarSolicitacoesFuncionario(
-        @RequestParam(name = "modo", required = false, defaultValue = "HOJE") String modo,
+        @RequestParam(name = "modo", required = false, defaultValue = "TODAS") String modo,
         @RequestParam(name = "inicio", required = false)
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio,
         @RequestParam(name = "fim", required = false)

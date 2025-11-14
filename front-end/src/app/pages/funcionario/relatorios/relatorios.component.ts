@@ -59,23 +59,26 @@ export class RelatoriosComponent implements OnInit {
   ngOnInit(): void {
     this.carregarReceitasPorDia();
     this.carregarReceitasPorCategoria();
-
-    this.filtros.valueChanges
-      .pipe(debounceTime(300))
-      .subscribe(() => {
-        this.carregarReceitasPorDia();
-      });
   }
 
   private carregarReceitasPorDia(): void {
-    const { inicio, fim } = this.filtros.value as { inicio: Date | null; fim: Date | null };
+    const { inicio, fim } = this.filtros.value;
 
-    const inicioStr = inicio ? this.toDateParam(inicio) : undefined;
-    const fimStr = fim ? this.toDateParam(fim) : undefined;
+    const params: Record<string, string> = {};
 
-    this.relatorioService.obterReceitasPorDia(inicioStr, fimStr)
+    if (inicio) {
+      params['inicio'] = this.toDateOnlyISO(inicio);
+    }
+
+    if (fim) {
+      params['fim'] = this.toDateOnlyISO(fim);
+    }
+
+    this.relatorioService.obterReceitasPorDia(params)
       .subscribe({
-        next: (linhas) => this.linhasDia.set(linhas || []),
+        next: (linhas) => {
+          this.linhasDia.set(linhas || []);
+        },
         error: (err) => {
           console.error('Erro ao carregar receitas por dia', err);
           this.linhasDia.set([]);
@@ -86,19 +89,14 @@ export class RelatoriosComponent implements OnInit {
   private carregarReceitasPorCategoria(): void {
     this.relatorioService.obterReceitasPorCategoria()
       .subscribe({
-        next: (linhas) => this.linhasCategoria.set(linhas || []),
+        next: (linhas) => {
+          this.linhasCategoria.set(linhas || []);
+        },
         error: (err) => {
           console.error('Erro ao carregar receitas por categoria', err);
           this.linhasCategoria.set([]);
         }
       });
-  }
-
-  private toDateParam(d: Date): string {
-    const ano = d.getFullYear();
-    const mes = String(d.getMonth() + 1).padStart(2, '0');
-    const dia = String(d.getDate()).padStart(2, '0');
-    return `${ano}-${mes}-${dia}`;
   }
 
   private fmtDia(iso: string): string {
@@ -166,6 +164,11 @@ export class RelatoriosComponent implements OnInit {
 
   voltar(): void {
     this.router.navigate(['/funcionario']);
+  }
+
+  private toDateOnlyISO(d: Date): string {
+    const pad = (n: number) => n.toString().padStart(2, '0');
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
   }
 
 }

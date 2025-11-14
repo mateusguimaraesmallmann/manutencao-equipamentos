@@ -64,18 +64,19 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumnsDia"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumnsDia;"></tr>
 
-        <tr *ngIf="!linhasDia() || linhasDia().length === 0">
-          <td class="empty-state" colspan="2">
+        <tr class="mat-row" *matNoDataRow>
+          <td class="empty-state" [attr.colspan]="displayedColumnsDia.length">
             Nenhum registro encontrado para o período informado.
           </td>
         </tr>
 
-        <tr class="total-row" *ngIf="linhasDia() && linhasDia().length > 0">
+        <tr class="total-row" *ngIf="linhasDia().length > 0">
           <td class="total-label">TOTAL NO PERÍODO</td>
           <td class="total-value">
             {{ totalDia() | currency:'BRL':'symbol':'1.2-2':'pt' }}
           </td>
         </tr>
+
       </table>
     </div>
 
@@ -120,24 +121,24 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumnsCat"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumnsCat;"></tr>
 
-        <tr *ngIf="!linhasCategoria() || linhasCategoria().length === 0">
-          <td class="empty-state" colspan="2">
+        <tr class="mat-row" *matNoDataRow>
+          <td class="empty-state" [attr.colspan]="displayedColumnsCat.length">
             Nenhuma receita encontrada para exibição.
           </td>
         </tr>
 
-        <tr class="total-row" *ngIf="linhasCategoria() && linhasCategoria().length > 0">
+        <tr class="total-row" *ngIf="linhasCategoria().length > 0">
           <td class="total-label">TOTAL GERAL</td>
           <td class="total-value">
             {{ totalCategoria() | currency:'BRL':'symbol':'1.2-2':'pt' }}
           </td>
         </tr>
+
       </table>
     </div>
 
     <div class="bloco-footer">
-      <button mat-raised-button color="primary" type="button"
-              (click)="gerarPdfReceitasPorCategoria()">
+      <button mat-raised-button color="primary" type="button" (click)="gerarPdfReceitasPorCategoria()">
         Gerar PDF completo (por Categoria)
       </button>
     </div>

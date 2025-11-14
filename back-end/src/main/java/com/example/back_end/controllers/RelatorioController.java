@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.back_end.dtos.response.LinhaCategoriaDTO;
 import com.example.back_end.dtos.response.LinhaDiaDTO;
 import com.example.back_end.services.RelatorioService;
-import com.example.back_end.services.SolicitacaoService;
 
 @RestController
 @RequestMapping("/relatorios")
@@ -24,9 +23,9 @@ public class RelatorioController {
 
     @GetMapping("/receitas-por-dia")
     public List<LinhaDiaDTO> receitasPorDia(
-            @RequestParam(required = false)
+            @RequestParam(name = "inicio", required = false)
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio,
-            @RequestParam(required = false)
+            @RequestParam(name = "fim", required = false)
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fim) {
 
         return relatorioService.gerarRelatorioReceitasPorDia(inicio, fim);

@@ -11,18 +11,11 @@ const API = `${API_BASE}/relatorios`;
 @Injectable({ providedIn: 'root' })
 export class RelatorioService {
 
-  private http = inject(HttpClient);
+  constructor(private http: HttpClient) {}
 
-  obterReceitasPorDia(inicio?: string, fim?: string): Observable<LinhaDia[]> {
-    let params = new HttpParams();
-    if (inicio) {
-      params = params.set('inicio', inicio);
-    }
-    if (fim) {
-      params = params.set('fim', fim);
-    }
-
-    return this.http.get<LinhaDia[]>(`${API}/receitas-por-dia`, { params });
+  obterReceitasPorDia(params?: Record<string, string>): Observable<LinhaDia[]> {
+    const httpParams = new HttpParams({ fromObject: params ?? {} });
+    return this.http.get<LinhaDia[]>(`${API}/receitas-por-dia`, { params: httpParams });
   }
 
   obterReceitasPorCategoria(): Observable<LinhaCategoria[]> {
