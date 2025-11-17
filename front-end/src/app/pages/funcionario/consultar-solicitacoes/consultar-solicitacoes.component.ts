@@ -71,8 +71,8 @@ export class ConsultarSolicitacoesComponent {
 
           res.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
 
-          const meuId = user?.id ? Number(user.id) : null;
-          res = res.filter(s => this.passaRegraRedirecionada(s, meuId));
+          //const meuId = user?.id ? Number(user.id) : null;
+          //res = res.filter(s => this.passaRegraRedirecionada(s, meuId));
 
           this.solicitacoes = res;
         },

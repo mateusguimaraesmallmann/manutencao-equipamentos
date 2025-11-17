@@ -1,4 +1,5 @@
-INSERT INTO solicitacao (created_at, cliente_id, categoria_id, descricao_produto, defeito, estado, valor_orcamento, responsavel_atual_id) VALUES 
+
+/*INSERT INTO solicitacao (created_at, cliente_id, categoria_id, descricao_produto, defeito, estado, valor_orcamento, responsavel_atual_id) VALUES 
 --Cliente 3
 (TIMESTAMP '2025-10-21 10:47:17.87812', 3, 4, 'Notebook', 'Não liga', 'ABERTA', null, null),
 (TIMESTAMP '2025-10-21 18:58:17.87812', 3, 4, 'Notebook', 'Tela trincada', 'ABERTA', null, null),
@@ -20,4 +21,4 @@ INSERT INTO solicitacao (created_at, cliente_id, categoria_id, descricao_produto
 
 --Cliente 6
 (TIMESTAMP '2025-10-18 20:35:17.87812', 6, 5, 'Teclado', 'Teclado númerico não funciona', 'ABERTA', null, null),
-(TIMESTAMP '2025-10-18 22:56:17.87812', 6, 1, 'Desktop gamer', 'Não liga', 'ABERTA', null, null);
+(TIMESTAMP '2025-10-18 22:56:17.87812', 6, 1, 'Desktop gamer', 'Não liga', 'ABERTA', null, null);*/
