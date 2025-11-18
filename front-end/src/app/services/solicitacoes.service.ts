@@ -80,6 +80,10 @@ export class SolicitacoesService {
     return this.http.post<void>(`${API}/pagar/${id}`, null);
   }
 
+  finalizar(id: number ) {
+    return this.http.post<void>(`${API}/finalizar/${id}`, null);
+  }
+
   redirecionar(id: number, funcionarioDestinoId: number) {
     const body: RedirecionarDTO = { funcionarioDestinoId };
     return this.http.post<void>(`${API}/redirecionar/${id}`, body);

@@ -12,6 +12,8 @@ public record SolicitacaoClienteDetalheDTO(
     String clienteEmail,
     String descricaoProduto,
     String defeito,
+    String manutencaoDescricao,
+    String manutencaoOrientacoes,
     EstadoSolicitacao estado,
     BigDecimal orcamentoValor,
     List<HistoricoDTO> historico

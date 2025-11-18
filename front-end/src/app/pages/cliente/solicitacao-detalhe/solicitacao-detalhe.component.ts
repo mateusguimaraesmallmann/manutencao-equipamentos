@@ -78,6 +78,29 @@ export class SolicitacaoDetalheComponent {
     }
   }
 
+  podeFinalizar(): boolean {
+    const user = this.autenticacaoService['_user'].value;
+    if(user?.perfil === 'FUNCIONARIO' && this.solicitacao?.estado === 'PAGA'){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  finalizar(): void {
+    if (!this.solicitacao) { return; }
+    this.solicitacoesService.finalizar(this.solicitacao.id).subscribe({
+      next: () => {
+        this.snack.open('Serviço finalizado com sucesso.', 'OK', { duration: 3000 });
+        this.router.navigate(['/consultar-solicitacoes']);
+      },
+      error: (err) => {
+        console.error(err);
+        this.snack.open('Falha ao finalizar serviço.', 'OK', { duration: 3500 });
+      }
+    });
+  }
+
   aprovar(): void {
     if (!this.solicitacao) { return; }
     this.solicitacoesService.aprovar(this.solicitacao.id).subscribe({

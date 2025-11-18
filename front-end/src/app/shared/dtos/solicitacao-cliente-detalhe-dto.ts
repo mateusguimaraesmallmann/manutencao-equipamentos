@@ -7,6 +7,8 @@ export interface SolicitacaoDetalheDTO {
   clienteEmail: string | null;
   descricaoProduto: string;
   defeito?: string | null;
+  manutencaoDescricao: string;
+  manutencaoOrientacoes: string;
   estado: EstadoSolicitacao | string;
   orcamentoValor?: number | null;
   historico: Array<{
