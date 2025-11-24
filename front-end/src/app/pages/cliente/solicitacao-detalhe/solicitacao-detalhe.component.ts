@@ -105,7 +105,7 @@ export class SolicitacaoDetalheComponent {
     if (!this.solicitacao) { return; }
     this.solicitacoesService.aprovar(this.solicitacao.id).subscribe({
       next: () => {
-        this.snack.open('Serviço aprovado com sucesso.', 'OK', { duration: 3000 });
+        this.snack.open('Serviço aprovado no Valor R$ ' + this.solicitacao?.orcamentoValor, 'OK', { duration: 3000 });
         this.router.navigate(['/pagina-cliente']);
       },
       error: (err) => {

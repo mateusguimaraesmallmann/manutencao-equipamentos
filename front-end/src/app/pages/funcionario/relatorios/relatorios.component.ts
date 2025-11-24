@@ -147,7 +147,7 @@ export class RelatoriosComponent implements OnInit {
     const doc = new jsPDF();
 
     doc.setFontSize(14);
-    doc.text('Relatório de Receitas por Categoria (desde sempre)', 14, 16);
+    doc.text('Relatório de Receitas por Categoria', 14, 16);
 
     const rows = this.linhasCategoria().map(l => [l.categoria, this.fmtMoeda(l.total)]);
 
