@@ -31,7 +31,7 @@ public class EmailService {
         return new StringBuilder()
                 .append("Olá!\n\n")
                 .append("Sua conta foi criada com sucesso.\n")
-                .append("Sua senha temporária é: ").append(password)
+                .append("Sua senha é: ").append(password)
                 .toString();
     }
 
