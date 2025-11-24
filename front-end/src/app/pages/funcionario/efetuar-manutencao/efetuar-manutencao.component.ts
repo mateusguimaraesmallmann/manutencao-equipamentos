@@ -84,7 +84,7 @@ export class EfetuarManutencaoComponent implements OnInit {
       .subscribe({
         next: () => {
           this.snack.open('Manutenção registrada', 'OK', { duration: 3000 });
-          this.router.navigate(['/funcionario']);
+          this.router.navigate(['/consultar-solicitacoes']);
         },
         error: (err) => {
           this.snack.open(err?.error?.message ?? 'Falha ao salvar manutenção.', 'OK', { duration: 3000 });

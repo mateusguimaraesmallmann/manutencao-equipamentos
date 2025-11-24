@@ -12,7 +12,6 @@ import { RelatoriosComponent } from './pages/funcionario/relatorios/relatorios.c
 import { SolicitacaoDetalheComponent } from './pages/cliente/solicitacao-detalhe/solicitacao-detalhe.component';
 import { ConsultarSolicitacoesComponent } from './pages/funcionario/consultar-solicitacoes/consultar-solicitacoes.component';
 
-import { funcionarioGuard } from './guards/funcionario.guard';
 import { funcionario2Guard } from './guards/funcionario/funcionario2.guard';
 import { clienteGuard } from './guards/cliente/cliente.guard';
 
@@ -30,7 +29,7 @@ export const routes: Routes = [
   { path: 'orcamento/:id', component: EfetuarOrcamentoComponent },
   { path: 'manutencao/:id', component: EfetuarManutencaoComponent },
   { path: 'equipamentos', component: EquipamentosComponent },
-  { path: 'funcionarios', component: FuncionariosComponent}, //canMatch: [funcionarioGuard]
+  { path: 'funcionarios', component: FuncionariosComponent},
   { path: 'consultar-solicitacoes', component: ConsultarSolicitacoesComponent },
   { path: 'funcionario/solicitacao/:id', component: SolicitacaoDetalheComponent },
   { path: 'relatorios', component: RelatoriosComponent },
